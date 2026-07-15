@@ -6,7 +6,7 @@ const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const configuration_path = `/partners/${uid}/configuration`;
 
 beforeAll(async () => {
-  await $`docker compose up --detach --build --quiet-build --quiet-pull --wait`.cwd(
+  await $`docker compose up --detach --build --quiet-pull --wait`.cwd(
     import.meta.dir,
   );
 }, 180_000);

@@ -7,7 +7,7 @@ const configuration_url = `${base_url}/partners/${uid}/configuration`;
 const authorized_headers = { "X-Forwarded-For": "10.0.0.42" };
 
 beforeAll(async () => {
-  await $`docker compose up --detach --build --quiet-build --quiet-pull --wait`.cwd(
+  await $`docker compose up --detach --build --quiet-pull --wait`.cwd(
     import.meta.dir,
   );
 }, 180_000);
