@@ -1,4 +1,4 @@
-FROM oven/bun:1-alpine AS build
+FROM oven/bun:1.3.14-alpine AS build
 
 WORKDIR /app
 
@@ -8,8 +8,8 @@ RUN bun install --frozen-lockfile --production
 COPY src/ ./src/
 RUN bun build --compile --minify --sourcemap src/index.ts --outfile=partners
 
-FROM alpine:latest AS runtime
-RUN apk add --no-cache ca-certificates libstdc++ libgcc
+FROM alpine:3.24.1 AS runtime
+RUN apk add --no-cache libstdc++
 RUN addgroup -g 1001 -S bun && adduser -S bun -u 1001
 USER bun
 

@@ -19,6 +19,17 @@ updates:
     schedule:
       interval: "weekly"
 
+  - package-ecosystem: "docker-compose"
+    directories:
+      - "/examples/*"
+    labels:
+      - dependencies
+    commit-message:
+      prefix: ":arrow_upper_right: [patch]"
+      include: "scope"
+    schedule:
+      interval: "weekly"
+
   - package-ecosystem: "docker"
     directory: "/"
     labels:
