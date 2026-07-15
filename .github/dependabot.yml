@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: "bun"
+    directory: "/"
+    commit-message:
+      prefix: ":arrow_upper_right: [patch]"
+      include: "scope"
+    schedule:
+      interval: "weekly"
+    versioning-strategy: increase
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - dependencies
+    commit-message:
+      prefix: ":arrow_upper_right: [patch]"
+      include: "scope"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    labels:
+      - dependencies
+    commit-message:
+      prefix: ":arrow_upper_right: [patch]"
+      include: "scope"
+    schedule:
+      interval: "weekly"
