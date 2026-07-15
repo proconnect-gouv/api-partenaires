@@ -90,9 +90,6 @@ jobs:
         with:
           bun-version: latest
 
-      - name: 🔧 Set up Docker Compose
-        uses: docker/setup-compose-action@16feee727cbdc83b6a014e6cc26fec4a79bcf30c # v2.2.0
-
       - name: 🔗 Run integration tests
         working-directory: examples/${{ matrix.example }}
         run: bun test integration.test.ts
