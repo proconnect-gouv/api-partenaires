@@ -48,3 +48,51 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  list-examples:
+    runs-on: ubuntu-latest
+    name: 📋 List examples
+    outputs:
+      examples: ${{ steps.list.outputs.examples }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: 📋 List example directories
+        id: list
+        run: echo "examples=$(ls -d examples/*/ | xargs -n1 basename | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    name: 🔗 Integration Tests (${{ matrix.example }})
+    needs: [build, list-examples]
+    strategy:
+      matrix:
+        example: ${{ fromJSON(needs.list-examples.outputs.examples) }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+
+      - name: 🏗️ Build image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          load: true
+          cache-from: type=gha
+
+      - name: 🔧 Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: 🔧 Set up Docker Compose
+        uses: docker/setup-compose-action@16feee727cbdc83b6a014e6cc26fec4a79bcf30c # v2.2.0
+
+      - name: 🔗 Run integration tests
+        working-directory: examples/${{ matrix.example }}
+        run: bun test integration.test.ts
