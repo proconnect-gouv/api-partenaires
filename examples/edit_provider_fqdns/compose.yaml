@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:8.2.11
+    volumes:
+      - ./initdb.d:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand({ ping: 1 })'"]
+      interval: 1s
+      timeout: 2s
+      retries: 10
+
+  partners:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/partners
+      - AUTHORIZED_IPS=10.0.0.42
+      - PARTNERS_CONFIG_FILE=/etc/partners/partners.yaml
+    volumes:
+      - ./partners.yaml:/etc/partners/partners.yaml:ro
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/readyz || exit 1",
+        ]
+      interval: 1s
+      timeout: 1s
+      retries: 10
