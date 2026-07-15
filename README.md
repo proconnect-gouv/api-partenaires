@@ -21,6 +21,11 @@ bun run dev
 | `AUTHORIZED_IPS`       | `127.0.0.1`                          | IPs autorisées, séparées par des virgules      |
 | `PARTNERS_CONFIG_FILE` | `partners.yaml`                      | Fichier YAML des uid éditables et fqdns permis |
 
+`AUTHORIZED_IPS` compare le premier saut de `X-Forwarded-For` : la garde ne
+vaut que derrière un proxy qui pose cet en-tête lui-même et sans exposition
+directe de l'application. Le contrat est vérifié par
+[`examples/reverse_proxy_ip_allowlist`](examples/reverse_proxy_ip_allowlist/README.md).
+
 ```yaml
 # partners.yaml
 partners:
