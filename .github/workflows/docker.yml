@@ -90,6 +90,10 @@ jobs:
         with:
           bun-version: latest
 
+      - name: 🐋 Pull the images
+        working-directory: examples/${{ matrix.example }}
+        run: docker compose pull
+
       - name: 🔗 Run integration tests
         working-directory: examples/${{ matrix.example }}
         run: bun test integration.test.ts
