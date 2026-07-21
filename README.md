@@ -17,14 +17,11 @@ bun run dev
 | Variable               | Défaut                               | Description                                    |
 | ---------------------- | ------------------------------------ | ---------------------------------------------- |
 | `PORT`                 | `3000`                               | Port d'écoute                                  |
-| `MONGODB_URI`          | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collection `providers`)     |
-| `AUTHORIZED_IPS`       | `127.0.0.1`                          | IPs autorisées, séparées par des virgules      |
+| `MONGODB_URI`          | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collection `provider`)      |
 | `PARTNERS_CONFIG_FILE` | `partners.yaml`                      | Fichier YAML des uid éditables et fqdns permis |
 
-`AUTHORIZED_IPS` compare le premier saut de `X-Forwarded-For` : la garde ne
-vaut que derrière un proxy qui pose cet en-tête lui-même et sans exposition
-directe de l'application. Le contrat est vérifié par
-[`examples/reverse_proxy_ip_allowlist`](examples/reverse_proxy_ip_allowlist/README.md).
+L'accès à `/partners/*` est restreint au niveau de l'ingress, via l'annotation
+`nginx.ingress.kubernetes.io/whitelist-source-range`.
 
 ```yaml
 # partners.yaml
@@ -69,7 +66,6 @@ bun test integration.test.ts
 docker build -t partners .
 docker run -p 3000:3000 \
   -e MONGODB_URI=mongodb://host.docker.internal:27017/partners \
-  -e AUTHORIZED_IPS=203.0.113.7 \
   -v ./partners.yaml:/partners.yaml:ro \
   -e PARTNERS_CONFIG_FILE=/partners.yaml \
   partners

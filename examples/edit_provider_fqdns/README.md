@@ -8,30 +8,29 @@ limites posées par le fichier YAML.
 
 ```
 machine hôte (le test bun)
-    │  fetch avec X-Forwarded-For: 10.0.0.42 (l'IP autorisée par l'env)
+    │  fetch
     ▼
 127.0.0.1:3000 ──► partners ──► mongo:8.2.11
                       ▲             ▲
-        partners.yaml ┘             └ initdb.d/providers.js (seed)
+        partners.yaml ┘             └ initdb.d/provider.js (seed)
 ```
 
-- `initdb.d/providers.js` seed deux fournisseurs : `moncomptepro`
+- `initdb.d/provider.js` seed deux fournisseurs : `moncomptepro`
   (`71144ab3-…`) et `intruder` (`e2d5f1c0-…`), volontairement **absent** de
   `partners.yaml`.
 - `partners.yaml` (monté dans le conteneur) n'autorise l'édition que de
   `moncomptepro`, pour les domaines `moncomptepro.fr`, `polyfi.fr`,
   `fifi.fr`.
-- Ici l'application est publiée directement (pas de proxy) : le test pose
-  lui-même `X-Forwarded-For` — voir `reverse_proxy_ip_allowlist` pour le
-  déploiement réel de la garde IP.
+- La restriction d'accès par IP est déléguée à l'ingress
+  (`nginx.ingress.kubernetes.io/whitelist-source-range`), hors du périmètre
+  de ce scénario.
 
 ## Ce que chaque test prouve
 
 | Test                                | Preuve                                                                                       |
 | ----------------------------------- | -------------------------------------------------------------------------------------------- |
 | livez et readyz répondent 200       | le binaire compilé démarre et le ping mongo passe à travers le vrai driver                   |
-| refuse une IP non autorisée         | la garde IP est active sur `/partners/*` (403 sans en-tête accepté)                          |
-| retourne la configuration seedée    | `docker-entrypoint-initdb.d` a bien peuplé la collection `providers`                         |
+| retourne la configuration seedée    | `docker-entrypoint-initdb.d` a bien peuplé la collection `provider`                          |
 | retourne 404 pour un uid inconnu    | un `findOne` réel qui ne trouve rien                                                         |
 | refuse … un provider absent du YAML | c'est le **fichier monté** qui pilote l'allowlist : `intruder` existe en base mais reste 403 |
 | refuse un domaine hors liste        | `evil.fr` → 422, la validation s'appuie sur les `allowed_fqdns` du YAML                      |

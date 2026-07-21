@@ -16,7 +16,6 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_URI=mongodb://mongo:27017/partners
-      - AUTHORIZED_IPS=10.0.0.42
       - PARTNERS_CONFIG_FILE=/etc/partners/partners.yaml
     volumes:
       - ./partners.yaml:/etc/partners/partners.yaml:ro

@@ -24,12 +24,10 @@ const patch_body_schema = z.object({
 export function create_app({
   providers,
   partners_config,
-  authorized_ips,
   check_ready,
 }: {
   providers: ProviderStore;
   partners_config: PartnersConfig;
-  authorized_ips: string[];
   check_ready: () => Promise<unknown>;
 }) {
   return new Hono()
@@ -41,14 +39,6 @@ export function create_app({
       } catch {
         return c.json({ status: "unavailable" }, 503);
       }
-    })
-    .use("/partners/*", async (c, next) => {
-      // ponytail: x-forwarded-for is trusted, the service only runs behind the platform proxy
-      const ip = c.req.header("x-forwarded-for")?.split(",")[0]?.trim();
-      if (!ip || !authorized_ips.includes(ip)) {
-        return c.json({ error: "forbidden_ip" }, 403);
-      }
-      await next();
     })
     .get("/partners/:uid/configuration", async (c) => {
       const provider = await providers.findOne({ uid: c.req.param("uid") });

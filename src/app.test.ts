@@ -40,12 +40,9 @@ function create_test_app({
         { uid: GHOST_UID, allowed_fqdns: ["moncomptepro.fr"] },
       ],
     },
-    authorized_ips: ["10.0.0.42", "10.0.0.43"],
     check_ready,
   });
 }
-
-const authorized = { "x-forwarded-for": "10.0.0.42" };
 
 describe("sondes de disponibilité", () => {
   test("livez répond 200 sans restriction d'IP", async () => {
@@ -73,59 +70,9 @@ describe("sondes de disponibilité", () => {
 });
 
 describe("configuration partenaire", () => {
-  test("refuse une IP non autorisée", async () => {
-    const res = await create_test_app().request(
-      `/partners/${MONCOMPTEPRO_UID}/configuration`,
-      {
-        headers: { "x-forwarded-for": "192.168.1.1" },
-      },
-    );
-    expect(res.status).toBe(403);
-  });
-
-  test("refuse une requête sans IP identifiable", async () => {
-    const res = await create_test_app().request(
-      `/partners/${MONCOMPTEPRO_UID}/configuration`,
-    );
-    expect(res.status).toBe(403);
-  });
-
-  test("accepte le premier saut d'une chaîne x-forwarded-for", async () => {
-    const res = await create_test_app().request(
-      `/partners/${MONCOMPTEPRO_UID}/configuration`,
-      {
-        headers: { "x-forwarded-for": "10.0.0.42, 203.0.113.7" },
-      },
-    );
-    expect(res.status).toBe(200);
-  });
-
-  test("refuse une IP autorisée placée en second saut (spoof)", async () => {
-    const res = await create_test_app().request(
-      `/partners/${MONCOMPTEPRO_UID}/configuration`,
-      {
-        headers: { "x-forwarded-for": "203.0.113.7, 10.0.0.42" },
-      },
-    );
-    expect(res.status).toBe(403);
-  });
-
-  test("accepte chaque IP de la liste autorisée", async () => {
-    const res = await create_test_app().request(
-      `/partners/${MONCOMPTEPRO_UID}/configuration`,
-      {
-        headers: { "x-forwarded-for": "10.0.0.43" },
-      },
-    );
-    expect(res.status).toBe(200);
-  });
-
   test("retourne la configuration d'un fournisseur existant", async () => {
     const res = await create_test_app().request(
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
-      {
-        headers: authorized,
-      },
     );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
@@ -138,7 +85,6 @@ describe("configuration partenaire", () => {
   test("retourne 404 pour un fournisseur inconnu", async () => {
     const res = await create_test_app().request(
       "/partners/00000000-0000-0000-0000-000000000000/configuration",
-      { headers: authorized },
     );
     expect(res.status).toBe(404);
   });
@@ -148,7 +94,7 @@ describe("configuration partenaire", () => {
       "/partners/00000000-0000-0000-0000-000000000000/configuration",
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ fqdns: ["moncomptepro.fr"] }),
       },
     );
@@ -160,7 +106,7 @@ describe("configuration partenaire", () => {
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ fqdns: ["moncomptepro.fr", "evil.fr"] }),
       },
     );
@@ -176,7 +122,7 @@ describe("configuration partenaire", () => {
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: "{pas du json",
       },
     );
@@ -189,7 +135,7 @@ describe("configuration partenaire", () => {
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ autre: true }),
       },
     );
@@ -202,7 +148,7 @@ describe("configuration partenaire", () => {
         `/partners/${MONCOMPTEPRO_UID}/configuration`,
         {
           method: "PATCH",
-          headers: { ...authorized, "content-type": "application/json" },
+          headers: { "content-type": "application/json" },
           body: JSON.stringify({ fqdns }),
         },
       );
@@ -215,7 +161,7 @@ describe("configuration partenaire", () => {
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ fqdns: [] }),
       },
     );
@@ -232,7 +178,7 @@ describe("configuration partenaire", () => {
       `/partners/${GHOST_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ fqdns: ["moncomptepro.fr"] }),
       },
     );
@@ -245,7 +191,7 @@ describe("configuration partenaire", () => {
       `/partners/${MONCOMPTEPRO_UID}/configuration`,
       {
         method: "PATCH",
-        headers: { ...authorized, "content-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({
           fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
         }),

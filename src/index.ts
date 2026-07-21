@@ -8,9 +8,8 @@ const client = new MongoClient(config.MONGODB_URI);
 await client.connect();
 
 const app = create_app({
-  providers: client.db().collection<Provider>("providers"),
+  providers: client.db().collection<Provider>("provider"),
   partners_config: await load_partners_config(config.PARTNERS_CONFIG_FILE),
-  authorized_ips: config.AUTHORIZED_IPS,
   check_ready: () => client.db().command({ ping: 1 }),
 });
 
