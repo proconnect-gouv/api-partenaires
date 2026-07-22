@@ -97,6 +97,10 @@ function create_test_app() {
           allowed_fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
         },
         {
+          uid: ENRICHED_UID,
+          allowed_fqdns: ["enriched.example.com"],
+        },
+        {
           uid: GHOST_UID,
           allowed_fqdns: ["moncomptepro.fr"],
         },
@@ -147,12 +151,23 @@ describe("partner configuration API", () => {
     });
   });
 
-  test("returns 404 for an unknown provider", async () => {
+  test("refuses a uid not in partners config", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "GET",
       "/api/partners/00000000-0000-0000-0000-000000000000/configuration",
+    );
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ error: "uid_not_editable" });
+  });
+
+  test("returns 404 for a uid in partners config but absent from mongo", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "GET",
+      `/api/partners/${GHOST_UID}/configuration`,
     );
     expect(res.status).toBe(404);
   });

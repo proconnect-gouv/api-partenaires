@@ -70,12 +70,20 @@ describe.serial("édition des fqdns d'un fournisseur", () => {
     });
   });
 
-  test("retourne 404 pour un uid inconnu", async () => {
+  test("refuse la lecture d'un uid absent du YAML", async () => {
     const res = await partner_api_call(
       "GET",
       "/api/partners/00000000-0000-0000-0000-000000000000/configuration",
     );
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(403);
+  });
+
+  test("refuse la lecture d'un provider seedé mais absent du YAML", async () => {
+    const res = await partner_api_call(
+      "GET",
+      "/api/partners/e2d5f1c0-0000-4000-8000-000000000000/configuration",
+    );
+    expect(res.status).toBe(403);
   });
 
   test("refuse la modification d'un provider seedé mais absent du YAML", async () => {

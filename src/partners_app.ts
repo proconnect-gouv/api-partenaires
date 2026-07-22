@@ -15,7 +15,10 @@ export function create_partners_app({
 }) {
   return new Hono<{ Variables: { body_text: string } }>()
     .get("/:uid/configuration", async (c) => {
-      const provider = await providers.findOne({ uid: c.req.param("uid") });
+      const uid = c.req.param("uid");
+      if (!partners_config.partners.some((p) => p.uid === uid))
+        return c.json({ error: "uid_not_editable" }, 403);
+      const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
       return c.json({
         uid: provider.uid,

@@ -6,7 +6,7 @@ db.provider.insertMany([
     fqdns: ["moncomptepro.fr", "polyfi.fr"],
   },
   {
-    // absent from partners.yaml: the API has no record of this UID and must refuse every write
+    // absent from partners.yaml: the API has no record of this UID and must refuse every read and write
     uid: "e2d5f1c0-0000-4000-8000-000000000000",
     name: "intruder",
     fqdns: ["intruder.fr"],
