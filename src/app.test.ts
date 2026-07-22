@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { create_app, type Provider, type ProviderStore } from "./app";
+import type { OidcClientStore } from "./oidc_clients";
 
 const MONCOMPTEPRO_UID = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 // allowlisted in the fixture config but never seeded in the store
@@ -29,6 +30,15 @@ function create_test_app({
       return provider;
     },
   };
+  const oidc_clients: OidcClientStore = {
+    find: () => ({ toArray: async () => [] }),
+    insertOne: async () => {
+      throw new Error("unused in these tests");
+    },
+    findOne: async () => null,
+    updateOne: async () => ({ matchedCount: 0 }),
+    deleteOne: async () => ({ deletedCount: 0 }),
+  };
   return create_app({
     providers: store,
     partners_config: {
@@ -41,6 +51,10 @@ function create_test_app({
       ],
     },
     check_ready,
+    oidc_clients,
+    api_secret: "test-api-secret",
+    max_timestamp_diff: 300,
+    client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
   });
 }
 

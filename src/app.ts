@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { z } from "zod";
+import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
 import type { PartnersConfig } from "./partners_config";
+import { create_signature_middleware } from "./signature_middleware";
 
 export interface Provider {
   uid: string;
@@ -25,10 +27,18 @@ export function create_app({
   providers,
   partners_config,
   check_ready,
+  oidc_clients,
+  api_secret,
+  max_timestamp_diff,
+  client_secret_cipher_pass,
 }: {
   providers: ProviderStore;
   partners_config: PartnersConfig;
   check_ready: () => Promise<unknown>;
+  oidc_clients: OidcClientStore;
+  api_secret: string;
+  max_timestamp_diff: number;
+  client_secret_cipher_pass: string;
 }) {
   return new Hono()
     .get("/livez", (c) => c.json({ status: "ok" }))
@@ -74,7 +84,15 @@ export function create_app({
         name: updated.name,
         fqdns: updated.fqdns,
       });
-    });
+    })
+    .use(
+      "/api/*",
+      create_signature_middleware({ api_secret, max_timestamp_diff }),
+    )
+    .route(
+      "/api",
+      create_oidc_clients_app({ oidc_clients, client_secret_cipher_pass }),
+    );
 }
 
 export type App = ReturnType<typeof create_app>;
