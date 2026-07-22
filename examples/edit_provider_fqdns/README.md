@@ -12,13 +12,13 @@ machine hôte (le test bun)
     ▼
 127.0.0.1:3000 ──► partners ──► mongo:8.2.11
                       ▲             ▲
-        partners.yaml ┘             └ initdb.d/provider.js (seed)
+ oidc_providers.yaml ──┘             └ initdb.d/provider.js (seed)
 ```
 
 - `initdb.d/provider.js` seed deux fournisseurs : `moncomptepro`
   (`71144ab3-…`) et `intruder` (`e2d5f1c0-…`), volontairement **absent** de
-  `partners.yaml`.
-- `partners.yaml` (monté dans le conteneur) n'autorise l'édition que de
+  `oidc_providers.yaml`.
+- `oidc_providers.yaml` (monté dans le conteneur) n'autorise l'édition que de
   `moncomptepro`, pour les domaines `moncomptepro.fr`, `polyfi.fr`,
   `fifi.fr`.
 - La restriction d'accès par IP est déléguée à l'ingress

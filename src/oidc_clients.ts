@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import { Hono } from "hono";
+import { Hono, type MiddlewareHandler } from "hono";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 import { decrypt_symetric, encrypt_symetric } from "./crypt";
@@ -41,7 +41,7 @@ export interface OidcClientDoc {
 }
 
 export interface OidcClientStore {
-  find(filter: { collaborators: string }): {
+  find(filter?: Record<string, unknown>): {
     toArray(): Promise<OidcClientDoc[]>;
   };
   insertOne(
@@ -75,9 +75,7 @@ const oidc_client_schema = z
       post_logout_redirect_uris: z.array(z.string()).optional(),
       id_token_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
       userinfo_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
-      // never empty: collaborators is the only access path, an empty list would
-      // lock everyone out of the app permanently
-      collaborators: z.array(z.string()).min(1).optional(),
+      collaborators: z.array(z.string()).optional(),
       active: z.boolean().optional(),
     }),
   );
@@ -101,6 +99,21 @@ function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   };
 }
 
+const email_middleware: MiddlewareHandler<{
+  Variables: { email: string; body_text: string };
+}> = async (c, next) => {
+  const email = c.req.query("email");
+  if (!email) {
+    return c.json({ detail: "Missing authentication headers" }, 401);
+  }
+  const parsed = z.email().safeParse(email);
+  if (!parsed.success) {
+    return c.json({ detail: "Invalid email" }, 422);
+  }
+  c.set("email", email);
+  await next();
+};
+
 export function create_oidc_clients_app({
   oidc_clients,
   client_secret_cipher_pass,
@@ -109,23 +122,27 @@ export function create_oidc_clients_app({
   client_secret_cipher_pass: string;
 }) {
   return new Hono<{ Variables: { email: string; body_text: string } }>()
-    .get("/oidc_clients", async (c) => {
+    .use("*", email_middleware)
+    .get("/", async (c) => {
       const email = c.get("email");
       const docs = await oidc_clients.find({ collaborators: email }).toArray();
       return c.json(
         docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
       );
     })
-    .post("/oidc_clients", async (c) => {
+    .post("/", async (c) => {
       const email = c.get("email");
-
       const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
       const now_date = new Date();
+      const collaborators = Array.from(
+        new Set([...(parsed.data.collaborators ?? []), email]),
+      );
+
       const doc: Omit<OidcClientDoc, "_id"> = {
         ...parsed.data,
-        collaborators: [email],
+        collaborators,
         createdAt: now_date,
         updatedAt: now_date,
         secretUpdatedAt: now_date,
@@ -149,7 +166,7 @@ export function create_oidc_clients_app({
         }),
       );
     })
-    .get("/oidc_clients/:id", async (c) => {
+    .get("/:id", async (c) => {
       const email = c.get("email");
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
@@ -161,7 +178,7 @@ export function create_oidc_clients_app({
       if (!doc) return c.json({ detail: "Not Found" }, 404);
       return c.json(format_oidc_client(client_secret_cipher_pass, doc));
     })
-    .patch("/oidc_clients/:id", async (c) => {
+    .patch("/:id", async (c) => {
       const email = c.get("email");
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
@@ -169,9 +186,6 @@ export function create_oidc_clients_app({
       const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
-      // self-lockout guard: the rejected collaborator still has a valid
-      // signature, so re-requesting with themselves included is possible
-      // — this is a best-effort guard, not an admin recovery substitute
       if (
         parsed.data.collaborators &&
         !parsed.data.collaborators.includes(email)
@@ -184,6 +198,9 @@ export function create_oidc_clients_app({
 
       const update = {
         ...parsed.data,
+        collaborators: Array.from(
+          new Set([...(parsed.data.collaborators ?? []), email]),
+        ),
         updatedAt: new Date(),
         updatedBy: "espace-partenaires",
       };
@@ -200,7 +217,7 @@ export function create_oidc_clients_app({
       if (!updated) return c.json({ detail: "Not Found" }, 404);
       return c.json(format_oidc_client(client_secret_cipher_pass, updated));
     })
-    .delete("/oidc_clients/:id", async (c) => {
+    .delete("/:id", async (c) => {
       const email = c.get("email");
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
