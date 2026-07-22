@@ -91,8 +91,15 @@ export function create_app({
     )
     .route(
       "/api",
-      create_oidc_clients_app({ oidc_clients, client_secret_cipher_pass }),
-    );
+      create_oidc_clients_app({
+        oidc_clients,
+        client_secret_cipher_pass,
+      }),
+    )
+    .onError((err, c) => {
+      console.error(err);
+      return c.json({ detail: "Internal Server Error" }, 500);
+    });
 }
 
 export type App = ReturnType<typeof create_app>;
