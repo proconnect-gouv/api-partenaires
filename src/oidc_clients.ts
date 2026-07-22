@@ -125,9 +125,7 @@ export function create_oidc_clients_app({
     .use("*", email_middleware)
     .get("/", async (c) => {
       const email = c.get("email");
-      const docs = await oidc_clients
-        .find({ collaborators: email })
-        .toArray();
+      const docs = await oidc_clients.find({ collaborators: email }).toArray();
       return c.json(
         docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
       );
@@ -138,10 +136,9 @@ export function create_oidc_clients_app({
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
       const now_date = new Date();
-      const body_collaborators = parsed.data.collaborators ?? [];
-      const collaborators = body_collaborators.includes(email)
-        ? body_collaborators
-        : [...body_collaborators, email];
+      const collaborators = Array.from(
+        new Set([...(parsed.data.collaborators ?? []), email]),
+      );
 
       const doc: Omit<OidcClientDoc, "_id"> = {
         ...parsed.data,
@@ -174,7 +171,10 @@ export function create_oidc_clients_app({
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      const doc = await oidc_clients.findOne({ _id: oid, collaborators: email });
+      const doc = await oidc_clients.findOne({
+        _id: oid,
+        collaborators: email,
+      });
       if (!doc) return c.json({ detail: "Not Found" }, 404);
       return c.json(format_oidc_client(client_secret_cipher_pass, doc));
     })
@@ -198,7 +198,9 @@ export function create_oidc_clients_app({
 
       const update = {
         ...parsed.data,
-        collaborators: parsed.data.collaborators ?? [email],
+        collaborators: Array.from(
+          new Set([...(parsed.data.collaborators ?? []), email]),
+        ),
         updatedAt: new Date(),
         updatedBy: "espace-partenaires",
       };
