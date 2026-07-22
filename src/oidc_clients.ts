@@ -55,18 +55,32 @@ export interface OidcClientStore {
   deleteOne(filter: Record<string, unknown>): Promise<{ deletedCount: number }>;
 }
 
-// mirrors pcdbapi's OidcClient pydantic model: the only fields settable through the API
-const oidc_client_schema = z.strictObject({
-  name: z.string().min(1).max(200).optional(),
-  redirect_uris: z.array(z.string()).optional(),
-  post_logout_redirect_uris: z.array(z.string()).optional(),
-  id_token_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
-  userinfo_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
-  // never empty: collaborators is the only access path, an empty list would
-  // lock everyone out of the app permanently
-  collaborators: z.array(z.string()).min(1).optional(),
-  active: z.boolean().optional(),
-});
+// mirrors pcdbapi's OidcClient pydantic model: the only fields settable through the API.
+// Input is a raw body string — the transform parses JSON and folds parse failures
+// into the same ZodError so the handler returns one shaped response for both.
+const oidc_client_schema = z
+  .string()
+  .transform((s, ctx) => {
+    try {
+      return JSON.parse(s);
+    } catch {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Invalid JSON" });
+      return z.NEVER;
+    }
+  })
+  .pipe(
+    z.strictObject({
+      name: z.string().min(1).max(200).optional(),
+      redirect_uris: z.array(z.string()).optional(),
+      post_logout_redirect_uris: z.array(z.string()).optional(),
+      id_token_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
+      userinfo_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
+      // never empty: collaborators is the only access path, an empty list would
+      // lock everyone out of the app permanently
+      collaborators: z.array(z.string()).min(1).optional(),
+      active: z.boolean().optional(),
+    }),
+  );
 
 function parse_object_id(id: string): ObjectId | null {
   if (!ObjectId.isValid(id)) return null;
@@ -75,7 +89,14 @@ function parse_object_id(id: string): ObjectId | null {
 
 function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   return {
-    ...doc,
+    _id: doc._id,
+    name: doc.name,
+    redirect_uris: doc.redirect_uris,
+    post_logout_redirect_uris: doc.post_logout_redirect_uris,
+    id_token_signed_response_alg: doc.id_token_signed_response_alg,
+    userinfo_signed_response_alg: doc.userinfo_signed_response_alg,
+    collaborators: doc.collaborators,
+    active: doc.active,
     client_secret: decrypt_symetric(cipher_pass, doc.client_secret),
   };
 }
@@ -97,18 +118,17 @@ export function create_oidc_clients_app({
     })
     .post("/oidc_clients", async (c) => {
       const email = c.get("email");
-      const parsed = oidc_client_schema.safeParse(
-        JSON.parse(c.get("body_text") || "{}"),
-      );
+
+      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
-      const now = new Date();
+      const now_date = new Date();
       const doc: Omit<OidcClientDoc, "_id"> = {
         ...parsed.data,
         collaborators: [email],
-        createdAt: now,
-        updatedAt: now,
-        secretUpdatedAt: now,
+        createdAt: now_date,
+        updatedAt: now_date,
+        secretUpdatedAt: now_date,
         updatedBy: "espace-partenaires",
         // format must be 64 hexadecimal characters, matching pcdbapi's secrets.token_hex(32)
         key: randomBytes(32).toString("hex"),
@@ -146,10 +166,21 @@ export function create_oidc_clients_app({
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      const parsed = oidc_client_schema.safeParse(
-        JSON.parse(c.get("body_text") || "{}"),
-      );
+      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
+
+      // self-lockout guard: the rejected collaborator still has a valid
+      // signature, so re-requesting with themselves included is possible
+      // — this is a best-effort guard, not an admin recovery substitute
+      if (
+        parsed.data.collaborators &&
+        !parsed.data.collaborators.includes(email)
+      ) {
+        return c.json(
+          { detail: "Cannot remove yourself from collaborators" },
+          422,
+        );
+      }
 
       const update = {
         ...parsed.data,
@@ -162,10 +193,12 @@ export function create_oidc_clients_app({
       );
       if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
 
-      const updated = await oidc_clients.findOne({ _id: oid });
-      return c.json(
-        format_oidc_client(client_secret_cipher_pass, updated as OidcClientDoc),
-      );
+      const updated = await oidc_clients.findOne({
+        _id: oid,
+        collaborators: email,
+      });
+      if (!updated) return c.json({ detail: "Not Found" }, 404);
+      return c.json(format_oidc_client(client_secret_cipher_pass, updated));
     })
     .delete("/oidc_clients/:id", async (c) => {
       const email = c.get("email");
