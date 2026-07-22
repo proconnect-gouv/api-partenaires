@@ -35,23 +35,23 @@ function create_test_app({
   });
 }
 
-describe("sondes de disponibilité", () => {
-  test("livez répond 200 sans restriction d'IP", async () => {
+describe("liveness probes", () => {
+  test("livez returns 200", async () => {
     const res = await create_test_app().request("/livez", {});
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ status: "ok" });
   });
 
-  test("readyz répond 200 quand mongo répond au ping", async () => {
+  test("readyz returns 200 when mongo responds to ping", async () => {
     const res = await create_test_app().request("/readyz");
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ status: "ok" });
   });
 
-  test("readyz répond 503 quand le ping mongo échoue", async () => {
+  test("readyz returns 503 when mongo ping fails", async () => {
     const app = create_test_app({
       check_ready: async () => {
-        throw new Error("mongo injoignable");
+        throw new Error("mongo unreachable");
       },
     });
     const res = await app.request("/readyz");
