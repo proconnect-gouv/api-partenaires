@@ -3,11 +3,11 @@ import { config_schema } from "./config";
 
 const REQUIRED_ENV = {
   API_SECRET: "api-secret",
-  CLIENT_SECRET_CIPHER_PASS: "cipher-pass",
+  CLIENT_SECRET_CIPHER_PASS: "test-cipher-pass-32-bytes-long!!",
 };
 
-describe("analyse de l'environnement", () => {
-  test("applique les défauts sur un environnement minimal", () => {
+describe("environment parsing", () => {
+  test("applies defaults on a minimal environment", () => {
     expect(config_schema.parse(REQUIRED_ENV)).toEqual({
       PORT: 3000,
       MONGODB_URI: "mongodb://127.0.0.1:27017/partners",
@@ -17,11 +17,11 @@ describe("analyse de l'environnement", () => {
     });
   });
 
-  test("rejette un environnement sans secrets", () => {
+  test("rejects an environment without secrets", () => {
     expect(() => config_schema.parse({})).toThrow();
   });
 
-  test("convertit PORT en nombre et rejette les valeurs invalides", () => {
+  test("coerces PORT to a number and rejects invalid values", () => {
     expect(config_schema.parse({ ...REQUIRED_ENV, PORT: "8080" }).PORT).toBe(
       8080,
     );
@@ -30,16 +30,12 @@ describe("analyse de l'environnement", () => {
     ).toThrow();
   });
 
-  test("accepte CLIENT_SECRET_CIPHER_PASS d'une mauvaise longueur sans erreur au démarrage", () => {
-    // aes-256-gcm needs exactly 32 bytes; config_schema doesn't check that, so
-    // a misconfigured deploy boots clean and only fails on the first
-    // encrypt/decrypt call (see crypt.test.ts's matching case). /readyz
-    // wouldn't catch this either — it only pings Mongo.
-    expect(
+  test("rejects CLIENT_SECRET_CIPHER_PASS of incorrect length at boot", () => {
+    expect(() =>
       config_schema.parse({
         ...REQUIRED_ENV,
         CLIENT_SECRET_CIPHER_PASS: "too-short",
-      }).CLIENT_SECRET_CIPHER_PASS,
-    ).toBe("too-short");
+      }),
+    ).toThrow();
   });
 });
