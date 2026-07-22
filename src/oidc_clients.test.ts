@@ -372,3 +372,186 @@ describe("DELETE /api/oidc_clients/:id", () => {
     expect(delete_again.status).toBe(404);
   });
 });
+
+// Findings below are from the adversarial review of this migration
+// (openspec/changes/unify-partner-api-endpoints). Each test proves the claim
+// against the real create_app pipeline, not a description of it.
+
+describe("corps JSON malformé (finding: pas de garde autour de JSON.parse)", () => {
+  test("un POST avec un corps JSON invalide plante en 500 au lieu d'un 422 propre", async () => {
+    const app = create_test_app();
+    // api_call always JSON.stringifies json_data, so send raw invalid JSON by hand
+    const path = "/api/oidc_clients?email=test@example.com";
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const body = "{not valid json";
+    const signature = sign("POST", path, timestamp, body);
+    const raw_res = await app.request(path, {
+      method: "POST",
+      headers: {
+        "X-Signature": signature,
+        "X-Timestamp": timestamp,
+        "content-type": "application/json",
+      },
+      body,
+    });
+    // every other invalid-input path in this router (zod safeParse) returns
+    // 422 — malformed JSON is the one that instead hits Hono's generic
+    // unhandled-error response, because there's no app-level .onError() and
+    // JSON.parse(...) isn't wrapped in a try/catch.
+    expect(raw_res.status).toBe(500);
+  });
+
+  test("un PATCH avec un corps JSON invalide plante aussi en 500", async () => {
+    const app = create_test_app();
+    const created = await create_client(app, "test@example.com", { name: "x" });
+    const path = `/api/oidc_clients/${created._id}?email=test@example.com`;
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const body = "{not valid json";
+    const signature = sign("PATCH", path, timestamp, body);
+    const res = await app.request(path, {
+      method: "PATCH",
+      headers: {
+        "X-Signature": signature,
+        "X-Timestamp": timestamp,
+        "content-type": "application/json",
+      },
+      body,
+    });
+    expect(res.status).toBe(500);
+  });
+});
+
+describe("PATCH — TOCTOU entre updateOne et le findOne de la réponse", () => {
+  test("un doc supprimé juste après un updateOne réussi plante en 500 au lieu de 404", async () => {
+    // updateOne reports a match (the doc existed at that instant) but the
+    // very next findOne — unscoped, used only to build the response — is
+    // made to return null, simulating a concurrent DELETE landing between
+    // the two calls. The handler doesn't guard against that: it hands the
+    // null straight to format_oidc_client, which crashes reading
+    // `doc.client_secret`.
+    const providers: ProviderStore = {
+      async findOne() {
+        return null;
+      },
+      async findOneAndUpdate() {
+        return null;
+      },
+    };
+    const oidc_clients: OidcClientStore = {
+      find: () => ({ toArray: async () => [] }),
+      insertOne: async () => {
+        throw new Error("unused in this test");
+      },
+      findOne: async () => null,
+      updateOne: async () => ({ matchedCount: 1 }),
+      deleteOne: async () => ({ deletedCount: 0 }),
+    };
+    const app = create_app({
+      providers,
+      partners_config: { partners: [] },
+      check_ready: async () => {},
+      oidc_clients,
+      api_secret: API_SECRET,
+      max_timestamp_diff: 300,
+      client_secret_cipher_pass: CIPHER_PASS,
+    });
+
+    const id = new ObjectId().toHexString();
+    const path = `/api/oidc_clients/${id}?email=test@example.com`;
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const body = JSON.stringify({ name: "race" });
+    const signature = sign("PATCH", path, timestamp, body);
+    const res = await app.request(path, {
+      method: "PATCH",
+      headers: {
+        "X-Signature": signature,
+        "X-Timestamp": timestamp,
+        "content-type": "application/json",
+      },
+      body,
+    });
+    expect(res.status).toBe(500);
+  });
+});
+
+describe("format_oidc_client n'a pas de projection (finding: fuite de champs internes)", () => {
+  test("la réponse de création expose des champs de gestion interne non documentés dans l'API", async () => {
+    const app = create_test_app();
+    const created = await create_client(app, "test@example.com", { name: "x" });
+    // updatedBy, secretUpdatedAt, key, type, scopes, claims are internal
+    // bookkeeping fields with no explicit DTO/allowlist keeping them out of
+    // the response — they leak by virtue of `{ ...doc }` in format_oidc_client.
+    for (const internal_field of [
+      "key",
+      "type",
+      "scopes",
+      "claims",
+      "updatedBy",
+      "secretUpdatedAt",
+    ]) {
+      expect(created).toHaveProperty(internal_field);
+    }
+  });
+});
+
+describe("verrouillage accidentel (finding: aucune protection contre l'auto-exclusion)", () => {
+  test("remplacer collaborators sans s'y inclure retire son propre accès, sans voie de récupération", async () => {
+    const app = create_test_app();
+    const created = await create_client(app, "owner@example.com", {
+      name: "x",
+    });
+
+    const patch_res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_clients/${created._id}?email=owner@example.com`,
+      { json_data: { collaborators: ["someone-else@example.com"] } },
+    );
+    // the schema only guards against an *empty* collaborators list
+    // (oidc_client_schema: `.min(1)`); a non-empty list that just excludes
+    // the caller is accepted, and there's no admin/recovery path in this
+    // codebase to get back in.
+    expect(patch_res.status).toBe(200);
+
+    const get_after = await api_call(
+      app,
+      "GET",
+      `/api/oidc_clients/${created._id}?email=owner@example.com`,
+    );
+    expect(get_after.status).toBe(404);
+  });
+});
+
+describe("rejeu de signature (finding: pas de protection anti-rejeu dans la fenêtre de 300s)", () => {
+  test("rejouer un POST signé identique dans la fenêtre de validité crée un doublon", async () => {
+    const app = create_test_app();
+    const path = "/api/oidc_clients?email=test@example.com";
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const body = JSON.stringify({ name: "dup" });
+    const signature = sign("POST", path, timestamp, body);
+    const headers = {
+      "X-Signature": signature,
+      "X-Timestamp": timestamp,
+      "content-type": "application/json",
+    };
+
+    const first = await app.request(path, { method: "POST", headers, body });
+    const second = await app.request(path, { method: "POST", headers, body });
+
+    // the signature only proves the request is authentic and unexpired — it
+    // doesn't make POST idempotent, so an identical, byte-for-byte replayed
+    // request creates a second client instead of being rejected/deduplicated.
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    const first_id = ((await first.json()) as { _id: string })._id;
+    const list_res = await api_call(
+      app,
+      "GET",
+      "/api/oidc_clients?email=test@example.com",
+    );
+    const list = (await list_res.json()) as Array<{ _id: string }>;
+    expect(list).toHaveLength(2);
+    expect(new Set(list.map((c) => c._id)).size).toBe(2);
+    expect(list.some((c) => c._id === first_id)).toBe(true);
+  });
+});

@@ -51,4 +51,44 @@ describe("compatibilité chiffrement avec pcdbapi", () => {
       decrypt_symetric(CLIENT_SECRET_CIPHER_PASS, corrupted.toString("base64")),
     ).toThrow("Authentication failed!");
   });
+
+  test("rejette une clé qui ne fait pas 32 octets, mais seulement à l'appel", () => {
+    // config_schema (src/config.ts) accepts any string for CLIENT_SECRET_CIPHER_PASS —
+    // a wrong-length key only fails here, at first encrypt/decrypt call, not at boot.
+    // See config.test.ts's matching case.
+    expect(() => encrypt_symetric("too-short", "hello")).toThrow();
+  });
+});
+
+// The `nonce` parameter of encrypt_symetric exists only so the fixture-pinning
+// test above can force pcdbapi's exact nonce. It's still part of the public
+// signature, so nothing stops a real caller from reusing one: this proves why
+// that's not a style nitpick — a reused nonce under AES-GCM makes the two
+// ciphertexts' XOR equal the two plaintexts' XOR, i.e. leaks both secrets
+// without ever touching the key.
+describe("réutilisation de nonce (AES-GCM) — pourquoi le paramètre public est dangereux", () => {
+  test("deux chiffrements avec le même nonce laissent fuiter le XOR des deux secrets en clair", () => {
+    const key = "test-cipher-pass-32-bytes-long!!";
+    const reused_nonce = Buffer.alloc(12, 7);
+    const secret_a = "a".repeat(40);
+    const secret_b = "b".repeat(40);
+
+    const encrypted_a = encrypt_symetric(key, secret_a, reused_nonce);
+    const encrypted_b = encrypt_symetric(key, secret_b, reused_nonce);
+
+    // ciphertext layout is nonce(12) + tag(16) + ciphertext
+    const ciphertext_a = Buffer.from(encrypted_a, "base64").subarray(28);
+    const ciphertext_b = Buffer.from(encrypted_b, "base64").subarray(28);
+    const ciphertext_xor = Buffer.alloc(ciphertext_a.length);
+    for (let i = 0; i < ciphertext_a.length; i++) {
+      ciphertext_xor[i] = ciphertext_a[i]! ^ ciphertext_b[i]!;
+    }
+
+    const plaintext_xor = Buffer.alloc(secret_a.length);
+    for (let i = 0; i < secret_a.length; i++) {
+      plaintext_xor[i] = secret_a.charCodeAt(i) ^ secret_b.charCodeAt(i);
+    }
+
+    expect(ciphertext_xor.equals(plaintext_xor)).toBe(true);
+  });
 });
