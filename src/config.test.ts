@@ -29,4 +29,17 @@ describe("analyse de l'environnement", () => {
       config_schema.parse({ ...REQUIRED_ENV, PORT: "quatre-vingts" }),
     ).toThrow();
   });
+
+  test("accepte CLIENT_SECRET_CIPHER_PASS d'une mauvaise longueur sans erreur au démarrage", () => {
+    // aes-256-gcm needs exactly 32 bytes; config_schema doesn't check that, so
+    // a misconfigured deploy boots clean and only fails on the first
+    // encrypt/decrypt call (see crypt.test.ts's matching case). /readyz
+    // wouldn't catch this either — it only pings Mongo.
+    expect(
+      config_schema.parse({
+        ...REQUIRED_ENV,
+        CLIENT_SECRET_CIPHER_PASS: "too-short",
+      }).CLIENT_SECRET_CIPHER_PASS,
+    ).toBe("too-short");
+  });
 });
