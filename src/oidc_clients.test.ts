@@ -119,8 +119,8 @@ async function create_client(
   return res.json() as Promise<Record<string, unknown>>;
 }
 
-describe("middleware de signature", () => {
-  test("refuse une requête sans en-têtes d'authentification", async () => {
+describe("signature middleware", () => {
+  test("rejects a request without authentication headers", async () => {
     const app = create_test_app();
     const res = await app.request("/api/oidc_clients?email=test@example.com");
     expect(res.status).toBe(401);
@@ -129,20 +129,20 @@ describe("middleware de signature", () => {
     });
   });
 
-  test("refuse une requête sans email", async () => {
+  test("rejects a request without email", async () => {
     const app = create_test_app();
     const res = await api_call(app, "GET", "/api/oidc_clients");
     expect(res.status).toBe(401);
   });
 
-  test("refuse un email malformé", async () => {
+  test("rejects a malformed email", async () => {
     const app = create_test_app();
     const res = await api_call(app, "GET", "/api/oidc_clients?email=invalid");
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({ detail: "Invalid email" });
   });
 
-  test("refuse une signature invalide", async () => {
+  test("rejects an invalid signature", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -156,7 +156,7 @@ describe("middleware de signature", () => {
     expect(await res.json()).toEqual({ detail: "Invalid signature" });
   });
 
-  test("refuse un timestamp expiré", async () => {
+  test("rejects an expired timestamp", async () => {
     const app = create_test_app();
     const old_timestamp = String(Math.floor(Date.now() / 1000) - 600);
     const res = await api_call(
@@ -171,7 +171,7 @@ describe("middleware de signature", () => {
     expect(await res.json()).toEqual({ detail: "Timestamp expired" });
   });
 
-  test("refuse un timestamp non numérique", async () => {
+  test("rejects a non-numeric timestamp", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -185,14 +185,14 @@ describe("middleware de signature", () => {
     expect(await res.json()).toEqual({ detail: "Invalid timestamp" });
   });
 
-  test("ne s'applique pas aux routes /partners et /livez", async () => {
+  test("does not apply to /partners and /livez routes", async () => {
     const app = create_test_app();
     expect((await app.request("/livez")).status).toBe(200);
   });
 });
 
 describe("POST /api/oidc_clients", () => {
-  test("crée un client avec les champs générés par le serveur", async () => {
+  test("creates a client with server-generated fields", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -205,7 +205,7 @@ describe("POST /api/oidc_clients", () => {
     expect(created.client_secret as string).toHaveLength(64);
   });
 
-  test("rejette un champ non autorisé", async () => {
+  test("rejects a disallowed field", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -218,7 +218,7 @@ describe("POST /api/oidc_clients", () => {
     expect(res.status).toBe(422);
   });
 
-  test("rejette un algorithme de signature inconnu", async () => {
+  test("rejects an unknown signature algorithm", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -233,7 +233,7 @@ describe("POST /api/oidc_clients", () => {
 });
 
 describe("GET /api/oidc_clients", () => {
-  test("liste uniquement les clients du collaborateur", async () => {
+  test("lists only the caller's clients", async () => {
     const app = create_test_app();
     await create_client(app, "test@example.com", { name: "Mine" });
     await create_client(app, "other@example.com", { name: "Not mine" });
@@ -251,7 +251,7 @@ describe("GET /api/oidc_clients", () => {
 });
 
 describe("GET /api/oidc_clients/:id", () => {
-  test("retourne 422 pour un ObjectId invalide", async () => {
+  test("returns 422 for an invalid ObjectId", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -261,7 +261,7 @@ describe("GET /api/oidc_clients/:id", () => {
     expect(res.status).toBe(422);
   });
 
-  test("retourne 404 pour un autre email", async () => {
+  test("returns 404 for another email", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -274,7 +274,7 @@ describe("GET /api/oidc_clients/:id", () => {
     expect(res.status).toBe(404);
   });
 
-  test("retourne le client demandé", async () => {
+  test("returns the requested client", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -290,7 +290,7 @@ describe("GET /api/oidc_clients/:id", () => {
 });
 
 describe("PATCH /api/oidc_clients/:id", () => {
-  test("rejette collaborators vide", async () => {
+  test("rejects an empty collaborators list", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -304,7 +304,7 @@ describe("PATCH /api/oidc_clients/:id", () => {
     expect(res.status).toBe(422);
   });
 
-  test("met à jour les champs autorisés", async () => {
+  test("updates allowed fields", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -319,7 +319,7 @@ describe("PATCH /api/oidc_clients/:id", () => {
     expect(((await res.json()) as { name: string }).name).toBe("Updated");
   });
 
-  test("retourne 404 pour un email non collaborateur", async () => {
+  test("returns 404 for a non-collaborator email", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
@@ -335,7 +335,7 @@ describe("PATCH /api/oidc_clients/:id", () => {
 });
 
 describe("DELETE /api/oidc_clients/:id", () => {
-  test("supprime le client et devient introuvable ensuite", async () => {
+  test("deletes the client and is then unfindable", async () => {
     const app = create_test_app();
     const created = await create_client(app, "test@example.com", {
       name: "Test App",
