@@ -3,12 +3,13 @@ import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
 const NONCE_LENGTH = 12;
 const AUTHTAG_LENGTH = 16;
 const CIPHER_HEAD_LENGTH = NONCE_LENGTH + AUTHTAG_LENGTH;
-
-export function encrypt_symetric(
+export function encrypt_symetric_with_nonce(
   key: string,
   data: string,
-  nonce = randomBytes(NONCE_LENGTH),
+  nonce: Buffer,
 ): string {
+  if (nonce.length !== NONCE_LENGTH)
+    throw new Error(`nonce must be ${NONCE_LENGTH} bytes`);
   const cipher = createCipheriv("aes-256-gcm", Buffer.from(key), nonce);
   const ciphertext = Buffer.concat([
     cipher.update(data, "utf8"),
@@ -16,6 +17,10 @@ export function encrypt_symetric(
   ]);
   const tag = cipher.getAuthTag();
   return Buffer.concat([nonce, tag, ciphertext]).toString("base64");
+}
+
+export function encrypt_symetric(key: string, data: string): string {
+  return encrypt_symetric_with_nonce(key, data, randomBytes(NONCE_LENGTH));
 }
 
 export function decrypt_symetric(key: string, data: string): string {
