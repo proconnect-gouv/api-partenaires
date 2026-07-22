@@ -17,7 +17,8 @@ services:
     environment:
       - MONGODB_URI=mongodb://mongo:27017/partners
       - PARTNERS_CONFIG_FILE=/etc/partners/partners.yaml
-      - API_SECRET=test-api-secret
+      - PARTNER_API_SECRET=test-partner-api-secret
+      - SANDBOX_API_SECRET=test-sandbox-api-secret
       - CLIENT_SECRET_CIPHER_PASS=test-cipher-pass-32-bytes-long!!
     volumes:
       - ./partners.yaml:/etc/partners/partners.yaml:ro

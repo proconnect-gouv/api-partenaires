@@ -13,9 +13,11 @@ const app = create_app({
   oidc_clients: client.db().collection<OidcClientDoc>("client"),
   partners_config: await load_partners_config(config.PARTNERS_CONFIG_FILE),
   check_ready: () => client.db().command({ ping: 1 }),
-  api_secret: config.API_SECRET,
+  partner_api_secret: config.PARTNER_API_SECRET,
+  sandbox_api_secret: config.SANDBOX_API_SECRET,
   max_timestamp_diff: config.MAX_TIMESTAMP_DIFF,
   client_secret_cipher_pass: config.CLIENT_SECRET_CIPHER_PASS,
+  enable_sandbox_endpoint: config.FEATURE_ENABLE_SANDBOX_ENDPOINT,
 });
 
 export default {

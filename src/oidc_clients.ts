@@ -41,7 +41,7 @@ export interface OidcClientDoc {
 }
 
 export interface OidcClientStore {
-  find(filter: { collaborators: string }): {
+  find(filter?: Record<string, unknown>): {
     toArray(): Promise<OidcClientDoc[]>;
   };
   insertOne(
@@ -75,9 +75,7 @@ const oidc_client_schema = z
       post_logout_redirect_uris: z.array(z.string()).optional(),
       id_token_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
       userinfo_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
-      // never empty: collaborators is the only access path, an empty list would
-      // lock everyone out of the app permanently
-      collaborators: z.array(z.string()).min(1).optional(),
+      collaborators: z.array(z.string()).min(1),
       active: z.boolean().optional(),
     }),
   );
@@ -108,108 +106,83 @@ export function create_oidc_clients_app({
   oidc_clients: OidcClientStore;
   client_secret_cipher_pass: string;
 }) {
-  return new Hono<{ Variables: { email: string; body_text: string } }>()
-    .get("/oidc_clients", async (c) => {
-      const email = c.get("email");
-      const docs = await oidc_clients.find({ collaborators: email }).toArray();
-      return c.json(
-        docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
-      );
-    })
-    .post("/oidc_clients", async (c) => {
-      const email = c.get("email");
+  const app = new Hono<{ Variables: { body_text: string } }>();
 
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
-      if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
+  app.get("/", async (c) => {
+    const docs = await oidc_clients.find().toArray();
+    return c.json(
+      docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
+    );
+  });
 
-      const now_date = new Date();
-      const doc: Omit<OidcClientDoc, "_id"> = {
-        ...parsed.data,
-        collaborators: [email],
-        createdAt: now_date,
-        updatedAt: now_date,
-        secretUpdatedAt: now_date,
-        updatedBy: "espace-partenaires",
-        // format must be 64 hexadecimal characters, matching pcdbapi's secrets.token_hex(32)
-        key: randomBytes(32).toString("hex"),
-        client_secret: encrypt_symetric(
-          client_secret_cipher_pass,
-          randomBytes(32).toString("hex"),
-        ),
-        claims: ["amr"],
-        type: "private",
-        scopes: FIXED_SCOPES,
-      };
+  app.post("/", async (c) => {
+    const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
+    if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
-      const result = await oidc_clients.insertOne(doc);
-      return c.json(
-        format_oidc_client(client_secret_cipher_pass, {
-          ...doc,
-          _id: result.insertedId,
-        }),
-      );
-    })
-    .get("/oidc_clients/:id", async (c) => {
-      const email = c.get("email");
-      const oid = parse_object_id(c.req.param("id"));
-      if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
+    const now_date = new Date();
+    const doc: Omit<OidcClientDoc, "_id"> = {
+      ...parsed.data,
+      createdAt: now_date,
+      updatedAt: now_date,
+      secretUpdatedAt: now_date,
+      updatedBy: "espace-partenaires",
+      // format must be 64 hexadecimal characters, matching pcdbapi's secrets.token_hex(32)
+      key: randomBytes(32).toString("hex"),
+      client_secret: encrypt_symetric(
+        client_secret_cipher_pass,
+        randomBytes(32).toString("hex"),
+      ),
+      claims: ["amr"],
+      type: "private",
+      scopes: FIXED_SCOPES,
+    };
 
-      const doc = await oidc_clients.findOne({
-        _id: oid,
-        collaborators: email,
-      });
-      if (!doc) return c.json({ detail: "Not Found" }, 404);
-      return c.json(format_oidc_client(client_secret_cipher_pass, doc));
-    })
-    .patch("/oidc_clients/:id", async (c) => {
-      const email = c.get("email");
-      const oid = parse_object_id(c.req.param("id"));
-      if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
+    const result = await oidc_clients.insertOne(doc);
+    return c.json(
+      format_oidc_client(client_secret_cipher_pass, {
+        ...doc,
+        _id: result.insertedId,
+      }),
+    );
+  });
 
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
-      if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
+  app.get("/:id", async (c) => {
+    const oid = parse_object_id(c.req.param("id"));
+    if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      // self-lockout guard: the rejected collaborator still has a valid
-      // signature, so re-requesting with themselves included is possible
-      // — this is a best-effort guard, not an admin recovery substitute
-      if (
-        parsed.data.collaborators &&
-        !parsed.data.collaborators.includes(email)
-      ) {
-        return c.json(
-          { detail: "Cannot remove yourself from collaborators" },
-          422,
-        );
-      }
+    const doc = await oidc_clients.findOne({ _id: oid });
+    if (!doc) return c.json({ detail: "Not Found" }, 404);
+    return c.json(format_oidc_client(client_secret_cipher_pass, doc));
+  });
 
-      const update = {
-        ...parsed.data,
-        updatedAt: new Date(),
-        updatedBy: "espace-partenaires",
-      };
-      const result = await oidc_clients.updateOne(
-        { _id: oid, collaborators: email },
-        { $set: update },
-      );
-      if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
+  app.patch("/:id", async (c) => {
+    const oid = parse_object_id(c.req.param("id"));
+    if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      const updated = await oidc_clients.findOne({
-        _id: oid,
-        collaborators: email,
-      });
-      if (!updated) return c.json({ detail: "Not Found" }, 404);
-      return c.json(format_oidc_client(client_secret_cipher_pass, updated));
-    })
-    .delete("/oidc_clients/:id", async (c) => {
-      const email = c.get("email");
-      const oid = parse_object_id(c.req.param("id"));
-      if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
+    const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
+    if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
-      const result = await oidc_clients.deleteOne({
-        _id: oid,
-        collaborators: email,
-      });
-      if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
-      return c.json({ deleted: true });
-    });
+    const update = {
+      ...parsed.data,
+      updatedAt: new Date(),
+      updatedBy: "espace-partenaires",
+    };
+    const result = await oidc_clients.updateOne({ _id: oid }, { $set: update });
+    if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
+
+    const updated = await oidc_clients.findOne({ _id: oid });
+    if (!updated) return c.json({ detail: "Not Found" }, 404);
+    return c.json(format_oidc_client(client_secret_cipher_pass, updated));
+  });
+
+  app.delete("/:id", async (c) => {
+    const oid = parse_object_id(c.req.param("id"));
+    if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
+
+    const result = await oidc_clients.deleteOne({ _id: oid });
+    if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
+    return c.json({ deleted: true });
+  });
+
+  return app;
 }

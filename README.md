@@ -14,20 +14,22 @@ bun run dev
 
 ## Configuration
 
-| Variable                    | Défaut                               | Description                                               |
-| --------------------------- | ------------------------------------ | --------------------------------------------------------- |
-| `PORT`                      | `3000`                               | Port d'écoute                                             |
-| `MONGODB_URI`               | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)    |
-| `PARTNERS_CONFIG_FILE`      | `partners.yaml`                      | Fichier YAML des uid éditables et fqdns permis            |
-| `API_SECRET`                | _(requis)_                           | Secret partagé HMAC pour `/api/*`                         |
-| `CLIENT_SECRET_CIPHER_PASS` | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret` |
-| `MAX_TIMESTAMP_DIFF`        | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`           |
+| Variable                          | Défaut                               | Description                                               |
+| --------------------------------- | ------------------------------------ | --------------------------------------------------------- |
+| `PORT`                            | `3000`                               | Port d'écoute                                             |
+| `MONGODB_URI`                     | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)    |
+| `PARTNERS_CONFIG_FILE`            | `partners.yaml`                      | Fichier YAML des uid éditables et fqdns permis            |
+| `PARTNER_API_SECRET`              | _(requis)_                           | Secret partagé HMAC pour `/api/partners/*`                |
+| `SANDBOX_API_SECRET`              | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*`            |
+| `FEATURE_ENABLE_SANDBOX_ENDPOINT` | `false`                              | Active l'endpoint `/api/oidc_clients`                     |
+| `CLIENT_SECRET_CIPHER_PASS`       | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret` |
+| `MAX_TIMESTAMP_DIFF`              | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`           |
 
 L'accès à `/partners/*` est restreint au niveau de l'ingress, via l'annotation
 `nginx.ingress.kubernetes.io/whitelist-source-range`.
 
 L'accès à `/api/*` est authentifié par signature HMAC-SHA256 (`X-Signature` /
-`X-Timestamp` + `?email=`), migré depuis `pcdbapi`.
+`X-Timestamp`), migré depuis `pcdbapi`.
 
 ```yaml
 # partners.yaml
@@ -40,17 +42,17 @@ partners:
 
 ## Routes
 
-| Route                                | Description                                            |
-| ------------------------------------ | ------------------------------------------------------ |
-| `GET /livez`                         | Sonde de vie                                           |
-| `GET /readyz`                        | Sonde de disponibilité (ping mongo)                    |
-| `GET /partners/:uid/configuration`   | Lecture de la configuration                            |
-| `PATCH /partners/:uid/configuration` | Modification des fqdns (`{ fqdns: [] }`)               |
-| `GET /api/oidc_clients`              | Liste les clients OIDC du collaborateur (`?email=`)    |
-| `POST /api/oidc_clients`             | Crée un client OIDC pour le collaborateur              |
-| `GET /api/oidc_clients/:id`          | Lecture d'un client OIDC (scopé au collaborateur)      |
-| `PATCH /api/oidc_clients/:id`        | Mise à jour partielle d'un client OIDC                 |
-| `DELETE /api/oidc_clients/:id`       | Suppression d'un client OIDC (scopée au collaborateur) |
+| Route                                | Description                              |
+| ------------------------------------ | ---------------------------------------- |
+| `GET /livez`                         | Sonde de vie                             |
+| `GET /readyz`                        | Sonde de disponibilité (ping mongo)      |
+| `GET /partners/:uid/configuration`   | Lecture de la configuration              |
+| `PATCH /partners/:uid/configuration` | Modification des fqdns (`{ fqdns: [] }`) |
+| `GET /api/oidc_clients`              | Liste les clients OIDC                   |
+| `POST /api/oidc_clients`             | Crée un client OIDC                      |
+| `GET /api/oidc_clients/:id`          | Lecture d'un client OIDC                 |
+| `PATCH /api/oidc_clients/:id`        | Mise à jour partielle d'un client OIDC   |
+| `DELETE /api/oidc_clients/:id`       | Suppression d'un client OIDC             |
 
 ## Scripts
 

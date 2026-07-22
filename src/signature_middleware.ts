@@ -1,8 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type { MiddlewareHandler } from "hono";
 
-const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
 function compute_signature(api_secret: string, message: string): string {
   return createHmac("sha256", api_secret).update(message).digest("hex");
 }
@@ -24,14 +22,9 @@ export function create_signature_middleware({
   return async (c, next) => {
     const signature = c.req.header("X-Signature");
     const timestamp = c.req.header("X-Timestamp");
-    const email = c.req.query("email");
 
-    if (!signature || !timestamp || !email) {
+    if (!signature || !timestamp) {
       return c.json({ detail: "Missing authentication headers" }, 401);
-    }
-
-    if (!EMAIL_RE.test(email)) {
-      return c.json({ detail: "Invalid email" }, 422);
     }
 
     const ts = Number.parseInt(timestamp, 10);
@@ -58,7 +51,6 @@ export function create_signature_middleware({
       return c.json({ detail: "Invalid signature" }, 401);
     }
 
-    c.set("email", email);
     c.set("body_text", body_text);
     await next();
   };

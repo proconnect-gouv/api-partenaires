@@ -64,17 +64,12 @@ describe.serial("clients OIDC (migration pcdbapi)", () => {
   });
 
   test("refuse une requête /api/* sans signature", async () => {
-    const res = await fetch(
-      `${base_url}/api/oidc_clients?email=test@example.com`,
-    );
+    const res = await fetch(`${base_url}/api/oidc_clients`);
     expect(res.status).toBe(401);
   });
 
   test("déchiffre un client_secret chiffré par pcdbapi, via le vrai binaire et le vrai driver mongo", async () => {
-    const res = await api_call(
-      "GET",
-      `/api/oidc_clients/${SEEDED_ID}?email=test@example.com`,
-    );
+    const res = await api_call("GET", `/api/oidc_clients/${SEEDED_ID}`);
     expect(res.status).toBe(200);
     const client = (await res.json()) as {
       client_secret: string;
@@ -85,21 +80,14 @@ describe.serial("clients OIDC (migration pcdbapi)", () => {
   });
 
   test("un autre email n'a pas accès au client seedé", async () => {
-    const res = await api_call(
-      "GET",
-      `/api/oidc_clients/${SEEDED_ID}?email=other@example.com`,
-    );
+    const res = await api_call("GET", `/api/oidc_clients/${SEEDED_ID}`);
     expect(res.status).toBe(404);
   });
 
   test("cycle de vie complet contre le vrai mongo (create, get, patch, delete)", async () => {
-    const create_res = await api_call(
-      "POST",
-      "/api/oidc_clients?email=lifecycle@example.com",
-      {
-        json_data: { name: "Lifecycle client" },
-      },
-    );
+    const create_res = await api_call("POST", "/api/oidc_clients", {
+      json_data: { name: "Lifecycle client" },
+    });
     expect(create_res.status).toBe(200);
     const created = (await create_res.json()) as {
       name: string;
@@ -110,32 +98,21 @@ describe.serial("clients OIDC (migration pcdbapi)", () => {
     expect(created.client_secret).toHaveLength(64);
     const id = created._id;
 
-    const get_res = await api_call(
-      "GET",
-      `/api/oidc_clients/${id}?email=lifecycle@example.com`,
-    );
+    const get_res = await api_call("GET", `/api/oidc_clients/${id}`);
     expect(get_res.status).toBe(200);
 
-    const patch_res = await api_call(
-      "PATCH",
-      `/api/oidc_clients/${id}?email=lifecycle@example.com`,
-      { json_data: { name: "Updated lifecycle client" } },
-    );
+    const patch_res = await api_call("PATCH", `/api/oidc_clients/${id}`, {
+      json_data: { name: "Updated lifecycle client" },
+    });
     expect(patch_res.status).toBe(200);
     const patched = (await patch_res.json()) as { name: string };
     expect(patched.name).toBe("Updated lifecycle client");
 
-    const delete_res = await api_call(
-      "DELETE",
-      `/api/oidc_clients/${id}?email=lifecycle@example.com`,
-    );
+    const delete_res = await api_call("DELETE", `/api/oidc_clients/${id}`);
     expect(delete_res.status).toBe(200);
     expect(await delete_res.json()).toEqual({ deleted: true });
 
-    const get_after_delete = await api_call(
-      "GET",
-      `/api/oidc_clients/${id}?email=lifecycle@example.com`,
-    );
+    const get_after_delete = await api_call("GET", `/api/oidc_clients/${id}`);
     expect(get_after_delete.status).toBe(404);
   });
 });

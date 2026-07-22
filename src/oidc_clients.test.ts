@@ -4,7 +4,8 @@ import { ObjectId } from "mongodb";
 import { create_app, type ProviderStore } from "./app";
 import type { OidcClientDoc, OidcClientStore } from "./oidc_clients";
 
-const API_SECRET = "test-api-secret";
+const SANDBOX_SECRET = "test-sandbox-secret";
+const PARTNER_SECRET = "test-partner-secret";
 const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";
 
 function sign(
@@ -12,33 +13,36 @@ function sign(
   path_with_query: string,
   timestamp: string,
   body?: string,
+  secret = SANDBOX_SECRET,
 ) {
   const url = new URL(path_with_query, "http://test");
   const query = url.search ? url.search.slice(1) : "";
   let message = `${timestamp}:${method}:${url.pathname}?${query}`;
   if (body) message += `:${body}`;
-  return createHmac("sha256", API_SECRET).update(message).digest("hex");
+  return createHmac("sha256", secret).update(message).digest("hex");
 }
 
 function api_call(
-  app: ReturnType<typeof create_test_app>,
+  app: ReturnType<typeof create_app>,
   method: string,
-  path_with_query: string,
+  path: string,
   {
     json_data,
     override_signature,
     override_timestamp,
+    secret,
   }: {
     json_data?: unknown;
     override_signature?: string;
     override_timestamp?: string;
+    secret?: string;
   } = {},
 ) {
   const timestamp = override_timestamp ?? String(Math.floor(Date.now() / 1000));
   const body = json_data !== undefined ? JSON.stringify(json_data) : undefined;
   const signature =
-    override_signature ?? sign(method, path_with_query, timestamp, body);
-  return app.request(path_with_query, {
+    override_signature ?? sign(method, path, timestamp, body, secret);
+  return app.request(path, {
     method,
     headers: {
       "X-Signature": signature,
@@ -49,7 +53,15 @@ function api_call(
   });
 }
 
-function create_test_app() {
+function create_test_app({
+  enable_sandbox = true,
+  sandbox_secret = SANDBOX_SECRET,
+  partner_secret = PARTNER_SECRET,
+}: {
+  enable_sandbox?: boolean;
+  sandbox_secret?: string;
+  partner_secret?: string;
+} = {}) {
   const providers: ProviderStore = {
     async findOne() {
       return null;
@@ -60,12 +72,9 @@ function create_test_app() {
   };
   const db = new Map<string, OidcClientDoc>();
   const oidc_clients: OidcClientStore = {
-    find({ collaborators }) {
+    find() {
       return {
-        toArray: async () =>
-          [...db.values()].filter((doc) =>
-            doc.collaborators.includes(collaborators),
-          ),
+        toArray: async () => [...db.values()],
       };
     },
     async insertOne(doc) {
@@ -75,83 +84,56 @@ function create_test_app() {
     },
     async findOne(filter) {
       const doc = db.get(String(filter._id));
-      if (!doc) return null;
-      const email = filter.collaborators as string | undefined;
-      if (email && !doc.collaborators.includes(email)) return null;
-      return doc;
+      return doc ?? null;
     },
     async updateOne(filter, update) {
       const doc = db.get(String(filter._id));
-      const email = filter.collaborators as string | undefined;
-      if (!doc || (email && !doc.collaborators.includes(email)))
-        return { matchedCount: 0 };
+      if (!doc) return { matchedCount: 0 };
       Object.assign(doc, update.$set);
       return { matchedCount: 1 };
     },
     async deleteOne(filter) {
       const doc = db.get(String(filter._id));
-      const email = filter.collaborators as string | undefined;
-      if (!doc || (email && !doc.collaborators.includes(email)))
-        return { deletedCount: 0 };
+      if (!doc) return { deletedCount: 0 };
       db.delete(String(filter._id));
       return { deletedCount: 1 };
     },
   };
   return create_app({
     providers,
-    partners_config: { partners: [] },
+    partners_config: {
+      partners: [
+        {
+          uid: "editable-partner-uid",
+          allowed_fqdns: [],
+        },
+      ],
+    },
     check_ready: async () => {},
     oidc_clients,
-    api_secret: API_SECRET,
+    partner_api_secret: partner_secret,
+    sandbox_api_secret: sandbox_secret,
     max_timestamp_diff: 300,
     client_secret_cipher_pass: CIPHER_PASS,
+    enable_sandbox_endpoint: enable_sandbox,
   });
-}
-
-async function create_client(
-  app: ReturnType<typeof create_test_app>,
-  email: string,
-  data = {},
-) {
-  const res = await api_call(app, "POST", `/api/oidc_clients?email=${email}`, {
-    json_data: data,
-  });
-  return res.json() as Promise<Record<string, unknown>>;
 }
 
 describe("signature middleware", () => {
   test("rejects a request without authentication headers", async () => {
     const app = create_test_app();
-    const res = await app.request("/api/oidc_clients?email=test@example.com");
+    const res = await app.request("/api/oidc_clients");
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({
       detail: "Missing authentication headers",
     });
   });
 
-  test("rejects a request without email", async () => {
-    const app = create_test_app();
-    const res = await api_call(app, "GET", "/api/oidc_clients");
-    expect(res.status).toBe(401);
-  });
-
-  test("rejects a malformed email", async () => {
-    const app = create_test_app();
-    const res = await api_call(app, "GET", "/api/oidc_clients?email=invalid");
-    expect(res.status).toBe(422);
-    expect(await res.json()).toEqual({ detail: "Invalid email" });
-  });
-
   test("rejects an invalid signature", async () => {
     const app = create_test_app();
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-      {
-        override_signature: "invalid",
-      },
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      override_signature: "invalid",
+    });
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({ detail: "Invalid signature" });
   });
@@ -159,33 +141,23 @@ describe("signature middleware", () => {
   test("rejects an expired timestamp", async () => {
     const app = create_test_app();
     const old_timestamp = String(Math.floor(Date.now() / 1000) - 600);
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-      {
-        override_timestamp: old_timestamp,
-      },
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      override_timestamp: old_timestamp,
+    });
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({ detail: "Timestamp expired" });
   });
 
   test("rejects a non-numeric timestamp", async () => {
     const app = create_test_app();
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-      {
-        override_timestamp: "not-a-number",
-      },
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      override_timestamp: "not-a-number",
+    });
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({ detail: "Invalid timestamp" });
   });
 
-  test("does not apply to /partners and /livez routes", async () => {
+  test("does not apply to /livez route", async () => {
     const app = create_test_app();
     expect((await app.request("/livez")).status).toBe(200);
   });
@@ -194,10 +166,15 @@ describe("signature middleware", () => {
 describe("POST /api/oidc_clients", () => {
   test("creates a client with server-generated fields", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
-      redirect_uris: ["https://example.com/callback"],
+    const res = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: {
+        name: "Test App",
+        redirect_uris: ["https://example.com/callback"],
+        collaborators: ["test@example.com"],
+      },
     });
+    expect(res.status).toBe(200);
+    const created = (await res.json()) as Record<string, unknown>;
     expect(created.name).toBe("Test App");
     expect(created.collaborators).toEqual(["test@example.com"]);
     expect(created._id).toBeDefined();
@@ -207,83 +184,65 @@ describe("POST /api/oidc_clients", () => {
 
   test("rejects a disallowed field", async () => {
     const app = create_test_app();
-    const res = await api_call(
-      app,
-      "POST",
-      "/api/oidc_clients?email=test@example.com",
-      {
-        json_data: { name: "Test App", not_allowed: "value" },
+    const res = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: {
+        name: "Test App",
+        collaborators: ["test@example.com"],
+        not_allowed: "value",
       },
-    );
+    });
     expect(res.status).toBe(422);
   });
 
   test("rejects an unknown signature algorithm", async () => {
     const app = create_test_app();
-    const res = await api_call(
-      app,
-      "POST",
-      "/api/oidc_clients?email=test@example.com",
-      {
-        json_data: { id_token_signed_response_alg: "unknown_algo" },
+    const res = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: {
+        collaborators: ["test@example.com"],
+        id_token_signed_response_alg: "unknown_algo",
       },
-    );
+    });
     expect(res.status).toBe(422);
   });
 });
 
 describe("GET /api/oidc_clients", () => {
-  test("lists only the caller's clients", async () => {
+  test("lists all clients (no email scoping)", async () => {
     const app = create_test_app();
-    await create_client(app, "test@example.com", { name: "Mine" });
-    await create_client(app, "other@example.com", { name: "Not mine" });
+    const res1 = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "Client A", collaborators: ["a@example.com"] },
+    });
+    const res2 = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "Client B", collaborators: ["b@example.com"] },
+    });
+    expect(res1.status).toBe(200);
+    expect(res2.status).toBe(200);
 
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients");
     expect(res.status).toBe(200);
     const body = (await res.json()) as Array<{ name: string }>;
-    expect(body).toHaveLength(1);
-    expect(body[0]?.name).toBe("Mine");
+    expect(body).toHaveLength(2);
   });
 });
 
 describe("GET /api/oidc_clients/:id", () => {
   test("returns 422 for an invalid ObjectId", async () => {
     const app = create_test_app();
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients/not-an-id?email=test@example.com",
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients/not-an-id");
     expect(res.status).toBe(422);
-  });
-
-  test("returns 404 for another email", async () => {
-    const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
-    });
-    const res = await api_call(
-      app,
-      "GET",
-      `/api/oidc_clients/${created._id}?email=other@example.com`,
-    );
-    expect(res.status).toBe(404);
   });
 
   test("returns the requested client", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: {
+        name: "Test App",
+        collaborators: ["test@example.com"],
+      },
     });
-    const res = await api_call(
-      app,
-      "GET",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
-    );
+    expect(created.status).toBe(200);
+    const body = (await created.json()) as { _id: string };
+    const res = await api_call(app, "GET", `/api/oidc_clients/${body._id}`);
     expect(res.status).toBe(200);
     expect(((await res.json()) as { name: string }).name).toBe("Test App");
   });
@@ -292,81 +251,56 @@ describe("GET /api/oidc_clients/:id", () => {
 describe("PATCH /api/oidc_clients/:id", () => {
   test("rejects an empty collaborators list", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "Test App", collaborators: ["test@example.com"] },
     });
-    const res = await api_call(
-      app,
-      "PATCH",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
-      { json_data: { collaborators: [] } },
-    );
+    expect(created.status).toBe(200);
+    const body = (await created.json()) as { _id: string };
+    const res = await api_call(app, "PATCH", `/api/oidc_clients/${body._id}`, {
+      json_data: { collaborators: [] },
+    });
     expect(res.status).toBe(422);
   });
 
   test("updates allowed fields", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "Test App", collaborators: ["test@example.com"] },
     });
-    const res = await api_call(
-      app,
-      "PATCH",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
-      { json_data: { name: "Updated" } },
-    );
+    expect(created.status).toBe(200);
+    const body = (await created.json()) as { _id: string };
+    const res = await api_call(app, "PATCH", `/api/oidc_clients/${body._id}`, {
+      json_data: { name: "Updated", collaborators: ["test@example.com"] },
+    });
     expect(res.status).toBe(200);
     expect(((await res.json()) as { name: string }).name).toBe("Updated");
-  });
-
-  test("returns 404 for a non-collaborator email", async () => {
-    const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
-    });
-    const res = await api_call(
-      app,
-      "PATCH",
-      `/api/oidc_clients/${created._id}?email=other@example.com`,
-      { json_data: { name: "Updated" } },
-    );
-    expect(res.status).toBe(404);
   });
 });
 
 describe("DELETE /api/oidc_clients/:id", () => {
   test("deletes the client and is then unfindable", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", {
-      name: "Test App",
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "Test App", collaborators: ["test@example.com"] },
     });
+    expect(created.status).toBe(200);
+    const body = (await created.json()) as { _id: string };
 
-    const other_delete = await api_call(
-      app,
-      "DELETE",
-      `/api/oidc_clients/${created._id}?email=other@example.com`,
-    );
-    expect(other_delete.status).toBe(404);
-
-    const res = await api_call(
-      app,
-      "DELETE",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
-    );
+    const res = await api_call(app, "DELETE", `/api/oidc_clients/${body._id}`);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ deleted: true });
 
     const get_after = await api_call(
       app,
       "GET",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
+      `/api/oidc_clients/${body._id}`,
     );
     expect(get_after.status).toBe(404);
 
     const delete_again = await api_call(
       app,
       "DELETE",
-      `/api/oidc_clients/${created._id}?email=test@example.com`,
+      `/api/oidc_clients/${body._id}`,
     );
     expect(delete_again.status).toBe(404);
   });
@@ -375,7 +309,7 @@ describe("DELETE /api/oidc_clients/:id", () => {
 describe("invalid JSON body", () => {
   test("POST returns 422 with an Invalid JSON issue", async () => {
     const app = create_test_app();
-    const path = "/api/oidc_clients?email=test@example.com";
+    const path = "/api/oidc_clients";
     const timestamp = String(Math.floor(Date.now() / 1000));
     const body = "{not valid json";
     const signature = sign("POST", path, timestamp, body);
@@ -395,11 +329,15 @@ describe("invalid JSON body", () => {
 
   test("PATCH returns 422 with an Invalid JSON issue", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", { name: "x" });
-    const path = `/api/oidc_clients/${created._id}?email=test@example.com`;
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "x", collaborators: ["test@example.com"] },
+    });
+    expect(created.status).toBe(200);
+    const body = (await created.json()) as { _id: string };
+    const path = `/api/oidc_clients/${body._id}`;
     const timestamp = String(Math.floor(Date.now() / 1000));
-    const body = "{not valid json";
-    const signature = sign("PATCH", path, timestamp, body);
+    const raw_body = "{not valid json";
+    const signature = sign("PATCH", path, timestamp, raw_body);
     const res = await app.request(path, {
       method: "PATCH",
       headers: {
@@ -407,7 +345,7 @@ describe("invalid JSON body", () => {
         "X-Timestamp": timestamp,
         "content-type": "application/json",
       },
-      body,
+      body: raw_body,
     });
     expect(res.status).toBe(422);
     const err = (await res.json()) as { detail: Array<{ message: string }> };
@@ -431,17 +369,29 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
         findOne: async () => null,
         findOneAndUpdate: async () => null,
       },
-      partners_config: { partners: [] },
+      partners_config: {
+        partners: [
+          {
+            uid: "editable-partner-uid",
+            allowed_fqdns: [],
+          },
+        ],
+      },
       check_ready: async () => {},
       oidc_clients: store,
-      api_secret: API_SECRET,
+      partner_api_secret: PARTNER_SECRET,
+      sandbox_api_secret: SANDBOX_SECRET,
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
+      enable_sandbox_endpoint: true,
     });
     const id = new ObjectId().toHexString();
-    const path = `/api/oidc_clients/${id}?email=test@example.com`;
+    const path = `/api/oidc_clients/${id}`;
     const timestamp = String(Math.floor(Date.now() / 1000));
-    const body = JSON.stringify({ name: "race" });
+    const body = JSON.stringify({
+      name: "race",
+      collaborators: ["test@example.com"],
+    });
     const signature = sign("PATCH", path, timestamp, body);
     const res = await app.request(path, {
       method: "PATCH",
@@ -460,7 +410,11 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
 describe("format_oidc_client response projection", () => {
   test("POST response only exposes the documented fields", async () => {
     const app = create_test_app();
-    const created = await create_client(app, "test@example.com", { name: "x" });
+    const res = await api_call(app, "POST", "/api/oidc_clients", {
+      json_data: { name: "x", collaborators: ["test@example.com"] },
+    });
+    expect(res.status).toBe(200);
+    const created = (await res.json()) as Record<string, unknown>;
     expect(created).toEqual({
       _id: expect.any(String),
       name: "x",
@@ -470,49 +424,14 @@ describe("format_oidc_client response projection", () => {
   });
 });
 
-describe("self-lockout on PATCH collaborators", () => {
-  test("PATCH excluding the caller returns 422", async () => {
-    const app = create_test_app();
-    const created = await create_client(app, "owner@example.com", {
-      name: "x",
-    });
-    const res = await api_call(
-      app,
-      "PATCH",
-      `/api/oidc_clients/${created._id}?email=owner@example.com`,
-      { json_data: { collaborators: ["someone-else@example.com"] } },
-    );
-    expect(res.status).toBe(422);
-    expect(await res.json()).toEqual({
-      detail: "Cannot remove yourself from collaborators",
-    });
-  });
-
-  test("PATCH including the caller succeeds", async () => {
-    const app = create_test_app();
-    const created = await create_client(app, "owner@example.com", {
-      name: "x",
-    });
-    const res = await api_call(
-      app,
-      "PATCH",
-      `/api/oidc_clients/${created._id}?email=owner@example.com`,
-      {
-        json_data: {
-          collaborators: ["owner@example.com", "another@example.com"],
-        },
-      },
-    );
-    expect(res.status).toBe(200);
-  });
-});
-
 describe("unhandled exception in a route returns shaped 500", () => {
   test("a throwing store method is caught by onError", async () => {
     const store: OidcClientStore = {
-      find: () => {
-        throw new Error("boom");
-      },
+      find: () => ({
+        toArray: async () => {
+          throw new Error("boom");
+        },
+      }),
       insertOne: async () => {
         throw new Error("unused");
       },
@@ -534,15 +453,13 @@ describe("unhandled exception in a route returns shaped 500", () => {
       partners_config: { partners: [] },
       check_ready: async () => {},
       oidc_clients: store,
-      api_secret: API_SECRET,
+      partner_api_secret: PARTNER_SECRET,
+      sandbox_api_secret: SANDBOX_SECRET,
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
+      enable_sandbox_endpoint: true,
     });
-    const res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-    );
+    const res = await api_call(app, "GET", "/api/oidc_clients");
     expect(res.status).toBe(500);
     expect(await res.json()).toEqual({ detail: "Internal Server Error" });
   });
@@ -551,9 +468,12 @@ describe("unhandled exception in a route returns shaped 500", () => {
 describe("POST replay within MAX_TIMESTAMP_DIFF creates a duplicate (no replay protection — pcdbapi parity)", () => {
   test("replaying the same POST creates a second client", async () => {
     const app = create_test_app();
-    const path = "/api/oidc_clients?email=test@example.com";
+    const path = "/api/oidc_clients";
     const timestamp = String(Math.floor(Date.now() / 1000));
-    const body = JSON.stringify({ name: "dup" });
+    const body = JSON.stringify({
+      name: "dup",
+      collaborators: ["test@example.com"],
+    });
     const signature = sign("POST", path, timestamp, body);
     const headers = {
       "X-Signature": signature,
@@ -571,13 +491,47 @@ describe("POST replay within MAX_TIMESTAMP_DIFF creates a duplicate (no replay p
 
     expect(first_id).not.toBe(second_id);
 
-    const list_res = await api_call(
-      app,
-      "GET",
-      "/api/oidc_clients?email=test@example.com",
-    );
+    const list_res = await api_call(app, "GET", "/api/oidc_clients");
     const list = (await list_res.json()) as Array<{ _id: string }>;
     expect(list).toHaveLength(2);
     expect(new Set(list.map((c) => c._id)).size).toBe(2);
+  });
+});
+
+describe("sandbox endpoint disabled", () => {
+  test("returns 403 for /api/oidc_clients when enable_sandbox_endpoint is false", async () => {
+    const app = create_test_app({ enable_sandbox: false });
+    const res = await app.request("/api/oidc_clients");
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ error: "sandbox_disabled" });
+  });
+});
+
+describe("cross-secret rejection", () => {
+  test("a partner-secret signed request against sandbox routes is rejected (401)", async () => {
+    const app = create_test_app({
+      enable_sandbox: true,
+      sandbox_secret: SANDBOX_SECRET,
+      partner_secret: PARTNER_SECRET,
+    });
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      secret: PARTNER_SECRET,
+    });
+    expect(res.status).toBe(401);
+  });
+
+  test("a sandbox-secret signed request against partner routes is rejected (401)", async () => {
+    const app = create_test_app({
+      enable_sandbox: true,
+      sandbox_secret: SANDBOX_SECRET,
+      partner_secret: PARTNER_SECRET,
+    });
+    const res = await api_call(
+      app,
+      "GET",
+      "/api/partners/some-uid/configuration",
+      { secret: SANDBOX_SECRET },
+    );
+    expect(res.status).toBe(401);
   });
 });
