@@ -16,12 +16,12 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_URI=mongodb://mongo:27017/partners
-      - PARTNERS_CONFIG_FILE=/etc/partners/partners.yaml
-      - PARTNER_API_SECRET=test-partner-api-secret
+      - OIDC_PROVIDERS_CONFIG_FILE=/etc/oidc_providers/oidc_providers.yaml
+      - OIDC_PROVIDERS_API_SECRET=test-oidc-providers-secret
       - SANDBOX_API_SECRET=test-sandbox-api-secret
       - CLIENT_SECRET_CIPHER_PASS=test-cipher-pass-32-bytes-long!!
     volumes:
-      - ./partners.yaml:/etc/partners/partners.yaml:ro
+      - ./oidc_providers.yaml:/etc/oidc_providers/oidc_providers.yaml:ro
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:

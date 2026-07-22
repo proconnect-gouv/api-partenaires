@@ -1,22 +1,22 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import type { ProviderStore } from "./app";
-import type { PartnersConfig } from "./partners_config";
+import type { OidcProviderStore } from "./app";
+import type { OidcProvidersConfig } from "./oidc_providers_config";
 const patch_body_schema = z.object({
   fqdns: z.array(z.string()),
 });
 
-export function create_partners_app({
+export function create_oidc_providers_app({
   providers,
-  partners_config,
+  oidc_providers_config,
 }: {
-  providers: ProviderStore;
-  partners_config: PartnersConfig;
+  providers: OidcProviderStore;
+  oidc_providers_config: OidcProvidersConfig;
 }) {
   return new Hono<{ Variables: { body_text: string } }>()
     .get("/:uid/configuration", async (c) => {
       const uid = c.req.param("uid");
-      if (!partners_config.partners.some((p) => p.uid === uid))
+      if (!oidc_providers_config.oidc_providers.some((p) => p.uid === uid))
         return c.json({ error: "uid_not_editable" }, 403);
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
@@ -32,8 +32,10 @@ export function create_partners_app({
     })
     .patch("/:uid/configuration", async (c) => {
       const uid = c.req.param("uid");
-      const partner = partners_config.partners.find((p) => p.uid === uid);
-      if (!partner) return c.json({ error: "uid_not_editable" }, 403);
+      const entry = oidc_providers_config.oidc_providers.find(
+        (p) => p.uid === uid,
+      );
+      if (!entry) return c.json({ error: "uid_not_editable" }, 403);
 
       const body = patch_body_schema.safeParse(
         await c.req.json().catch(() => null),
@@ -41,7 +43,7 @@ export function create_partners_app({
       if (!body.success) return c.json({ error: "invalid_body" }, 422);
 
       const forbidden = body.data.fqdns.filter(
-        (fqdn) => !partner.allowed_fqdns.includes(fqdn),
+        (fqdn) => !entry.allowed_fqdns.includes(fqdn),
       );
       if (forbidden.length > 0) {
         return c.json({ error: "fqdn_not_allowed", fqdns: forbidden }, 422);

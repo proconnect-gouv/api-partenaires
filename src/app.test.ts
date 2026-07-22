@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { create_app, type ProviderStore } from "./app";
+import { create_app, type OidcProviderStore } from "./app";
 import type { OidcClientStore } from "./oidc_clients";
 
 function create_test_app({
   check_ready = async () => {},
 }: { check_ready?: () => Promise<unknown> } = {}) {
-  const providers: ProviderStore = {
+  const providers: OidcProviderStore = {
     async findOne() {
       return null;
     },
@@ -24,10 +24,10 @@ function create_test_app({
   };
   return create_app({
     providers,
-    partners_config: { partners: [] },
+    oidc_providers_config: { oidc_providers: [] },
     check_ready,
     oidc_clients,
-    partner_api_secret: "test-partner-secret",
+    oidc_providers_api_secret: "test-oidc-providers-secret",
     sandbox_api_secret: "test-sandbox-secret",
     max_timestamp_diff: 300,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",

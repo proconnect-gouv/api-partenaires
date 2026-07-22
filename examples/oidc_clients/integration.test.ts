@@ -4,6 +4,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 
 const base_url = "http://127.0.0.1:3000";
 const API_SECRET = "test-api-secret";
+const CALLER = "test@example.com";
 const SEEDED_ID = "64b64b64b64b64b64b64b64b";
 // plaintext behind the pcdbapi-encrypted client_secret seeded in initdb.d/client.js
 const SEEDED_CLIENT_SECRET =
@@ -24,17 +25,23 @@ function sign(
 
 async function api_call(
   method: string,
-  path_with_query: string,
+  path: string,
   {
     json_data,
     override_signature,
-  }: { json_data?: unknown; override_signature?: string } = {},
+    email = CALLER,
+  }: {
+    json_data?: unknown;
+    override_signature?: string;
+    email?: string;
+  } = {},
 ) {
+  const full_path = `${path}${path.includes("?") ? "&" : "?"}email=${encodeURIComponent(email)}`;
   const timestamp = String(Math.floor(Date.now() / 1000));
   const body = json_data !== undefined ? JSON.stringify(json_data) : undefined;
   const signature =
-    override_signature ?? sign(method, path_with_query, timestamp, body);
-  return fetch(`${base_url}${path_with_query}`, {
+    override_signature ?? sign(method, full_path, timestamp, body);
+  return fetch(`${base_url}${full_path}`, {
     method,
     headers: {
       "X-Signature": signature,
@@ -80,7 +87,9 @@ describe.serial("clients OIDC (migration pcdbapi)", () => {
   });
 
   test("un autre email n'a pas accès au client seedé", async () => {
-    const res = await api_call("GET", `/api/oidc_clients/${SEEDED_ID}`);
+    const res = await api_call("GET", `/api/oidc_clients/${SEEDED_ID}`, {
+      email: "other@example.com",
+    });
     expect(res.status).toBe(404);
   });
 

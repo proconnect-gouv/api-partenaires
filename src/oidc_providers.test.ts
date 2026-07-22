@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, test } from "bun:test";
-import { create_app, type Provider } from "./app";
+import { create_app, type OidcProvider } from "./app";
 import type { OidcClientStore } from "./oidc_clients";
 
 const PARTNER_SECRET = "test-partner-secret";
@@ -43,7 +43,7 @@ function api_call(
 }
 
 function create_test_app() {
-  const providers = new Map<string, Provider>([
+  const providers = new Map<string, OidcProvider>([
     [
       MONCOMPTEPRO_UID,
       {
@@ -56,7 +56,7 @@ function create_test_app() {
       ENRICHED_UID,
       {
         uid: ENRICHED_UID,
-        name: "enriched-partner",
+        name: "enriched-oidc-provider",
         title: "Enriched Partner Title",
         active: true,
         redirect_uris: ["https://enriched.example.com/callback"],
@@ -90,8 +90,8 @@ function create_test_app() {
   };
   return create_app({
     providers: store,
-    partners_config: {
-      partners: [
+    oidc_providers_config: {
+      oidc_providers: [
         {
           uid: MONCOMPTEPRO_UID,
           allowed_fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
@@ -108,7 +108,7 @@ function create_test_app() {
     },
     check_ready: async () => {},
     oidc_clients,
-    partner_api_secret: PARTNER_SECRET,
+    oidc_providers_api_secret: PARTNER_SECRET,
     sandbox_api_secret: "sandbox-secret",
     max_timestamp_diff: 300,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
@@ -116,13 +116,13 @@ function create_test_app() {
   });
 }
 
-describe("partner configuration API", () => {
+describe("OIDC provider configuration API", () => {
   test("returns the configuration of an existing provider", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "GET",
-      `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
     );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
@@ -132,17 +132,17 @@ describe("partner configuration API", () => {
     });
   });
 
-  test("returns all curated fields for an enriched provider", async () => {
+  test("returns all curated fields for an enriched OIDC provider", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "GET",
-      `/api/partners/${ENRICHED_UID}/configuration`,
+      `/api/oidc_providers/${ENRICHED_UID}/configuration`,
     );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       uid: ENRICHED_UID,
-      name: "enriched-partner",
+      name: "enriched-oidc-provider",
       title: "Enriched Partner Title",
       active: true,
       redirect_uris: ["https://enriched.example.com/callback"],
@@ -151,33 +151,33 @@ describe("partner configuration API", () => {
     });
   });
 
-  test("refuses a uid not in partners config", async () => {
+  test("refuses a uid not in oidc providers config", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "GET",
-      "/api/partners/00000000-0000-0000-0000-000000000000/configuration",
+      "/api/oidc_providers/00000000-0000-0000-0000-000000000000/configuration",
     );
     expect(res.status).toBe(403);
     expect(await res.json()).toEqual({ error: "uid_not_editable" });
   });
 
-  test("returns 404 for a uid in partners config but absent from mongo", async () => {
+  test("returns 404 for a uid in oidc providers config but absent from mongo", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "GET",
-      `/api/partners/${GHOST_UID}/configuration`,
+      `/api/oidc_providers/${GHOST_UID}/configuration`,
     );
     expect(res.status).toBe(404);
   });
 
-  test("rejects modification of a uid not in partners config", async () => {
+  test("rejects modification of a uid not in oidc providers config", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "PATCH",
-      "/api/partners/00000000-0000-0000-0000-000000000000/configuration",
+      "/api/oidc_providers/00000000-0000-0000-0000-000000000000/configuration",
       { json_data: { fqdns: ["moncomptepro.fr"] } },
     );
     expect(res.status).toBe(403);
@@ -189,7 +189,7 @@ describe("partner configuration API", () => {
     const res = await api_call(
       app,
       "PATCH",
-      `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       { json_data: { fqdns: ["moncomptepro.fr", "evil.fr"] } },
     );
     expect(res.status).toBe(422);
@@ -201,7 +201,7 @@ describe("partner configuration API", () => {
 
   test("rejects malformed JSON body", async () => {
     const app = create_test_app();
-    const path = `/api/partners/${MONCOMPTEPRO_UID}/configuration`;
+    const path = `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`;
     const timestamp = String(Math.floor(Date.now() / 1000));
     const body = "{pas du json";
     const signature = sign("PATCH", path, timestamp, body);
@@ -223,7 +223,7 @@ describe("partner configuration API", () => {
     const res = await api_call(
       app,
       "PATCH",
-      `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       { json_data: { autre: true } },
     );
     expect(res.status).toBe(422);
@@ -235,7 +235,7 @@ describe("partner configuration API", () => {
       const res = await api_call(
         app,
         "PATCH",
-        `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+        `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
         { json_data: { fqdns } },
       );
       expect(res.status).toBe(422);
@@ -247,7 +247,7 @@ describe("partner configuration API", () => {
     const res = await api_call(
       app,
       "PATCH",
-      `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       { json_data: { fqdns: [] } },
     );
     expect(res.status).toBe(200);
@@ -258,23 +258,23 @@ describe("partner configuration API", () => {
     });
   });
 
-  test("returns 404 for a uid in partners config but absent from mongo", async () => {
+  test("returns 404 for a uid in oidc providers config but absent from mongo", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "PATCH",
-      `/api/partners/${GHOST_UID}/configuration`,
+      `/api/oidc_providers/${GHOST_UID}/configuration`,
       { json_data: { fqdns: ["moncomptepro.fr"] } },
     );
     expect(res.status).toBe(404);
   });
 
-  test("modifies fqdns with allowed domains for a registered partner", async () => {
+  test("modifies fqdns with allowed domains for a registered OIDC provider", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
       "PATCH",
-      `/api/partners/${MONCOMPTEPRO_UID}/configuration`,
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       {
         json_data: {
           fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],

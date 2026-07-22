@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { config_schema } from "./config";
 
 const REQUIRED_ENV = {
-  PARTNER_API_SECRET: "partner-api-secret",
+  OIDC_PROVIDERS_API_SECRET: "oidc-providers-api-secret",
   SANDBOX_API_SECRET: "sandbox-api-secret",
   CLIENT_SECRET_CIPHER_PASS: "test-cipher-pass-32-bytes-long!!",
 };
@@ -12,7 +12,7 @@ describe("environment parsing", () => {
     expect(config_schema.parse(REQUIRED_ENV)).toEqual({
       PORT: 3000,
       MONGODB_URI: "mongodb://127.0.0.1:27017/partners",
-      PARTNERS_CONFIG_FILE: "partners.yaml",
+      OIDC_PROVIDERS_CONFIG_FILE: "oidc_providers.yaml",
       MAX_TIMESTAMP_DIFF: 300,
       FEATURE_ENABLE_SANDBOX_ENDPOINT: false,
       ...REQUIRED_ENV,

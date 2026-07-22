@@ -4,7 +4,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 
 const base_url = "http://127.0.0.1:3000";
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
-const partner_api_secret = "test-partner-api-secret";
+const oidc_providers_api_secret = "test-oidc-providers-secret";
 
 function sign(
   method: string,
@@ -16,10 +16,12 @@ function sign(
   const query = url.search ? url.search.slice(1) : "";
   let message = `${timestamp}:${method}:${url.pathname}?${query}`;
   if (body) message += `:${body}`;
-  return createHmac("sha256", partner_api_secret).update(message).digest("hex");
+  return createHmac("sha256", oidc_providers_api_secret)
+    .update(message)
+    .digest("hex");
 }
 
-function partner_api_call(
+function oidc_providers_api_call(
   method: string,
   path_with_query: string,
   { json_data }: { json_data?: unknown } = {},
@@ -58,9 +60,9 @@ describe.serial("édition des fqdns d'un fournisseur", () => {
   });
 
   test("retourne la configuration seedée par init.d", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "GET",
-      `/api/partners/${uid}/configuration`,
+      `/api/oidc_providers/${uid}/configuration`,
     );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
@@ -71,43 +73,43 @@ describe.serial("édition des fqdns d'un fournisseur", () => {
   });
 
   test("refuse la lecture d'un uid absent du YAML", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "GET",
-      "/api/partners/00000000-0000-0000-0000-000000000000/configuration",
+      "/api/oidc_providers/00000000-0000-0000-0000-000000000000/configuration",
     );
     expect(res.status).toBe(403);
   });
 
   test("refuse la lecture d'un provider seedé mais absent du YAML", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "GET",
-      "/api/partners/e2d5f1c0-0000-4000-8000-000000000000/configuration",
+      "/api/oidc_providers/e2d5f1c0-0000-4000-8000-000000000000/configuration",
     );
     expect(res.status).toBe(403);
   });
 
   test("refuse la modification d'un provider seedé mais absent du YAML", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "PATCH",
-      "/api/partners/e2d5f1c0-0000-4000-8000-000000000000/configuration",
+      "/api/oidc_providers/e2d5f1c0-0000-4000-8000-000000000000/configuration",
       { json_data: { fqdns: ["intruder.fr"] } },
     );
     expect(res.status).toBe(403);
   });
 
   test("refuse un domaine hors liste autorisée", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "PATCH",
-      `/api/partners/${uid}/configuration`,
+      `/api/oidc_providers/${uid}/configuration`,
       { json_data: { fqdns: ["moncomptepro.fr", "evil.fr"] } },
     );
     expect(res.status).toBe(422);
   });
 
   test("ajoute fifi.fr aux fqdns autorisés", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "PATCH",
-      `/api/partners/${uid}/configuration`,
+      `/api/oidc_providers/${uid}/configuration`,
       {
         json_data: {
           fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
@@ -123,9 +125,9 @@ describe.serial("édition des fqdns d'un fournisseur", () => {
   });
 
   test("reflète la modification persistée en mongo", async () => {
-    const res = await partner_api_call(
+    const res = await oidc_providers_api_call(
       "GET",
-      `/api/partners/${uid}/configuration`,
+      `/api/oidc_providers/${uid}/configuration`,
     );
     expect(await res.json()).toEqual({
       uid,

@@ -13,7 +13,7 @@ machine hôte (le test bun, signe les requêtes en HMAC-SHA256)
     ▼
 127.0.0.1:3000 ──► partners ──► mongo:8.2.11
                       ▲             ▲
-     partners.yaml ───┘             └ initdb.d/client.js (seed)
+ oidc_providers.yaml ──┘             └ initdb.d/client.js (seed)
 ```
 
 - `initdb.d/client.js` seed un document `client` dont le `client_secret` est
@@ -23,7 +23,7 @@ machine hôte (le test bun, signe les requêtes en HMAC-SHA256)
 - `CLIENT_SECRET_CIPHER_PASS` dans `compose.yaml` est la même clé que celle
   du fixture pcdbapi, pour que le déchiffrement soit vérifiable de bout en
   bout à travers le vrai binaire compilé.
-- `partners.yaml` est vide : ce scénario ne couvre pas `/partners/*`, déjà
+- `oidc_providers.yaml` est vide : ce scénario ne couvre pas `/api/oidc_providers/*`, déjà
   couvert par `examples/edit_provider_fqdns`.
 
 ## Ce que chaque test prouve

@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
-import { create_partners_app } from "./partners_app";
-import type { PartnersConfig } from "./partners_config";
+import { create_oidc_providers_app } from "./oidc_providers";
+import type { OidcProvidersConfig } from "./oidc_providers_config";
 import { create_signature_middleware } from "./signature_middleware";
 
-export interface Provider {
+export interface OidcProvider {
   uid: string;
   name: string;
   title?: string;
@@ -14,38 +14,38 @@ export interface Provider {
   fqdns: string[];
 }
 
-export interface ProviderStore {
-  findOne(filter: { uid: string }): Promise<Provider | null>;
+export interface OidcProviderStore {
+  findOne(filter: { uid: string }): Promise<OidcProvider | null>;
   findOneAndUpdate(
     filter: { uid: string },
     update: { $set: { fqdns: string[] } },
     options: { returnDocument: "after" },
-  ): Promise<Provider | null>;
+  ): Promise<OidcProvider | null>;
 }
 
 export function create_app({
   providers,
-  partners_config,
+  oidc_providers_config,
   check_ready,
   oidc_clients,
-  partner_api_secret,
+  oidc_providers_api_secret,
   sandbox_api_secret,
   max_timestamp_diff,
   client_secret_cipher_pass,
   enable_sandbox_endpoint,
 }: {
-  providers: ProviderStore;
-  partners_config: PartnersConfig;
+  providers: OidcProviderStore;
+  oidc_providers_config: OidcProvidersConfig;
   check_ready: () => Promise<unknown>;
   oidc_clients: OidcClientStore;
-  partner_api_secret: string;
+  oidc_providers_api_secret: string;
   sandbox_api_secret: string;
   max_timestamp_diff: number;
   client_secret_cipher_pass: string;
   enable_sandbox_endpoint: boolean;
 }) {
-  const partner_middleware = create_signature_middleware({
-    api_secret: partner_api_secret,
+  const oidc_providers_middleware = create_signature_middleware({
+    api_secret: oidc_providers_api_secret,
     max_timestamp_diff,
   });
   const sandbox_middleware = create_signature_middleware({
@@ -63,8 +63,11 @@ export function create_app({
         return c.json({ status: "unavailable" }, 503);
       }
     })
-    .use("/api/partners/*", partner_middleware)
-    .route("/api/partners", create_partners_app({ providers, partners_config }))
+    .use("/api/oidc_providers/*", oidc_providers_middleware)
+    .route(
+      "/api/oidc_providers",
+      create_oidc_providers_app({ providers, oidc_providers_config }),
+    )
     .use("/api/oidc_clients", sandbox_middleware)
     .use("/api/oidc_clients/*", sandbox_middleware)
     .route(
@@ -80,7 +83,8 @@ export function create_app({
 }
 
 function create_unauthorized_app() {
-  return new Hono<{ Variables: { body_text: string } }>().all("*", (c) =>
-    c.json({ error: "sandbox_disabled" }, 403),
+  return new Hono<{ Variables: { email: string; body_text: string } }>().all(
+    "*",
+    (c) => c.json({ error: "sandbox_disabled" }, 403),
   );
 }
