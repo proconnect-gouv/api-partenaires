@@ -254,7 +254,7 @@ describe("partner configuration API", () => {
     expect(res.status).toBe(404);
   });
 
-  test("modifies fqdns with allowed domains for an editable partner", async () => {
+  test("modifies fqdns with allowed domains for a registered partner", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
