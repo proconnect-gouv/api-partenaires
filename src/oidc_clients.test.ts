@@ -499,9 +499,9 @@ describe("POST replay within MAX_TIMESTAMP_DIFF creates a duplicate (no replay p
 });
 
 describe("sandbox endpoint disabled", () => {
-  test("returns 403 for /api/oidc_clients when enable_sandbox_endpoint is false", async () => {
+  test("returns 403 for a valid signature when enable_sandbox_endpoint is false", async () => {
     const app = create_test_app({ enable_sandbox: false });
-    const res = await app.request("/api/oidc_clients");
+    const res = await api_call(app, "GET", "/api/oidc_clients");
     expect(res.status).toBe(403);
     expect(await res.json()).toEqual({ error: "sandbox_disabled" });
   });

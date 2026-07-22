@@ -44,7 +44,16 @@ export function create_app({
   client_secret_cipher_pass: string;
   enable_sandbox_endpoint: boolean;
 }) {
-  const app = new Hono()
+  const partner_middleware = create_signature_middleware({
+    api_secret: partner_api_secret,
+    max_timestamp_diff,
+  });
+  const sandbox_middleware = create_signature_middleware({
+    api_secret: sandbox_api_secret,
+    max_timestamp_diff,
+  });
+
+  return new Hono()
     .get("/livez", (c) => c.json({ status: "ok" }))
     .get("/readyz", async (c) => {
       try {
@@ -53,44 +62,25 @@ export function create_app({
       } catch {
         return c.json({ status: "unavailable" }, 503);
       }
-    });
-
-  const partner_middleware = create_signature_middleware({
-    api_secret: partner_api_secret,
-    max_timestamp_diff,
-  });
-  app.use("/api/partners/*", partner_middleware);
-  app.route(
-    "/api/partners",
-    create_partners_app({ providers, partners_config }),
-  );
-
-  if (enable_sandbox_endpoint) {
-    const sandbox_middleware = create_signature_middleware({
-      api_secret: sandbox_api_secret,
-      max_timestamp_diff,
-    });
-    app.use("/api/oidc_clients", sandbox_middleware);
-    app.use("/api/oidc_clients/*", sandbox_middleware);
-    app.route(
+    })
+    .use("/api/partners/*", partner_middleware)
+    .route("/api/partners", create_partners_app({ providers, partners_config }))
+    .use("/api/oidc_clients", sandbox_middleware)
+    .use("/api/oidc_clients/*", sandbox_middleware)
+    .route(
       "/api/oidc_clients",
-      create_oidc_clients_app({
-        oidc_clients,
-        client_secret_cipher_pass,
-      }),
-    );
-  } else {
-    app.route("/api/oidc_clients", create_unauthorized_app());
-  }
-
-  app.onError((err, c) => {
-    console.error(err);
-    return c.json({ detail: "Internal Server Error" }, 500);
-  });
-
-  return app;
+      enable_sandbox_endpoint
+        ? create_oidc_clients_app({ oidc_clients, client_secret_cipher_pass })
+        : create_unauthorized_app(),
+    )
+    .onError((err, c) => {
+      console.error(err);
+      return c.json({ detail: "Internal Server Error" }, 500);
+    });
 }
 
 function create_unauthorized_app() {
-  return new Hono().all("*", (c) => c.json({ error: "sandbox_disabled" }, 403));
+  return new Hono<{ Variables: { body_text: string } }>().all("*", (c) =>
+    c.json({ error: "sandbox_disabled" }, 403),
+  );
 }
