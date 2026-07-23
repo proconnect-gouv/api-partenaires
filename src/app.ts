@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { logger } from "hono/logger";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
 import { create_oidc_providers_app } from "./oidc_providers";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
@@ -54,6 +55,7 @@ export function create_app({
   });
 
   return new Hono()
+    .use(logger())
     .get("/livez", (c) => c.json({ status: "ok" }))
     .get("/readyz", async (c) => {
       try {
