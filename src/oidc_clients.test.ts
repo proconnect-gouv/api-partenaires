@@ -361,6 +361,24 @@ describe("PATCH /api/oidc_clients/:id", () => {
     expect(res.status).toBe(200);
     expect(((await res.json()) as { name: string }).name).toBe("Updated");
   });
+
+  test("accepts null to clear userinfo_signed_response_alg", async () => {
+    const app = create_test_app();
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      email: CALLER,
+      json_data: { name: "Test App", userinfo_signed_response_alg: "RS256" },
+    });
+    const body = (await created.json()) as { _id: string };
+    const res = await api_call(app, "PATCH", `/api/oidc_clients/${body._id}`, {
+      email: CALLER,
+      json_data: { userinfo_signed_response_alg: null },
+    });
+    expect(res.status).toBe(200);
+    const updated = (await res.json()) as {
+      userinfo_signed_response_alg: unknown;
+    };
+    expect(updated.userinfo_signed_response_alg).toBeNull();
+  });
 });
 
 describe("DELETE /api/oidc_clients/:id", () => {

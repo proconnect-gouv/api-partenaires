@@ -25,8 +25,8 @@ export interface OidcClientDoc {
   name?: string;
   redirect_uris?: string[];
   post_logout_redirect_uris?: string[];
-  id_token_signed_response_alg?: (typeof SIGNED_RESPONSE_ALGS)[number];
-  userinfo_signed_response_alg?: (typeof SIGNED_RESPONSE_ALGS)[number];
+  id_token_signed_response_alg?: (typeof SIGNED_RESPONSE_ALGS)[number] | null;
+  userinfo_signed_response_alg?: (typeof SIGNED_RESPONSE_ALGS)[number] | null;
   collaborators: string[];
   active?: boolean;
   key: string;
@@ -73,8 +73,14 @@ const oidc_client_schema = z
       name: z.string().min(1).max(200).optional(),
       redirect_uris: z.array(z.string()).optional(),
       post_logout_redirect_uris: z.array(z.string()).optional(),
-      id_token_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
-      userinfo_signed_response_alg: z.enum(SIGNED_RESPONSE_ALGS).optional(),
+      id_token_signed_response_alg: z
+        .enum(SIGNED_RESPONSE_ALGS)
+        .nullable()
+        .optional(),
+      userinfo_signed_response_alg: z
+        .enum(SIGNED_RESPONSE_ALGS)
+        .nullable()
+        .optional(),
       collaborators: z.array(z.string()).optional(),
       active: z.boolean().optional(),
     }),
