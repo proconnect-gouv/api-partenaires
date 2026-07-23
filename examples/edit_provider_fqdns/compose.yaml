@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_URI=mongodb://mongo:27017/partners
-      - OIDC_PROVIDERS_CONFIG_FILE=/etc/oidc_providers/oidc_providers.yaml
+      - OIDC_PROVIDERS_CONFIG=/etc/oidc_providers/oidc_providers.yaml
       - OIDC_PROVIDERS_API_SECRET=test-oidc-providers-secret
       - SANDBOX_API_SECRET=test-sandbox-api-secret
       - CLIENT_SECRET_CIPHER_PASS=test-cipher-pass-32-bytes-long!!

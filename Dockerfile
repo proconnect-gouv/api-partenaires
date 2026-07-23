@@ -13,6 +13,8 @@ RUN apk add --no-cache libstdc++
 RUN addgroup -g 1001 -S bun && adduser -S bun -u 1001
 USER bun
 
+COPY config/ /etc/proconnect-gouv/api-partenaires/config
 COPY --from=build --chown=bun:bun /app/partners /usr/local/bin/
+
 EXPOSE 3000
 CMD ["partners"]
