@@ -23,15 +23,15 @@ function create_test_app({
     deleteOne: async () => ({ deletedCount: 0 }),
   };
   return create_app({
-    providers,
-    oidc_providers_config: { oidc_providers: [] },
     check_ready,
-    oidc_clients,
-    oidc_providers_api_secret: "test-oidc-providers-secret",
-    sandbox_api_secret: "test-sandbox-secret",
-    max_timestamp_diff: 300,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
     enable_sandbox_endpoint: false,
+    max_timestamp_diff: 300,
+    oidc_clients_api_secret: "test-oidc-clients-secret",
+    oidc_clients,
+    oidc_providers_api_secret: "test-oidc-providers-secret",
+    oidc_providers_config: { oidc_providers: [] },
+    providers,
   });
 }
 

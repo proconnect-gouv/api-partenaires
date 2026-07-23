@@ -4,17 +4,17 @@ import { ObjectId } from "mongodb";
 import { create_app, type OidcProviderStore } from "./app";
 import type { OidcClientDoc, OidcClientStore } from "./oidc_clients";
 
-const SANDBOX_SECRET = "test-sandbox-secret";
-const OIDC_PROVIDERS_SECRET = "test-oidc-providers-secret";
-const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";
 const CALLER = "test@example.com";
+const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";
+const OIDC_CLIENTS_SECRET = "test-oidc-clients-secret";
+const OIDC_PROVIDERS_SECRET = "test-oidc-providers-secret";
 
 function sign(
   method: string,
   path_with_query: string,
   timestamp: string,
   body?: string,
-  secret = SANDBOX_SECRET,
+  secret = OIDC_CLIENTS_SECRET,
 ) {
   const url = new URL(path_with_query, "http://test");
   const query = url.search ? url.search.slice(1) : "";
@@ -62,11 +62,11 @@ function api_call(
 
 function create_test_app({
   enable_sandbox = true,
-  sandbox_secret = SANDBOX_SECRET,
+  oidc_clients_secret = OIDC_CLIENTS_SECRET,
   oidc_providers_secret = OIDC_PROVIDERS_SECRET,
 }: {
   enable_sandbox?: boolean;
-  sandbox_secret?: string;
+  oidc_clients_secret?: string;
   oidc_providers_secret?: string;
 } = {}) {
   const providers: OidcProviderStore = {
@@ -130,7 +130,7 @@ function create_test_app({
     check_ready: async () => {},
     oidc_clients,
     oidc_providers_api_secret: oidc_providers_secret,
-    sandbox_api_secret: sandbox_secret,
+    oidc_clients_api_secret: oidc_clients_secret,
     max_timestamp_diff: 300,
     client_secret_cipher_pass: CIPHER_PASS,
     enable_sandbox_endpoint: enable_sandbox,
@@ -488,7 +488,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
       check_ready: async () => {},
       oidc_clients: store,
       oidc_providers_api_secret: OIDC_PROVIDERS_SECRET,
-      sandbox_api_secret: SANDBOX_SECRET,
+      oidc_clients_api_secret: OIDC_CLIENTS_SECRET,
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
@@ -561,7 +561,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
       check_ready: async () => {},
       oidc_clients: store,
       oidc_providers_api_secret: OIDC_PROVIDERS_SECRET,
-      sandbox_api_secret: SANDBOX_SECRET,
+      oidc_clients_api_secret: OIDC_CLIENTS_SECRET,
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
@@ -621,7 +621,7 @@ describe("cross-secret rejection", () => {
   test("a oidc-providers-secret signed request against sandbox routes is rejected (401)", async () => {
     const app = create_test_app({
       enable_sandbox: true,
-      sandbox_secret: SANDBOX_SECRET,
+      oidc_clients_secret: OIDC_CLIENTS_SECRET,
       oidc_providers_secret: OIDC_PROVIDERS_SECRET,
     });
     const res = await api_call(app, "GET", "/api/oidc_clients", {
@@ -631,17 +631,17 @@ describe("cross-secret rejection", () => {
     expect(res.status).toBe(401);
   });
 
-  test("a sandbox-secret signed request against oidc providers routes is rejected (401)", async () => {
+  test("a oidc-clients-secret signed request against oidc providers routes is rejected (401)", async () => {
     const app = create_test_app({
       enable_sandbox: true,
-      sandbox_secret: SANDBOX_SECRET,
+      oidc_clients_secret: OIDC_CLIENTS_SECRET,
       oidc_providers_secret: OIDC_PROVIDERS_SECRET,
     });
     const res = await api_call(
       app,
       "GET",
       `/api/oidc_providers/some-uid/configuration?email=${encodeURIComponent(CALLER)}`,
-      { secret: SANDBOX_SECRET },
+      { secret: OIDC_CLIENTS_SECRET },
     );
     expect(res.status).toBe(401);
   });

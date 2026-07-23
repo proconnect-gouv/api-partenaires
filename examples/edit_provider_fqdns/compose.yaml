@@ -15,11 +15,11 @@ services:
       context: ../..
       dockerfile: Dockerfile
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/partners
-      - OIDC_PROVIDERS_CONFIG=/etc/oidc_providers/oidc_providers.yaml
-      - OIDC_PROVIDERS_API_SECRET=test-oidc-providers-secret
-      - SANDBOX_API_SECRET=test-sandbox-api-secret
-      - CLIENT_SECRET_CIPHER_PASS=test-cipher-pass-32-bytes-long!!
+      CLIENT_SECRET_CIPHER_PASS: test-cipher-pass-32-bytes-long!!
+      MONGODB_URI: mongodb://mongo:27017/partners
+      OIDC_CLIENTS_API_SECRET: test-oidc-clients-secret
+      OIDC_PROVIDERS_API_SECRET: test-oidc-providers-secret
+      OIDC_PROVIDERS_CONFIG: /etc/oidc_providers/oidc_providers.yaml
     volumes:
       - ./oidc_providers.yaml:/etc/oidc_providers/oidc_providers.yaml:ro
     ports:

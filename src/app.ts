@@ -25,32 +25,32 @@ export interface OidcProviderStore {
 }
 
 export function create_app({
-  providers,
-  oidc_providers_config,
   check_ready,
-  oidc_clients,
-  oidc_providers_api_secret,
-  sandbox_api_secret,
-  max_timestamp_diff,
   client_secret_cipher_pass,
   enable_sandbox_endpoint,
+  max_timestamp_diff,
+  oidc_clients_api_secret,
+  oidc_clients,
+  oidc_providers_api_secret,
+  oidc_providers_config,
+  providers,
 }: {
-  providers: OidcProviderStore;
-  oidc_providers_config: OidcProvidersConfig;
   check_ready: () => Promise<unknown>;
-  oidc_clients: OidcClientStore;
-  oidc_providers_api_secret: string;
-  sandbox_api_secret: string;
-  max_timestamp_diff: number;
   client_secret_cipher_pass: string;
   enable_sandbox_endpoint: boolean;
+  max_timestamp_diff: number;
+  oidc_clients_api_secret: string;
+  oidc_clients: OidcClientStore;
+  oidc_providers_api_secret: string;
+  oidc_providers_config: OidcProvidersConfig;
+  providers: OidcProviderStore;
 }) {
   const oidc_providers_middleware = create_signature_middleware({
     api_secret: oidc_providers_api_secret,
     max_timestamp_diff,
   });
-  const sandbox_middleware = create_signature_middleware({
-    api_secret: sandbox_api_secret,
+  const oidc_clients_middleware = create_signature_middleware({
+    api_secret: oidc_clients_api_secret,
     max_timestamp_diff,
   });
 
@@ -70,8 +70,8 @@ export function create_app({
       "/api/oidc_providers",
       create_oidc_providers_app({ providers, oidc_providers_config }),
     )
-    .use("/api/oidc_clients", sandbox_middleware)
-    .use("/api/oidc_clients/*", sandbox_middleware)
+    .use("/api/oidc_clients", oidc_clients_middleware)
+    .use("/api/oidc_clients/*", oidc_clients_middleware)
     .route(
       "/api/oidc_clients",
       enable_sandbox_endpoint

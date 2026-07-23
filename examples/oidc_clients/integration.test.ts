@@ -3,7 +3,7 @@ import { $ } from "bun";
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 
 const base_url = "http://127.0.0.1:3000";
-const API_SECRET = "test-api-secret";
+const API_SECRET = "test-oidc-clients-secret";
 const CALLER = "test@example.com";
 const SEEDED_ID = "64b64b64b64b64b64b64b64b";
 // plaintext behind the pcdbapi-encrypted client_secret seeded in initdb.d/client.js
