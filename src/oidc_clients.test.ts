@@ -216,11 +216,14 @@ describe("POST /api/oidc_clients", () => {
       },
     });
     expect(res.status).toBe(200);
-    const created = (await res.json()) as Record<string, unknown>;
-    expect(created.name).toBe("Test App");
-    expect(created.collaborators).toEqual([CALLER]);
-    expect(created._id).toBeDefined();
-    expect(created.client_secret as string).toHaveLength(64);
+    const created = await res.json();
+    expect(created).toMatchObject({
+      _id: expect.any(String),
+      name: "Test App",
+      collaborators: [CALLER],
+      key: expect.stringMatching(/^.{64}$/),
+      client_secret: expect.stringMatching(/^.{64}$/),
+    });
   });
 
   test("auto-includes the caller in collaborators when body omits them", async () => {
@@ -502,6 +505,7 @@ describe("format_oidc_client response projection", () => {
     const created = (await res.json()) as Record<string, unknown>;
     expect(created).toEqual({
       _id: expect.any(String),
+      key: expect.any(String),
       name: "x",
       collaborators: [CALLER],
       client_secret: expect.any(String),

@@ -88,6 +88,7 @@ function parse_object_id(id: string): ObjectId | null {
 function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   return {
     _id: doc._id,
+    key: doc.key,
     name: doc.name,
     redirect_uris: doc.redirect_uris,
     post_logout_redirect_uris: doc.post_logout_redirect_uris,
