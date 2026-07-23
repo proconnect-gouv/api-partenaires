@@ -11,6 +11,7 @@ export const config_schema = z.object({
     .transform((v) => v === "true"),
   MAX_TIMESTAMP_DIFF: z.coerce.number().default(300),
   MONGODB_URI: z.string().default("mongodb://127.0.0.1:27017/partners"),
+  OIDC_CLIENTS_API_SECRET: z.string(),
   OIDC_PROVIDERS_API_SECRET: z.string(),
   OIDC_PROVIDERS_CONFIG: z
     .string()
@@ -23,5 +24,4 @@ export const config_schema = z.object({
     })
     .pipe(oidc_providers_config_schema),
   PORT: z.coerce.number().default(3000),
-  SANDBOX_API_SECRET: z.string(),
 });

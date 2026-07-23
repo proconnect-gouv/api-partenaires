@@ -2,11 +2,9 @@ import { describe, expect, test } from "bun:test";
 import { config_schema } from "./config";
 
 const REQUIRED_ENV = {
-  OIDC_PROVIDERS_API_SECRET: "oidc-providers-api-secret",
-  SANDBOX_API_SECRET: "sandbox-api-secret",
   CLIENT_SECRET_CIPHER_PASS: "test-cipher-pass-32-bytes-long!!",
-  // avoid resolving the repo's real oidc_providers.yaml via the default path
-  OIDC_PROVIDERS_CONFIG: "nonexistent_oidc_providers.yaml",
+  OIDC_CLIENTS_API_SECRET: "oidc-clients-api-secret",
+  OIDC_PROVIDERS_API_SECRET: "oidc-providers-api-secret",
 };
 
 async function write_fixture(content: string) {
@@ -18,14 +16,14 @@ async function write_fixture(content: string) {
 describe("environment parsing", () => {
   test("applies defaults on a minimal environment", async () => {
     await expect(config_schema.parseAsync(REQUIRED_ENV)).resolves.toEqual({
-      PORT: 3000,
-      MONGODB_URI: "mongodb://127.0.0.1:27017/partners",
-      OIDC_PROVIDERS_API_SECRET: REQUIRED_ENV.OIDC_PROVIDERS_API_SECRET,
-      SANDBOX_API_SECRET: REQUIRED_ENV.SANDBOX_API_SECRET,
       CLIENT_SECRET_CIPHER_PASS: REQUIRED_ENV.CLIENT_SECRET_CIPHER_PASS,
-      OIDC_PROVIDERS_CONFIG: { oidc_providers: [] },
-      MAX_TIMESTAMP_DIFF: 300,
       FEATURE_ENABLE_SANDBOX_ENDPOINT: false,
+      MAX_TIMESTAMP_DIFF: 300,
+      MONGODB_URI: "mongodb://127.0.0.1:27017/partners",
+      OIDC_CLIENTS_API_SECRET: REQUIRED_ENV.OIDC_CLIENTS_API_SECRET,
+      OIDC_PROVIDERS_API_SECRET: REQUIRED_ENV.OIDC_PROVIDERS_API_SECRET,
+      OIDC_PROVIDERS_CONFIG: { oidc_providers: [] },
+      PORT: 3000,
     });
   });
 

@@ -15,13 +15,11 @@ services:
       context: ../..
       dockerfile: Dockerfile
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/partners
-      - OIDC_PROVIDERS_API_SECRET=test-oidc-providers-secret
-      - SANDBOX_API_SECRET=test-api-secret
-      - FEATURE_ENABLE_SANDBOX_ENDPOINT=true
-      # matches pcdbapi's test_crypt.py fixture key — proves the seeded,
-      # already-pcdbapi-encrypted client_secret decrypts through this image
-      - CLIENT_SECRET_CIPHER_PASS=JZBlwxfKnbn/RV025aw+dQxk+xoQT+Yr
+      CLIENT_SECRET_CIPHER_PASS: JZBlwxfKnbn/RV025aw+dQxk+xoQT+Yr
+      FEATURE_ENABLE_SANDBOX_ENDPOINT: true
+      MONGODB_URI: mongodb://mongo:27017/partners
+      OIDC_CLIENTS_API_SECRET: test-oidc-clients-secret
+      OIDC_PROVIDERS_API_SECRET: test-oidc-providers-secret
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:
@@ -29,10 +27,8 @@ services:
         condition: service_healthy
     healthcheck:
       test:
-        [
-          "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/readyz || exit 1",
-        ]
+        - "CMD-SHELL"
+        - "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/readyz || exit 1"
       interval: 1s
       timeout: 1s
       retries: 10

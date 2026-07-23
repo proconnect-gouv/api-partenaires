@@ -80,13 +80,13 @@ function create_test_app() {
     },
   };
   const oidc_clients: OidcClientStore = {
+    deleteOne: async () => ({ deletedCount: 0 }),
     find: () => ({ toArray: async () => [] }),
+    findOne: async () => null,
     insertOne: async () => {
       throw new Error("unused in these tests");
     },
-    findOne: async () => null,
     updateOne: async () => ({ matchedCount: 0 }),
-    deleteOne: async () => ({ deletedCount: 0 }),
   };
   return create_app({
     providers: store,
@@ -109,7 +109,7 @@ function create_test_app() {
     check_ready: async () => {},
     oidc_clients,
     oidc_providers_api_secret: PARTNER_SECRET,
-    sandbox_api_secret: "sandbox-secret",
+    oidc_clients_api_secret: "oidc-clients-secret",
     max_timestamp_diff: 300,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
     enable_sandbox_endpoint: false,
