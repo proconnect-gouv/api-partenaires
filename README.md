@@ -18,7 +18,7 @@ bun run dev
 | --------------------------------- | ------------------------------------ | --------------------------------------------------------- |
 | `PORT`                            | `3000`                               | Port d'écoute                                             |
 | `MONGODB_URI`                     | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)    |
-| `OIDC_PROVIDERS_CONFIG_FILE`      | `oidc_providers.yaml`                | Fichier YAML des uid éditables et fqdns permis            |
+| `OIDC_PROVIDERS_CONFIG`           | `oidc_providers.yaml`                | Fichier YAML des uid éditables et fqdns permis            |
 | `OIDC_PROVIDERS_API_SECRET`       | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_providers/*`          |
 | `SANDBOX_API_SECRET`              | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*` (sandbox)  |
 | `FEATURE_ENABLE_SANDBOX_ENDPOINT` | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)       |
@@ -77,12 +77,17 @@ bun test integration.test.ts
 
 ## Docker
 
+L'image embarque le contenu de `config/` dans
+`/etc/proconnect-gouv/api-partenaires/config` — dont la configuration par
+défaut de l'ANCT, `/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.yaml`.
+Pointer `OIDC_PROVIDERS_CONFIG` vers ce chemin pour l'utiliser sans montage de
+volume.
+
 ```sh
 docker build -t api-partenaires .
 docker run -p 3000:3000 \
   -e MONGODB_URI=mongodb://host.docker.internal:27017/partners \
-  -v ./oidc_providers.yaml:/oidc_providers.yaml:ro \
-  -e OIDC_PROVIDERS_CONFIG_FILE=/oidc_providers.yaml \
+  -e OIDC_PROVIDERS_CONFIG=/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.yaml \
   -e OIDC_PROVIDERS_API_SECRET=your-oidc-providers-secret \
   -e SANDBOX_API_SECRET=your-sandbox-secret \
   -e CLIENT_SECRET_CIPHER_PASS="$(printf '0%.0s' {1..32})" \

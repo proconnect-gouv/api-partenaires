@@ -2,18 +2,15 @@ import { MongoClient } from "mongodb";
 import { create_app, type OidcProvider } from "./app";
 import { config_schema } from "./config";
 import type { OidcClientDoc } from "./oidc_clients";
-import { load_oidc_providers_config } from "./oidc_providers_config";
 
-const config = config_schema.parse(process.env);
+const config = await config_schema.parseAsync(process.env);
 const client = new MongoClient(config.MONGODB_URI);
 await client.connect();
 
 const app = create_app({
   providers: client.db().collection<OidcProvider>("provider"),
   oidc_clients: client.db().collection<OidcClientDoc>("client"),
-  oidc_providers_config: await load_oidc_providers_config(
-    config.OIDC_PROVIDERS_CONFIG_FILE,
-  ),
+  oidc_providers_config: config.OIDC_PROVIDERS_CONFIG,
   check_ready: () => client.db().command({ ping: 1 }),
   oidc_providers_api_secret: config.OIDC_PROVIDERS_API_SECRET,
   sandbox_api_secret: config.SANDBOX_API_SECRET,

@@ -16,15 +16,12 @@ services:
       dockerfile: Dockerfile
     environment:
       - MONGODB_URI=mongodb://mongo:27017/partners
-      - OIDC_PROVIDERS_CONFIG_FILE=/etc/oidc_providers/oidc_providers.yaml
       - OIDC_PROVIDERS_API_SECRET=test-oidc-providers-secret
       - SANDBOX_API_SECRET=test-api-secret
       - FEATURE_ENABLE_SANDBOX_ENDPOINT=true
       # matches pcdbapi's test_crypt.py fixture key — proves the seeded,
       # already-pcdbapi-encrypted client_secret decrypts through this image
       - CLIENT_SECRET_CIPHER_PASS=JZBlwxfKnbn/RV025aw+dQxk+xoQT+Yr
-    volumes:
-      - ./oidc_providers.yaml:/etc/oidc_providers/oidc_providers.yaml:ro
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:
