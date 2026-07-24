@@ -78,16 +78,18 @@ bun test integration.test.ts
 ## Docker
 
 L'image embarque le contenu de `config/` dans
-`/etc/proconnect-gouv/api-partenaires/config` — dont la configuration par
-défaut de l'ANCT, `/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.yaml`.
-Pointer `OIDC_PROVIDERS_CONFIG` vers ce chemin pour l'utiliser sans montage de
+`/etc/proconnect-gouv/api-partenaires/config` — dont les configurations de
+l'ANCT par environnement,
+`/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.sandbox.yaml`
+et `oidc_providers.production.yaml`. Pointer `OIDC_PROVIDERS_CONFIG` vers le
+chemin correspondant à l'environnement pour l'utiliser sans montage de
 volume.
 
 ```sh
 docker build -t api-partenaires .
 docker run -p 3000:3000 \
   -e MONGODB_URI=mongodb://host.docker.internal:27017/partners \
-  -e OIDC_PROVIDERS_CONFIG=/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.yaml \
+  -e OIDC_PROVIDERS_CONFIG=/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.production.yaml \
   -e OIDC_PROVIDERS_API_SECRET=your-oidc-providers-secret \
   -e OIDC_CLIENTS_API_SECRET=your-oidc-clients-secret \
   -e CLIENT_SECRET_CIPHER_PASS="$(printf '0%.0s' {1..32})" \
