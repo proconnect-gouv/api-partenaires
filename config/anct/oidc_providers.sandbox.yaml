@@ -1,0 +1,5 @@
+oidc_providers:
+  - uid: "aaa58fc5-0397-495d-8cb5-92b02559d376"
+    allowed_fqdns:
+      - preprod.suiteterritoriale.fr
+      - sardinepq.fr

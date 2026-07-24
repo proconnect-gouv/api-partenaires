@@ -6,6 +6,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "bun run format:check && bun run typecheck",
+    "lint:config": "bun run scripts/lint_config.ts",
     "test": "bun test src",
     "typecheck": "tsc --noEmit"
   },
