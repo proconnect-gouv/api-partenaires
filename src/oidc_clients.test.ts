@@ -362,6 +362,37 @@ describe("PATCH /api/oidc_clients/:id", () => {
     expect(((await res.json()) as { name: string }).name).toBe("Updated");
   });
 
+  test("bumps updatedAt but keeps createdAt stable", async () => {
+    const app = create_test_app();
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      email: CALLER,
+      json_data: { name: "Test App" },
+    });
+    const created_body = (await created.json()) as {
+      _id: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_clients/${created_body._id}`,
+      {
+        email: CALLER,
+        json_data: { name: "Updated" },
+      },
+    );
+    expect(res.status).toBe(200);
+    const updated = (await res.json()) as {
+      createdAt: string;
+      updatedAt: string;
+    };
+    expect(updated.createdAt).toBe(created_body.createdAt);
+    expect(new Date(updated.updatedAt).getTime()).toBeGreaterThanOrEqual(
+      new Date(created_body.updatedAt).getTime(),
+    );
+  });
+
   test("accepts null to clear userinfo_signed_response_alg", async () => {
     const app = create_test_app();
     const created = await api_call(app, "POST", "/api/oidc_clients", {
@@ -527,6 +558,8 @@ describe("format_oidc_client response projection", () => {
       name: "x",
       collaborators: [CALLER],
       client_secret: expect.any(String),
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
     });
   });
 });
