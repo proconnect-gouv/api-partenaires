@@ -103,6 +103,8 @@ function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
     collaborators: doc.collaborators,
     active: doc.active,
     client_secret: decrypt_symetric(cipher_pass, doc.client_secret),
+    createdAt: doc.createdAt?.toISOString(),
+    updatedAt: doc.updatedAt?.toISOString(),
   };
 }
 
