@@ -24,7 +24,7 @@ machine hôte (le test bun, signe les requêtes en HMAC-SHA256)
   du fixture pcdbapi, pour que le déchiffrement soit vérifiable de bout en
   bout à travers le vrai binaire compilé.
 - `oidc_providers.yaml` est vide : ce scénario ne couvre pas `/api/oidc_providers/*`, déjà
-  couvert par `examples/edit_provider_fqdns`.
+  couvert par `examples/edit_provider_attached_email_domains`.
 
 ## Ce que chaque test prouve
 

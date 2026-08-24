@@ -12,14 +12,14 @@ export interface OidcProvider {
   active?: boolean;
   redirect_uris?: string[];
   post_logout_redirect_uris?: string[];
-  fqdns: string[];
+  attached_email_domains: string[];
 }
 
 export interface OidcProviderStore {
   findOne(filter: { uid: string }): Promise<OidcProvider | null>;
   findOneAndUpdate(
     filter: { uid: string },
-    update: { $set: { fqdns: string[] } },
+    update: { $set: { attached_email_domains: string[] } },
     options: { returnDocument: "after" },
   ): Promise<OidcProvider | null>;
 }

@@ -1,6 +1,6 @@
 oidc_providers:
   - uid: "f5154035-c3d6-47ad-8583-197d508269d0"
-    allowed_fqdns:
+    allowed_attached_email_domains:
       - adico.collectivite.fr
       - adm81.collectivite.fr
       - aiglun06.fr

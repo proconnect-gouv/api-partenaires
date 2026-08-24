@@ -8,7 +8,7 @@ describe("validation de la configuration fournisseurs OIDC", () => {
         oidc_providers: [
           {
             uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
-            allowed_fqdns: ["moncomptepro.fr"],
+            allowed_attached_email_domains: ["moncomptepro.fr"],
           },
         ],
       }),
@@ -16,7 +16,7 @@ describe("validation de la configuration fournisseurs OIDC", () => {
       oidc_providers: [
         {
           uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
-          allowed_fqdns: ["moncomptepro.fr"],
+          allowed_attached_email_domains: ["moncomptepro.fr"],
         },
       ],
     });
@@ -37,15 +37,15 @@ describe("validation de la configuration fournisseurs OIDC", () => {
   test("rejette un provider sans uid", () => {
     expect(() =>
       oidc_providers_config_schema.parse({
-        oidc_providers: [{ allowed_fqdns: ["a.fr"] }],
+        oidc_providers: [{ allowed_attached_email_domains: ["a.fr"] }],
       }),
     ).toThrow();
   });
 
-  test("rejette des allowed_fqdns non-tableau", () => {
+  test("rejette des allowed_attached_email_domains non-tableau", () => {
     expect(() =>
       oidc_providers_config_schema.parse({
-        oidc_providers: [{ uid: "x", allowed_fqdns: "a.fr" }],
+        oidc_providers: [{ uid: "x", allowed_attached_email_domains: "a.fr" }],
       }),
     ).toThrow();
   });

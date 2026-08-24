@@ -5,7 +5,7 @@ export const oidc_providers_config_schema = z
     oidc_providers: z.array(
       z.object({
         uid: z.string(),
-        allowed_fqdns: z.array(z.string()),
+        allowed_attached_email_domains: z.array(z.string()),
       }),
     ),
   })

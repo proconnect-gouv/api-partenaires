@@ -3,7 +3,7 @@ import { z } from "zod";
 import type { OidcProviderStore } from "./app";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
 const patch_body_schema = z.object({
-  fqdns: z.array(z.string()),
+  attached_email_domains: z.array(z.string()),
 });
 
 export function create_oidc_providers_app({
@@ -27,7 +27,7 @@ export function create_oidc_providers_app({
         active: provider.active,
         redirect_uris: provider.redirect_uris,
         post_logout_redirect_uris: provider.post_logout_redirect_uris,
-        fqdns: provider.fqdns,
+        attached_email_domains: provider.attached_email_domains,
       });
     })
     .patch("/:uid/configuration", async (c) => {
@@ -42,23 +42,30 @@ export function create_oidc_providers_app({
       );
       if (!body.success) return c.json({ error: "invalid_body" }, 422);
 
-      const forbidden = body.data.fqdns.filter(
-        (fqdn) => !entry.allowed_fqdns.includes(fqdn),
+      const forbidden = body.data.attached_email_domains.filter(
+        (attached_email_domain) =>
+          !entry.allowed_attached_email_domains.includes(attached_email_domain),
       );
       if (forbidden.length > 0) {
-        return c.json({ error: "fqdn_not_allowed", fqdns: forbidden }, 422);
+        return c.json(
+          {
+            error: "attached_email_domain_not_allowed",
+            attached_email_domains: forbidden,
+          },
+          422,
+        );
       }
 
       const updated = await providers.findOneAndUpdate(
         { uid },
-        { $set: { fqdns: body.data.fqdns } },
+        { $set: { attached_email_domains: body.data.attached_email_domains } },
         { returnDocument: "after" },
       );
       if (!updated) return c.json({ error: "not_found" }, 404);
       return c.json({
         uid: updated.uid,
         name: updated.name,
-        fqdns: updated.fqdns,
+        attached_email_domains: updated.attached_email_domains,
       });
     });
 }
