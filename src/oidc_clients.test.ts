@@ -123,7 +123,7 @@ function create_test_app({
       oidc_providers: [
         {
           uid: "editable-partner-uid",
-          allowed_fqdns: [],
+          allowed_attached_email_domains: [],
         },
       ],
     },
@@ -512,7 +512,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
         oidc_providers: [
           {
             uid: "editable-partner-uid",
-            allowed_fqdns: [],
+            allowed_attached_email_domains: [],
           },
         ],
       },

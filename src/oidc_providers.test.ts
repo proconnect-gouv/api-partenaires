@@ -49,7 +49,7 @@ function create_test_app() {
       {
         uid: MONCOMPTEPRO_UID,
         name: "moncomptepro",
-        fqdns: ["moncomptepro.fr", "polyfi.fr"],
+        attached_email_domains: ["moncomptepro.fr", "polyfi.fr"],
       },
     ],
     [
@@ -61,7 +61,7 @@ function create_test_app() {
         active: true,
         redirect_uris: ["https://enriched.example.com/callback"],
         post_logout_redirect_uris: ["https://enriched.example.com/logout"],
-        fqdns: ["enriched.example.com"],
+        attached_email_domains: ["enriched.example.com"],
       },
     ],
   ]);
@@ -71,11 +71,11 @@ function create_test_app() {
     },
     async findOneAndUpdate(
       { uid }: { uid: string },
-      { $set }: { $set: { fqdns: string[] } },
+      { $set }: { $set: { attached_email_domains: string[] } },
     ) {
       const provider = providers.get(uid);
       if (!provider) return null;
-      provider.fqdns = $set.fqdns;
+      provider.attached_email_domains = $set.attached_email_domains;
       return provider;
     },
   };
@@ -94,15 +94,19 @@ function create_test_app() {
       oidc_providers: [
         {
           uid: MONCOMPTEPRO_UID,
-          allowed_fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+          allowed_attached_email_domains: [
+            "moncomptepro.fr",
+            "polyfi.fr",
+            "fifi.fr",
+          ],
         },
         {
           uid: ENRICHED_UID,
-          allowed_fqdns: ["enriched.example.com"],
+          allowed_attached_email_domains: ["enriched.example.com"],
         },
         {
           uid: GHOST_UID,
-          allowed_fqdns: ["moncomptepro.fr"],
+          allowed_attached_email_domains: ["moncomptepro.fr"],
         },
       ],
     },
@@ -128,7 +132,7 @@ describe("OIDC provider configuration API", () => {
     expect(await res.json()).toEqual({
       uid: MONCOMPTEPRO_UID,
       name: "moncomptepro",
-      fqdns: ["moncomptepro.fr", "polyfi.fr"],
+      attached_email_domains: ["moncomptepro.fr", "polyfi.fr"],
     });
   });
 
@@ -147,7 +151,7 @@ describe("OIDC provider configuration API", () => {
       active: true,
       redirect_uris: ["https://enriched.example.com/callback"],
       post_logout_redirect_uris: ["https://enriched.example.com/logout"],
-      fqdns: ["enriched.example.com"],
+      attached_email_domains: ["enriched.example.com"],
     });
   });
 
@@ -178,7 +182,7 @@ describe("OIDC provider configuration API", () => {
       app,
       "PATCH",
       "/api/oidc_providers/00000000-0000-0000-0000-000000000000/configuration",
-      { json_data: { fqdns: ["moncomptepro.fr"] } },
+      { json_data: { attached_email_domains: ["moncomptepro.fr"] } },
     );
     expect(res.status).toBe(403);
     expect(await res.json()).toEqual({ error: "uid_not_editable" });
@@ -190,12 +194,12 @@ describe("OIDC provider configuration API", () => {
       app,
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-      { json_data: { fqdns: ["moncomptepro.fr", "evil.fr"] } },
+      { json_data: { attached_email_domains: ["moncomptepro.fr", "evil.fr"] } },
     );
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({
-      error: "fqdn_not_allowed",
-      fqdns: ["evil.fr"],
+      error: "attached_email_domain_not_allowed",
+      attached_email_domains: ["evil.fr"],
     });
   });
 
@@ -218,7 +222,7 @@ describe("OIDC provider configuration API", () => {
     expect(await res.json()).toEqual({ error: "invalid_body" });
   });
 
-  test("rejects a body without fqdns", async () => {
+  test("rejects a body without attached_email_domains", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -229,14 +233,14 @@ describe("OIDC provider configuration API", () => {
     expect(res.status).toBe(422);
   });
 
-  test("rejects fqdns that are not an array of strings", async () => {
+  test("rejects attached_email_domains that are not an array of strings", async () => {
     const app = create_test_app();
-    for (const fqdns of ["moncomptepro.fr", [42], null]) {
+    for (const attached_email_domains of ["moncomptepro.fr", [42], null]) {
       const res = await api_call(
         app,
         "PATCH",
         `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-        { json_data: { fqdns } },
+        { json_data: { attached_email_domains } },
       );
       expect(res.status).toBe(422);
     }
@@ -248,13 +252,13 @@ describe("OIDC provider configuration API", () => {
       app,
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-      { json_data: { fqdns: [] } },
+      { json_data: { attached_email_domains: [] } },
     );
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       uid: MONCOMPTEPRO_UID,
       name: "moncomptepro",
-      fqdns: [],
+      attached_email_domains: [],
     });
   });
 
@@ -264,12 +268,12 @@ describe("OIDC provider configuration API", () => {
       app,
       "PATCH",
       `/api/oidc_providers/${GHOST_UID}/configuration`,
-      { json_data: { fqdns: ["moncomptepro.fr"] } },
+      { json_data: { attached_email_domains: ["moncomptepro.fr"] } },
     );
     expect(res.status).toBe(404);
   });
 
-  test("modifies fqdns with allowed domains for a registered OIDC provider", async () => {
+  test("modifies attached_email_domains with allowed domains for a registered OIDC provider", async () => {
     const app = create_test_app();
     const res = await api_call(
       app,
@@ -277,7 +281,7 @@ describe("OIDC provider configuration API", () => {
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       {
         json_data: {
-          fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+          attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
         },
       },
     );
@@ -285,7 +289,7 @@ describe("OIDC provider configuration API", () => {
     expect(await res.json()).toEqual({
       uid: MONCOMPTEPRO_UID,
       name: "moncomptepro",
-      fqdns: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+      attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
     });
   });
 });

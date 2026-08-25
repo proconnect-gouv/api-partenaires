@@ -31,9 +31,11 @@ for await (const path of glob.scan(".")) {
   }
 
   for (const provider of oidc_providers) {
-    for (const fqdn of find_duplicates(provider.allowed_fqdns)) {
+    for (const attached_email_domain of find_duplicates(
+      provider.allowed_attached_email_domains,
+    )) {
       errors.push(
-        `${path}: duplicate allowed_fqdns entry "${fqdn}" for uid "${provider.uid}"`,
+        `${path}: duplicate allowed_attached_email_domains entry "${attached_email_domain}" for uid "${provider.uid}"`,
       );
     }
   }

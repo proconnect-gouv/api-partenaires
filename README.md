@@ -14,16 +14,16 @@ bun run dev
 
 ## Configuration
 
-| Variable                          | Défaut                               | Description                                               |
-| --------------------------------- | ------------------------------------ | --------------------------------------------------------- |
-| `PORT`                            | `3000`                               | Port d'écoute                                             |
-| `MONGODB_URI`                     | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)    |
-| `OIDC_PROVIDERS_CONFIG`           | `oidc_providers.yaml`                | Fichier YAML des uid éditables et fqdns permis            |
-| `OIDC_PROVIDERS_API_SECRET`       | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_providers/*`          |
-| `OIDC_CLIENTS_API_SECRET`         | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*` (sandbox)  |
-| `FEATURE_ENABLE_SANDBOX_ENDPOINT` | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)       |
-| `CLIENT_SECRET_CIPHER_PASS`       | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret` |
-| `MAX_TIMESTAMP_DIFF`              | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`           |
+| Variable                          | Défaut                               | Description                                                     |
+| --------------------------------- | ------------------------------------ | --------------------------------------------------------------- |
+| `PORT`                            | `3000`                               | Port d'écoute                                                   |
+| `MONGODB_URI`                     | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)          |
+| `OIDC_PROVIDERS_CONFIG`           | `oidc_providers.yaml`                | Fichier YAML des uid éditables et attached_email_domains permis |
+| `OIDC_PROVIDERS_API_SECRET`       | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_providers/*`                |
+| `OIDC_CLIENTS_API_SECRET`         | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*` (sandbox)        |
+| `FEATURE_ENABLE_SANDBOX_ENDPOINT` | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)             |
+| `CLIENT_SECRET_CIPHER_PASS`       | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret`       |
+| `MAX_TIMESTAMP_DIFF`              | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`                 |
 
 L'accès à `/api/*` est authentifié par signature HMAC-SHA256 (`X-Signature` /
 `X-Timestamp`), migré depuis `pcdbapi`. Chaque surface utilise son propre
@@ -37,24 +37,24 @@ dans l'URL — il sert d'identité appelante pour le scoping par `collaborators`
 # oidc_providers.yaml
 oidc_providers:
   - uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"
-    allowed_fqdns:
+    allowed_attached_email_domains:
       - moncomptepro.fr
       - polyfi.fr
 ```
 
 ## Routes
 
-| Route                                          | Auth                                  | Description                              |
-| ---------------------------------------------- | ------------------------------------- | ---------------------------------------- |
-| `GET /livez`                                   | _(aucune)_                            | Sonde de vie                             |
-| `GET /readyz`                                  | _(aucune)_                            | Sonde de disponibilité (ping mongo)      |
-| `GET /api/oidc_providers/:uid/configuration`   | `OIDC_PROVIDERS_API_SECRET`           | Lecture de la configuration              |
-| `PATCH /api/oidc_providers/:uid/configuration` | `OIDC_PROVIDERS_API_SECRET`           | Modification des fqdns (`{ fqdns: [] }`) |
-| `GET /api/oidc_clients`                        | `OIDC_CLIENTS_API_SECRET`             | Liste les clients OIDC                   |
-| `POST /api/oidc_clients`                       | `OIDC_CLIENTS_API_SECRET` + `?email=` | Crée un client OIDC                      |
-| `GET /api/oidc_clients/:id`                    | `OIDC_CLIENTS_API_SECRET` + `?email=` | Lecture d'un client OIDC                 |
-| `PATCH /api/oidc_clients/:id`                  | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC   |
-| `DELETE /api/oidc_clients/:id`                 | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC             |
+| Route                                          | Auth                                  | Description                                                                |
+| ---------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
+| `GET /livez`                                   | _(aucune)_                            | Sonde de vie                                                               |
+| `GET /readyz`                                  | _(aucune)_                            | Sonde de disponibilité (ping mongo)                                        |
+| `GET /api/oidc_providers/:uid/configuration`   | `OIDC_PROVIDERS_API_SECRET`           | Lecture de la configuration                                                |
+| `PATCH /api/oidc_providers/:uid/configuration` | `OIDC_PROVIDERS_API_SECRET`           | Modification des attached_email_domains (`{ attached_email_domains: [] }`) |
+| `GET /api/oidc_clients`                        | `OIDC_CLIENTS_API_SECRET`             | Liste les clients OIDC                                                     |
+| `POST /api/oidc_clients`                       | `OIDC_CLIENTS_API_SECRET` + `?email=` | Crée un client OIDC                                                        |
+| `GET /api/oidc_clients/:id`                    | `OIDC_CLIENTS_API_SECRET` + `?email=` | Lecture d'un client OIDC                                                   |
+| `PATCH /api/oidc_clients/:id`                  | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC                                     |
+| `DELETE /api/oidc_clients/:id`                 | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC                                               |
 
 ## Scripts
 
@@ -71,7 +71,7 @@ Chaque dossier de `examples/` est un scénario docker compose exécuté en CI
 contre l'image construite :
 
 ```sh
-cd examples/edit_provider_fqdns
+cd examples/edit_provider_attached_email_domains
 bun test integration.test.ts
 ```
 
