@@ -27,7 +27,7 @@ export function create_oidc_providers_app({
         active: provider.active,
         redirect_uris: provider.redirect_uris,
         post_logout_redirect_uris: provider.post_logout_redirect_uris,
-        attached_email_domains: provider.attached_email_domains,
+        attached_email_domains: provider.attachedEmailDomains,
       });
     })
     .patch("/:uid/configuration", async (c) => {
@@ -58,14 +58,14 @@ export function create_oidc_providers_app({
 
       const updated = await providers.findOneAndUpdate(
         { uid },
-        { $set: { attached_email_domains: body.data.attached_email_domains } },
+        { $set: { attachedEmailDomains: body.data.attached_email_domains } },
         { returnDocument: "after" },
       );
       if (!updated) return c.json({ error: "not_found" }, 404);
       return c.json({
         uid: updated.uid,
         name: updated.name,
-        attached_email_domains: updated.attached_email_domains,
+        attached_email_domains: updated.attachedEmailDomains,
       });
     });
 }

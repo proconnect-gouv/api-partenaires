@@ -49,7 +49,7 @@ function create_test_app() {
       {
         uid: MONCOMPTEPRO_UID,
         name: "moncomptepro",
-        attached_email_domains: ["moncomptepro.fr", "polyfi.fr"],
+        attachedEmailDomains: ["moncomptepro.fr", "polyfi.fr"],
       },
     ],
     [
@@ -61,7 +61,7 @@ function create_test_app() {
         active: true,
         redirect_uris: ["https://enriched.example.com/callback"],
         post_logout_redirect_uris: ["https://enriched.example.com/logout"],
-        attached_email_domains: ["enriched.example.com"],
+        attachedEmailDomains: ["enriched.example.com"],
       },
     ],
   ]);
@@ -71,11 +71,11 @@ function create_test_app() {
     },
     async findOneAndUpdate(
       { uid }: { uid: string },
-      { $set }: { $set: { attached_email_domains: string[] } },
+      { $set }: { $set: { attachedEmailDomains: string[] } },
     ) {
       const provider = providers.get(uid);
       if (!provider) return null;
-      provider.attached_email_domains = $set.attached_email_domains;
+      provider.attachedEmailDomains = $set.attachedEmailDomains;
       return provider;
     },
   };
