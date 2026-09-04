@@ -18,7 +18,7 @@
   "dependencies": {
     "hono": "4.13.5",
     "mongodb": "6.21.0",
-    "zod": "4.4.3"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@tsconfig/bun": "1.0.11",
