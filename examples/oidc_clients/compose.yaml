@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:8.2.12
+    image: mongo:8.3.9
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d:ro
     healthcheck:
