@@ -16,7 +16,6 @@ const FIXED_SCOPES = [
   "phone",
   "idp_id",
   "custom",
-  "roles",
   "organization_label",
 ];
 
