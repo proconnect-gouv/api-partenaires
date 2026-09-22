@@ -33,7 +33,7 @@ jobs:
           key: dila-export-${{ steps.date.outputs.today }}
 
       - name: 🛡️ Fetch DILA export
-        run: bun run lint:apotropaic-dila
+        run: bun run scripts/apotropaic_dila.ts
 
       - name: 🛡️ Lint allowlist
         run: bun run lint:apotropaic
