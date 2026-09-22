@@ -8,7 +8,9 @@ describe("validation de la configuration fournisseurs OIDC", () => {
         oidc_providers: [
           {
             uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
-            allowed_attached_email_domains: ["moncomptepro.fr"],
+            allowed_attached_email_domains: [
+              { domain: "moncomptepro.fr", source: "manual" },
+            ],
           },
         ],
       }),
@@ -16,7 +18,9 @@ describe("validation de la configuration fournisseurs OIDC", () => {
       oidc_providers: [
         {
           uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
-          allowed_attached_email_domains: ["moncomptepro.fr"],
+          allowed_attached_email_domains: [
+            { domain: "moncomptepro.fr", source: "manual" },
+          ],
         },
       ],
     });
@@ -46,6 +50,21 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     expect(() =>
       oidc_providers_config_schema.parse({
         oidc_providers: [{ uid: "x", allowed_attached_email_domains: "a.fr" }],
+      }),
+    ).toThrow();
+  });
+
+  test("rejette une source inconnue", () => {
+    expect(() =>
+      oidc_providers_config_schema.parse({
+        oidc_providers: [
+          {
+            uid: "x",
+            allowed_attached_email_domains: [
+              { domain: "a.fr", source: "dila" },
+            ],
+          },
+        ],
       }),
     ).toThrow();
   });

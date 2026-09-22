@@ -32,7 +32,7 @@ for await (const path of glob.scan(".")) {
 
   for (const provider of oidc_providers) {
     for (const attached_email_domain of find_duplicates(
-      provider.allowed_attached_email_domains,
+      provider.allowed_attached_email_domains.map((d) => d.domain),
     )) {
       errors.push(
         `${path}: duplicate allowed_attached_email_domains entry "${attached_email_domain}" for uid "${provider.uid}"`,

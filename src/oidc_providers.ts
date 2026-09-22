@@ -44,7 +44,9 @@ export function create_oidc_providers_app({
 
       const forbidden = body.data.attached_email_domains.filter(
         (attached_email_domain) =>
-          !entry.allowed_attached_email_domains.includes(attached_email_domain),
+          !entry.allowed_attached_email_domains.some(
+            (allowed) => allowed.domain === attached_email_domain,
+          ),
       );
       if (forbidden.length > 0) {
         return c.json(

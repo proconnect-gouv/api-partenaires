@@ -1,162 +1,321 @@
 oidc_providers:
   - uid: "f5154035-c3d6-47ad-8583-197d508269d0"
     allowed_attached_email_domains:
-      - adico.collectivite.fr
-      - adm81.collectivite.fr
-      - aiglun06.fr
-      - ainhoa.fr
-      - aletlesbains.com
-      - alpi.collectivite.fr
-      - alzon.fr
-      - amf.collectivite.fr
-      - arnia.collectivite.fr
-      - arzenc-de-randon.fr
-      - at86.collectivite.fr
-      - atd24.collectivite.fr
-      - aubreville.fr
-      - ayros-arbouix.fr
-      - azoudange.fr
-      - badaroux.fr
-      - belloy-en-france.fr
-      - belmont-bretenoux.fr
-      - berrelesalpes.fr
-      - blars.fr
-      - boisseron.fr
-      - bouranton.fr
-      - brigny.collectivite.fr
-      - caille06.fr
-      - carayac.collectivite.fr
-      - castellet-en-luberon.collectivite.fr
-      - cdg09.collectivite.fr
-      - cdg47.collectivite.fr
-      - cdg48.collectivite.fr
-      - charleval13.fr
-      - charlevalenprovence.fr
-      - chateauneuflerouge.fr
-      - chaudeyrac.fr
-      - chaumeil19.fr
-      - cipieres.fr
-      - commune-montmaur.fr
-      - condamine.fr
-      - coublucq.fr
-      - courlandon.fr
-      - courson-monteloup.fr
-      - crepon14.fr
-      - demo.collectivite.fr
-      - ecollectivites.collectivite.fr
-      - ecuras.fr
-      - ecury-sur-coole.fr
-      - fajoles.fr
-      - ferrieres-les-bois.fr
-      - feuguerolles-bully.fr
-      - fibre5962.collectivite.fr
-      - frontenac.fr
-      - garderes.fr
-      - gennes25.fr
-      - gieconvergence.collectivite.fr
-      - girondenumerique.collectivite.fr
-      - gourdon06.fr
-      - grandfailly.fr
-      - griesbachauval.fr
-      - griselles21.collectivite.fr
-      - houdelaincourt.fr
-      - lacaunette34.fr
-      - lacelle19.fr
-      - ladignedaval.fr
-      - lafibre64.collectivite.fr
-      - lemesnilsuroger.fr
-      - les-aspres.collectivite.fr
-      - les-salles-lavauguyon.fr
-      - lescun.fr
-      - letouvet.fr
-      - lgnum.collectivite.fr
-      - lignieres-sur-aire.fr
-      - lolif.fr
-      - louvigny64.fr
-      - mairie-beaurecueil.fr
-      - mairie-cauge.fr
-      - mairie-celon.fr
-      - mairie-de-jabreilles-les-bordes.fr
-      - mairie-de-maron.fr
-      - mairie-de-salins.fr
-      - mairie-ibos.fr
-      - mairie-onoz.fr
-      - mairie-puttelangeauxlacs.fr
-      - mairie-savins.fr
-      - mairiedelouey.fr
-      - mairiedestill.fr
-      - manchenumerique.collectivite.fr
-      - maxey-sur-vaise.fr
-      - megalis.collectivite.fr
-      - mirabeau84.fr
-      - molieres-cavaillac.fr
-      - mommenheim.fr
-      - montgeroult.fr
-      - montgesty.collectivite.fr
-      - moselle-fibre.collectivite.fr
-      - moulinneuf09.collectivite.fr
-      - moulinssurorne.fr
-      - moussy.fr
-      - nerislesbains.fr
-      - neuvy51.fr
-      - norroypam.fr
-      - oms.fr
-      - oradour-sur-vayres.fr
-      - outrepont.fr
-      - peyroules.fr
-      - pointenoire.fr
-      - pouliacq.fr
-      - putangeslelac.fr
-      - puycapel.fr
-      - rebenacq.fr
-      - recia.collectivite.fr
-      - rgd.collectivite.fr
-      - sacoue.fr
-      - saint-arey.fr
-      - saint-bauzile.fr
-      - saint-gerons.fr
-      - saint-goussaud.fr
-      - saint-quentin-sur-isere.fr
-      - saint-regle.fr
-      - saint-sozy.fr
-      - saintbresson.fr
-      - saintgermaindejoux.fr
-      - saintlaurentdecondel.fr
-      - saintrambertenbugey.fr
-      - sariac-magnoac.collectivite.fr
-      - sauvagnon.fr
-      - sauvelade.fr
-      - savas.fr
-      - servas.fr
-      - sidec-jura.com
-      - sieeen.collectivite.fr
-      - sitiv.collectivite.fr
-      - sitiv2.collectivite.fr
-      - sivergues.collectivite.fr
-      - smic88.collectivite.fr
-      - smico.collectivite.fr
-      - smn76.collectivite.fr
-      - strenquels.fr
-      - suite.anct.gouv.fr
-      - suiteterritoriale.anct.gouv.fr
-      - syane.collectivite.fr
-      - test-lst-securite.fr
-      - teyssieu.fr
-      - tourneville.fr
-      - tramoyes.fr
-      - trefols.fr
-      - trizac.fr
-      - valdufaby.fr
-      - vaucouleurs.fr
-      - vercors.fr
-      - vers-pontdugard.fr
-      - village-borderes.fr
-      - village-le-saix.fr
-      - villecloye.fr
-      - villedeguillestre.fr
-      - villeneuve-saint-denis.fr
-      - villeneuve-st-denis.fr
-      - villers-allerand.fr
-      - villetelle.fr
-      - villette-sur-ain.fr
-      - violes.fr
+      - domain: adico.collectivite.fr
+        source: manual
+      - domain: adm81.collectivite.fr
+        source: manual
+      - domain: aiglun06.fr
+        source: manual
+      - domain: ainhoa.fr
+        source: manual
+      - domain: aletlesbains.com
+        source: manual
+      - domain: alpi.collectivite.fr
+        source: manual
+      - domain: alzon.fr
+        source: manual
+      - domain: amf.collectivite.fr
+        source: manual
+      - domain: arnia.collectivite.fr
+        source: manual
+      - domain: arzenc-de-randon.fr
+        source: manual
+      - domain: at86.collectivite.fr
+        source: manual
+      - domain: atd24.collectivite.fr
+        source: manual
+      - domain: aubreville.fr
+        source: manual
+      - domain: ayros-arbouix.fr
+        source: manual
+      - domain: azoudange.fr
+        source: manual
+      - domain: badaroux.fr
+        source: manual
+      - domain: belloy-en-france.fr
+        source: manual
+      - domain: belmont-bretenoux.fr
+        source: manual
+      - domain: berrelesalpes.fr
+        source: manual
+      - domain: blars.fr
+        source: manual
+      - domain: boisseron.fr
+        source: manual
+      - domain: bouranton.fr
+        source: manual
+      - domain: brigny.collectivite.fr
+        source: manual
+      - domain: caille06.fr
+        source: manual
+      - domain: carayac.collectivite.fr
+        source: manual
+      - domain: castellet-en-luberon.collectivite.fr
+        source: manual
+      - domain: cdg09.collectivite.fr
+        source: manual
+      - domain: cdg47.collectivite.fr
+        source: manual
+      - domain: cdg48.collectivite.fr
+        source: manual
+      - domain: charleval13.fr
+        source: manual
+      - domain: charlevalenprovence.fr
+        source: manual
+      - domain: chateauneuflerouge.fr
+        source: manual
+      - domain: chaudeyrac.fr
+        source: manual
+      - domain: chaumeil19.fr
+        source: manual
+      - domain: cipieres.fr
+        source: manual
+      - domain: commune-montmaur.fr
+        source: manual
+      - domain: condamine.fr
+        source: manual
+      - domain: coublucq.fr
+        source: manual
+      - domain: courlandon.fr
+        source: manual
+      - domain: courson-monteloup.fr
+        source: manual
+      - domain: crepon14.fr
+        source: manual
+      - domain: demo.collectivite.fr
+        source: manual
+      - domain: ecollectivites.collectivite.fr
+        source: manual
+      - domain: ecuras.fr
+        source: manual
+      - domain: ecury-sur-coole.fr
+        source: manual
+      - domain: fajoles.fr
+        source: manual
+      - domain: ferrieres-les-bois.fr
+        source: manual
+      - domain: feuguerolles-bully.fr
+        source: manual
+      - domain: fibre5962.collectivite.fr
+        source: manual
+      - domain: frontenac.fr
+        source: manual
+      - domain: garderes.fr
+        source: manual
+      - domain: gennes25.fr
+        source: manual
+      - domain: gieconvergence.collectivite.fr
+        source: manual
+      - domain: girondenumerique.collectivite.fr
+        source: manual
+      - domain: gourdon06.fr
+        source: manual
+      - domain: grandfailly.fr
+        source: manual
+      - domain: griesbachauval.fr
+        source: manual
+      - domain: griselles21.collectivite.fr
+        source: manual
+      - domain: houdelaincourt.fr
+        source: manual
+      - domain: lacaunette34.fr
+        source: manual
+      - domain: lacelle19.fr
+        source: manual
+      - domain: ladignedaval.fr
+        source: manual
+      - domain: lafibre64.collectivite.fr
+        source: manual
+      - domain: lemesnilsuroger.fr
+        source: manual
+      - domain: les-aspres.collectivite.fr
+        source: manual
+      - domain: les-salles-lavauguyon.fr
+        source: manual
+      - domain: lescun.fr
+        source: manual
+      - domain: letouvet.fr
+        source: manual
+      - domain: lgnum.collectivite.fr
+        source: manual
+      - domain: lignieres-sur-aire.fr
+        source: manual
+      - domain: lolif.fr
+        source: manual
+      - domain: louvigny64.fr
+        source: manual
+      - domain: mairie-beaurecueil.fr
+        source: manual
+      - domain: mairie-cauge.fr
+        source: manual
+      - domain: mairie-celon.fr
+        source: manual
+      - domain: mairie-de-jabreilles-les-bordes.fr
+        source: manual
+      - domain: mairie-de-maron.fr
+        source: manual
+      - domain: mairie-de-salins.fr
+        source: manual
+      - domain: mairie-ibos.fr
+        source: manual
+      - domain: mairie-onoz.fr
+        source: manual
+      - domain: mairie-puttelangeauxlacs.fr
+        source: manual
+      - domain: mairie-savins.fr
+        source: manual
+      - domain: mairiedelouey.fr
+        source: manual
+      - domain: mairiedestill.fr
+        source: manual
+      - domain: manchenumerique.collectivite.fr
+        source: manual
+      - domain: maxey-sur-vaise.fr
+        source: manual
+      - domain: megalis.collectivite.fr
+        source: manual
+      - domain: mirabeau84.fr
+        source: manual
+      - domain: molieres-cavaillac.fr
+        source: manual
+      - domain: mommenheim.fr
+        source: manual
+      - domain: montgeroult.fr
+        source: manual
+      - domain: montgesty.collectivite.fr
+        source: manual
+      - domain: moselle-fibre.collectivite.fr
+        source: manual
+      - domain: moulinneuf09.collectivite.fr
+        source: manual
+      - domain: moulinssurorne.fr
+        source: manual
+      - domain: moussy.fr
+        source: manual
+      - domain: nerislesbains.fr
+        source: manual
+      - domain: neuvy51.fr
+        source: manual
+      - domain: norroypam.fr
+        source: manual
+      - domain: oms.fr
+        source: manual
+      - domain: oradour-sur-vayres.fr
+        source: manual
+      - domain: outrepont.fr
+        source: manual
+      - domain: peyroules.fr
+        source: manual
+      - domain: pointenoire.fr
+        source: manual
+      - domain: pouliacq.fr
+        source: manual
+      - domain: putangeslelac.fr
+        source: manual
+      - domain: puycapel.fr
+        source: manual
+      - domain: rebenacq.fr
+        source: manual
+      - domain: recia.collectivite.fr
+        source: manual
+      - domain: rgd.collectivite.fr
+        source: manual
+      - domain: sacoue.fr
+        source: manual
+      - domain: saint-arey.fr
+        source: manual
+      - domain: saint-bauzile.fr
+        source: manual
+      - domain: saint-gerons.fr
+        source: manual
+      - domain: saint-goussaud.fr
+        source: manual
+      - domain: saint-quentin-sur-isere.fr
+        source: manual
+      - domain: saint-regle.fr
+        source: manual
+      - domain: saint-sozy.fr
+        source: manual
+      - domain: saintbresson.fr
+        source: manual
+      - domain: saintgermaindejoux.fr
+        source: manual
+      - domain: saintlaurentdecondel.fr
+        source: manual
+      - domain: saintrambertenbugey.fr
+        source: manual
+      - domain: sariac-magnoac.collectivite.fr
+        source: manual
+      - domain: sauvagnon.fr
+        source: manual
+      - domain: sauvelade.fr
+        source: manual
+      - domain: savas.fr
+        source: manual
+      - domain: servas.fr
+        source: manual
+      - domain: sidec-jura.com
+        source: manual
+      - domain: sieeen.collectivite.fr
+        source: manual
+      - domain: sitiv.collectivite.fr
+        source: manual
+      - domain: sitiv2.collectivite.fr
+        source: manual
+      - domain: sivergues.collectivite.fr
+        source: manual
+      - domain: smic88.collectivite.fr
+        source: manual
+      - domain: smico.collectivite.fr
+        source: manual
+      - domain: smn76.collectivite.fr
+        source: manual
+      - domain: strenquels.fr
+        source: manual
+      - domain: suite.anct.gouv.fr
+        source: manual
+      - domain: suiteterritoriale.anct.gouv.fr
+        source: manual
+      - domain: syane.collectivite.fr
+        source: manual
+      - domain: test-lst-securite.fr
+        source: manual
+      - domain: teyssieu.fr
+        source: manual
+      - domain: tourneville.fr
+        source: manual
+      - domain: tramoyes.fr
+        source: manual
+      - domain: trefols.fr
+        source: manual
+      - domain: trizac.fr
+        source: manual
+      - domain: valdufaby.fr
+        source: manual
+      - domain: vaucouleurs.fr
+        source: manual
+      - domain: vercors.fr
+        source: manual
+      - domain: vers-pontdugard.fr
+        source: manual
+      - domain: village-borderes.fr
+        source: manual
+      - domain: village-le-saix.fr
+        source: manual
+      - domain: villecloye.fr
+        source: manual
+      - domain: villedeguillestre.fr
+        source: manual
+      - domain: villeneuve-saint-denis.fr
+        source: manual
+      - domain: villeneuve-st-denis.fr
+        source: manual
+      - domain: villers-allerand.fr
+        source: manual
+      - domain: villetelle.fr
+        source: manual
+      - domain: villette-sur-ain.fr
+        source: manual
+      - domain: violes.fr
+        source: manual
