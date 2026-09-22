@@ -1,9 +1,6 @@
 import type { Fiche } from "#src/apotropaic/declared_by";
 import { dila_ok } from "#src/apotropaic/dila_ok";
-import type { OidcProvidersConfig } from "#src/oidc_providers_config";
-
-type Source =
-  OidcProvidersConfig["oidc_providers"][number]["allowed_attached_email_domains"][number]["source"];
+import type { OidcProvidersConfig, Source } from "#src/oidc_providers_config";
 
 const check_by_source: {
   [S in Source]: (
