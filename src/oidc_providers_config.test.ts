@@ -68,4 +68,39 @@ describe("validation de la configuration fournisseurs OIDC", () => {
       }),
     ).toThrow();
   });
+
+  test("rejette une source dila sans fiche", () => {
+    expect(() =>
+      oidc_providers_config_schema.parse({
+        oidc_providers: [
+          {
+            uid: "x",
+            allowed_attached_email_domains: [
+              { domain: "a.fr", source: "dila" },
+            ],
+          },
+        ],
+      }),
+    ).toThrow();
+  });
+
+  test("rejette une fiche hors de l'annuaire service-public", () => {
+    expect(() =>
+      oidc_providers_config_schema.parse({
+        oidc_providers: [
+          {
+            uid: "x",
+            allowed_attached_email_domains: [
+              {
+                domain: "a.fr",
+                fiche:
+                  "https://example.com/6d708ca6-cc85-469b-acc0-878803b80963",
+                source: "dila",
+              },
+            ],
+          },
+        ],
+      }),
+    ).toThrow();
+  });
 });
