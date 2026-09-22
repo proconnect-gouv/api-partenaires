@@ -5,6 +5,7 @@ const COLLECTIVITE_TYPES = new Set(["mairie", "epci", "cg", "cr"]);
 export type Fiche = {
   departement: string | null;
   domains: Set<string>;
+  id: string;
   name: string;
   siren: string;
 };
@@ -97,7 +98,6 @@ function departement_of(code_insee_commune: string): string | null {
   );
 }
 
-/** A DILA record as the collectivité fiche it declares, or null if none. */
 const fiche_schema = z
   .object({
     id: text_schema,
@@ -110,15 +110,11 @@ const fiche_schema = z
     adresse_courriel: domains_schema(domain_from_email),
   })
   .transform((record): Fiche | null => {
-    if (!COLLECTIVITE_TYPES.has(record.pivot ?? "")) return null;
-    const domains = new Set([
-      ...record.site_internet,
-      ...record.adresse_courriel,
-    ]);
-    if (domains.size === 0) return null;
+    if (!record.id || !COLLECTIVITE_TYPES.has(record.pivot ?? "")) return null;
     return {
       departement: departement_of(record.code_insee_commune),
-      domains,
+      domains: new Set([...record.site_internet, ...record.adresse_courriel]),
+      id: record.id,
       name: organization_name(record.nom),
       siren:
         record.siren ||
@@ -128,24 +124,26 @@ const fiche_schema = z
   })
   .catch(null);
 
-/**
- * Which fiches (collectivités) declare each domain, as their own site or
- * mail domain — mirrors PR #42's `Dila.declared_by`.
- */
-export function build_declared_by_index(
-  records: unknown,
-): Map<string, Fiche[]> {
+export type DilaIndex = {
+  declared_by: Map<string, Fiche[]>;
+  fiches: Map<string, Fiche>;
+};
+
+/** Collectivité fiches by id, and which of them declare each domain. */
+export function build_dila_index(records: unknown): DilaIndex {
   const declared_by = new Map<string, Fiche[]>();
+  const fiches = new Map<string, Fiche>();
   for (const fiche of z.array(fiche_schema).catch([]).parse(records)) {
     if (!fiche) continue;
+    fiches.set(fiche.id, fiche);
     for (const domain of fiche.domains) {
-      const fiches = declared_by.get(domain) ?? [];
-      fiches.push(fiche);
-      declared_by.set(domain, fiches);
+      const declaring = declared_by.get(domain) ?? [];
+      declaring.push(fiche);
+      declared_by.set(domain, declaring);
     }
   }
 
-  return declared_by;
+  return { declared_by, fiches };
 }
 
 /** The single collectivité declaring this domain, or null if none/several. */
