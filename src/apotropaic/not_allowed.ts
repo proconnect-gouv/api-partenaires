@@ -1,4 +1,4 @@
-import type { OidcProvidersConfig } from "./oidc_providers_config";
+import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 
 const NOT_ALLOWED = new Set([
   "gmail.com",
