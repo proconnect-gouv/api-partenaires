@@ -47,6 +47,17 @@ describe("build_declared_by_index", () => {
 
     expect(index.size).toBe(0);
   });
+
+  test("skips malformed input instead of throwing", () => {
+    expect(build_declared_by_index("not an array").size).toBe(0);
+    expect(
+      build_declared_by_index([
+        null,
+        { ...mairie, id: 42 },
+        { ...mairie, pivot: "{not json" },
+      ]).size,
+    ).toBe(0);
+  });
 });
 
 describe("sole_owner", () => {

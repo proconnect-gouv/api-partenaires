@@ -9,41 +9,54 @@ export type Fiche = {
   domains: Set<string>;
 };
 
-const dila_record_schema = z.object({
-  id: z.string().nullish(),
-  siret: z.string().nullish(),
-  siren: z.string().nullish(),
-  nom: z.string().nullish(),
-  pivot: z.string().nullish(),
-  code_insee_commune: z.string().nullish(),
-  site_internet: z.string().nullish(),
-  adresse_courriel: z.string().nullish(),
-});
-type DilaRecord = z.infer<typeof dila_record_schema>;
+const text_schema = z
+  .string()
+  .nullish()
+  .transform((value) => value?.trim() ?? "");
+
+function parse_json_or_keep(raw: string): unknown {
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return raw;
+  }
+}
 
 const pivot_entry_schema = z
   .object({ type_service_local: z.string().nullish() })
   .loose();
-const pivot_schema = z.union([pivot_entry_schema, z.array(pivot_entry_schema)]);
 
-const dila_value_schema = z.union([
-  z.string(),
-  z.object({ valeur: z.string().nullish() }).loose(),
-]);
+const service_type_schema = z
+  .string()
+  .transform(parse_json_or_keep)
+  .pipe(
+    z.union([
+      z.array(pivot_entry_schema),
+      pivot_entry_schema.transform((value) => [value]),
+    ]),
+  )
+  .transform(
+    (entries) =>
+      entries.find((entry) => entry.type_service_local)?.type_service_local ??
+      null,
+  )
+  .catch(null);
 
-function coerce_dila_values(raw: unknown): unknown[] {
-  if (raw == null) return [];
-  if (Array.isArray(raw)) return raw;
-  if (typeof raw !== "string") return [raw];
-  const text = raw.trim();
+const dila_value_schema = z
+  .union([
+    z.string(),
+    z
+      .object({ valeur: z.string().nullish() })
+      .loose()
+      .transform((value) => value.valeur ?? null),
+  ])
+  .catch(null);
+
+function coerce_dila_values(text: string): unknown[] {
   if (!text) return [];
   if (text[0] === "[" || text[0] === "{") {
-    try {
-      const decoded = JSON.parse(text);
-      return Array.isArray(decoded) ? decoded : [decoded];
-    } catch {
-      return [text];
-    }
+    const decoded = parse_json_or_keep(text);
+    return Array.isArray(decoded) ? decoded : [decoded];
   }
   return text
     .split(";")
@@ -51,8 +64,15 @@ function coerce_dila_values(raw: unknown): unknown[] {
     .filter(Boolean);
 }
 
-function domain_from_url(url: unknown): string | null {
-  if (typeof url !== "string" || !url.trim()) return null;
+function domains_schema(extract: (value: string | null) => string | null) {
+  return text_schema
+    .transform(coerce_dila_values)
+    .pipe(z.array(dila_value_schema))
+    .transform((values) => new Set(values.flatMap((v) => extract(v) ?? [])));
+}
+
+function domain_from_url(url: string | null): string | null {
+  if (!url?.trim()) return null;
   const with_scheme = url.includes("://") ? url : `http://${url}`;
   try {
     const host = new URL(with_scheme).hostname.toLowerCase();
@@ -62,62 +82,52 @@ function domain_from_url(url: unknown): string | null {
   }
 }
 
-function domain_from_email(email: unknown): string | null {
-  if (typeof email !== "string" || !email.includes("@")) return null;
+function domain_from_email(email: string | null): string | null {
+  if (!email?.includes("@")) return null;
   return email.split("@", 2)[1]?.trim().toLowerCase() || null;
 }
 
-function domains_of(
-  raw: string | null | undefined,
-  extract: (value: unknown) => string | null,
-): Set<string> {
-  const domains = new Set<string>();
-  for (const item of coerce_dila_values(raw)) {
-    const parsed = dila_value_schema.safeParse(item);
-    if (!parsed.success) continue;
-    const value =
-      typeof parsed.data === "string" ? parsed.data : parsed.data.valeur;
-    const domain = extract(value);
-    if (domain) domains.add(domain);
-  }
-  return domains;
-}
-
-function service_type(record: DilaRecord): string | null {
-  if (!record.pivot) return null;
-  let decoded: unknown;
-  try {
-    decoded = JSON.parse(record.pivot);
-  } catch {
-    return null;
-  }
-  const parsed = pivot_schema.safeParse(decoded);
-  if (!parsed.success) return null;
-  for (const item of Array.isArray(parsed.data) ? parsed.data : [parsed.data]) {
-    if (item.type_service_local) return item.type_service_local;
-  }
-  return null;
-}
-
-function organization_name(record: DilaRecord): string {
-  const nom = (record.nom ?? "").trim();
+function organization_name(nom: string): string {
   const separator = nom.indexOf(" - ");
   return separator === -1 ? nom : nom.slice(separator + 3).trim();
 }
 
-function siren_of(record: DilaRecord): string {
-  const siren = (record.siren ?? "").trim();
-  const siret = (record.siret ?? "").trim();
-  return siren || siret.slice(0, 9) || `fiche:${record.id}`;
+function departement_of(code_insee_commune: string): string | null {
+  if (code_insee_commune.length < 2) return null;
+  const prefix = code_insee_commune.slice(0, 2);
+  return code_insee_commune.slice(
+    0,
+    prefix === "97" || prefix === "98" ? 3 : 2,
+  );
 }
 
-function departement_of(record: DilaRecord): string | null {
-  const code = (record.code_insee_commune ?? "").trim();
-  if (code.length < 2) return null;
-  return code.slice(0, 2) === "97" || code.slice(0, 2) === "98"
-    ? code.slice(0, 3)
-    : code.slice(0, 2);
-}
+/** A DILA record as the collectivité fiche it declares, or null if none. */
+const fiche_schema = z
+  .object({
+    id: text_schema,
+    siret: text_schema,
+    siren: text_schema,
+    nom: text_schema,
+    pivot: service_type_schema,
+    code_insee_commune: text_schema,
+    site_internet: domains_schema(domain_from_url),
+    adresse_courriel: domains_schema(domain_from_email),
+  })
+  .transform((record): Fiche | null => {
+    if (!COLLECTIVITE_TYPES.has(record.pivot ?? "")) return null;
+    const domains = new Set([
+      ...record.site_internet,
+      ...record.adresse_courriel,
+    ]);
+    if (domains.size === 0) return null;
+    return {
+      siren: record.siren || record.siret.slice(0, 9) || `fiche:${record.id}`,
+      name: organization_name(record.nom),
+      departement: departement_of(record.code_insee_commune),
+      domains,
+    };
+  })
+  .catch(null);
 
 /**
  * Which fiches (collectivités) declare each domain, as their own site or
@@ -127,31 +137,12 @@ export function build_declared_by_index(
   records: unknown,
 ): Map<string, Fiche[]> {
   const declared_by = new Map<string, Fiche[]>();
-  if (!Array.isArray(records)) return declared_by;
-
-  for (const raw of records) {
-    const parsed = dila_record_schema.safeParse(raw);
-    if (!parsed.success) continue;
-    const record = parsed.data;
-
-    if (!COLLECTIVITE_TYPES.has(service_type(record) ?? "")) continue;
-
-    const domains = new Set([
-      ...domains_of(record.site_internet, domain_from_url),
-      ...domains_of(record.adresse_courriel, domain_from_email),
-    ]);
-    if (domains.size === 0) continue;
-
-    const fiche: Fiche = {
-      siren: siren_of(record),
-      name: organization_name(record),
-      departement: departement_of(record),
-      domains,
-    };
-    for (const domain of domains) {
-      const fiches = declared_by.get(domain);
-      if (fiches) fiches.push(fiche);
-      else declared_by.set(domain, [fiche]);
+  for (const fiche of z.array(fiche_schema).catch([]).parse(records)) {
+    if (!fiche) continue;
+    for (const domain of fiche.domains) {
+      const fiches = declared_by.get(domain) ?? [];
+      fiches.push(fiche);
+      declared_by.set(domain, fiches);
     }
   }
 
@@ -163,8 +154,7 @@ export function sole_owner(
   declared_by: Map<string, Fiche[]>,
   domain: string,
 ): Fiche | null {
-  const fiches = declared_by.get(domain);
-  if (!fiches || fiches.length === 0) return null;
+  const fiches = declared_by.get(domain) ?? [];
   const sirens = new Set(fiches.map((fiche) => fiche.siren));
   return sirens.size === 1 ? (fiches[0] ?? null) : null;
 }
