@@ -33,7 +33,8 @@ describe("environment parsing", () => {
         "oidc_providers:",
         '  - uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"',
         "    allowed_attached_email_domains:",
-        "      - moncomptepro.fr",
+        "      - domain: moncomptepro.fr",
+        "        source: manual",
       ].join("\n"),
     );
     await expect(
@@ -46,7 +47,9 @@ describe("environment parsing", () => {
         oidc_providers: [
           {
             uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
-            allowed_attached_email_domains: ["moncomptepro.fr"],
+            allowed_attached_email_domains: [
+              { domain: "moncomptepro.fr", source: "manual" },
+            ],
           },
         ],
       },
