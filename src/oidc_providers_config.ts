@@ -8,7 +8,7 @@ export const oidc_providers_config_schema = z
         allowed_attached_email_domains: z.array(
           z.object({
             domain: z.string(),
-            source: z.enum(["manual"]),
+            source: z.enum(["dila", "manual"]),
           }),
         ),
       }),

@@ -61,7 +61,7 @@ describe("validation de la configuration fournisseurs OIDC", () => {
           {
             uid: "x",
             allowed_attached_email_domains: [
-              { domain: "a.fr", source: "dila" },
+              { domain: "a.fr", source: "unknown" },
             ],
           },
         ],
