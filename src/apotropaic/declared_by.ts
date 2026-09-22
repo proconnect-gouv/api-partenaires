@@ -5,10 +5,8 @@ const COLLECTIVITE_TYPES = new Set(["mairie", "epci", "cg", "cr"]);
 export type Fiche = {
   departement: string | null;
   domains: Set<string>;
-  mails: Set<string>;
   name: string;
   siren: string;
-  sites: Set<string>;
 };
 
 const text_schema = z
@@ -121,13 +119,11 @@ const fiche_schema = z
     return {
       departement: departement_of(record.code_insee_commune),
       domains,
-      mails: record.adresse_courriel,
       name: organization_name(record.nom),
       siren:
         record.siren ||
         record.siret.match(/^\d{9}/)?.[0] ||
         `fiche:${record.id}`,
-      sites: record.site_internet,
     };
   })
   .catch(null);

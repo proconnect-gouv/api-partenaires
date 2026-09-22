@@ -33,7 +33,7 @@ describe("dila_ok", () => {
 
     expect(dila_ok(index, "coise.com")).toEqual({
       ok: false,
-      reason: "RPNT 1.2: extension is not sovereign",
+      reason: "not_sovereign",
     });
   });
 
@@ -44,19 +44,17 @@ describe("dila_ok", () => {
 
     expect(dila_ok(index, "xn--coise-bsa.fr")).toEqual({
       ok: false,
-      reason: "RPNT 1.2: extension is not sovereign",
+      reason: "not_sovereign",
     });
   });
 
-  test("refuses a domain serving only the site, not the mail", () => {
+  test("accepts a domain declared on only one channel", () => {
     const index = build_declared_by_index([
       mairie("1", "217300896", "coise.fr", "coise73.fr"),
     ]);
 
-    expect(dila_ok(index, "coise.fr")).toEqual({
-      ok: false,
-      reason: "RPNT 2.3: site and mail domains differ",
-    });
+    expect(dila_ok(index, "coise.fr").ok).toBe(true);
+    expect(dila_ok(index, "coise73.fr").ok).toBe(true);
   });
 
   test("refuses a domain several collectivités declare", () => {
@@ -67,14 +65,14 @@ describe("dila_ok", () => {
 
     expect(dila_ok(index, "shared.fr")).toEqual({
       ok: false,
-      reason: "shared: several collectivites declare it",
+      reason: "shared",
     });
   });
 
   test("refuses a domain nobody declares", () => {
     expect(dila_ok(build_declared_by_index([]), "nowhere.fr")).toEqual({
       ok: false,
-      reason: "no collectivite declares it",
+      reason: "undeclared",
     });
   });
 });
