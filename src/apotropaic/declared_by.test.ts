@@ -33,10 +33,8 @@ describe("build_declared_by_index", () => {
       {
         departement: "73",
         domains: new Set(["coisesaintjeanpiedgauthier.fr", "coise73.fr"]),
-        mails: new Set(["coise73.fr"]),
         name: "Coise-Saint-Jean-Pied-Gauthier",
         siren: "217300896",
-        sites: new Set(["coisesaintjeanpiedgauthier.fr"]),
       },
     ]);
     expect(index.get("coise73.fr")).toEqual(
