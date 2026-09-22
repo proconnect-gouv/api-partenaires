@@ -74,12 +74,11 @@ function domains_schema(extract: (value: string | null) => string | null) {
 function domain_from_url(url: string | null): string | null {
   if (!url?.trim()) return null;
   const with_scheme = url.includes("://") ? url : `http://${url}`;
-  try {
-    const host = new URL(with_scheme).hostname.toLowerCase();
-    return (host.startsWith("www.") ? host.slice(4) : host) || null;
-  } catch {
-    return null;
-  }
+  return (
+    URL.parse(with_scheme)
+      ?.hostname.toLowerCase()
+      .replace(/^www\./, "") || null
+  );
 }
 
 function domain_from_email(email: string | null): string | null {
@@ -88,16 +87,13 @@ function domain_from_email(email: string | null): string | null {
 }
 
 function organization_name(nom: string): string {
-  const separator = nom.indexOf(" - ");
-  return separator === -1 ? nom : nom.slice(separator + 3).trim();
+  return nom.replace(/^.*? - /s, "");
 }
 
 function departement_of(code_insee_commune: string): string | null {
-  if (code_insee_commune.length < 2) return null;
-  const prefix = code_insee_commune.slice(0, 2);
-  return code_insee_commune.slice(
-    0,
-    prefix === "97" || prefix === "98" ? 3 : 2,
+  return (
+    code_insee_commune.match(/^(?<departement>9[78]\d|\d[\dAB])/)?.groups
+      ?.departement ?? null
   );
 }
 
@@ -121,7 +117,10 @@ const fiche_schema = z
     ]);
     if (domains.size === 0) return null;
     return {
-      siren: record.siren || record.siret.slice(0, 9) || `fiche:${record.id}`,
+      siren:
+        record.siren ||
+        record.siret.match(/^\d{9}/)?.[0] ||
+        `fiche:${record.id}`,
       name: organization_name(record.nom),
       departement: departement_of(record.code_insee_commune),
       domains,

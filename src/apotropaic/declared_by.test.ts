@@ -48,6 +48,16 @@ describe("build_declared_by_index", () => {
     expect(index.size).toBe(0);
   });
 
+  test("keeps three digits for overseas departements and letters for Corse", () => {
+    const departement_of = (code_insee_commune: string) =>
+      build_declared_by_index([{ ...mairie, code_insee_commune }]).get(
+        "coise73.fr",
+      )?.[0]?.departement;
+
+    expect(departement_of("97411")).toBe("974");
+    expect(departement_of("2A004")).toBe("2A");
+  });
+
   test("skips malformed input instead of throwing", () => {
     expect(build_declared_by_index("not an array").size).toBe(0);
     expect(
