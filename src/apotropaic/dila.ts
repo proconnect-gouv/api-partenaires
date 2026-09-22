@@ -35,11 +35,9 @@ export async function load_dila_export(
   const cache_file = Bun.file(cache_path);
 
   if (await cache_file.exists()) {
-    console.log(`🗓️ DILA export: cache hit (${cache_path})`);
     return cache_file.json();
   }
 
-  console.log(`🗓️ DILA export: cache miss, fetching ${DILA_EXPORT_URL}`);
   const response = await fetch_impl(DILA_EXPORT_URL);
   if (!response.ok) {
     throw new Error(
