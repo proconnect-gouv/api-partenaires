@@ -8,19 +8,19 @@ oidc_providers:
       - domain: aiglun06.fr
         source: manual
       - domain: ainhoa.fr
-        source: manual
+        source: dila
       - domain: aletlesbains.com
         source: manual
       - domain: alpi.collectivite.fr
         source: manual
       - domain: alzon.fr
-        source: manual
+        source: dila
       - domain: amf.collectivite.fr
         source: manual
       - domain: arnia.collectivite.fr
         source: manual
       - domain: arzenc-de-randon.fr
-        source: manual
+        source: dila
       - domain: at86.collectivite.fr
         source: manual
       - domain: atd24.collectivite.fr
@@ -34,7 +34,7 @@ oidc_providers:
       - domain: badaroux.fr
         source: manual
       - domain: belloy-en-france.fr
-        source: manual
+        source: dila
       - domain: belmont-bretenoux.fr
         source: manual
       - domain: berrelesalpes.fr
@@ -42,7 +42,7 @@ oidc_providers:
       - domain: blars.fr
         source: manual
       - domain: boisseron.fr
-        source: manual
+        source: dila
       - domain: bouranton.fr
         source: manual
       - domain: brigny.collectivite.fr
@@ -64,23 +64,23 @@ oidc_providers:
       - domain: charlevalenprovence.fr
         source: manual
       - domain: chateauneuflerouge.fr
-        source: manual
+        source: dila
       - domain: chaudeyrac.fr
-        source: manual
+        source: dila
       - domain: chaumeil19.fr
         source: manual
       - domain: cipieres.fr
         source: manual
       - domain: commune-montmaur.fr
-        source: manual
+        source: dila
       - domain: condamine.fr
-        source: manual
+        source: dila
       - domain: coublucq.fr
-        source: manual
+        source: dila
       - domain: courlandon.fr
-        source: manual
+        source: dila
       - domain: courson-monteloup.fr
-        source: manual
+        source: dila
       - domain: crepon14.fr
         source: manual
       - domain: demo.collectivite.fr
@@ -88,21 +88,21 @@ oidc_providers:
       - domain: ecollectivites.collectivite.fr
         source: manual
       - domain: ecuras.fr
-        source: manual
+        source: dila
       - domain: ecury-sur-coole.fr
-        source: manual
+        source: dila
       - domain: fajoles.fr
         source: manual
       - domain: ferrieres-les-bois.fr
         source: manual
       - domain: feuguerolles-bully.fr
-        source: manual
+        source: dila
       - domain: fibre5962.collectivite.fr
         source: manual
       - domain: frontenac.fr
-        source: manual
+        source: dila
       - domain: garderes.fr
-        source: manual
+        source: dila
       - domain: gennes25.fr
         source: manual
       - domain: gieconvergence.collectivite.fr
@@ -114,13 +114,13 @@ oidc_providers:
       - domain: grandfailly.fr
         source: manual
       - domain: griesbachauval.fr
-        source: manual
+        source: dila
       - domain: griselles21.collectivite.fr
         source: manual
       - domain: houdelaincourt.fr
-        source: manual
+        source: dila
       - domain: lacaunette34.fr
-        source: manual
+        source: dila
       - domain: lacelle19.fr
         source: manual
       - domain: ladignedaval.fr
@@ -134,7 +134,7 @@ oidc_providers:
       - domain: les-salles-lavauguyon.fr
         source: manual
       - domain: lescun.fr
-        source: manual
+        source: dila
       - domain: letouvet.fr
         source: manual
       - domain: lgnum.collectivite.fr
@@ -146,9 +146,9 @@ oidc_providers:
       - domain: louvigny64.fr
         source: manual
       - domain: mairie-beaurecueil.fr
-        source: manual
+        source: dila
       - domain: mairie-cauge.fr
-        source: manual
+        source: dila
       - domain: mairie-celon.fr
         source: manual
       - domain: mairie-de-jabreilles-les-bordes.fr
@@ -156,13 +156,13 @@ oidc_providers:
       - domain: mairie-de-maron.fr
         source: manual
       - domain: mairie-de-salins.fr
-        source: manual
+        source: dila
       - domain: mairie-ibos.fr
         source: manual
       - domain: mairie-onoz.fr
-        source: manual
+        source: dila
       - domain: mairie-puttelangeauxlacs.fr
-        source: manual
+        source: dila
       - domain: mairie-savins.fr
         source: manual
       - domain: mairiedelouey.fr
@@ -178,11 +178,11 @@ oidc_providers:
       - domain: mirabeau84.fr
         source: manual
       - domain: molieres-cavaillac.fr
-        source: manual
+        source: dila
       - domain: mommenheim.fr
-        source: manual
+        source: dila
       - domain: montgeroult.fr
-        source: manual
+        source: dila
       - domain: montgesty.collectivite.fr
         source: manual
       - domain: moselle-fibre.collectivite.fr
@@ -200,9 +200,9 @@ oidc_providers:
       - domain: norroypam.fr
         source: manual
       - domain: oms.fr
-        source: manual
+        source: dila
       - domain: oradour-sur-vayres.fr
-        source: manual
+        source: dila
       - domain: outrepont.fr
         source: manual
       - domain: peyroules.fr
@@ -212,9 +212,9 @@ oidc_providers:
       - domain: pouliacq.fr
         source: manual
       - domain: putangeslelac.fr
-        source: manual
+        source: dila
       - domain: puycapel.fr
-        source: manual
+        source: dila
       - domain: rebenacq.fr
         source: manual
       - domain: recia.collectivite.fr
@@ -228,11 +228,11 @@ oidc_providers:
       - domain: saint-bauzile.fr
         source: manual
       - domain: saint-gerons.fr
-        source: manual
+        source: dila
       - domain: saint-goussaud.fr
         source: manual
       - domain: saint-quentin-sur-isere.fr
-        source: manual
+        source: dila
       - domain: saint-regle.fr
         source: manual
       - domain: saint-sozy.fr
@@ -240,21 +240,21 @@ oidc_providers:
       - domain: saintbresson.fr
         source: manual
       - domain: saintgermaindejoux.fr
-        source: manual
+        source: dila
       - domain: saintlaurentdecondel.fr
-        source: manual
+        source: dila
       - domain: saintrambertenbugey.fr
-        source: manual
+        source: dila
       - domain: sariac-magnoac.collectivite.fr
         source: manual
       - domain: sauvagnon.fr
-        source: manual
+        source: dila
       - domain: sauvelade.fr
         source: manual
       - domain: savas.fr
-        source: manual
+        source: dila
       - domain: servas.fr
-        source: manual
+        source: dila
       - domain: sidec-jura.com
         source: manual
       - domain: sieeen.collectivite.fr
@@ -286,36 +286,36 @@ oidc_providers:
       - domain: tourneville.fr
         source: manual
       - domain: tramoyes.fr
-        source: manual
+        source: dila
       - domain: trefols.fr
         source: manual
       - domain: trizac.fr
-        source: manual
+        source: dila
       - domain: valdufaby.fr
         source: manual
       - domain: vaucouleurs.fr
-        source: manual
+        source: dila
       - domain: vercors.fr
         source: manual
       - domain: vers-pontdugard.fr
         source: manual
       - domain: village-borderes.fr
-        source: manual
+        source: dila
       - domain: village-le-saix.fr
         source: manual
       - domain: villecloye.fr
-        source: manual
+        source: dila
       - domain: villedeguillestre.fr
-        source: manual
+        source: dila
       - domain: villeneuve-saint-denis.fr
         source: manual
       - domain: villeneuve-st-denis.fr
         source: manual
       - domain: villers-allerand.fr
-        source: manual
+        source: dila
       - domain: villetelle.fr
         source: manual
       - domain: villette-sur-ain.fr
-        source: manual
+        source: dila
       - domain: violes.fr
-        source: manual
+        source: dila
