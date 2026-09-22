@@ -15,7 +15,7 @@ describe("load_dila_export", () => {
     await rm(cache_dir, { recursive: true, force: true });
   });
 
-  test("sans cache du jour, va chercher l'export et le met en cache", async () => {
+  test("without today's cache, fetches the export and caches it", async () => {
     const sample = { records: [{ id: "1" }] };
     let calls = 0;
     const fake_fetch = async () => {
@@ -33,7 +33,7 @@ describe("load_dila_export", () => {
     expect(calls).toBe(1);
   });
 
-  test("avec un cache du jour deja present, ne fait aucun appel reseau", async () => {
+  test("with today's cache already present, makes no network call", async () => {
     const sample = { records: [{ id: "cached" }] };
     await Bun.write(
       join(cache_dir, "dila-2026-09-22.json"),

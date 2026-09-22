@@ -3,7 +3,7 @@ import { oidc_providers_config_schema } from "#src/oidc_providers_config";
 import { check_not_allowed } from "./not_allowed";
 
 describe("check_not_allowed", () => {
-  test("une configuration sans domaine interdit ne produit aucune erreur", () => {
+  test("a configuration without a forbidden domain produces no error", () => {
     const config = oidc_providers_config_schema.parse({
       oidc_providers: [
         {
@@ -18,7 +18,7 @@ describe("check_not_allowed", () => {
     expect(check_not_allowed(config)).toEqual([]);
   });
 
-  test("refuse un domaine de la liste interdite", () => {
+  test("rejects a domain from the forbidden list", () => {
     const config = oidc_providers_config_schema.parse({
       oidc_providers: [
         {
