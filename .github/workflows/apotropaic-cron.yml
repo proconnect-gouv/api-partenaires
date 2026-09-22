@@ -33,6 +33,4 @@ jobs:
           key: dila-export-${{ steps.date.outputs.today }}
 
       - name: 🛡️ Lint allowlist
-        run: |
-          bun -e 'const { load_dila_export } = await import("#src/apotropaic/dila"); await load_dila_export();'
-          bun run lint:apotropaic
+        run: bun run lint:apotropaic
