@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { check_not_allowed } from "./apotropaic";
-import { oidc_providers_config_schema } from "./oidc_providers_config";
+import { oidc_providers_config_schema } from "#src/oidc_providers_config";
+import { check_not_allowed } from "./not_allowed";
 
 describe("check_not_allowed", () => {
   test("une configuration sans domaine interdit ne produit aucune erreur", () => {

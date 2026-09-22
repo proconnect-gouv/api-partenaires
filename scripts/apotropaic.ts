@@ -1,4 +1,4 @@
-import { check_not_allowed } from "#src/apotropaic";
+import { check_not_allowed } from "#src/apotropaic/not_allowed";
 import { oidc_providers_config_schema } from "#src/oidc_providers_config";
 
 const path = "config/anct/oidc_providers.production.yaml";
