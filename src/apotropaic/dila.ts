@@ -1,4 +1,4 @@
-import { mkdir, rename } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
@@ -35,10 +35,7 @@ export async function load_dila_export(
   const cache_file = Bun.file(cache_path);
 
   if (await cache_file.exists()) {
-    const cached = await cache_file.text();
-    if (cached.length > 0) {
-      return JSON.parse(cached);
-    }
+    return cache_file.json();
   }
 
   const response = await fetch_impl(DILA_EXPORT_URL);
@@ -50,9 +47,7 @@ export async function load_dila_export(
   const body = await response.text();
 
   await mkdir(cache_dir, { recursive: true });
-  const temp_path = `${cache_path}.part`;
-  await Bun.write(temp_path, body);
-  await rename(temp_path, cache_path);
+  await Bun.write(cache_path, body);
 
   return JSON.parse(body);
 }
