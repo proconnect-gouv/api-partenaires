@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 const COLLECTIVITE_TYPES = new Set(["mairie", "epci", "cg", "cr"]);
 
 export type Fiche = {
@@ -7,16 +9,27 @@ export type Fiche = {
   domains: Set<string>;
 };
 
-type DilaRecord = {
-  id?: string | null;
-  siret?: string | null;
-  siren?: string | null;
-  nom?: string | null;
-  pivot?: string | null;
-  code_insee_commune?: string | null;
-  site_internet?: string | null;
-  adresse_courriel?: string | null;
-};
+const dila_record_schema = z.object({
+  id: z.string().nullish(),
+  siret: z.string().nullish(),
+  siren: z.string().nullish(),
+  nom: z.string().nullish(),
+  pivot: z.string().nullish(),
+  code_insee_commune: z.string().nullish(),
+  site_internet: z.string().nullish(),
+  adresse_courriel: z.string().nullish(),
+});
+type DilaRecord = z.infer<typeof dila_record_schema>;
+
+const pivot_entry_schema = z
+  .object({ type_service_local: z.string().nullish() })
+  .loose();
+const pivot_schema = z.union([pivot_entry_schema, z.array(pivot_entry_schema)]);
+
+const dila_value_schema = z.union([
+  z.string(),
+  z.object({ valeur: z.string().nullish() }).loose(),
+]);
 
 function coerce_dila_values(raw: unknown): unknown[] {
   if (raw == null) return [];
@@ -55,15 +68,15 @@ function domain_from_email(email: unknown): string | null {
 }
 
 function domains_of(
-  raw: unknown,
+  raw: string | null | undefined,
   extract: (value: unknown) => string | null,
 ): Set<string> {
   const domains = new Set<string>();
   for (const item of coerce_dila_values(raw)) {
+    const parsed = dila_value_schema.safeParse(item);
+    if (!parsed.success) continue;
     const value =
-      item && typeof item === "object" && "valeur" in item
-        ? (item as { valeur: unknown }).valeur
-        : item;
+      typeof parsed.data === "string" ? parsed.data : parsed.data.valeur;
     const domain = extract(value);
     if (domain) domains.add(domain);
   }
@@ -72,19 +85,16 @@ function domains_of(
 
 function service_type(record: DilaRecord): string | null {
   if (!record.pivot) return null;
-  let pivot: unknown;
+  let decoded: unknown;
   try {
-    pivot =
-      typeof record.pivot === "string"
-        ? JSON.parse(record.pivot)
-        : record.pivot;
+    decoded = JSON.parse(record.pivot);
   } catch {
     return null;
   }
-  for (const item of Array.isArray(pivot) ? pivot : [pivot]) {
-    const kind = (item as { type_service_local?: string } | null)
-      ?.type_service_local;
-    if (kind) return kind;
+  const parsed = pivot_schema.safeParse(decoded);
+  if (!parsed.success) return null;
+  for (const item of Array.isArray(parsed.data) ? parsed.data : [parsed.data]) {
+    if (item.type_service_local) return item.type_service_local;
   }
   return null;
 }
@@ -119,7 +129,11 @@ export function build_declared_by_index(
   const declared_by = new Map<string, Fiche[]>();
   if (!Array.isArray(records)) return declared_by;
 
-  for (const record of records as DilaRecord[]) {
+  for (const raw of records) {
+    const parsed = dila_record_schema.safeParse(raw);
+    if (!parsed.success) continue;
+    const record = parsed.data;
+
     if (!COLLECTIVITE_TYPES.has(service_type(record) ?? "")) continue;
 
     const domains = new Set([
