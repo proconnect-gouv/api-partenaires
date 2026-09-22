@@ -1,5 +1,8 @@
+import { load_dila_export } from "#src/apotropaic/dila";
 import { check_not_allowed } from "#src/apotropaic/not_allowed";
 import { oidc_providers_config_schema } from "#src/oidc_providers_config";
+
+await load_dila_export();
 
 const path = "config/anct/oidc_providers.production.yaml";
 const file = Bun.file(path);

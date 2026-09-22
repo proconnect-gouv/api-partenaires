@@ -1,0 +1,16 @@
+name: 🗓️ Cache DILA export
+description: Restore/save the day-keyed DILA administrative directory export cache
+
+runs:
+  using: composite
+  steps:
+    - name: 🗓️ Today's date
+      id: date
+      shell: bash
+      run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+    - name: 🗓️ Cache DILA export
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/proconnect-allowlist
+        key: dila-export-${{ steps.date.outputs.today }}

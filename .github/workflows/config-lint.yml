@@ -3,10 +3,22 @@ name: 🗂️ Config Lint
 on:
   push:
     branches: [main]
-    paths: ["config/**", "src/apotropaic/**", "scripts/apotropaic.ts"]
+    paths:
+      [
+        "config/**",
+        "src/apotropaic/**",
+        "scripts/apotropaic.ts",
+        ".github/workflows/config-lint.yml",
+      ]
   pull_request:
     branches: [main]
-    paths: ["config/**", "src/apotropaic/**", "scripts/apotropaic.ts"]
+    paths:
+      [
+        "config/**",
+        "src/apotropaic/**",
+        "scripts/apotropaic.ts",
+        ".github/workflows/config-lint.yml",
+      ]
 
 jobs:
   lint-config:
@@ -43,6 +55,9 @@ jobs:
 
       - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
+
+      - name: 🗓️ Cache DILA export
+        uses: ./.github/actions/dila-cache
 
       - name: 🛡️ Lint allowlist
         run: bun run lint:apotropaic
