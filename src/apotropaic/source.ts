@@ -19,6 +19,10 @@ type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
 const check_by_source: {
   [S in Source]: (row: RowBySource[S], index: DilaIndex) => string | null;
 } = {
+  candidate: (row, { fiches }) =>
+    fiches.has(fiche_id(row.fiche) ?? "")
+      ? null
+      : fiche_refusal_message.fiche_not_found,
   dila: (row, { declared_by, fiches }) => {
     const verdict = dila_ok(declared_by, row.domain);
     if (!verdict.ok) return dila_refusal_message[verdict.reason];

@@ -88,9 +88,33 @@ oidc_providers:
       - domain: cipieres.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/87f78f0f-54eb-45ca-b4be-b3344fabd7d2
         source: dila
+      - domain: coise-saint-jean-pied-gauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coise-saint-jean-pied-gauthier73.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coise-st-jean-pied-gauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coise73.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coisesaintjeanpiedgauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coisesaintjeanpiedgauthier73.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: coisestjeanpiedgauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
       - domain: commune-montmaur.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/20835be1-39a8-495f-b468-e0cb8c743d25
         source: dila
+      - domain: commune-sablons.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
+        source: candidate
       - domain: condamine.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/0754090e-76c7-43a9-8437-752179517b8e
         source: dila
@@ -106,6 +130,12 @@ oidc_providers:
       - domain: crepon14.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/ba8949f1-b956-4eca-beae-bc157f7ae55c
         source: dila
+      - domain: curgy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/001c2e78-286c-4673-82d3-e90627f4afff
+        source: candidate
+      - domain: curgy71.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/001c2e78-286c-4673-82d3-e90627f4afff
+        source: candidate
       - domain: demo.collectivite.fr
         source: manual
       - domain: ecollectivites.collectivite.fr
@@ -116,6 +146,24 @@ oidc_providers:
       - domain: ecury-sur-coole.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/7357bf13-93ee-4e85-99eb-6fccef52a0e2
         source: dila
+      - domain: epercieux-saint-paul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: epercieux-saint-paul42.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: epercieux-st-paul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: epercieuxsaintpaul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: epercieuxsaintpaul42.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: epercieuxstpaul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
       - domain: fajoles.fr
         source: manual
       - domain: ferrieres-les-bois.fr
@@ -125,6 +173,18 @@ oidc_providers:
         source: dila
       - domain: fibre5962.collectivite.fr
         source: manual
+      - domain: fontaine-le-port.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: fontaine-le-port77.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: fontaineleport.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: fontaineleport77.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
       - domain: frontenac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/62e20cff-a298-4af6-ab74-1ae2c677e0fb
         source: dila
@@ -141,6 +201,24 @@ oidc_providers:
       - domain: gourdon06.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/66b1ba08-44f1-4333-a261-0d35bb43eb28
         source: dila
+      - domain: grace-uzel.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: grace-uzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: grace-uzel22.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: graceuzel.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: graceuzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: graceuzel22.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
       - domain: grandfailly.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/aa281c1a-e1bf-4fae-a45c-2b8f704edc21
         source: dila
@@ -149,6 +227,21 @@ oidc_providers:
         source: dila
       - domain: griselles21.collectivite.fr
         source: manual
+      - domain: hautecourt-romaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: hautecourt-romaneche01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: hautecourtromaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: hautecourtromaneche.grandbourg.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: hautecourtromaneche01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
       - domain: houdelaincourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/8cbb1216-b3b4-468d-bc09-3dffc882433d
         source: dila
@@ -163,6 +256,9 @@ oidc_providers:
         source: dila
       - domain: lafibre64.collectivite.fr
         source: manual
+      - domain: le-vernet09.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/002244f6-d8f3-4af9-8a37-96f705ee6c25
+        source: candidate
       - domain: lemesnilsuroger.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/a9b0f80b-b811-4b49-abb9-0d88306b6546
         source: dila
@@ -176,6 +272,9 @@ oidc_providers:
         source: dila
       - domain: letouvet.fr
         source: manual
+      - domain: levernet09.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/002244f6-d8f3-4af9-8a37-96f705ee6c25
+        source: candidate
       - domain: lgnum.collectivite.fr
         source: manual
       - domain: lignieres-sur-aire.fr
@@ -186,6 +285,18 @@ oidc_providers:
       - domain: louvigny64.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/c093d253-4dcb-48e2-8086-4e3a3665e5b6
         source: dila
+      - domain: lurcy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00175ddb-02d3-40e3-92e3-f0be5e66aa52
+        source: candidate
+      - domain: lurcy01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00175ddb-02d3-40e3-92e3-f0be5e66aa52
+        source: candidate
+      - domain: maigne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
+        source: candidate
+      - domain: maigne72.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
+        source: candidate
       - domain: mairie-beaurecueil.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/67a013be-ca21-4f3d-af4f-17f55d787b1a
         source: dila
@@ -195,6 +306,15 @@ oidc_providers:
       - domain: mairie-celon.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/24bf5089-bf48-4e31-a8c6-a3b3a10a37f4
         source: dila
+      - domain: mairie-coise-saint-jean-pied-gauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: mairie-coisesaintjeanpiedgauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: mairie-curgy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/001c2e78-286c-4673-82d3-e90627f4afff
+        source: candidate
       - domain: mairie-de-jabreilles-les-bordes.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/6ed9cdd6-c3b0-4e97-a20d-e095d804a0ef
         source: dila
@@ -204,24 +324,114 @@ oidc_providers:
       - domain: mairie-de-salins.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/e835ba98-388f-44ec-bcb3-cb08ce677a5a
         source: dila
+      - domain: mairie-epercieux-saint-paul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: mairie-epercieuxsaintpaul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: mairie-fontaine-le-port.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: mairie-fontaineleport.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: mairie-grace-uzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: mairie-graceuzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: mairie-hautecourt-romaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: mairie-hautecourtromaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
       - domain: mairie-ibos.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/6227840f-0af3-4006-933e-b7e6aa3b9cf7
         source: dila
+      - domain: mairie-lurcy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00175ddb-02d3-40e3-92e3-f0be5e66aa52
+        source: candidate
+      - domain: mairie-maigne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
+        source: candidate
+      - domain: mairie-morgny-la-pommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: mairie-morgnylapommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: mairie-mouchy-le-chatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: mairie-mouchylechatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
       - domain: mairie-onoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/1f49d617-6ba2-4b1c-810b-ec9bf246fd01
         source: dila
+      - domain: mairie-paris-13e-arrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: mairie-paris13earrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
       - domain: mairie-puttelangeauxlacs.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/bd50a475-1b3f-4975-b915-91fdf45fb2ea
         source: dila
+      - domain: mairie-quingey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/00247f13-734e-4814-8241-6c95f96ed9f1
+        source: candidate
+      - domain: mairie-rantzwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
+        source: candidate
+      - domain: mairie-sablons.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
+        source: candidate
+      - domain: mairie-saint-georges-le-flechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: mairie-saint-gobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: mairie-saint-pierre-de-manneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: mairie-saintgeorgesleflechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: mairie-saintgobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: mairie-saintpierredemanneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
       - domain: mairie-savins.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/44b1dfff-c72f-4b20-88ae-9ba3955d08bd
         source: dila
+      - domain: mairie-villaines-la-gonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: mairie-villaineslagonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: mairie-vivy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: candidate
+      - domain: mairie13.paris.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
       - domain: mairiedelouey.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/538675ce-4152-4899-af16-b361453b23ea
         source: dila
       - domain: mairiedestill.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/6f9b8691-46a6-46ca-b3be-3496de7bde55
         source: dila
+      - domain: mairiemaigne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
+        source: candidate
       - domain: manchenumerique.collectivite.fr
         source: manual
       - domain: maxey-sur-vaise.fr
@@ -242,8 +452,32 @@ oidc_providers:
         source: dila
       - domain: montgesty.collectivite.fr
         source: manual
+      - domain: morgny-la-pommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: morgny-la-pommeraye76.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: morgnylapommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: morgnylapommeraye76.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
       - domain: moselle-fibre.collectivite.fr
         source: manual
+      - domain: mouchy-le-chatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: mouchy-le-chatel60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: mouchylechatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: mouchylechatel60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
       - domain: moulinneuf09.collectivite.fr
         source: manual
       - domain: moulinssurorne.fr
@@ -269,6 +503,24 @@ oidc_providers:
       - domain: outrepont.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/5edfb8c3-0410-4c19-bfbd-7b55d36b9edb
         source: dila
+      - domain: paris-13e-arrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: paris-13e-arrondissement.paris
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: paris-13e-arrondissement75.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: paris13earrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: paris13earrondissement.paris
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: paris13earrondissement75.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
       - domain: peyroules.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/187eddea-a927-4a4f-8e9f-4c15ba6ab509
         source: dila
@@ -283,6 +535,21 @@ oidc_providers:
       - domain: puycapel.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/98eda4f1-7cb7-4fd2-a1d3-4c4592d23c7d
         source: dila
+      - domain: quingey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/00247f13-734e-4814-8241-6c95f96ed9f1
+        source: candidate
+      - domain: quingey25.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/00247f13-734e-4814-8241-6c95f96ed9f1
+        source: candidate
+      - domain: rantzwiller.alsace
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
+        source: candidate
+      - domain: rantzwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
+        source: candidate
+      - domain: rantzwiller68.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
+        source: candidate
       - domain: rebenacq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/7ef95ac0-f0fe-490a-a177-93aa57678eda
         source: dila
@@ -290,6 +557,12 @@ oidc_providers:
         source: manual
       - domain: rgd.collectivite.fr
         source: manual
+      - domain: sablons.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
+        source: candidate
+      - domain: sablons38.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
+        source: candidate
       - domain: sacoue.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/f16a982d-622c-4f5b-9534-1bca3528fa03
         source: dila
@@ -299,12 +572,30 @@ oidc_providers:
       - domain: saint-bauzile.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/8c16f1a7-d9c1-4a5a-82b5-5b75d0b8ae7e
         source: dila
+      - domain: saint-georges-le-flechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: saint-georges-le-flechard53.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
       - domain: saint-gerons.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/b7beb6a8-0169-4fbb-8689-0a5cd660eff6
         source: dila
+      - domain: saint-gobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: saint-gobain02.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
       - domain: saint-goussaud.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/57ea1386-2aa0-47f9-986b-563eb9295dd7
         source: dila
+      - domain: saint-pierre-de-manneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: saint-pierre-de-manneville76.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
       - domain: saint-quentin-sur-isere.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/dbe53952-dd1c-4a24-ba7d-9598f65bc161
         source: dila
@@ -316,12 +607,30 @@ oidc_providers:
         source: dila
       - domain: saintbresson.fr
         source: manual
+      - domain: saintgeorgesleflechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: saintgeorgesleflechard53.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
       - domain: saintgermaindejoux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/eca7a77d-45a5-465f-98a8-b21789be1276
         source: dila
+      - domain: saintgobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: saintgobain02.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
       - domain: saintlaurentdecondel.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/4619488e-5f42-499e-b21a-ab95808cd8f4
         source: dila
+      - domain: saintpierredemanneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: saintpierredemanneville76.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
       - domain: saintrambertenbugey.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/3beecfef-dd44-4ca1-91ca-95895b30de52
         source: dila
@@ -355,6 +664,24 @@ oidc_providers:
         source: manual
       - domain: smn76.collectivite.fr
         source: manual
+      - domain: st-georges-le-flechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: st-gobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: st-pierre-de-manneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: stgeorgesleflechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: stgobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: stpierredemanneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
       - domain: strenquels.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/5470865f-def7-4fd3-ba66-a44df4a2581a
         source: dila
@@ -397,6 +724,111 @@ oidc_providers:
       - domain: village-le-saix.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/d00cc071-8f2b-4622-a493-0c38e886fb72
         source: dila
+      - domain: villaines-la-gonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: villaines-la-gonais72.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: villaineslagonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: villaineslagonais72.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: ville-coise-saint-jean-pied-gauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: ville-coisesaintjeanpiedgauthier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0007006a-18a1-41cc-b5d8-adea0962070e
+        source: candidate
+      - domain: ville-curgy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/001c2e78-286c-4673-82d3-e90627f4afff
+        source: candidate
+      - domain: ville-epercieux-saint-paul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: ville-epercieuxsaintpaul.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
+        source: candidate
+      - domain: ville-fontaine-le-port.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: ville-fontaineleport.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
+        source: candidate
+      - domain: ville-grace-uzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: ville-graceuzel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/004733b9-0ac8-41cf-bdaa-7b06ae7c4abd
+        source: candidate
+      - domain: ville-hautecourt-romaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: ville-hautecourtromaneche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
+        source: candidate
+      - domain: ville-lurcy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00175ddb-02d3-40e3-92e3-f0be5e66aa52
+        source: candidate
+      - domain: ville-maigne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
+        source: candidate
+      - domain: ville-morgny-la-pommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: ville-morgnylapommeraye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
+        source: candidate
+      - domain: ville-mouchy-le-chatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: ville-mouchylechatel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
+        source: candidate
+      - domain: ville-paris-13e-arrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: ville-paris13earrondissement.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/paris/00053c80-6183-4252-a5dd-b4831440c7d0
+        source: candidate
+      - domain: ville-quingey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/00247f13-734e-4814-8241-6c95f96ed9f1
+        source: candidate
+      - domain: ville-rantzwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
+        source: candidate
+      - domain: ville-sablons.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
+        source: candidate
+      - domain: ville-saint-georges-le-flechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: ville-saint-gobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: ville-saint-pierre-de-manneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: ville-saintgeorgesleflechard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
+        source: candidate
+      - domain: ville-saintgobain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
+        source: candidate
+      - domain: ville-saintpierredemanneville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/002054fa-3fec-4f34-9290-2f3f74d5f9cd
+        source: candidate
+      - domain: ville-villaines-la-gonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: ville-villaineslagonais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/000429a7-4ce5-4173-8f7e-80da7c8e7702
+        source: candidate
+      - domain: ville-vivy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: candidate
       - domain: villecloye.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/09dc5e0a-ddd2-47bf-8c9e-cad4310271d9
         source: dila
@@ -419,3 +851,12 @@ oidc_providers:
       - domain: violes.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/62023f39-5180-400d-bc60-8e991b4eb0d3
         source: dila
+      - domain: vivy-commune.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: candidate
+      - domain: vivy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: candidate
+      - domain: vivy49.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: candidate

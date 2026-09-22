@@ -98,4 +98,32 @@ describe("check_sources", () => {
       `coise.fr: fiche SIREN differs from the domain's owner (uid "${uid}")`,
     ]);
   });
+
+  test("accepts a candidate whose fiche is a collectivité in DILA", () => {
+    expect(
+      check_sources(
+        config_with({
+          domain: "mairie-coise.fr",
+          fiche: fiche_url(coise_id),
+          source: "candidate",
+        }),
+        index,
+      ),
+    ).toEqual([]);
+  });
+
+  test("rejects a candidate whose fiche is not in DILA", () => {
+    expect(
+      check_sources(
+        config_with({
+          domain: "mairie-coise.fr",
+          fiche: fiche_url("00000000-0000-0000-0000-000000000000"),
+          source: "candidate",
+        }),
+        index,
+      ),
+    ).toEqual([
+      `mairie-coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`,
+    ]);
+  });
 });
