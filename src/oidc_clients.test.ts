@@ -362,6 +362,32 @@ describe("PATCH /api/oidc_clients/:id", () => {
     expect(((await res.json()) as { name: string }).name).toBe("Updated");
   });
 
+  test("updates name but leaves collaborators intact", async () => {
+    const app = create_test_app();
+    const created = await api_call(app, "POST", "/api/oidc_clients", {
+      email: CALLER,
+      json_data: {
+        name: "Test App",
+        collaborators: [CALLER, "someone-else@example.com"],
+      },
+    });
+    const body = (await created.json()) as { _id: string };
+    const res = await api_call(app, "PATCH", `/api/oidc_clients/${body._id}`, {
+      email: CALLER,
+      json_data: { name: "Updated" },
+    });
+    expect(res.status).toBe(200);
+    const response = (await res.json()) as {
+      name: string;
+      collaborators: string[];
+    };
+    expect(response.name).toBe("Updated");
+    expect(response.collaborators).toEqual([
+      CALLER,
+      "someone-else@example.com",
+    ]);
+  });
+
   test("bumps updatedAt but keeps createdAt stable", async () => {
     const app = create_test_app();
     const created = await api_call(app, "POST", "/api/oidc_clients", {
