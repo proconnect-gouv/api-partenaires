@@ -206,12 +206,16 @@ export function create_oidc_clients_app({
 
       const update = {
         ...parsed.data,
-        collaborators: Array.from(
-          new Set([...(parsed.data.collaborators ?? []), email]),
-        ),
         updatedAt: new Date(),
         updatedBy: "espace-partenaires",
       };
+
+      if (parsed.data.collaborators) {
+        update.collaborators = Array.from(
+          new Set([...parsed.data.collaborators, email]),
+        );
+      }
+
       const result = await oidc_clients.updateOne(
         { _id: oid, collaborators: email },
         { $set: update },
