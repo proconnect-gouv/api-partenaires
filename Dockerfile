@@ -8,7 +8,7 @@ RUN bun install --frozen-lockfile --production
 COPY src/ ./src/
 RUN bun build --compile --minify --sourcemap src/index.ts --outfile=partners
 
-FROM alpine:3.24.1 AS runtime
+FROM alpine:3.24.2 AS runtime
 RUN apk add --no-cache libstdc++
 RUN addgroup -g 1001 -S bun && adduser -S bun -u 1001
 USER bun
