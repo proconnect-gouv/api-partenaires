@@ -1,4 +1,5 @@
-import { oidc_providers_config_schema } from "../src/oidc_providers_config";
+import { oidc_providers_config_schema } from "#src/oidc_providers_config";
+import { zod_issues } from "#src/zod_issues";
 
 function find_duplicates(values: string[]): string[] {
   const seen = new Set<string>();
@@ -20,7 +21,10 @@ for await (const path of glob.scan(".")) {
   );
 
   if (!parsed.success) {
-    errors.push(`${path}: invalid config (${parsed.error.message})`);
+    errors.push(`${path}: invalid config`);
+    for (const issue of zod_issues(parsed.error)) {
+      errors.push(`  ${issue}`);
+    }
     continue;
   }
 

@@ -3,6 +3,7 @@ import { load_dila_export } from "#src/apotropaic/dila";
 import { check_not_allowed } from "#src/apotropaic/not_allowed";
 import { check_sources } from "#src/apotropaic/source";
 import { oidc_providers_config_schema } from "#src/oidc_providers_config";
+import { zod_issues } from "#src/zod_issues";
 
 const dila_index = build_dila_index(await load_dila_export());
 
@@ -13,7 +14,10 @@ const parsed = oidc_providers_config_schema.safeParse(
 );
 
 if (!parsed.success) {
-  console.error(`🚨 ${path}: invalid config (${parsed.error.message})`);
+  console.error(`🚨 ${path}: invalid config`);
+  for (const issue of zod_issues(parsed.error)) {
+    console.error(`  ${issue}`);
+  }
   process.exit(1);
 }
 
