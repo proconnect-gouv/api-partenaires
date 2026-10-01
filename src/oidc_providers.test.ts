@@ -95,21 +95,21 @@ function create_test_app() {
         {
           uid: MONCOMPTEPRO_UID,
           allowed_attached_email_domains: [
-            { domain: "moncomptepro.fr", source: "manual" },
-            { domain: "polyfi.fr", source: "manual" },
-            { domain: "fifi.fr", source: "manual" },
+            { domain: "moncomptepro.fr", source: "routed" },
+            { domain: "polyfi.fr", source: "routed" },
+            { domain: "fifi.fr", source: "routed" },
           ],
         },
         {
           uid: ENRICHED_UID,
           allowed_attached_email_domains: [
-            { domain: "enriched.example.com", source: "manual" },
+            { domain: "enriched.example.com", source: "routed" },
           ],
         },
         {
           uid: GHOST_UID,
           allowed_attached_email_domains: [
-            { domain: "moncomptepro.fr", source: "manual" },
+            { domain: "moncomptepro.fr", source: "routed" },
           ],
         },
       ],

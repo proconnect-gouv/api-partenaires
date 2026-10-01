@@ -2,9 +2,9 @@ oidc_providers:
   - uid: "f5154035-c3d6-47ad-8583-197d508269d0"
     allowed_attached_email_domains:
       - domain: adico.collectivite.fr
-        source: manual
+        source: routed
       - domain: adm81.collectivite.fr
-        source: manual
+        source: routed
       - domain: aiglun06.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/66a96116-23f1-4928-8f32-54e2de5e9dbe
         source: dila
@@ -12,28 +12,29 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/a55b549a-1608-4459-a6f0-f60fbaf2b299
         source: dila
       - domain: aletlesbains.com
-        source: manual
+        source: routed
       - domain: alpi.collectivite.fr
-        source: manual
+        source: routed
       - domain: alzon.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/b664b165-a937-4d67-bafe-2e4098c6ffa4
         source: dila
       - domain: amf.collectivite.fr
-        source: manual
+        source: routed
       - domain: arnia.collectivite.fr
-        source: manual
+        source: routed
       - domain: arzenc-de-randon.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/95db43f1-5ea5-4d01-9bfb-03b6cb7e4d13
         source: dila
       - domain: at86.collectivite.fr
-        source: manual
+        source: routed
       - domain: atd24.collectivite.fr
-        source: manual
+        source: routed
       - domain: aubreville.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/33f650de-bcd8-4bb4-b897-247db31820b0
         source: dila
       - domain: ayros-arbouix.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/3154bf22-2bed-4c51-912f-066ac9b50255
+        source: candidate
       - domain: azoudange.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/7e507d68-7a57-4b04-9931-14fd55f385e2
         source: dila
@@ -59,24 +60,25 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/cfb8d2eb-4ccf-4f42-96b9-cc60635fff32
         source: dila
       - domain: brigny.collectivite.fr
-        source: manual
+        source: routed
       - domain: caille06.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/957a21b2-273d-45fa-beb1-114e195e7873
+        source: candidate
       - domain: carayac.collectivite.fr
-        source: manual
+        source: routed
       - domain: castellet-en-luberon.collectivite.fr
-        source: manual
+        source: routed
       - domain: cdg09.collectivite.fr
-        source: manual
+        source: routed
       - domain: cdg47.collectivite.fr
-        source: manual
+        source: routed
       - domain: cdg48.collectivite.fr
-        source: manual
+        source: routed
       - domain: charleval13.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/c34f1a97-7341-4f5a-8838-32e0ad1b0710
         source: dila
       - domain: charlevalenprovence.fr
-        source: manual
+        source: routed
       - domain: chateauneuflerouge.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/771074fb-d496-4f1d-b1f0-96b600a8f0bb
         source: dila
@@ -84,7 +86,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/473059bd-a63a-4c04-ab33-5eaa88648f9a
         source: dila
       - domain: chaumeil19.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/06e82ad2-0cf1-45fa-8043-6c0059b68cbc
+        source: candidate
       - domain: cipieres.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/87f78f0f-54eb-45ca-b4be-b3344fabd7d2
         source: dila
@@ -137,9 +140,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/001c2e78-286c-4673-82d3-e90627f4afff
         source: candidate
       - domain: demo.collectivite.fr
-        source: manual
+        source: routed
       - domain: ecollectivites.collectivite.fr
-        source: manual
+        source: routed
       - domain: ecuras.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/86fd4998-a80a-4946-8839-73bb3662da84
         source: dila
@@ -165,14 +168,16 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0017f1ed-68af-4ade-9d00-83990b5a2dc6
         source: candidate
       - domain: fajoles.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/e94b277d-b162-42d4-aba3-37ef0458ebaa
+        source: candidate
       - domain: ferrieres-les-bois.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/7ea19494-a2fa-4b53-b2d8-d8608fc2bb53
+        source: candidate
       - domain: feuguerolles-bully.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/50ab042f-2621-439c-ab9c-1c1347c1b848
         source: dila
       - domain: fibre5962.collectivite.fr
-        source: manual
+        source: routed
       - domain: fontaine-le-port.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/00007e4d-264c-43a0-b0b7-7f3b7dd995ab
         source: candidate
@@ -195,9 +200,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/0213b613-94c2-44e7-9ca0-2c9fdd6a677e
         source: dila
       - domain: gieconvergence.collectivite.fr
-        source: manual
+        source: routed
       - domain: girondenumerique.collectivite.fr
-        source: manual
+        source: routed
       - domain: gourdon06.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/66b1ba08-44f1-4333-a261-0d35bb43eb28
         source: dila
@@ -226,7 +231,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/1ac96aec-967b-4f1f-b756-69903be0cea1
         source: dila
       - domain: griselles21.collectivite.fr
-        source: manual
+        source: routed
       - domain: hautecourt-romaneche.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/00260669-16f9-42a2-836a-aad822c8e1c1
         source: candidate
@@ -255,7 +260,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/b6ebc200-ee1b-4580-b5a1-68c1d697efa8
         source: dila
       - domain: lafibre64.collectivite.fr
-        source: manual
+        source: routed
       - domain: le-vernet09.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/002244f6-d8f3-4af9-8a37-96f705ee6c25
         source: candidate
@@ -263,7 +268,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/a9b0f80b-b811-4b49-abb9-0d88306b6546
         source: dila
       - domain: les-aspres.collectivite.fr
-        source: manual
+        source: routed
       - domain: les-salles-lavauguyon.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/1a8b4334-dee4-4205-ab86-e7ba0c8c8673
         source: dila
@@ -271,14 +276,16 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/3b942e8b-6ae1-4375-9c74-ab4a244057b0
         source: dila
       - domain: letouvet.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/d96d47ef-48be-4043-87b3-42b2da7c5b22
+        source: candidate
       - domain: levernet09.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/002244f6-d8f3-4af9-8a37-96f705ee6c25
         source: candidate
       - domain: lgnum.collectivite.fr
-        source: manual
+        source: routed
       - domain: lignieres-sur-aire.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/f5135885-f8cc-4313-a6b6-596bb11576a8
+        source: candidate
       - domain: lolif.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/61c176b4-54cb-40ff-bb5b-8fdd805d4c84
         source: dila
@@ -433,14 +440,15 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/00206ac5-c48b-4e01-a319-dc729a59ff32
         source: candidate
       - domain: manchenumerique.collectivite.fr
-        source: manual
+        source: routed
       - domain: maxey-sur-vaise.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/af4f3ef4-55a9-4eb3-9acc-4381982fce2c
         source: dila
       - domain: megalis.collectivite.fr
-        source: manual
+        source: routed
       - domain: mirabeau84.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/15da8875-3361-48dd-9014-ed10e1f16e88
+        source: candidate
       - domain: molieres-cavaillac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/f8e2c3f6-553c-404e-bdb0-033134ed9abb
         source: dila
@@ -451,7 +459,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/5c204a44-a910-4844-bda0-118d7ad370b2
         source: dila
       - domain: montgesty.collectivite.fr
-        source: manual
+        source: routed
       - domain: morgny-la-pommeraye.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
         source: candidate
@@ -465,7 +473,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0031a50b-74fc-4ceb-971d-9f3d78ecc617
         source: candidate
       - domain: moselle-fibre.collectivite.fr
-        source: manual
+        source: routed
       - domain: mouchy-le-chatel.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
         source: candidate
@@ -479,7 +487,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0025820a-e0bb-4a93-93a6-72eb352392ee
         source: candidate
       - domain: moulinneuf09.collectivite.fr
-        source: manual
+        source: routed
       - domain: moulinssurorne.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/8ca7c617-9f54-43f2-ad43-3668fef17ab9
         source: dila
@@ -490,7 +498,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/37a49bdf-e925-4d68-bd2a-3210fa4dbbf0
         source: dila
       - domain: neuvy51.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/4d87b4fe-25d4-431a-963f-bd61bc0c8099
+        source: candidate
       - domain: norroypam.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/3e7c5ee9-6740-43a8-a488-57c079ac5e4e
         source: dila
@@ -525,7 +534,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/187eddea-a927-4a4f-8e9f-4c15ba6ab509
         source: dila
       - domain: pointenoire.fr
-        source: manual
+        source: routed
       - domain: pouliacq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/64668a19-ef13-4e9e-8aff-a87bf56358a4
         source: dila
@@ -554,9 +563,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/7ef95ac0-f0fe-490a-a177-93aa57678eda
         source: dila
       - domain: recia.collectivite.fr
-        source: manual
+        source: routed
       - domain: rgd.collectivite.fr
-        source: manual
+        source: routed
       - domain: sablons.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/004574cd-10b3-4aa7-80f5-b64c2bee15eb
         source: candidate
@@ -606,7 +615,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/59266528-5766-4b99-b11c-d1ad2045ef10
         source: dila
       - domain: saintbresson.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/d8be4100-54a7-460d-b459-ace24d903062
+        source: candidate
       - domain: saintgeorgesleflechard.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
         source: candidate
@@ -635,7 +645,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/3beecfef-dd44-4ca1-91ca-95895b30de52
         source: dila
       - domain: sariac-magnoac.collectivite.fr
-        source: manual
+        source: routed
       - domain: sauvagnon.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/0f71c817-a5c8-4365-b6fe-fe4bae4b7ffe
         source: dila
@@ -649,21 +659,21 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a848e4e4-889d-4dbe-a82a-267ebe189299
         source: dila
       - domain: sidec-jura.com
-        source: manual
+        source: routed
       - domain: sieeen.collectivite.fr
-        source: manual
+        source: routed
       - domain: sitiv.collectivite.fr
-        source: manual
+        source: routed
       - domain: sitiv2.collectivite.fr
-        source: manual
+        source: routed
       - domain: sivergues.collectivite.fr
-        source: manual
+        source: routed
       - domain: smic88.collectivite.fr
-        source: manual
+        source: routed
       - domain: smico.collectivite.fr
-        source: manual
+        source: routed
       - domain: smn76.collectivite.fr
-        source: manual
+        source: routed
       - domain: st-georges-le-flechard.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/001ef9c8-fd52-4a98-a467-41ca69ba67c8
         source: candidate
@@ -686,13 +696,13 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/5470865f-def7-4fd3-ba66-a44df4a2581a
         source: dila
       - domain: suite.anct.gouv.fr
-        source: manual
+        source: routed
       - domain: suiteterritoriale.anct.gouv.fr
-        source: manual
+        source: routed
       - domain: syane.collectivite.fr
-        source: manual
+        source: routed
       - domain: test-lst-securite.fr
-        source: manual
+        source: routed
       - domain: teyssieu.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/337ead14-e773-4640-ae0d-e00677d252f3
         source: dila
@@ -703,7 +713,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a4eb2df0-172d-433f-b57a-1750eadc7ba5
         source: dila
       - domain: trefols.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/0335f0ef-cd28-4d3c-977b-9ab759dea33e
+        source: candidate
       - domain: trizac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/a8791072-6662-4537-9820-68a655cd6f2b
         source: dila
@@ -714,7 +725,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/299e5b86-1fd7-45ea-ad63-59edf9af8924
         source: dila
       - domain: vercors.fr
-        source: manual
+        source: routed
       - domain: vers-pontdugard.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/a9d3714a-37a4-411f-b49d-08e7815b8a65
         source: dila
@@ -839,12 +850,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/57cc1df4-c37e-40a8-abae-9e29723ffe0e
         source: dila
       - domain: villeneuve-st-denis.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/57cc1df4-c37e-40a8-abae-9e29723ffe0e
+        source: candidate
       - domain: villers-allerand.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/f599a522-a15d-41e2-a340-a73a1925cf28
         source: dila
       - domain: villetelle.fr
-        source: manual
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/a2ad89e4-115d-4784-b370-229909986874
+        source: candidate
       - domain: villette-sur-ain.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/940467b5-a670-4705-8cd8-d2bd44439113
         source: dila

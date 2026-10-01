@@ -9,7 +9,7 @@ describe("validation de la configuration fournisseurs OIDC", () => {
           {
             uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
             allowed_attached_email_domains: [
-              { domain: "moncomptepro.fr", source: "manual" },
+              { domain: "moncomptepro.fr", source: "routed" },
             ],
           },
         ],
@@ -19,7 +19,7 @@ describe("validation de la configuration fournisseurs OIDC", () => {
         {
           uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
           allowed_attached_email_domains: [
-            { domain: "moncomptepro.fr", source: "manual" },
+            { domain: "moncomptepro.fr", source: "routed" },
           ],
         },
       ],

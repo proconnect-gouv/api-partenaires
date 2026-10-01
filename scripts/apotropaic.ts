@@ -17,14 +17,18 @@ if (!parsed.success) {
   process.exit(1);
 }
 
-const errors = [
-  ...check_not_allowed(parsed.data),
-  ...check_sources(parsed.data, dila_index),
-];
+const sources = check_sources(parsed.data, dila_index);
+const errors = [...check_not_allowed(parsed.data), ...sources.errors];
 
 if (errors.length > 0) {
   console.error(`🚨 ${path}:\n${errors.join("\n")}`);
   process.exit(1);
+}
+
+if (sources.warnings.length > 0) {
+  console.warn(
+    `⚠️ ${path} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
+  );
 }
 
 console.log(

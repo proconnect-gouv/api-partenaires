@@ -18,7 +18,7 @@ const allowed_domain_schema = z.discriminatedUnion("source", [
   }),
   z.object({
     domain: z.string(),
-    source: z.literal("manual"),
+    source: z.literal("routed"),
   }),
 ]);
 

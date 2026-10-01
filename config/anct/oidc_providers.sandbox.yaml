@@ -2,6 +2,6 @@ oidc_providers:
   - uid: "aaa58fc5-0397-495d-8cb5-92b02559d376"
     allowed_attached_email_domains:
       - domain: preprod.suiteterritoriale.fr
-        source: manual
+        source: routed
       - domain: sardinepq.fr
-        source: manual
+        source: routed
