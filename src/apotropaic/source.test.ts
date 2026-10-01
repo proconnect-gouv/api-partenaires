@@ -36,13 +36,16 @@ function config_with(row: Record<string, string>) {
 }
 
 describe("check_sources", () => {
-  test("never checks a manual domain against DILA", () => {
+  test("warns on a routed domain without checking it", () => {
     expect(
       check_sources(
-        config_with({ domain: "nowhere.fr", source: "manual" }),
+        config_with({ domain: "nowhere.fr", source: "routed" }),
         index,
       ),
-    ).toEqual([]);
+    ).toEqual({
+      errors: [],
+      warnings: [`nowhere.fr: routed exception, not rule (uid "${uid}")`],
+    });
   });
 
   test("accepts a dila domain DILA attests to the row's fiche", () => {
@@ -55,7 +58,7 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([]);
+    ).toEqual({ errors: [], warnings: [] });
   });
 
   test("rejects a dila domain DILA does not attest", () => {
@@ -68,7 +71,10 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([`nowhere.fr: no collectivite declares it (uid "${uid}")`]);
+    ).toEqual({
+      errors: [`nowhere.fr: no collectivite declares it (uid "${uid}")`],
+      warnings: [],
+    });
   });
 
   test("rejects a dila row whose fiche is not in DILA", () => {
@@ -81,7 +87,10 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([`coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`]);
+    ).toEqual({
+      errors: [`coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`],
+      warnings: [],
+    });
   });
 
   test("rejects a dila row whose fiche is another collectivité", () => {
@@ -94,9 +103,12 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([
-      `coise.fr: fiche SIREN differs from the domain's owner (uid "${uid}")`,
-    ]);
+    ).toEqual({
+      errors: [
+        `coise.fr: fiche SIREN differs from the domain's owner (uid "${uid}")`,
+      ],
+      warnings: [],
+    });
   });
 
   test("accepts a candidate whose fiche is a collectivité in DILA", () => {
@@ -109,7 +121,7 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([]);
+    ).toEqual({ errors: [], warnings: [] });
   });
 
   test("rejects a candidate whose fiche is not in DILA", () => {
@@ -122,8 +134,11 @@ describe("check_sources", () => {
         }),
         index,
       ),
-    ).toEqual([
-      `mairie-coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`,
-    ]);
+    ).toEqual({
+      errors: [
+        `mairie-coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`,
+      ],
+      warnings: [],
+    });
   });
 });

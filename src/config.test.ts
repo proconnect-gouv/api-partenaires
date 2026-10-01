@@ -34,7 +34,7 @@ describe("environment parsing", () => {
         '  - uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"',
         "    allowed_attached_email_domains:",
         "      - domain: moncomptepro.fr",
-        "        source: manual",
+        "        source: routed",
       ].join("\n"),
     );
     await expect(
@@ -48,7 +48,7 @@ describe("environment parsing", () => {
           {
             uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
             allowed_attached_email_domains: [
-              { domain: "moncomptepro.fr", source: "manual" },
+              { domain: "moncomptepro.fr", source: "routed" },
             ],
           },
         ],

@@ -9,7 +9,7 @@ describe("check_not_allowed", () => {
         {
           uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
           allowed_attached_email_domains: [
-            { domain: "moncomptepro.fr", source: "manual" },
+            { domain: "moncomptepro.fr", source: "routed" },
           ],
         },
       ],
@@ -24,7 +24,7 @@ describe("check_not_allowed", () => {
         {
           uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb",
           allowed_attached_email_domains: [
-            { domain: "gmail.com", source: "manual" },
+            { domain: "gmail.com", source: "routed" },
           ],
         },
       ],
