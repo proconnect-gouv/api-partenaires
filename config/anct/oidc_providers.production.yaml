@@ -12,7 +12,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/a55b549a-1608-4459-a6f0-f60fbaf2b299
         source: dila
       - domain: aletlesbains.com
-        source: routed
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/4edfea4d-04f0-40c7-8588-8340b3b165d7
+        source: candidate
       - domain: alpi.collectivite.fr
         source: routed
       - domain: alzon.fr
@@ -534,7 +535,8 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/187eddea-a927-4a4f-8e9f-4c15ba6ab509
         source: dila
       - domain: pointenoire.fr
-        source: routed
+        fiche: https://lannuaire.service-public.gouv.fr/guadeloupe/guadeloupe/c79eb9b1-b512-466e-83bc-e85d7b132dd8
+        source: candidate
       - domain: pouliacq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/64668a19-ef13-4e9e-8aff-a87bf56358a4
         source: dila
@@ -700,8 +702,6 @@ oidc_providers:
       - domain: suiteterritoriale.anct.gouv.fr
         source: routed
       - domain: syane.collectivite.fr
-        source: routed
-      - domain: test-lst-securite.fr
         source: routed
       - domain: teyssieu.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/337ead14-e773-4640-ae0d-e00677d252f3
