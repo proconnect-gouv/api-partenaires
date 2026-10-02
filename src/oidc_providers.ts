@@ -58,6 +58,26 @@ export function create_oidc_providers_app({
         );
       }
 
+      const provider = await providers.findOne({ uid });
+      if (!provider) return c.json({ error: "not_found" }, 404);
+      const added = body.data.attached_email_domains.filter(
+        (domain) => !provider.attachedEmailDomains.includes(domain),
+      );
+      const elsewhere = await providers.distinct("attachedEmailDomains", {
+        attachedEmailDomains: { $in: added },
+        uid: { $ne: uid },
+      });
+      const taken = added.filter((domain) => elsewhere.includes(domain));
+      if (taken.length > 0) {
+        return c.json(
+          {
+            error: "attached_email_domain_taken",
+            attached_email_domains: taken,
+          },
+          409,
+        );
+      }
+
       const updated = await providers.findOneAndUpdate(
         { uid },
         { $set: { attachedEmailDomains: body.data.attached_email_domains } },

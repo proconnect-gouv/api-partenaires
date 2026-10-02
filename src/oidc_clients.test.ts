@@ -70,6 +70,9 @@ function create_test_app({
   oidc_providers_secret?: string;
 } = {}) {
   const providers: OidcProviderStore = {
+    async distinct() {
+      return [];
+    },
     async findOne() {
       return null;
     },
@@ -531,6 +534,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
     };
     const app = create_app({
       providers: {
+        distinct: async () => [],
         findOne: async () => null,
         findOneAndUpdate: async () => null,
       },
@@ -613,6 +617,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
     };
     const app = create_app({
       providers: {
+        distinct: async () => [],
         findOne: async () => null,
         findOneAndUpdate: async () => null,
       },

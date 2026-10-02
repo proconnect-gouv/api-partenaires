@@ -7,3 +7,6 @@ oidc_providers:
         source: routed
       - domain: fifi.fr
         source: routed
+      # already attached to the seeded `intruder` provider: allowlisted here so only the taken-domain check can refuse it
+      - domain: intruder.fr
+        source: routed

@@ -110,6 +110,23 @@ describe.serial(
       expect(res.status).toBe(422);
     });
 
+    test("refuse un domaine déjà rattaché à un autre fournisseur", async () => {
+      const res = await oidc_providers_api_call(
+        "PATCH",
+        `/api/oidc_providers/${uid}/configuration`,
+        {
+          json_data: {
+            attached_email_domains: ["moncomptepro.fr", "intruder.fr"],
+          },
+        },
+      );
+      expect(res.status).toBe(409);
+      expect(await res.json()).toEqual({
+        error: "attached_email_domain_taken",
+        attached_email_domains: ["intruder.fr"],
+      });
+    });
+
     test("ajoute fifi.fr aux attached_email_domains autorisés", async () => {
       const res = await oidc_providers_api_call(
         "PATCH",

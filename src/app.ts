@@ -16,6 +16,13 @@ export interface OidcProvider {
 }
 
 export interface OidcProviderStore {
+  distinct(
+    key: "attachedEmailDomains",
+    filter: {
+      attachedEmailDomains: { $in: string[] };
+      uid: { $ne: string };
+    },
+  ): Promise<string[]>;
   findOne(filter: { uid: string }): Promise<OidcProvider | null>;
   findOneAndUpdate(
     filter: { uid: string },
