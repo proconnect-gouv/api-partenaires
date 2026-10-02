@@ -7,12 +7,20 @@ const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 
-function mairie(id: string, siren: string, site: string | null) {
+function mairie({
+  id,
+  site,
+  siren,
+}: {
+  id: string;
+  site: string | null;
+  siren: string;
+}) {
   return {
     id,
     siret: null,
     siren,
-    nom: `Mairie - ${siren}`,
+    nom: "Mairie - Coise",
     pivot: '[{"type_service_local": "mairie"}]',
     code_insee_commune: "73089",
     site_internet: site && `[{"libelle": "", "valeur": "https://${site}"}]`,
@@ -21,8 +29,8 @@ function mairie(id: string, siren: string, site: string | null) {
 }
 
 const index = build_dila_index([
-  mairie(coise_id, "217300896", "coise.fr"),
-  mairie(other_id, "999999999", null),
+  mairie({ id: coise_id, site: "coise.fr", siren: "217300896" }),
+  mairie({ id: other_id, site: null, siren: "999999999" }),
 ]);
 
 function fiche_url(id: string) {
