@@ -5,11 +5,24 @@
 API permettant aux fournisseurs OIDC proches de ProConnect de modifier une partie
 limitée de leur configuration de production.
 
-## Développement
+## Démarrage
+
+Le service nécessite une MongoDB accessible (collections `provider` et
+`client`) — variable `MONGODB_URI`. L'image embarque les configurations de
+l'ANCT par environnement dans
+`/etc/proconnect-gouv/api-partenaires/config` :
+`anct/oidc_providers.sandbox.yaml` et `anct/oidc_providers.production.yaml`,
+pointées par `OIDC_PROVIDERS_CONFIG` sans montage de volume.
 
 ```sh
-bun install
-bun run dev
+docker run -p 3000:3000 \
+  -e MONGODB_URI=mongodb://host.docker.internal:27017/partners \
+  -e OIDC_PROVIDERS_CONFIG=/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.production.yaml \
+  -e OIDC_PROVIDERS_API_SECRET=your-oidc-providers-secret \
+  -e OIDC_CLIENTS_API_SECRET=your-oidc-clients-secret \
+  -e CLIENT_SECRET_CIPHER_PASS="$(printf '0%.0s' {1..32})" \
+  -e FEATURE_ENABLE_SANDBOX_ENDPOINT=true \
+  ghcr.io/proconnect-gouv/api-partenaires:latest
 ```
 
 ## Configuration
@@ -32,6 +45,20 @@ secret : `OIDC_PROVIDERS_API_SECRET` pour `/api/oidc_providers/*`,
 
 L'endpoint sandbox `/api/oidc_clients*` exige en plus le paramètre `?email=`
 dans l'URL — il sert d'identité appelante pour le scoping par `collaborators`.
+
+Chaque requête vers `/api/*` doit porter une signature HMAC-SHA256 hexadécimale
+dans `X-Signature`, calculée sur le message
+`<timestamp>:<METHOD>:<pathname>?<query>[:<body>]` — le corps n'est inclus que
+pour `POST`/`PATCH`/`PUT` non vides — avec `<timestamp>` en secondes posé dans
+`X-Timestamp` :
+
+```sh
+timestamp=$(date +%s)
+message="$timestamp:GET:/api/oidc_providers/uid/configuration?"
+signature=$(printf '%s' "$message" | openssl dgst -sha256 -hmac "$SECRET" | awk '{print $NF}')
+curl -H "X-Timestamp: $timestamp" -H "X-Signature: $signature" \
+  "http://127.0.0.1:3000/api/oidc_providers/uid/configuration"
+```
 
 ```yaml
 # oidc_providers.yaml
@@ -56,43 +83,7 @@ oidc_providers:
 | `PATCH /api/oidc_clients/:id`                  | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC                                     |
 | `DELETE /api/oidc_clients/:id`                 | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC                                               |
 
-## Scripts
+## Contribuer
 
-| Script                 | Description                |
-| ---------------------- | -------------------------- |
-| `bun run dev`          | Serveur local (hot reload) |
-| `bun test src`         | Tests unitaires            |
-| `bun run typecheck`    | Vérification TypeScript    |
-| `bun run format:check` | Vérification du formatage  |
-
-## Tests d'intégration
-
-Chaque dossier de `examples/` est un scénario docker compose exécuté en CI
-contre l'image construite :
-
-```sh
-cd examples/edit_provider_attached_email_domains
-bun test integration.test.ts
-```
-
-## Docker
-
-L'image embarque le contenu de `config/` dans
-`/etc/proconnect-gouv/api-partenaires/config` — dont les configurations de
-l'ANCT par environnement,
-`/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.sandbox.yaml`
-et `oidc_providers.production.yaml`. Pointer `OIDC_PROVIDERS_CONFIG` vers le
-chemin correspondant à l'environnement pour l'utiliser sans montage de
-volume.
-
-```sh
-docker build -t api-partenaires .
-docker run -p 3000:3000 \
-  -e MONGODB_URI=mongodb://host.docker.internal:27017/partners \
-  -e OIDC_PROVIDERS_CONFIG=/etc/proconnect-gouv/api-partenaires/config/anct/oidc_providers.production.yaml \
-  -e OIDC_PROVIDERS_API_SECRET=your-oidc-providers-secret \
-  -e OIDC_CLIENTS_API_SECRET=your-oidc-clients-secret \
-  -e CLIENT_SECRET_CIPHER_PASS="$(printf '0%.0s' {1..32})" \
-  -e FEATURE_ENABLE_SANDBOX_ENDPOINT=true \
-  api-partenaires
-```
+Voir [CONTRIBUTING.md](CONTRIBUTING.md) : développement, tests, build Docker,
+publication des versions.

@@ -1,5 +1,55 @@
 # Contribuer
 
+## Développement
+
+```sh
+bun install
+bun run dev
+```
+
+Le serveur exige les variables listées dans le [README](README.md#configuration)
+(`OIDC_PROVIDERS_API_SECRET`, `OIDC_CLIENTS_API_SECRET`,
+`CLIENT_SECRET_CIPHER_PASS` — 32 caractères exactement — et le fichier
+`oidc_providers.yaml`) : il refuse de démarrer sans elles.
+
+## Scripts
+
+| Script                    | Description                         |
+| ------------------------- | ----------------------------------- |
+| `bun run dev`             | Serveur local (hot reload)          |
+| `bun test src`            | Tests unitaires                     |
+| `bun run typecheck`       | Vérification TypeScript             |
+| `bun run format`          | Formatage (Prettier)                |
+| `bun run format:check`    | Vérification du formatage           |
+| `bun run lint`            | Formatage + TypeScript              |
+| `bun run lint:config`     | Validation de la configuration      |
+| `bun run lint:apotropaic` | Garde-fou sur la configuration      |
+| `bun run release`         | Publier une version (voir plus bas) |
+
+## Tests d'intégration
+
+Chaque dossier de `examples/` est un scénario docker compose exécuté en CI
+contre l'image construite :
+
+```sh
+cd examples/edit_provider_attached_email_domains
+bun test integration.test.ts
+```
+
+## Docker
+
+Construire l'image localement :
+
+```sh
+docker build -t api-partenaires .
+```
+
+Pour lancer le service, voir la section [Docker](README.md#docker) du README.
+
+En CI, chaque push sur `main` publie l'image sur
+`ghcr.io/proconnect-gouv/api-partenaires` (tags `main`, `sha-<sha>`, `latest`),
+et chaque tag de version ajoute le tag `<version>` correspondant.
+
 ## Publier une version
 
 Le versionnage suit le _calendar versioning_ au cycle mensuel (`YYYY.MM.PATCH`) :
