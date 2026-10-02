@@ -6,6 +6,9 @@ function create_test_app({
   check_ready = async () => {},
 }: { check_ready?: () => Promise<unknown> } = {}) {
   const providers: OidcProviderStore = {
+    async distinct() {
+      return [];
+    },
     async findOne() {
       return null;
     },

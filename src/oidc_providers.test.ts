@@ -8,6 +8,8 @@ const MONCOMPTEPRO_UID = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const ENRICHED_UID = "enriched-uid";
 // allowlisted in the fixture config but never seeded in the store
 const GHOST_UID = "ffffffff-ffff-4fff-8fff-ffffffffffff";
+// seeded in the store but absent from the fixture config
+const OTHER_UID = "00000000-0000-4000-8000-000000000001";
 
 function sign(
   method: string,
@@ -64,8 +66,33 @@ function create_test_app() {
         attachedEmailDomains: ["enriched.example.com"],
       },
     ],
+    [
+      OTHER_UID,
+      {
+        uid: OTHER_UID,
+        name: "other-provider",
+        attachedEmailDomains: ["polyfi.fr", "taken.fr"],
+      },
+    ],
   ]);
   const store = {
+    async distinct(
+      _key: "attachedEmailDomains",
+      {
+        attachedEmailDomains: { $in },
+        uid: { $ne },
+      }: { attachedEmailDomains: { $in: string[] }; uid: { $ne: string } },
+    ) {
+      return [...providers.values()]
+        .filter(
+          (provider) =>
+            provider.uid !== $ne &&
+            provider.attachedEmailDomains.some((domain) =>
+              $in.includes(domain),
+            ),
+        )
+        .flatMap((provider) => provider.attachedEmailDomains);
+    },
     async findOne({ uid }: { uid: string }) {
       return providers.get(uid) ?? null;
     },
@@ -98,6 +125,7 @@ function create_test_app() {
             { domain: "moncomptepro.fr", source: "routed" },
             { domain: "polyfi.fr", source: "routed" },
             { domain: "fifi.fr", source: "routed" },
+            { domain: "taken.fr", source: "routed" },
           ],
         },
         {
@@ -205,6 +233,34 @@ describe("OIDC provider configuration API", () => {
       error: "attached_email_domain_not_allowed",
       attached_email_domains: ["evil.fr"],
     });
+  });
+
+  test("rejects a domain already attached to another provider", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      {
+        json_data: { attached_email_domains: ["moncomptepro.fr", "taken.fr"] },
+      },
+    );
+    expect(res.status).toBe(409);
+    expect(await res.json()).toEqual({
+      error: "attached_email_domain_taken",
+      attached_email_domains: ["taken.fr"],
+    });
+  });
+
+  test("keeps a domain this provider already shares with another one", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: ["polyfi.fr"] } },
+    );
+    expect(res.status).toBe(200);
   });
 
   test("rejects malformed JSON body", async () => {

@@ -20,22 +20,23 @@ machine hôte (le test bun)
   `oidc_providers.yaml`.
 - `oidc_providers.yaml` (monté dans le conteneur) n'autorise l'édition que de
   `moncomptepro`, pour les domaines `moncomptepro.fr`, `polyfi.fr`,
-  `fifi.fr`.
+  `fifi.fr` et `intruder.fr` (déjà porté par `intruder`).
 - La restriction d'accès par IP est déléguée à l'ingress
   (`nginx.ingress.kubernetes.io/whitelist-source-range`), hors du périmètre
   de ce scénario.
 
 ## Ce que chaque test prouve
 
-| Test                                                | Preuve                                                                                       |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| livez et readyz répondent 200                       | le binaire compilé démarre et le ping mongo passe à travers le vrai driver                   |
-| retourne la configuration seedée                    | `docker-entrypoint-initdb.d` a bien peuplé la collection `provider`                          |
-| retourne 404 pour un uid inconnu                    | un `findOne` réel qui ne trouve rien                                                         |
-| refuse … un provider absent du YAML                 | c'est le **fichier monté** qui pilote l'allowlist : `intruder` existe en base mais reste 403 |
-| refuse un domaine hors liste                        | `evil.fr` → 422, la validation s'appuie sur les `allowed_attached_email_domains` du YAML     |
-| ajoute fifi.fr aux attached_email_domains autorisés | le PATCH nominal écrit en base et renvoie le document mis à jour                             |
-| reflète la modification persistée                   | un GET relit `fifi.fr` depuis mongo : l'écriture a bien traversé le driver                   |
+| Test                                                   | Preuve                                                                                                           |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| livez et readyz répondent 200                          | le binaire compilé démarre et le ping mongo passe à travers le vrai driver                                       |
+| retourne la configuration seedée                       | `docker-entrypoint-initdb.d` a bien peuplé la collection `provider`                                              |
+| retourne 404 pour un uid inconnu                       | un `findOne` réel qui ne trouve rien                                                                             |
+| refuse … un provider absent du YAML                    | c'est le **fichier monté** qui pilote l'allowlist : `intruder` existe en base mais reste 403                     |
+| refuse un domaine hors liste                           | `evil.fr` → 422, la validation s'appuie sur les `allowed_attached_email_domains` du YAML                         |
+| refuse un domaine déjà rattaché à un autre fournisseur | `intruder.fr` est autorisé par le YAML mais déjà porté par `intruder` en base → 409 via un vrai `distinct` mongo |
+| ajoute fifi.fr aux attached_email_domains autorisés    | le PATCH nominal écrit en base et renvoie le document mis à jour                                                 |
+| reflète la modification persistée                      | un GET relit `fifi.fr` depuis mongo : l'écriture a bien traversé le driver                                       |
 
 La logique de branchement (validations, spoof de l'en-tête, corps
 malformés…) vit dans les tests unitaires de `src/` ; ce scénario ne teste
