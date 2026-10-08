@@ -7,26 +7,23 @@ la première version d'un mois est `2026.10.0`, les releases du même mois
 incrémentent le patch (`2026.10.1`, `2026.10.2`, …) et le compteur repart à
 `0` le mois suivant (`2026.11.0`).
 
-Deux façons de déclencher une release :
+Les releases passent par
+[`proconnect-gouv/release-action`](https://github.com/proconnect-gouv/release-action)
+(workflow **🚢 Release It !**, à chaque push sur `main`) :
 
-1. **En local**, depuis `main` à jour et un répertoire de travail propre :
+1. Après chaque merge sur `main`, l'action ouvre ou met à jour la pull request
+   `🔖 release <version>` depuis la branche `release-it/next`. Elle met à jour
+   le champ `version` de `package.json` et ajoute la section de la version en
+   tête de `CHANGELOG.md` (commits groupés par gitmoji).
+2. Pour publier, relire puis merger cette pull request. L'action pose alors le
+   tag (sans préfixe `v`, ex. `2026.10.0`) et publie une GitHub release avec la
+   section du `CHANGELOG.md` comme notes.
+3. Le job de publication lance ensuite le build Docker sur le tag : l'image est
+   publiée sur `ghcr.io/proconnect-gouv/api-partenaires:<version>`
+   (multi-arch amd64/arm64).
 
-   ```sh
-   bun run release
-   ```
-
-2. **Depuis GitHub** : workflow **🚢 Release It !** (`workflow_dispatch`),
-   à lancer sur `main`.
-
-Dans les deux cas, release-it :
-
-- met à jour le champ `version` de `package.json` ;
-- crée le commit `:bookmark: release <version>` ;
-- pose le tag sur la version (sans préfixe `v`, ex. `2026.10.0`) et le pousse
-  (`--follow-tags`) ;
-- publie une GitHub release avec les notes de version.
-
-Le push du tag déclenche le build Docker : l'image est publiée sur
-`ghcr.io/proconnect-gouv/api-partenaires:<version>` (multi-arch amd64/arm64).
+Pour décrire un changement visible des utilisateurs, ajouter un fichier
+Markdown dans `.release-it-changeset/` (voir la
+[documentation de l'action](https://github.com/proconnect-gouv/release-action#%EF%B8%8F-changesets)).
 
 La publication npm est désactivée : ce dépôt ne publie pas de paquet npm.
