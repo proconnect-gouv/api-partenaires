@@ -6,7 +6,7 @@
       "name": "@proconnect-gouv/partners",
       "dependencies": {
         "@proconnect-gouv/proconnect.core": "^1.0.2",
-        "hono": "4.13.9",
+        "hono": "4.13.13",
         "mongodb": "6.21.0",
         "zod": "4.6.5",
       },
@@ -120,7 +120,7 @@
 
     "bun-types": ["bun-types@1.4.2", "", { "dependencies": { "@types/node": "*" } }, "sha512-bxV1FgK7yBIzjRe5zBozIM4Bem11ZJcCXSrjWRG3YWLt8yFDePu4cLjpebO8OvPeIE9trbyPF4fuj3Cia4Fj3w=="],
 
-    "hono": ["hono@4.13.9", "", {}, "sha512-7dMkQmZoC4E6F7AtaQSPhlWAdnBti+j7rreMZl8QB4jFiEhP9TWbGWUMi8WYzBCgmgulxuvLQupKqo+Co6Omyg=="],
+    "hono": ["hono@4.13.13", "", {}, "sha512-CQ46U0ZkAGmbT/4UxdzzGJpacP2IeKgY4a5/tOI9AABbpOMfK739wfDXmv1usCk+3RkKj1hQy4/fjhiwa2xlrA=="],
 
     "is-disposable-email-domain": ["is-disposable-email-domain@1.0.7", "", { "dependencies": { "tldjs": "^2.3.1" } }, "sha512-hqPsR8T+T4O1IZ2JzGQoY0FQXVhqKKHaN0si0XYz11vUgO7PcJkNi/Cjtw3pigFxaOMjpHpkskG7IxEi2gPcKQ=="],
 
