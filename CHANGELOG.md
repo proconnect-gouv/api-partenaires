@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.10.2](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.1...2026.10.2) (2026-10-08)
+
+### Dépendances
+
+- :arrow_upper_right: [patch](deps): Bump hono from 4.13.9 to 4.13.13 ([#95](https://github.com/proconnect-gouv/api-partenaires/issues/95)) ([2d5e8ca](https://github.com/proconnect-gouv/api-partenaires/commit/2d5e8ca5ccb95b6a523c01f3ff0f5df9f6f357e9))
+
 ## [2026.10.1](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.0...2026.10.1) (2026-10-08)
 
 ### Ajouté
