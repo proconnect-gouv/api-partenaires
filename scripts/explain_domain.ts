@@ -47,14 +47,35 @@ const dila_index = build_dila_index(
   build_cog_names(await load_cog_export()),
 );
 
-const SHOWN_FICHES = 5;
+const SHOWN_FICHES = 3;
 const UNLISTED_UID = "(not listed)";
+const count = new Intl.NumberFormat("en-US");
+const plural = new Intl.PluralRules("en-US");
 
-function describe_fiche(fiche: Fiche): string {
-  return `${fiche.name} (SIREN ${fiche.siren}, dép. ${fiche.departement ?? "?"}, fiche ${fiche.id})`;
+function noun(n: number, one: string, other: string): string {
+  return `${count.format(n)} ${plural.select(n) === "one" ? one : other}`;
 }
 
-function gate(rows: { uid: string; row: AllowedDomain }[]): string[] {
+function quoted(names: Iterable<string>): string {
+  return [...names].map((name) => `"${name}"`).join(", ");
+}
+
+function fiche_brief(fiche: Fiche): string {
+  return `${fiche.name} (dép. ${fiche.departement ?? "?"}, SIREN ${fiche.siren})`;
+}
+
+type Check = { label: string; ok: boolean | null; detail: string };
+
+function render(check: Check, gate_passed: boolean): string {
+  const mark = check.ok === null ? "·" : check.ok ? "✓" : "✗";
+  const note = check.ok === false && gate_passed ? " (not enforced)" : "";
+  return `   ${mark} ${check.label.padEnd(17)} ${check.detail}${note}`;
+}
+
+function gate(rows: { uid: string; row: AllowedDomain }[]): {
+  errors: string[];
+  warnings: string[];
+} {
   const gated: OidcProvidersConfig = {
     oidc_providers: rows.map(({ uid, row }) => ({
       uid,
@@ -62,64 +83,105 @@ function gate(rows: { uid: string; row: AllowedDomain }[]): string[] {
     })),
   };
   const sources = check_sources(gated, dila_index);
-  return [
-    ...check_not_allowed(gated).map((line) => `❌ ${line}`),
-    ...sources.errors.map((line) => `❌ ${line}`),
-    ...sources.warnings.map((line) => `⚠️ ${line}`),
-  ];
+  return {
+    errors: [...check_not_allowed(gated), ...sources.errors],
+    warnings: sources.warnings,
+  };
 }
 
-function explain(domain: string): boolean {
-  const lines: string[] = [];
+type Status = "valid" | "refused" | "would pass" | "would be refused";
+
+function explain(domain: string): Status {
   const listed = config.oidc_providers.flatMap((provider) =>
     provider.allowed_attached_email_domains
       .filter((row) => row.domain === domain)
       .map((row) => ({ uid: provider.uid, row })),
   );
-
-  lines.push(
-    listed.length === 0
-      ? "📋 allowlist: not listed"
-      : `📋 allowlist: ${listed
-          .map(({ uid, row }) =>
-            row.source === "dila"
-              ? `dila row, fiche ${fiche_id(row.fiche)} (uid ${uid})`
-              : `routed row (uid ${uid})`,
-          )
-          .join("; ")}`,
-  );
-
   const denied = denied_by(domain);
-  lines.push(
-    denied
-      ? `🚫 not-allowed list: listed via ${denied}${isAFreeDomain(denied) ? " (generic mail provider)" : ""}`
-      : "🚫 not-allowed list: not listed",
-  );
-
   const declaring = dila_index.declared_by.get(domain) ?? [];
   const owner = sole_owner(dila_index.declared_by, domain);
-  lines.push(
-    `📚 DILA: declared by ${declaring.length} fiche(s)${declaring.length > 0 ? `, ${owner ? "one" : "several"} SIREN` : ""}`,
-    ...declaring
-      .slice(0, SHOWN_FICHES)
-      .map((fiche) => `     ${describe_fiche(fiche)}`),
-    ...(declaring.length > SHOWN_FICHES
-      ? [`     … ${declaring.length - SHOWN_FICHES} more`]
-      : []),
-  );
-
   const verdict = dila_ok(dila_index.declared_by, domain);
-  lines.push(
-    is_sovereign(domain)
-      ? `🇫🇷 RPNT 1.2: .${domain.split(".").at(-1)} is sovereign`
-      : `🇫🇷 ${dila_refusal_message.not_sovereign}`,
+  const dila_rows = listed.flatMap(({ row }) =>
+    row.source === "dila" ? [row] : [],
   );
-
-  const row_fiche = listed
-    .map(({ row }) => (row.source === "dila" ? fiche_id(row.fiche) : null))
-    .map((id) => dila_index.fiches.get(id ?? ""))
-    .find((fiche) => fiche !== undefined);
+  const row_fiche_id = dila_rows.map((row) => fiche_id(row.fiche))[0];
+  const row_fiche = dila_index.fiches.get(row_fiche_id ?? "");
   const name_fiche = row_fiche ?? owner;
+
+  const checks: Check[] = [
+    {
+      label: "allowlist",
+      ok: null,
+      detail:
+        listed.length === 0
+          ? "not listed"
+          : listed
+              .map(
+                ({ uid, row }) =>
+                  `${row.source} row, provider ${uid.slice(0, 8)}`,
+              )
+              .join("; "),
+    },
+    {
+      label: "not-allowed list",
+      ok: !denied,
+      detail: denied
+        ? `listed via ${denied}${isAFreeDomain(denied) ? " (generic mail provider)" : ""}`
+        : "not listed",
+    },
+    {
+      label: "declared in DILA",
+      ok: declaring.length > 0,
+      detail:
+        declaring.length === 0
+          ? "no collectivité fiche declares it"
+          : [
+              noun(declaring.length, "fiche", "fiches"),
+              ...declaring.slice(0, SHOWN_FICHES).map(fiche_brief),
+              ...(declaring.length > SHOWN_FICHES
+                ? [`… ${count.format(declaring.length - SHOWN_FICHES)} more`]
+                : []),
+            ].join(" · "),
+    },
+    {
+      label: "sole owner",
+      ok: declaring.length === 0 ? null : owner !== null,
+      detail:
+        declaring.length === 0
+          ? "nobody to own it"
+          : owner
+            ? "one SIREN"
+            : `${noun(new Set(declaring.map((f) => f.siren)).size, "SIREN", "SIRENs")} share it`,
+    },
+    {
+      label: "RPNT 1.2",
+      ok: is_sovereign(domain),
+      detail: is_sovereign(domain)
+        ? `.${domain.split(".").at(-1)} is sovereign`
+        : `.${domain.split(".").at(-1)} is not sovereign, or the name is internationalized`,
+    },
+    dila_rows.length > 0
+      ? {
+          label: "row fiche",
+          ok: row_fiche !== undefined && row_fiche.siren === owner?.siren,
+          detail: !row_fiche
+            ? `${row_fiche_id} is not a collectivité in DILA`
+            : row_fiche.siren === owner?.siren
+              ? `${row_fiche.id}, the owner`
+              : `${fiche_brief(row_fiche)}, not the owner${owner ? ` (SIREN ${owner.siren})` : ""}`,
+        }
+      : {
+          label: "row fiche",
+          ok: null,
+          detail:
+            listed.length > 0
+              ? "routed row, cites no fiche"
+              : owner
+                ? `a new row would cite ${owner.id}`
+                : "no owner fiche to cite",
+        },
+  ];
+
   if (name_fiche) {
     const rebuilt = [...name_fiche.names].filter((name) =>
       reconstructs({ departement: name_fiche.departement, domain, name }),
@@ -127,16 +189,25 @@ function explain(domain: string): boolean {
     const carried = [...(owner?.names ?? [])].filter((name) =>
       carries_name({ domain, name }),
     );
-    lines.push(
-      rebuilt.length > 0
-        ? `🏷️ RPNT 2.2: built from ${rebuilt.map((n) => `"${n}"`).join(", ")}`
-        : carried.length > 0
-          ? `🏷️ RPNT 2.2: carries ${carried.map((n) => `"${n}"`).join(", ")}`
-          : `🏷️ RPNT 2.2: carries none of ${[...name_fiche.names].map((n) => `"${n}"`).join(", ")}`,
-    );
+    checks.push({
+      label: "RPNT 2.2 name",
+      ok: rebuilt.length > 0 || carried.length > 0,
+      detail:
+        rebuilt.length > 0
+          ? `built from ${quoted(rebuilt)}`
+          : carried.length > 0
+            ? `carries ${quoted(carried)}`
+            : `carries none of ${quoted(name_fiche.names)}`,
+    });
+  } else {
+    checks.push({
+      label: "RPNT 2.2 name",
+      ok: null,
+      detail: "no fiche to compare",
+    });
   }
 
-  const problems =
+  const result =
     listed.length > 0
       ? gate(listed)
       : owner
@@ -150,33 +221,58 @@ function explain(domain: string): boolean {
               },
             },
           ])
-        : [
-            ...(denied ? [`❌ not allowed, listed: ${denied}`] : []),
-            ...(verdict.ok
-              ? []
-              : [`❌ ${dila_refusal_message[verdict.reason]}`]),
-          ];
-  const valid = problems.every((line) => !line.startsWith("❌"));
+        : {
+            errors: [
+              ...(denied ? [`not allowed, listed: ${denied}`] : []),
+              ...(verdict.ok ? [] : [dila_refusal_message[verdict.reason]]),
+            ],
+            warnings: [],
+          };
+  const reasons = (lines: string[]) =>
+    lines
+      .map((line) =>
+        line.replace(`${domain}: `, "").replace(/ \(uid "[^"]+"\)$/, ""),
+      )
+      .join("; ");
 
-  lines.push(
-    valid
-      ? listed.length > 0
-        ? "✅ valid"
-        : `✅ would pass as a dila row citing fiche ${owner?.id}`
-      : listed.length > 0
-        ? "🚨 refused by the gate:"
-        : "🚨 would be refused:",
-    ...problems.map(
-      (line) =>
-        `     ${line.replace(`${domain}: `, "").replace(` (uid "${UNLISTED_UID}")`, "")}`,
-    ),
+  const status: Status =
+    listed.length > 0
+      ? result.errors.length === 0
+        ? "valid"
+        : "refused"
+      : result.errors.length === 0
+        ? "would pass"
+        : "would be refused";
+  const header = {
+    valid:
+      result.warnings.length > 0
+        ? `⚠️  ${domain}  valid, ${reasons(result.warnings)}`
+        : `✅ ${domain}  valid`,
+    refused: `❌ ${domain}  refused: ${reasons(result.errors)}`,
+    "would pass": `🟢 ${domain}  not listed, would pass citing fiche ${owner?.id}`,
+    "would be refused": `⛔ ${domain}  not listed, would be refused: ${reasons(result.errors)}`,
+  }[status];
+
+  console.log(
+    [
+      header,
+      ...checks.map((check) => render(check, result.errors.length === 0)),
+    ].join("\n"),
   );
-
-  console.log([`🔎 ${domain}`, ...lines.map((line) => `  ${line}`)].join("\n"));
-  return valid && listed.length > 0;
+  return status;
 }
 
-const results = positionals.map((input) =>
-  explain(input.trim().toLowerCase().split("@").at(-1) ?? ""),
-);
-process.exit(results.every(Boolean) ? 0 : 1);
+const statuses = positionals.map((input, index) => {
+  if (index > 0) console.log();
+  return explain(input.trim().toLowerCase().split("@").at(-1) ?? "");
+});
+if (statuses.length > 1) {
+  console.log(
+    `\n${noun(statuses.length, "domain", "domains")}: ${Object.entries(
+      Object.groupBy(statuses, (status) => status),
+    )
+      .map(([status, group]) => `${count.format(group?.length ?? 0)} ${status}`)
+      .join(", ")}`,
+  );
+}
+process.exit(statuses.every((status) => status === "valid") ? 0 : 1);
