@@ -1,3 +1,4 @@
+import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
@@ -31,87 +32,102 @@ const percent = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
   style: "percent",
 });
-const stat = ({
-  label,
+const line = ({
+  mark = " ",
+  note = "",
+  text,
   total,
   value,
 }: {
-  label: string;
-  total?: number;
+  mark?: string;
+  note?: string;
+  text: string;
+  total: number;
   value: number;
 }) =>
-  `  ${label.padEnd(16)}${count.format(value).padStart(8)}` +
-  (total ? `${percent.format(value / total).padStart(8)}` : "");
+  `  ${mark} ${count.format(value).padStart(7)} ${percent.format(value / total).padStart(6)}  ${text.padEnd(48)}${note}`.trimEnd();
+
 const rows = parsed.data.oidc_providers.flatMap(
   (provider) => provider.allowed_attached_email_domains,
 );
 const rows_by_source = Object.groupBy(rows, (row) => row.source);
+const source_meaning: { [S in Source]: string } = {
+  dila: "dila: one collectivité declares it, row cites its fiche",
+  routed: "routed: manual exception, not attested by DILA",
+};
 
-type DeclaredRefusal = DilaRefusal | "not_allowed";
-const refusal_label: { [R in DeclaredRefusal]: string } = {
-  not_allowed: "not allowed",
-  not_sovereign: "not sovereign",
-  shared: "shared",
-  undeclared: "undeclared",
+type DeclaredRefusal = DilaRefusal | "generic_mail" | "not_allowed";
+const refusal_meaning: {
+  [R in DeclaredRefusal]: { rpnt: string; text: string };
+} = {
+  not_sovereign: {
+    rpnt: "RPNT 1.2",
+    text: "extension not sovereign, or internationalized",
+  },
+  generic_mail: {
+    rpnt: "RPNT 2.2",
+    text: "generic mail provider (gmail.com, orange.fr…)",
+  },
+  not_allowed: {
+    rpnt: "",
+    text: "site builder, SaaS, State… (not-allowed list)",
+  },
+  shared: { rpnt: "", text: "declared by several collectivités (sole owner)" },
+  undeclared: { rpnt: "RPNT 1.1 / 2.1", text: "declared by no collectivité" },
 };
 const declared = dila_index.declared_by.size;
 const declared_by_verdict = Object.groupBy(
   dila_index.declared_by.keys(),
   (domain): DeclaredRefusal | "eligible" => {
-    if (denied_by(domain)) return "not_allowed";
+    const listed = denied_by(domain);
+    if (listed) return isAFreeDomain(listed) ? "generic_mail" : "not_allowed";
     const verdict = dila_ok(dila_index.declared_by, domain);
     return verdict.ok ? "eligible" : verdict.reason;
   },
 );
-const refusal_counts = (Object.keys(refusal_label) as DeclaredRefusal[])
-  .toSorted()
-  .map((refusal) => ({
-    refusal,
-    value: declared_by_verdict[refusal]?.length ?? 0,
-  }))
-  .filter(({ value }) => value > 0);
-const refused = refusal_counts.reduce((sum, { value }) => sum + value, 0);
 const eligible = declared_by_verdict.eligible ?? [];
 const allowlist = new Set(rows.map((row) => row.domain));
 const allowlisted = eligible.filter((domain) => allowlist.has(domain)).length;
 
-const source_meaning: { [S in Source]: string } = {
-  dila: "DILA declares each one for a single collectivité, whose fiche the row cites",
-  routed: "manual exceptions, not attested by DILA",
-};
-const source_counts = (Object.keys(source_meaning) as Source[])
-  .toSorted()
-  .map((source) => ({
-    source,
-    value: rows_by_source[source]?.length ?? 0,
-  }));
-
 console.log(
   [
-    `📊 ${path}`,
-    stat({ label: "providers", value: parsed.data.oidc_providers.length }),
-    stat({ label: "domains", value: rows.length }),
-    ...source_counts.map(({ source, value }) =>
-      stat({ label: `  ${source}`, total: rows.length, value }),
+    `📊 ${path}: ${count.format(rows.length)} domains, ${count.format(parsed.data.oidc_providers.length)} ${new Intl.PluralRules("en-US").select(parsed.data.oidc_providers.length) === "one" ? "provider" : "providers"}`,
+    ...(Object.keys(source_meaning) as Source[]).map((source) =>
+      line({
+        text: source_meaning[source],
+        total: rows.length,
+        value: rows_by_source[source]?.length ?? 0,
+      }),
     ),
-    `📚 DILA export`,
-    stat({ label: "collectivités", value: dila_index.fiches.size }),
-    stat({ label: "declared domains", value: declared }),
-    ...refusal_counts.map(({ refusal, value }) =>
-      stat({ label: `  ${refusal_label[refusal]}`, total: declared, value }),
-    ),
-    stat({ label: "  eligible", total: declared, value: eligible.length }),
-    stat({
-      label: "    allowlisted",
+    `📚 DILA export: ${count.format(dila_index.fiches.size)} collectivités declare ${count.format(declared)} domains`,
+    ...(Object.keys(refusal_meaning) as DeclaredRefusal[])
+      .filter((reason) => declared_by_verdict[reason])
+      .map((reason) =>
+        line({
+          mark: "−",
+          note: refusal_meaning[reason].rpnt,
+          text: refusal_meaning[reason].text,
+          total: declared,
+          value: declared_by_verdict[reason]?.length ?? 0,
+        }),
+      ),
+    line({
+      mark: "=",
+      text: "eligible",
+      total: declared,
+      value: eligible.length,
+    }),
+    line({
+      text: "  allowlisted",
       total: eligible.length,
       value: allowlisted,
     }),
-    ...source_counts.map(
-      ({ source, value }) =>
-        `ℹ️ ${count.format(value)} domains (${percent.format(value / rows.length)}) are ${source}: ${source_meaning[source]}.`,
-    ),
-    `ℹ️ ${count.format(refused)} of the ${count.format(declared)} domains DILA declares (${percent.format(refused / declared)}) can never be allowlisted: ${new Intl.ListFormat("en-US").format(refusal_counts.map(({ refusal, value }) => `${count.format(value)} ${refusal_label[refusal]}`))}.`,
-    `ℹ️ The allowlist holds ${count.format(allowlisted)} of the ${count.format(eligible.length)} eligible domains (${percent.format(allowlisted / eligible.length)}); the other ${count.format(eligible.length - allowlisted)} pass the check but no row lists them.`,
+    line({
+      text: "  eligible, no row yet",
+      total: eligible.length,
+      value: eligible.length - allowlisted,
+    }),
+    `🔎 Not checked: RPNT 2.2 name part, RPNT 1.3-1.8 and 2.3-2.8. RPNT v0.2.2: https://suiteterritoriale.anct.gouv.fr/conformite/referentiel`,
   ].join("\n"),
 );
 
