@@ -31,7 +31,7 @@ if (errors.length > 0) {
 
 if (sources.warnings.length > 0) {
   console.warn(
-    `⚠️ ${path} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
+    `⚠️ ${path}: ${sources.warnings.length} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
   );
 }
 
