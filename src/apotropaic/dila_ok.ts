@@ -34,6 +34,5 @@ export function dila_ok(
   if (!is_sovereign(domain)) {
     return { ok: false, reason: "not_sovereign" };
   }
-  // RPNT 2.2 deferred: needs INSEE COG spellings
   return { ok: true, owner };
 }

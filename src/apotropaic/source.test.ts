@@ -6,13 +6,14 @@ import { check_sources } from "./source";
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
+const paul_id = "c0ffee00-0000-4000-8000-000000000000";
 
-function mairie(id: string, siren: string, site: string | null) {
+function mairie(id: string, siren: string, name: string, site: string | null) {
   return {
     id,
     siret: null,
     siren,
-    nom: `Mairie - ${siren}`,
+    nom: `Mairie - ${name}`,
     pivot: '[{"type_service_local": "mairie"}]',
     code_insee_commune: "73089",
     site_internet: site && `[{"libelle": "", "valeur": "https://${site}"}]`,
@@ -21,8 +22,9 @@ function mairie(id: string, siren: string, site: string | null) {
 }
 
 const index = build_dila_index([
-  mairie(coise_id, "217300896", "coise.fr"),
-  mairie(other_id, "999999999", null),
+  mairie(coise_id, "217300896", "Coise", "coise.fr"),
+  mairie(other_id, "999999999", "Other", null),
+  mairie(paul_id, "218400000", "Saint-Paul-lez-Durance", "stpaul.fr"),
 ]);
 
 function fiche_url(id: string) {
@@ -106,6 +108,24 @@ describe("check_sources", () => {
     ).toEqual({
       errors: [
         `coise.fr: fiche SIREN differs from the domain's owner (uid "${uid}")`,
+      ],
+      warnings: [],
+    });
+  });
+
+  test("rejects a dila domain that does not carry its collectivité's name", () => {
+    expect(
+      check_sources(
+        config_with({
+          domain: "stpaul.fr",
+          fiche: fiche_url(paul_id),
+          source: "dila",
+        }),
+        index,
+      ),
+    ).toEqual({
+      errors: [
+        `stpaul.fr: RPNT 2.2: does not carry the collectivite name (uid "${uid}")`,
       ],
       warnings: [],
     });
