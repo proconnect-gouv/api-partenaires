@@ -13,8 +13,8 @@ import {
 } from "#src/oidc_providers_config";
 import { zod_issues } from "#src/zod_issues";
 
-const dila_index = build_dila_index(await load_dila_export());
 const cog_names = build_cog_names(await load_cog_export());
+const dila_index = build_dila_index(await load_dila_export(), cog_names);
 
 const path = "config/anct/oidc_providers.production.yaml";
 const file = Bun.file(path);
@@ -60,18 +60,20 @@ const named = dila_rows.filter((row) => {
   const fiche = dila_index.fiches.get(fiche_id(row.fiche) ?? "");
   return (
     fiche !== undefined &&
-    carries_name({ domain: row.domain, name: fiche.name })
+    [...fiche.names].some((name) => carries_name({ domain: row.domain, name }))
   );
 }).length;
 const reconstructed = dila_rows.filter((row) => {
   const fiche = dila_index.fiches.get(fiche_id(row.fiche) ?? "");
   return (
     fiche !== undefined &&
-    reconstructs({
-      departement: fiche.departement,
-      domain: row.domain,
-      name: fiche.name,
-    })
+    [...fiche.names].some((name) =>
+      reconstructs({
+        departement: fiche.departement,
+        domain: row.domain,
+        name,
+      }),
+    )
   );
 }).length;
 const source_meaning: { [S in Source]: string } = {

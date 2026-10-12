@@ -7,6 +7,7 @@ export type Fiche = {
   domains: Set<string>;
   id: string;
   name: string;
+  names: ReadonlySet<string>;
   siren: string;
 };
 
@@ -98,31 +99,40 @@ function departement_of(code_insee_commune: string): string | null {
   );
 }
 
-const fiche_schema = z
-  .object({
-    id: text_schema,
-    siret: text_schema,
-    siren: text_schema,
-    nom: text_schema,
-    pivot: service_type_schema,
-    code_insee_commune: text_schema,
-    site_internet: domains_schema(domain_from_url),
-    adresse_courriel: domains_schema(domain_from_email),
-  })
-  .transform((record): Fiche | null => {
-    if (!record.id || !COLLECTIVITE_TYPES.has(record.pivot ?? "")) return null;
-    return {
-      departement: departement_of(record.code_insee_commune),
-      domains: new Set([...record.site_internet, ...record.adresse_courriel]),
-      id: record.id,
-      name: organization_name(record.nom),
-      siren:
-        record.siren ||
-        record.siret.match(/^\d{9}/)?.[0] ||
-        `fiche:${record.id}`,
-    };
-  })
-  .catch(null);
+const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
+  z
+    .object({
+      id: text_schema,
+      siret: text_schema,
+      siren: text_schema,
+      nom: text_schema,
+      pivot: service_type_schema,
+      code_insee_commune: text_schema,
+      site_internet: domains_schema(domain_from_url),
+      adresse_courriel: domains_schema(domain_from_email),
+    })
+    .transform((record): Fiche | null => {
+      if (!record.id || !COLLECTIVITE_TYPES.has(record.pivot ?? ""))
+        return null;
+      const name = organization_name(record.nom);
+      return {
+        departement: departement_of(record.code_insee_commune),
+        domains: new Set([...record.site_internet, ...record.adresse_courriel]),
+        id: record.id,
+        name,
+        names: new Set([
+          name,
+          ...(record.code_insee_commune
+            ? (cog_names.get(record.code_insee_commune) ?? [])
+            : []),
+        ]),
+        siren:
+          record.siren ||
+          record.siret.match(/^\d{9}/)?.[0] ||
+          `fiche:${record.id}`,
+      };
+    })
+    .catch(null);
 
 export type DilaIndex = {
   declared_by: Map<string, Fiche[]>;
@@ -130,10 +140,16 @@ export type DilaIndex = {
 };
 
 /** Collectivité fiches by id, and which of them declare each domain. */
-export function build_dila_index(records: unknown): DilaIndex {
+export function build_dila_index(
+  records: unknown,
+  cog_names: ReadonlyMap<string, ReadonlySet<string>> = new Map(),
+): DilaIndex {
   const declared_by = new Map<string, Fiche[]>();
   const fiches = new Map<string, Fiche>();
-  for (const fiche of z.array(fiche_schema).catch([]).parse(records)) {
+  for (const fiche of z
+    .array(fiche_schema(cog_names))
+    .catch([])
+    .parse(records)) {
     if (!fiche) continue;
     fiches.set(fiche.id, fiche);
     for (const domain of fiche.domains) {
