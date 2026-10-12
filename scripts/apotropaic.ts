@@ -1,4 +1,5 @@
 import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
+import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
@@ -11,6 +12,7 @@ import {
 import { zod_issues } from "#src/zod_issues";
 
 const dila_index = build_dila_index(await load_dila_export());
+const cog_names = build_cog_names(await load_cog_export());
 
 const path = "config/anct/oidc_providers.production.yaml";
 const file = Bun.file(path);
@@ -127,6 +129,7 @@ console.log(
       total: eligible.length,
       value: eligible.length - allowlisted,
     }),
+    `🗺️ INSEE COG: ${count.format(cog_names.size)} commune codes, former communes' names included`,
     `🔎 Not checked: RPNT 2.2 name part, RPNT 1.3-1.8 and 2.3-2.8. RPNT v0.2.2: https://suiteterritoriale.anct.gouv.fr/conformite/referentiel`,
   ].join("\n"),
 );

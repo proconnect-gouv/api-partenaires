@@ -1,17 +1,12 @@
 import { mkdir } from "node:fs/promises";
-import { homedir } from "node:os";
 import { join } from "node:path";
+import { default_cache_dir } from "#src/apotropaic/cache_dir";
 
 const DILA_EXPORT_URL =
   "https://api-lannuaire.service-public.gouv.fr/api/explore/v2.1/catalog/" +
   "datasets/api-lannuaire-administration/exports/json" +
   "?select=id%2Csiret%2Csiren%2Cnom%2Cpivot%2Ccode_insee_commune" +
   "%2Csite_internet%2Cadresse_courriel";
-
-function default_cache_dir(): string {
-  const base = process.env.XDG_CACHE_HOME || join(homedir(), ".cache");
-  return join(base, "proconnect-allowlist");
-}
 
 type FetchLike = (url: string) => Promise<Response>;
 
