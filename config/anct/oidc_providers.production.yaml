@@ -48787,19 +48787,1933 @@ oidc_providers:
       - domain: pyreneesaudoises.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/5ec4fde1-7eff-45a0-a36e-6174050f917a
         source: dila
+      - domain: quaedypre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/abbb0ae4-db2a-4b6d-8c79-54e70ecb074a
+        source: dila
+      - domain: quaix-en-chartreuse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/e801dd8a-186b-4dba-a93d-993b4a60ce93
+        source: dila
+      - domain: quarouble.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/274022cc-14fa-45ac-ad36-dbbf7516ddf8
+        source: dila
+      - domain: quarrelestombes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/006c3199-cea4-4845-bad5-93989274fcc8
+        source: dila
+      - domain: quatremare.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/a0352d61-02b7-4a7b-b30e-f60941510ca7
+        source: dila
+      - domain: quatzenheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/a128e663-db81-43e1-b03a-014231d526de
+        source: dila
+      - domain: queant62.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/168c5a23-0aa5-4b8c-8866-ccc74ef0b775
+        source: dila
+      - domain: queaux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/644e9ceb-62a6-40d3-97c6-545bfa340ceb
+        source: dila
+      - domain: quebriac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/bb37b7cf-23c6-4e12-80ad-91a6e8cfcd8f
+        source: dila
+      - domain: quedillac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/94d814d4-f860-4006-aab2-f099897bb375
+        source: dila
+      - domain: queige.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a648e7e7-76a3-46e5-bbdd-1794ed08d931
+        source: dila
+      - domain: quelaines-saint-gault.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/103f7007-9235-421f-b4db-8bf6cc7b0765
+        source: dila
+      - domain: quelmes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/9f07bee4-39a2-4784-b53b-b20b28f115a1
+        source: dila
+      - domain: quemeneven.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/b3441b3a-9ac5-4871-9e20-6e1af51362f8
+        source: dila
+      - domain: quemperven.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/3f0b59df-2b69-4fdb-ae57-8c51b617ae46
+        source: dila
+      - domain: quercycaussadais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/becc6e55-31e6-464a-99e2-7c16f9bcdb5c
+        source: dila
+      - domain: quercyvertaveyron.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/58b9fe05-c8f2-4894-a8ab-82a985f751ca
+        source: dila
+      - domain: querenaing.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/918dae23-4303-4524-b491-30919160e506
+        source: dila
+      - domain: quernes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/6a96096b-98aa-41ad-9146-2339a236a4a8
+        source: dila
+      - domain: querrien.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/6b62acaf-cf17-4507-b982-83805766d029
+        source: dila
+      - domain: querrieu.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/07e454ea-b2b2-4007-be4c-e00ae2fc115e
+        source: dila
+      - domain: quers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f61f19df-1201-4da8-bf4b-11192f54734f
+        source: dila
+      - domain: quesnoylemontant.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/1b0d20da-6eaf-4112-8675-b0c15346dca3
+        source: dila
+      - domain: quesnoysurdeule.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/fa39151e-8e9e-4d3f-9d54-f6e55a808ea8
+        source: dila
+      - domain: quesques.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/8690c64b-ecec-4435-8db6-7aa541a2bf54
+        source: dila
+      - domain: questembert-communaute.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/0f9e48ad-d869-4208-9154-99d15aed4746
+        source: dila
+      - domain: questembert.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/e9575c55-7df5-466b-b1ad-aec4c78e320a
+        source: dila
+      - domain: quetigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/2020aaca-6494-498e-8cbd-924cae2e6dce
+        source: dila
+      - domain: quettehou.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/dfa38753-6017-40bf-acd9-efe72f5c638b
+        source: dila
+      - domain: quetteville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/897614c5-6271-47e7-afe3-fa222ee14fab
+        source: dila
+      - domain: quettreville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/d9040058-77fb-4deb-b90a-9fad988ef936
+        source: dila
+      - domain: queuille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/4a0909cc-f45c-4d07-a3b5-afe69661583e
+        source: dila
+      - domain: quevauvillers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/49165012-c633-4251-b55e-883f6d6b51ad
+        source: dila
+      - domain: quevreville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/f5bf05bc-c4e1-400d-9b15-9250f9ca2e26
+        source: dila
+      - domain: queyrieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/9b23591f-de2e-416c-b60e-a81052b01c7b
+        source: dila
+      - domain: queyssac-les-vignes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/c1a83db7-6853-4a60-a5cb-68dfb30d6dec
+        source: dila
+      - domain: queyssac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/08e5ad8e-2862-48e0-9f3e-620d0f818c50
+        source: dila
+      - domain: quezac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/1d80a27a-5465-4ecf-a65f-d5f13eb01efc
+        source: dila
+      - domain: quibou.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/84495a90-b1e0-4867-ab23-931d6bd2231b
+        source: dila
+      - domain: quiers-sur-bezonde.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/20370cac-635a-4025-a4e5-97728f9b2686
+        source: dila
+      - domain: quierylamotte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/5c4cd9e0-879d-4830-8889-39dae36348c5
+        source: dila
+      - domain: quierzy02.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/f6674f0e-9cd6-4e89-86aa-df58a38689fc
+        source: dila
+      - domain: quievrechain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/d0c419b7-d410-4372-9b90-e2de35f1dd99
+        source: dila
+      - domain: quillan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/3c8573c7-67a6-4b73-867d-0bdc6ce0a236
+        source: dila
+      - domain: quillebeuf.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/75d58b7f-5768-47cc-a0ff-c1014802e5b5
+        source: dila
+      - domain: quilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/bfd15629-8ad1-4cb2-98f2-5df467d9481f
+        source: dila
+      - domain: quimper-bretagne-occidentale.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/78d0cdcc-418e-4d60-90cc-df1422330578
+        source: dila
+      - domain: quimperle-co.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/4a1e25da-8442-4cdf-a6d8-0250aceb67db
+        source: dila
+      - domain: quimperle-communaute.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/4a1e25da-8442-4cdf-a6d8-0250aceb67db
+        source: dila
+      - domain: quimperle.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/80191522-4837-4f57-acb1-15ef047c2d3f
+        source: dila
+      - domain: quincampoix-fleuzy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b8876c26-9911-4dc8-875c-e217ca42a8dd
+        source: dila
+      - domain: quincay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/6007b331-2995-4822-8dcb-705970ef3d66
+        source: dila
+      - domain: quincey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/94068143-6ff6-4a09-bb31-c31b650b96d1
+        source: dila
+      - domain: quincie-en-beaujolais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/e1eb6a74-a09f-4a6f-8644-10b4cae9cba0
+        source: dila
+      - domain: quincieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/531dd200-d09a-42f3-a40b-6c70a3eacf6e
+        source: dila
+      - domain: quincy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/116d2aab-a999-459b-8519-a49c4588d9e4
+        source: dila
+      - domain: quincy18.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/500eb615-4755-4a4d-ac2f-a41364644d29
+        source: dila
       - domain: quingey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/00247f13-734e-4814-8241-6c95f96ed9f1
+        source: dila
+      - domain: quins.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/25d79b69-fc51-4973-a3f2-026cfe0b12ce
+        source: dila
+      - domain: quinsac33.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/f99325d5-79e3-4a3b-9cea-37ce4b90f27e
+        source: dila
+      - domain: quinson.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/a9f85d6b-1f1e-4593-9ea4-04d685c16580
+        source: dila
+      - domain: quint-fonsegrives.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/96b57283-aed3-4da7-8fed-72ea2a35600b
+        source: dila
+      - domain: quintal.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/335fcf92-afb5-434f-9d97-a9d4249c28d9
+        source: dila
+      - domain: quintenas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/22cfbc8b-3724-473c-a6d9-127405d18f6d
+        source: dila
+      - domain: quintenic.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/6956e879-5da4-427e-bb33-6c37c9b39093
+        source: dila
+      - domain: quintigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/d871f143-5eb2-4c4d-82e0-1c792a7bc492
+        source: dila
+      - domain: quintin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52130c3f-f5b5-4e07-b02c-4c05d88892d6
+        source: dila
+      - domain: quirylesec.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/77d72015-68e6-44b2-b39b-7af78b6ec096
+        source: dila
+      - domain: quissac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/ee0ac416-5a40-4c5f-9e03-3c34735b92b4
+        source: dila
+      - domain: quistinic.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/0d1e1936-a9b1-458c-9c41-f6f78ef2f1c8
+        source: dila
+      - domain: rabastens.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/0484c0d1-afeb-4d4e-bc46-14c88e779c98
+        source: dila
+      - domain: rabastensdebigorre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/b088805a-0128-41fb-98ce-d231988e6137
+        source: dila
+      - domain: racecourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/77a31053-4677-4fa2-9806-9e6f69ff03f0
+        source: dila
+      - domain: rachecourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/93d4e740-e4a9-4040-9935-a02c887967f0
+        source: dila
+      - domain: raches.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/d6f0e4c7-f259-46d5-b0e3-3b394b923304
+        source: dila
+      - domain: racrange.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/c75d4014-af36-401b-87c8-c73636ebe641
+        source: dila
+      - domain: radenac.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/0e8f5691-daef-455b-ab12-1230ff8cac50
+        source: dila
+      - domain: radepont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/c319b66d-3be5-48f5-9ce0-a96a83a67460
+        source: dila
+      - domain: radinghem-en-weppes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/857f828b-d529-4686-9014-b1ec79f3d707
+        source: dila
+      - domain: raedersdorf.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/175fda30-aa12-4213-80f4-ab5f725d2834
+        source: dila
+      - domain: raedersheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/6892ea28-eb75-4718-a224-9af8466cd605
+        source: dila
+      - domain: raffetot.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0228e76e-44c8-44b1-8fa2-50918590dd43
+        source: dila
+      - domain: raids50.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/ef7bab28-5e72-4ca7-a6b7-8f8142106400
+        source: dila
+      - domain: raillencourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/893c2db8-a428-40dc-b8d4-6abb7cda02c5
+        source: dila
+      - domain: raimbeaucourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/479aa125-c6e0-4c17-9f57-af4ef798a959
+        source: dila
+      - domain: raincheval.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/b732ef43-2ffd-4ca8-86b7-1fd54fa197ca
+        source: dila
+      - domain: rainvillers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/545c2908-c30e-4e06-930e-8a8cec5cd532
+        source: dila
+      - domain: raissac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/555731fc-c745-4a41-a2db-8c904d91e2a7
+        source: dila
+      - domain: raizeux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/d5446cfa-221c-4d16-893a-ea4ce7e5708b
+        source: dila
+      - domain: ramasse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a3d4a6c8-dc9e-4681-9117-5e795cf28e67
+        source: dila
+      - domain: ramatuelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/3e5f2063-90cd-4b1f-ad2a-56be9b6f210d
+        source: dila
+      - domain: rambaud-village.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/4131de35-f790-41bb-9c36-e1c93980434c
+        source: dila
+      - domain: rambaud05.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/4131de35-f790-41bb-9c36-e1c93980434c
+        source: dila
+      - domain: rambervillers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/4f6a9534-e5e7-4a9a-aa9d-716b4d5039e2
+        source: dila
+      - domain: rambouillet.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/0f386a48-3d38-4e23-a8e5-97a274a772d1
+        source: dila
+      - domain: rambures.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/e9fd7936-7051-4273-815a-8a250e822536
+        source: dila
+      - domain: ramillies.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/75012c60-2133-47c9-a8cb-140127aab658
+        source: dila
+      - domain: rammersmatt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/242bb171-811e-4c0a-ae10-498419e09ed0
+        source: dila
+      - domain: ramonchamp.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/aeccfa02-c8ba-4a1b-8d8f-4359d572efcd
+        source: dila
+      - domain: ramonville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/36d88382-c03d-4639-9114-20c3f8c90483
+        source: dila
+      - domain: ramous.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/bd6aedf5-127d-42ce-ada6-ec65354358fe
+        source: dila
+      - domain: rampillon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/518f4618-606b-4d00-b572-e2100f7949b9
+        source: dila
+      - domain: rancenay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/48da5b5b-d231-4691-b6e0-8531498610e9
+        source: dila
+      - domain: rancennes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/77d601b6-e2a9-4c3b-9bfb-09b08844f25d
+        source: dila
+      - domain: ranchal.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/1771bf4f-6864-4772-9225-e4f5de7ba2b8
+        source: dila
+      - domain: ranchot.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/d3ebd8ad-9f93-47a3-b7ee-cbed84613429
+        source: dila
+      - domain: rancon87.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/66906491-bd0c-4082-8984-8ab48f461405
+        source: dila
+      - domain: rancy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/7a393b9b-d6e2-4b83-a775-be7ccade2ccb
+        source: dila
+      - domain: randan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/0bf046a7-cdfa-4d01-9de7-48b3f89ab1ed
+        source: dila
+      - domain: randon-margeride.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/8c263608-8c1f-4b18-8478-ba2f0c581689
+        source: dila
+      - domain: randonmargeride.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/8c263608-8c1f-4b18-8478-ba2f0c581689
+        source: dila
+      - domain: rangen.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/11a91485-0b0f-4694-9f9b-bed829d29b6a
+        source: dila
+      - domain: rans.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/24bb5f70-2708-4019-9548-c610a1a0bc77
+        source: dila
+      - domain: ranspach-le-bas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/7dbc7558-a6ee-4909-b570-dab29a3e8ba4
+        source: dila
+      - domain: ranspach.eu
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/873c5fb2-8e41-44e9-b46a-18b983e55dcd
+        source: dila
+      - domain: ranspach.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/873c5fb2-8e41-44e9-b46a-18b983e55dcd
+        source: dila
+      - domain: ranspachlehaut.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/260f4541-2042-484e-aa14-b74090cc44a1
+        source: dila
+      - domain: rantigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/4fb4f23e-fb8e-4c38-899d-c4727d82cae5
+        source: dila
+      - domain: ranton.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/e40e067b-0819-4247-8732-9e1d116e841a
         source: dila
       - domain: rantzwiller.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/000f0b16-2618-4a7b-98a3-5f1fd05cdfc8
         source: dila
+      - domain: ranville-breuillaud.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/4a7793f9-45be-4d2d-aa37-907248a68b1a
+        source: dila
+      - domain: ranville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/87c8567a-570e-4c13-8848-94ccbc3a186c
+        source: dila
+      - domain: raon-aux-bois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/b0f65c13-d7f3-4ca3-9a79-18c1405c6deb
+        source: dila
+      - domain: raonauxbois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/b0f65c13-d7f3-4ca3-9a79-18c1405c6deb
+        source: dila
+      - domain: raonletape.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/717128c5-2fb2-4008-af22-3792ae0caf29
+        source: dila
+      - domain: rapilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/752d2d2d-067b-4cb3-a128-bbe5bc236375
+        source: dila
+      - domain: raray.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/175f8da4-badd-4af5-910c-9d27b49246e1
+        source: dila
+      - domain: rasteau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/1d9921b4-4179-46d4-9926-dc9ba982490b
+        source: dila
+      - domain: ratenelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/2d867269-9fe7-4f92-988d-f8c0f8db64c4
+        source: dila
+      - domain: ratieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/4a54074a-66c3-4284-8578-6241b8ce4810
+        source: dila
+      - domain: raucoules.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/b21c8421-38f2-4513-a52d-cbd8eba99b79
+        source: dila
+      - domain: raucourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/498baa5a-64bd-41be-92e1-4bf03340ed66
+        source: dila
+      - domain: raucourtaubois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/251c96b5-e498-4ebd-88ad-7d67b0fcd032
+        source: dila
+      - domain: raucourtetflaba.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/faaf01b1-f37d-4bfc-a7f1-ea083a6be084
+        source: dila
+      - domain: raulhac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/4ebab5b7-9a84-4d46-bc5c-89a6f0348ec5
+        source: dila
+      - domain: rauret.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/66fd5692-ac72-423c-8df5-6da6e2cd893d
+        source: dila
+      - domain: rauvillelabigot.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/bfaa05d3-cbdd-4791-868d-6c4d44284f62
+        source: dila
+      - domain: ravel63.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/38e16475-436d-42b9-8955-08fea216cfcc
+        source: dila
+      - domain: ravieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/783eec99-4b22-4bb4-9fb3-96038e4cb069
+        source: dila
+      - domain: raville-sur-sanon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/77c6383f-075e-4c54-8665-1a6d24b8d537
+        source: dila
+      - domain: rayol-canadel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/76c97584-3725-4799-907b-c85a3e11b812
+        source: dila
+      - domain: razacsurlisle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/2c98e3bb-6377-4f44-aa41-d9ff78246eef
+        source: dila
+      - domain: razes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/9ae6b261-7897-4a85-a6bb-6b0758c443cc
+        source: dila
+      - domain: razines.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/19cb6054-8bf7-486f-892a-e16c18867026
+        source: dila
+      - domain: reallon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/0c76dd23-fe42-4fa7-981a-4ac9f938b875
+        source: dila
+      - domain: realmont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/844e7fa1-37dd-4ad2-b58f-c9321d0c878e
+        source: dila
+      - domain: realville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/10d2d9c9-baf2-4852-9ea8-adb204504471
+        source: dila
+      - domain: realville82.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/10d2d9c9-baf2-4852-9ea8-adb204504471
+        source: dila
+      - domain: reau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/02a98718-7feb-48d2-a9ba-1d21aba1ac45
+        source: dila
+      - domain: reaumur.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/d03d0c59-3abd-4d8d-b528-ab3c9535f648
+        source: dila
+      - domain: reauville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/3d668cb5-97d5-44b7-a7f2-5130692c91a0
+        source: dila
+      - domain: reauxsurtrefle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/c16adb3a-c61d-40a3-90e7-a2e3de5abcae
+        source: dila
+      - domain: rebais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/3d78751e-663a-4f86-9c67-2b6a5f29b764
+        source: dila
       - domain: rebenacq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/7ef95ac0-f0fe-490a-a177-93aa57678eda
         source: dila
+      - domain: rebergues.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/f2385972-88e3-447c-b4c6-5d0d2a7f0ada
+        source: dila
+      - domain: rebigue.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/3c20f3c2-2de2-457d-95b5-52556f4b3d4d
+        source: dila
+      - domain: rebourguil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/9e908763-7e51-416a-a7d5-b35def851eec
+        source: dila
+      - domain: rebrechien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/ea8ef289-60ff-4cd8-832a-78a60085efab
+        source: dila
+      - domain: recey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/af1d8aa4-3915-4a6e-b82f-52c99f585a62
+        source: dila
+      - domain: rechicourt-le-chateau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/d46905fd-77bf-4590-a239-6271fe4cade6
+        source: dila
       - domain: recia.collectivite.fr
         source: routed
+      - domain: reclainville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3834c098-21bf-4624-9556-dfb26b6c6f95
+        source: dila
+      - domain: reclinghem.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/452f657c-5d1a-4f8f-96fa-d148cee9ecd2
+        source: dila
+      - domain: recloses.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/b15c19a0-02ae-45b8-b97e-b5e7643df2b7
+        source: dila
+      - domain: recologne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/a65dec32-1f79-4fbd-943a-df0f15249a1a
+        source: dila
+      - domain: recoules-de-fumas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/cc732f40-9e06-4174-ae89-631b7a3dc0bd
+        source: dila
+      - domain: recourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/6dd034ab-fd1b-48c3-aeef-5ff379e7e849
+        source: dila
+      - domain: recouvrance.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/b5a3e320-76f6-4786-99ff-b8cbc79b9c44
+        source: dila
+      - domain: recques-sur-hem.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/227b2b2a-3518-4ef4-a784-575992c241b0
+        source: dila
+      - domain: recy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/d4a39d71-4d23-49dd-8bc9-c379733f3edd
+        source: dila
+      - domain: redange.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/024fa34c-b479-4e71-8101-299b0fb7aa5b
+        source: dila
+      - domain: redene.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/05b994b8-5425-4720-8eae-a8429e1e5b33
+        source: dila
+      - domain: redessan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/4b25ec8a-653e-47b5-a828-ec6e05a67fc1
+        source: dila
+      - domain: reding.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/2d686b57-4fcc-4568-a0f2-513ee0230fad
+        source: dila
+      - domain: redon-agglomeration.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/c4aafb49-0f9f-4eed-b5be-c74f41bbe9d8
+        source: dila
+      - domain: redon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/37d609a3-412f-440e-87f5-f01af88fcf36
+        source: dila
+      - domain: reezfossemartin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/30be9016-3e0e-4512-810c-379866aacc6d
+        source: dila
+      - domain: reffuveille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/d79901af-7d19-4b1f-84f0-06dd821a43a6
+        source: dila
+      - domain: regneville-sur-mer.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/bbff4c76-581a-4498-a2a0-94b6b3aa954b
+        source: dila
+      - domain: regneville-sur-meuse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/85ef1f76-ed94-48e9-8045-f1ac5b36cf4a
+        source: dila
+      - domain: regniere-ecluse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/39ad77fa-09f9-4a9d-881d-b2e7230509ec
+        source: dila
+      - domain: regny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0010693d-600f-49ac-b624-6a99a0a4ccb1
+        source: dila
+      - domain: reguiny.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/308038d6-9191-4544-8485-c0c9581e10bb
+        source: dila
+      - domain: reguisheim.alsace
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/c0d9688b-b35a-4129-91c0-d424a19fd3fc
+        source: dila
+      - domain: rehainviller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/925448db-86f4-4cba-a8ec-ba3ba989db04
+        source: dila
+      - domain: rehon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/c450a939-6ec2-46b9-881f-a49784c7fed9
+        source: dila
+      - domain: reichsfeld.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/f9e959fe-7980-4647-878a-f473f2186815
+        source: dila
+      - domain: reichshoffen.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/537cf40c-5be3-45ab-92f6-b712f38955fb
+        source: dila
+      - domain: reichstett.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/8c05ba34-06f5-4e73-b9b9-64e44c9598a1
+        source: dila
+      - domain: reignac-sur-indre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/2c6bd2b8-dfc5-4b0c-961e-c2df0174f2ec
+        source: dila
+      - domain: reignac33.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/9f860ef9-c342-4e87-8f07-6cdfad90798b
+        source: dila
+      - domain: reilhac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/643dec2a-e86c-4dc9-8ed1-33717149613d
+        source: dila
+      - domain: reillanne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/d28eb2af-55ca-4085-a031-0f6055304039
+        source: dila
+      - domain: reims.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/d4379967-4f2b-4f03-a111-a6deb19cdb13
+        source: dila
+      - domain: reinhardsmunster.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/416d19bb-0525-4fda-ab59-9f18befe9e94
+        source: dila
+      - domain: remalardenperche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/a4c8ba7a-f519-4257-904e-46297ac5fc29
+        source: dila
+      - domain: remauville77.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/8268895f-163a-4982-8dda-6fffd9ca7552
+        source: dila
+      - domain: remecourtmairie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/cdf2c3f1-4202-423d-8e72-2b8b44cfbf53
+        source: dila
+      - domain: remelfing.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/21a5f749-f4aa-4ef9-a751-af695e70f17b
+        source: dila
+      - domain: remeling.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/05f825cb-00c7-49e1-aa03-cd0c66aaa162
+        source: dila
+      - domain: remerangles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/792f358b-6ca3-49c2-832c-65e31097dda8
+        source: dila
+      - domain: remereville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/f6b60f14-8c85-48b2-88ab-1b9db1c11f7a
+        source: dila
+      - domain: remiencourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/2d28684a-6db3-430e-8b5d-09bebbb0b8a3
+        source: dila
+      - domain: remigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/0109c496-44aa-4938-af91-d7f568225e03
+        source: dila
+      - domain: remilly-en-montagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/845c98b2-d33c-4a8b-9c86-f0ca39d5cf33
+        source: dila
+      - domain: remilly-sur-tille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/21c7b6e5-6223-467c-a6fa-6a4ee719d319
+        source: dila
+      - domain: remilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/3be7b0c0-4e7c-44fb-aafe-4f9f7947013d
+        source: dila
+      - domain: reminiac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/1aa1350e-1a4e-40fd-8a7f-8e411d45825b
+        source: dila
+      - domain: remire-montjoly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/guyane/guyane/8d1c1e8e-baca-4863-9d8c-820c110db4a8
+        source: dila
+      - domain: remiremont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/d612a7cf-1c27-4b6d-baa5-13a366535a33
+        source: dila
+      - domain: remiremontjoly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/guyane/guyane/8d1c1e8e-baca-4863-9d8c-820c110db4a8
+        source: dila
+      - domain: remollon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/1ea975ab-91ec-46a3-b4a2-c831366110de
+        source: dila
+      - domain: remouille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/ed36c9bd-a391-4802-b050-a96a5c65cbad
+        source: dila
+      - domain: remoulins.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/6dd240f5-be00-4085-9268-e31d9517a1fb
+        source: dila
+      - domain: remuzat.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/224d0cd9-2af2-4fda-8377-537efafa3a11
+        source: dila
+      - domain: remy60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e0e820b3-e470-4502-9a37-cd4dcb26da2e
+        source: dila
+      - domain: remy62.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/16a398f1-7a6b-4897-b55d-b24a6f054a2d
+        source: dila
+      - domain: renac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/f32607d4-b838-4e50-8f8b-e1074841fda7
+        source: dila
+      - domain: renaison.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/2ecd9db1-f8b3-4507-91e8-19130b855063
+        source: dila
+      - domain: renay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/b0aa0edd-d7b5-40be-870a-518e63d061e9
+        source: dila
+      - domain: renaze53.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/0caea208-5977-4bf8-bab1-bf932e6fb598
+        source: dila
+      - domain: rene72.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/80c73df7-629e-4bdb-979b-2042bd05efda
+        source: dila
+      - domain: renedale.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/58acaebb-049d-4bf6-9393-9db7c870b828
+        source: dila
+      - domain: renescure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/54fcfb14-d43c-4a5b-b830-7db91554ab06
+        source: dila
+      - domain: rennemoulin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/da294a2d-c99e-4731-96d6-80c8d0bb634d
+        source: dila
+      - domain: rennes-le-chateau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/54bb94dd-b9b8-4818-836e-ec0859fc4d9e
+        source: dila
+      - domain: rentieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/19adab97-8a05-496c-9175-af0d05e974cc
+        source: dila
+      - domain: renung.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/cf44a56c-6079-4eb4-a7d5-07192eb378d5
+        source: dila
+      - domain: reolaisensudgironde.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/8869c034-4b2c-458b-a6db-92a786d9a60b
+        source: dila
+      - domain: reotier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/5bd20179-e37d-4a43-a942-d16accf0b619
+        source: dila
+      - domain: replonges.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/f1d9e51f-eea8-480a-8b76-4c7deb7ed064
+        source: dila
+      - domain: requeil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/ade0419f-de49-405a-a73f-0d0adfce5a13
+        source: dila
+      - domain: requista.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/c165caf6-38ec-4b5a-adbf-46315299af57
+        source: dila
+      - domain: requistanais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/5aa9b1a2-cedc-4f12-8440-159662a3cb5c
+        source: dila
+      - domain: ressons-sur-matz.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/037b1940-c50d-4f2e-a0ab-e90d8fc28cab
+        source: dila
+      - domain: ressuintes28.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/0ae99e0e-77cf-44ba-8141-4f9ff84b2b3e
+        source: dila
+      - domain: restigne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/7772fd08-74b6-49a9-a43e-ef119075c85b
+        source: dila
+      - domain: retaud.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/47137b9e-30f1-4b6c-99e1-146bbc75ddb9
+        source: dila
+      - domain: retheuil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/f7515e60-696a-4dc3-8528-26b356fbe25c
+        source: dila
+      - domain: rethondes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7f104df6-78d3-47a9-9c46-11bb1723b4f3
+        source: dila
+      - domain: retiers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/5f65446c-2e63-47de-aec9-d1f9da53fc1a
+        source: dila
+      - domain: retjons.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/0d3e74f3-f8e6-45ea-b9f4-ae4c0f94e33a
+        source: dila
+      - domain: retonfey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/335c905e-5485-4e91-ba32-42cbf6ecf05b
+        source: dila
+      - domain: retschwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/07378617-3b73-4057-a79e-60e6248c903a
+        source: dila
+      - domain: rettel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/5b7ad4c8-78e9-4b88-b527-a52d508bc6e2
+        source: dila
+      - domain: retzenvalois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/8e3e9bb2-ac56-4bde-aead-1b97e57fe3ee
+        source: dila
+      - domain: retzwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/a07f49bd-a2cc-4ccb-a92f-2f8fb0eb4dd8
+        source: dila
+      - domain: reugney.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/4f5bd2cc-0d3e-4a20-8c05-0c2618a4db58
+        source: dila
+      - domain: reugny-37.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/a089c58f-101e-4301-a476-be4d92f842ab
+        source: dila
+      - domain: reugny03.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/bd239092-3c52-421c-a4c0-b3d45545356f
+        source: dila
+      - domain: reuil-en-brie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/e5c073c6-7f98-42f3-8e91-8094936f37cb
+        source: dila
+      - domain: reuilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/dc366437-b64d-470d-abc5-549c25c51d1b
+        source: dila
+      - domain: reullevergy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/fdcf83b1-3b10-44ce-8355-5bf09c7e8518
+        source: dila
+      - domain: reumont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/fa98e544-fdb4-4d63-9013-ab89c1d35823
+        source: dila
+      - domain: reux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/b48adb6a-dfed-46e1-9235-475a7153c413
+        source: dila
+      - domain: revel-tourdan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/d99616d5-e48b-4547-a0ce-95a269c14caa
+        source: dila
+      - domain: revercourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/497e6115-ef73-45de-a6e5-26885f7e584e
+        source: dila
+      - domain: revestdesbrousses.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/256a0672-2386-4dc6-95c5-98bf51976f1c
+        source: dila
+      - domain: reviers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/85a6602a-a633-40ea-9981-6bde4604cb5a
+        source: dila
+      - domain: revigny-sur-ornain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/1525dd28-1080-484a-90c0-a23106d8c487
+        source: dila
+      - domain: revigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/73966331-1048-4ee9-89b0-da2fb4cc0b6e
+        source: dila
+      - domain: reville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/ce038f77-945b-40a7-8841-e1dd737b3abd
+        source: dila
+      - domain: rexpoede.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/e06386de-8a5a-4648-b465-9303a9fab95f
+        source: dila
+      - domain: reynes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/5d1c0afb-b437-4c9a-82b2-e21cee947e54
+        source: dila
+      - domain: reynies.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/1d89c87d-9826-47a3-a207-b28906c693e9
+        source: dila
+      - domain: reyrieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/f6da90d5-b789-44b4-a73d-811698bdd146
+        source: dila
+      - domain: reyvroz.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/f737252f-f642-413d-a282-a59e6da418df
+        source: dila
+      - domain: reze.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/3a3f3e29-cc57-4b28-b73d-63b6e84b3117
+        source: dila
+      - domain: rezonville-vionville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/04a8d5e4-4893-443a-ae2c-5a933e8fcc4e
+        source: dila
       - domain: rgd.collectivite.fr
         source: routed
+      - domain: rhodes57.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/1aad755d-e64b-485b-97bb-159704c3150e
+        source: dila
+      - domain: rhodon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/999c91d5-5fa9-4e31-b56b-957cb7680e17
+        source: dila
+      - domain: rhone-crussol.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/38b1041a-0102-4317-8e47-20608dffa8c6
+        source: dila
+      - domain: rhone.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/3d28bc83-c800-4a91-9d97-97d507d74b29
+        source: dila
+      - domain: rhuis60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/3a90d34e-e99b-4dbc-b79d-890b75dc689e
+        source: dila
+      - domain: riaille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/dec66133-e654-48a6-bddb-d58449ee2fa9
+        source: dila
+      - domain: rians18.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/1f2d902a-6cf6-49ed-b4bd-c2e59cd1e26d
+        source: dila
+      - domain: riantec.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/858f0d6f-9193-4d7a-b208-d39084ef80f3
+        source: dila
+      - domain: riasirach.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/4d965aeb-28ea-4378-83ac-f74efe143682
+        source: dila
+      - domain: ribautelestavernes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/0b1c4f7e-e899-4b74-80b6-2afc716016f2
+        source: dila
+      - domain: ribeauville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/dfb49f8f-b437-4bc6-b219-3e77d86c8df9
+        source: dila
+      - domain: ribecourt-dreslincourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0288da35-55ec-4c6f-a1b0-bd976f2a8fb5
+        source: dila
+      - domain: ribemont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/688d4840-53dd-40af-a10d-acbd03f914d1
+        source: dila
+      - domain: richardmenil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/c50155ba-213d-444b-8139-7340982352d4
+        source: dila
+      - domain: richarville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/3098b27f-4838-4a00-a173-0edf8e9087d8
+        source: dila
+      - domain: richebourg-62.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/85aece07-4f10-4fd2-85f2-c4657ba5d62a
+        source: dila
+      - domain: richebourg62.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/85aece07-4f10-4fd2-85f2-c4657ba5d62a
+        source: dila
+      - domain: richebourg78.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/0a3bf743-e033-416e-925b-bd659f64c1a7
+        source: dila
+      - domain: richemont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/fe0faaaa-19eb-45f1-b854-92f192e37c05
+        source: dila
+      - domain: richtolsheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/7522e0bf-6eea-4f33-ad72-9fe0bbcbbcbf
+        source: dila
+      - domain: richwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/1bcea7aa-5852-491d-880f-4021e6452066
+        source: dila
+      - domain: ricquebourg.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e1542d38-2b55-4e37-a7d8-da0f159deaf0
+        source: dila
+      - domain: riecsurbelon.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/560860a0-e797-40c7-bc95-98d87002c060
+        source: dila
+      - domain: ried-marckolsheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/5b0ac28f-73b8-4a2f-9986-84aafd37effa
+        source: dila
+      - domain: riedisheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/64b54d84-5d78-48ff-b8f7-b6428b03da26
+        source: dila
+      - domain: riedseltz.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/a3f323ed-0943-437c-ae9c-4e610a8fe599
+        source: dila
+      - domain: riencourtlescagnicourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/6d18e451-927d-4940-8a41-7a3ca11b3ccd
+        source: dila
+      - domain: rieucros.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/bba512a6-1565-43b6-84ec-f91f4d3493c1
+        source: dila
+      - domain: rieulay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/7074c475-c148-4c8e-b00f-b9391cee3608
+        source: dila
+      - domain: rieupeyroux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/41de006b-253e-442c-ae18-f756284eb03d
+        source: dila
+      - domain: rieussec.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/aa30a5aa-3e87-4585-baa7-5f90652b228f
+        source: dila
+      - domain: rieuxencambresis.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/96342460-9b32-49cb-8487-cb609e986b0a
+        source: dila
+      - domain: rieuxminervois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/ad64882c-c337-481c-9ba6-ab51ba39b41c
+        source: dila
+      - domain: rignac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/577401b9-becc-4859-9f64-57295f9e7ff7
+        source: dila
+      - domain: rigney.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/8eb77440-603a-4b2f-97d5-229d88b1d316
+        source: dila
+      - domain: rignieux-le-franc.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/70881692-cbb9-4472-8b4e-391c075b7d3b
+        source: dila
+      - domain: rigny-usse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/2cb13fd3-510c-4a71-87de-fef2ec8d0ff1
+        source: dila
+      - domain: rigny70.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/bd348904-6d12-4d81-a34a-d3b9c7a4eb13
+        source: dila
+      - domain: rigny71.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/5b6a7c49-b777-4143-a91e-ce3c19c81527
+        source: dila
+      - domain: rignysurarroux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/5b6a7c49-b777-4143-a91e-ce3c19c81527
+        source: dila
+      - domain: rilhac-lastours.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/3d748756-14f6-4e8e-b044-f0fd06834acf
+        source: dila
+      - domain: rilhac-rancon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/720b1b17-806f-4b41-857e-648abf4e3cc6
+        source: dila
+      - domain: rilhac-xaintrie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/9cdc64ad-9010-43f8-a11e-6e7dfd29dae6
+        source: dila
+      - domain: rille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/02e9276f-fe85-45fc-93d9-45cec8f24a25
+        source: dila
+      - domain: rillieuxlapape.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/0d4d58f0-8805-464a-8617-21b3d4cf1014
+        source: dila
+      - domain: rilly-la-montagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/538f5bc7-6ada-40a2-b532-830e2d21747f
+        source: dila
+      - domain: rimaucourt52700.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/337d3bc4-d5cb-4682-ba28-8992974bfebc
+        source: dila
+      - domain: rimbach-zell.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/4e9ab249-1a3e-4c98-b4c7-511c9d59a04d
+        source: dila
+      - domain: rimbach.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/828548d7-3298-426b-b88b-a7c4e60caf4e
+        source: dila
+      - domain: rimbezetbaudiets.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/92e69741-e8a7-4c2a-b3a7-f451da4d3d8a
+        source: dila
+      - domain: rimeize.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/232089a5-5b14-4c4a-ba51-8cb06068f34f
+        source: dila
+      - domain: rimling.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/bcd43996-9bca-4f8f-b375-97cc49f397ef
+        source: dila
+      - domain: ringendorf.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/80acf413-da77-49b1-8673-f9665e949477
+        source: dila
+      - domain: riols.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/c1148c0e-3a2f-4ec2-93a0-e39e2193d467
+        source: dila
+      - domain: riomesmontagnes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/043b68a6-8f6a-42fc-910d-d574d4d61f68
+        source: dila
+      - domain: riondeslandes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/ed1a1341-55e7-417d-8a5d-e8ad5a435a9c
+        source: dila
+      - domain: rions.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/71c8f50c-014b-4a0b-a3e1-298e30f6bf67
+        source: dila
+      - domain: riorges.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/f7245998-8ae3-4371-8f93-2b40c1651d35
+        source: dila
+      - domain: riotord.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/72ce9571-1b1a-41d4-bf37-75d71f782c43
+        source: dila
+      - domain: rioux-martin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/795e3ce1-5657-498c-9b72-9fadab60f25f
+        source: dila
+      - domain: rioux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/437563c0-2628-4198-8682-38cdf99a9137
+        source: dila
+      - domain: rioz.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/dfbe2d0b-2cc9-4606-9869-536abb2987ef
+        source: dila
+      - domain: riquewihr.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/4b855d8a-0f2b-4c2f-879a-883647a14cc7
+        source: dila
+      - domain: rittershoffen.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/7e90996f-8601-4bdd-af7f-ddf2864dda5e
+        source: dila
+      - domain: rivarennes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/c30a7e48-557c-4a1d-add6-d8e998e4c3f5
+        source: dila
+      - domain: rivarennes36.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/c30a7e48-557c-4a1d-add6-d8e998e4c3f5
+        source: dila
+      - domain: rivas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/916bc913-2795-43ed-874f-1cec690b2b1c
+        source: dila
+      - domain: rivecourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/8ad67c31-50c2-4391-8398-5e6582765e6c
+        source: dila
+      - domain: rivedegier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/c2d742da-20b6-490d-a68d-9c9bbac831da
+        source: dila
+      - domain: rivedoux-plage.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/a9da45da-ff4d-41dd-b1aa-1cd90e783f70
+        source: dila
+      - domain: rivedoux17.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/a9da45da-ff4d-41dd-b1aa-1cd90e783f70
+        source: dila
+      - domain: rivehaute.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/afd2ec95-2120-403c-969c-58296620c924
+        source: dila
+      - domain: riverenert.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/2fe860a5-4ae8-4dbf-a996-f34989739b41
+        source: dila
+      - domain: rives-autise.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/a5a01912-a02d-4dfe-bb53-a120ab5aefb5
+        source: dila
+      - domain: rives-dervoises.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/88031247-dc12-4ee7-9fa4-297d0990f890
+        source: dila
+      - domain: rives-en-seine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/c17d70a3-074b-457b-9699-98ba60a30ce5
+        source: dila
+      - domain: rivesaltes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/7ad37a1f-de4c-48b3-b73d-6374034ef864
+        source: dila
+      - domain: rivesdandaine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/1ec584a2-7f48-4489-a1c6-7a1b1b6edfc8
+        source: dila
+      - domain: rivesdeboutonne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/cdb41acc-51e2-41de-b971-a0f72b09b3b2
+        source: dila
+      - domain: rivesdelyon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/e1e62dd7-c033-45a9-bb92-414a82f3aa75
+        source: dila
+      - domain: rivesdemoselle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b034bb97-c514-47ca-9f2f-8c4abfffc64f
+        source: dila
+      - domain: rivesdesaone.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/bf6fcc3b-1b3a-4ec2-8810-c14a4c65ba55
+        source: dila
+      - domain: rivesducouesnon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/38febdb0-532e-465e-b8e7-82c704b2cbb9
+        source: dila
+      - domain: rivesdufougerais.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/98ef9923-96b2-4eee-8757-7360f54d59ef
+        source: dila
+      - domain: rivesduhautallier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/2b4dd47f-cd8e-4ed8-89dd-af7c76cef38a
+        source: dila
+      - domain: rivesduloirenanjou.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/d00ac6c7-f2d6-4dac-849c-48ffb1a95994
+        source: dila
+      - domain: riviera-francaise.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/43576eda-b638-4dc1-90ad-1f029e1645ee
+        source: dila
+      - domain: rivieradulevant.fr
+        fiche: https://lannuaire.service-public.gouv.fr/guadeloupe/guadeloupe/f7fa91b0-a8d5-4fb1-b7a3-b33802927351
+        source: dila
+      - domain: riviere-salee.fr
+        fiche: https://lannuaire.service-public.gouv.fr/martinique/martinique/e2e8a478-c242-4944-bda6-4c17fd9e01b5
+        source: dila
+      - domain: riviere37.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/46e9fdba-c8f2-4fd2-a42b-c119d9e5b052
+        source: dila
+      - domain: rivieres16.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/ff6c9f41-1531-47d3-a37a-a78609cdae9c
+        source: dila
+      - domain: rivieres16110.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/ff6c9f41-1531-47d3-a37a-a78609cdae9c
+        source: dila
+      - domain: rivieresaasetgourby.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/f201c08e-c2fa-415a-a941-3b493103d195
+        source: dila
+      - domain: rivieresurtarn.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/f0448b4c-151d-4c4d-95ee-a2c73b2a1018
+        source: dila
+      - domain: rivolet.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/8112a3c0-96c8-4d41-9f40-cc81c703d62e
+        source: dila
+      - domain: rixheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/34a7d940-3c05-416d-a2e9-f311c9837d03
+        source: dila
+      - domain: rizaucourt-buchey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/1245d959-4f01-495f-95d3-e28f06d25295
+        source: dila
+      - domain: roaillan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/5848fc86-5f33-4be7-bd3c-dd933e77a6d4
+        source: dila
+      - domain: roannais-agglomeration.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/3c35a518-bdfc-42da-959c-7d7657e81104
+        source: dila
+      - domain: roannes-saint-mary.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/7c9da82d-4d7f-4d70-9409-3a763c203aac
+        source: dila
+      - domain: roberval.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/2dae209b-8755-4d39-ab78-c15a8099880b
+        source: dila
+      - domain: roche-la-moliere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/2f121289-3785-47b5-b9f8-12d5294e85fd
+        source: dila
+      - domain: roche-le-peyroux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/b2537ab8-5a70-4839-af4e-b758fb292294
+        source: dila
+      - domain: roche-lez-beaupre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/2ccb2d88-b287-4cf8-8ac3-97c2442add18
+        source: dila
+      - domain: roche38.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/91458068-5aaa-4e0f-8055-0e4ad23e0470
+        source: dila
+      - domain: rochebaudin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/761c67c1-24b3-48bf-be36-441f91b36ea4
+        source: dila
+      - domain: rochebeaucourtetargentine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/bd83b523-ecb6-4411-883f-dacf50d92ec5
+        source: dila
+      - domain: rochecolombe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/f6124cea-e468-4f2f-8f01-c9a7dd0ae930
+        source: dila
+      - domain: rocheenregnier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/0a5c49e7-8c2a-426e-a8d0-e8ac938c48bf
+        source: dila
+      - domain: rochefort-en-terre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/88195fd6-757b-40f9-97c0-d9d432d7d368
+        source: dila
+      - domain: rochefort-montagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/15c1f7c6-3b62-467f-8fbf-63c605b2c1ac
+        source: dila
+      - domain: rochefortsamson.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/0d471ef8-2eb8-4ec1-b6f3-da34ac252d96
+        source: dila
+      - domain: rochefortsurloire.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/cde6e0cb-3429-44bc-b7c2-dce95859a033
+        source: dila
+      - domain: rochefortsurnenon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b9e4eecc-28b9-4705-b1ef-cdb3c6f6365b
+        source: dila
+      - domain: rochefoucauld-perigord.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/cfef3744-484d-425b-bc79-69ab23b19c18
+        source: dila
+      - domain: rochegude.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/edf5fa00-ed38-4cee-b691-7b5ab890d1ac
+        source: dila
+      - domain: rochegude34130.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/97cb8e4a-c778-419a-9ba3-dddb92918bad
+        source: dila
+      - domain: rochelamoliere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/2f121289-3785-47b5-b9f8-12d5294e85fd
+        source: dila
+      - domain: rochemaure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/a8a45371-5e3a-4c4e-9181-48d9f1ba6142
+        source: dila
+      - domain: rochepaule.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/aecb0d38-ccd4-4677-8eb3-fe91facab8db
+        source: dila
+      - domain: roches-les-blamont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/70acda0d-056a-4861-8fa9-d029c79786b1
+        source: dila
+      - domain: roches23.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/a9969c0a-ada5-43dd-aa9f-15b402dea7c1
+        source: dila
+      - domain: rocheserviere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/5a9dd441-33f1-4de7-ace7-af5774db47b3
+        source: dila
+      - domain: rochespremarieandille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/0170d47a-e2a1-4847-80db-423cb7bb21fd
+        source: dila
+      - domain: rochessauve.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/588141f7-bc0c-46cd-8dcb-e68547ebc321
+        source: dila
+      - domain: rochetaillee-sur-saone.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/8e60a2ed-efc0-49f1-a0cb-7b198b9cf934
+        source: dila
+      - domain: rochetoirin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/622534a8-144e-4283-b3b7-4aff6a98654d
+        source: dila
+      - domain: rochetrejoux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/a78e80ff-88d0-4dca-bb9c-2d8f7b7e968f
+        source: dila
+      - domain: rochonvillers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/0919952a-67ec-4062-a566-bf13fe27279b
+        source: dila
+      - domain: rochy-conde.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/773393de-cb9b-4c25-92c6-06c7444d0324
+        source: dila
+      - domain: rocles03.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/7a2f50d9-8ebf-4c2c-837f-dbd4c68799f8
+        source: dila
+      - domain: rocquefort.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/00957610-2b95-47c2-a9ef-fca59e417677
+        source: dila
+      - domain: rocques.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/48a92944-811e-46e0-82a4-4d810e92fd45
+        source: dila
+      - domain: rocroi.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/01b3e93c-6a88-4019-9e44-71f42b7d31ff
+        source: dila
+      - domain: rodelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/97be65ab-aee5-42f3-beb7-bc55be5ac345
+        source: dila
+      - domain: roderen.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/582a2feb-8757-4a65-b4fd-aaaf23cf327a
+        source: dila
+      - domain: rodezagglo.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/577968cc-400a-46b5-804c-f0d6db15efb6
+        source: dila
+      - domain: rodilhan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/cffd1737-50d9-4321-9a68-7ed92dec52dd
+        source: dila
+      - domain: roeschwoog.eu
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/3f313927-a1e0-45d7-9dde-fa654349e824
+        source: dila
+      - domain: roeulx.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/f9e96072-b0ec-47bb-a2af-9ac79ca64a47
+        source: dila
+      - domain: roeux62.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/39858ebd-3f5d-47bd-a87e-29bb1b8f8633
+        source: dila
+      - domain: roeze.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/8cfcd545-ef0e-4c70-aea9-a2b0539154e1
+        source: dila
+      - domain: roffiac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/565bc40d-7cee-4398-a941-02e089b7ad27
+        source: dila
+      - domain: rogerville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/5589ea19-ec42-403a-a224-cd3f7ab6e425
+        source: dila
+      - domain: roggenhouse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/8895fc70-d541-43d9-b41f-9417d57da42f
+        source: dila
+      - domain: rognaix.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/1a952b83-e6d6-493d-bf7e-cca0d3983bcd
+        source: dila
+      - domain: rognes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/f59f866a-9709-49b6-8acd-0ce04c8ba06b
+        source: dila
+      - domain: rognonas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/13310997-ae19-4cd8-b753-2969451347b0
+        source: dila
+      - domain: rohan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/16d5976e-2b08-496c-bf6e-e55a996689bd
+        source: dila
+      - domain: rohrbach-les-bitche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/29bf7a27-9755-4f70-b04f-8e101c1edd5b
+        source: dila
+      - domain: rohrbach.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/29bf7a27-9755-4f70-b04f-8e101c1edd5b
+        source: dila
+      - domain: rohrwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/fe08163b-2b89-4547-af8e-7ba3a5d9dfdc
+        source: dila
+      - domain: roiffe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/3339c299-fdc7-41f6-a460-eda215c146f3
+        source: dila
+      - domain: roiffieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/7d8f1f9a-15f9-4ffa-9873-81c47fa1372d
+        source: dila
+      - domain: roiglise.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/086458c0-696a-497b-8f19-a670a3bbcc26
+        source: dila
+      - domain: roisel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/3dc6a4c7-1b70-4515-8798-503aa25e9a02
+        source: dila
+      - domain: roisey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/a05707fb-9de5-471f-ab16-e2cc8b34faf7
+        source: dila
+      - domain: roissyenbrie77.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/5def5f7a-9b80-4ec0-9174-ca64d87e5b5e
+        source: dila
+      - domain: roissyenfrance.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/a55012fd-69c2-442d-a9e1-68213ee9c7cd
+        source: dila
+      - domain: roissypaysdefrance.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/95e36cb4-6046-46b8-95d5-1397a63520ab
+        source: dila
+      - domain: rollancourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/84c7a618-8252-411d-a2ac-9b5ad6e4aeb4
+        source: dila
+      - domain: romagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/231ea8c8-91d9-4b01-a004-240164ccdbbd
+        source: dila
+      - domain: romagne35.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/750f7ad7-b5d7-44e1-94a3-063736619ddc
+        source: dila
+      - domain: romagnieu.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/44feb3ec-9056-4dd8-92e5-717e41bb7524
+        source: dila
+      - domain: romagny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/c1355cdf-9778-4b86-9dba-a8646871ea22
+        source: dila
+      - domain: romagnyfontenay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/09a2dfc0-b5bb-4cd7-825b-c2d460785951
+        source: dila
+      - domain: romain39.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/881318d4-8ad2-4080-85a3-37e2fc413323
+        source: dila
+      - domain: romaneche-thorins.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/35a3814a-c504-44c6-8d29-34baa6717227
+        source: dila
+      - domain: romange.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/8b7d8e84-7fd8-415f-a703-7cbb823741cd
+        source: dila
+      - domain: romans01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/31a146a0-29fe-437d-8196-744af8f534ea
+        source: dila
+      - domain: romanswiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/310b992b-f992-428c-a49b-290370ad6bf4
+        source: dila
+      - domain: romazy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/286b1ce2-ed3d-4078-9347-7adb56a82c2c
+        source: dila
+      - domain: rombach-le-franc.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/61a0b18c-85dd-48e0-a73c-822964f0cb32
+        source: dila
+      - domain: rombies-et-marchipont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/41bce4a1-38f2-423a-a415-5d2e841670c7
+        source: dila
+      - domain: romegoux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/07a69571-160e-4473-be09-02b9165f614f
+        source: dila
+      - domain: romenay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/4fc733d1-c83d-4f3a-b228-400c206fad04
+        source: dila
+      - domain: romeny-sur-marne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/72942685-d823-416e-97cb-52795b3bf6e8
+        source: dila
+      - domain: romeny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/72942685-d823-416e-97cb-52795b3bf6e8
+        source: dila
+      - domain: romescamps.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7dc0db64-b2d6-4581-9159-44d6ddb1ed52
+        source: dila
+      - domain: romestaing.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9df7123f-b11b-41a0-b47f-91e43b7a3f70
+        source: dila
+      - domain: romille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/0529be3b-b1b6-4ae9-8caf-4e28cf74bd1c
+        source: dila
+      - domain: romilly-sur-andelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/c0391320-5b73-4d3e-a0f1-155d467f696d
+        source: dila
+      - domain: romorantin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/3b824fe6-445d-4799-90fe-2067cc624dd3
+        source: dila
+      - domain: rompon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/ffe51b56-c73e-44db-ae14-0c58fcd38810
+        source: dila
+      - domain: roncey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/75aac8ea-d4f4-45ff-a16f-b882012c3f81
+        source: dila
+      - domain: ronchamp.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/db15ead0-8c92-4988-b72f-3d4362a81bea
+        source: dila
+      - domain: roncq.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/6b24056b-2d29-4d31-b491-ab358db82119
+        source: dila
+      - domain: ronno.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/8eb29798-abe4-47ec-9d62-f4eafcf60d78
+        source: dila
+      - domain: ronsenac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/de8f1a78-0557-40f0-a843-0bb53fd45359
+        source: dila
+      - domain: rontalon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/b119914e-6dbe-4700-9d25-1b38301c6573
+        source: dila
+      - domain: rontignon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/b5ab757e-4c91-4bee-b359-2621d8ee8670
+        source: dila
+      - domain: roppe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/e5f71724-5351-4b33-87ce-3e0942fb64f6
+        source: dila
+      - domain: roppenheim.eu
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/8cc2ef48-3d8a-4233-bcd6-b23ec150fde6
+        source: dila
+      - domain: roppenheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/8cc2ef48-3d8a-4233-bcd6-b23ec150fde6
+        source: dila
+      - domain: roppentzwiller.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/f32fe508-0ee2-4485-9170-e005e3bf0d57
+        source: dila
+      - domain: roquebilliere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/dae8be19-89b3-4c16-9c00-259711388b33
+        source: dila
+      - domain: roquebrun.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/7eb02513-7893-4d46-b497-97ac788d2992
+        source: dila
+      - domain: roquebrune-cap-martin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/b9732a35-57b5-478c-91a9-3004e56db9e8
+        source: dila
+      - domain: roquecor.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn-et-garonne/73fdde5d-21b3-46d1-acea-8ce18c917184
+        source: dila
+      - domain: roquecourbe-minervois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/343f4741-a56b-49c2-b000-9a015aa5a581
+        source: dila
+      - domain: roquecourbe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/6f28e93c-8a5c-4e5f-9dc6-872bee3664f7
+        source: dila
+      - domain: roquefere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/bae040e9-ddd0-447f-a619-48c7d4a02040
+        source: dila
+      - domain: roquefixade.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/1f8d6384-dd42-4662-bcab-0e8b8407c63a
+        source: dila
+      - domain: roquefort-des-corbieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/a022e701-54fd-433a-82e3-75d1afaac950
+        source: dila
+      - domain: roquefort-labedoule.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/a0ca5a0f-4208-46c2-9e9b-5cfcca101260
+        source: dila
+      - domain: roquefort40.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/13982f57-1164-4610-8e0a-cd5323514884
+        source: dila
+      - domain: roquefort47.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/6d568956-50cf-4ac9-bf95-280c8f3d120d
+        source: dila
+      - domain: roquefortdesault.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/66a976c0-cc8c-4d80-88c2-a61eb15951da
+        source: dila
+      - domain: roquemaure-tarn.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/0517516d-b8ea-483a-936c-1b5e0f6917b8
+        source: dila
+      - domain: roquemaure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/bf7d658c-bda2-46b8-a2a3-ebc989399e57
+        source: dila
+      - domain: roqueseriere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/bd4c3d09-316e-4175-ab49-b6e7dd3e9670
+        source: dila
+      - domain: roquesteron.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/82b6532b-f1b8-4ccf-8810-d452ea76e587
+        source: dila
+      - domain: roquetoire.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/b4d39727-7f0a-49aa-b099-d94f2b9e969f
+        source: dila
+      - domain: roquettes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/b8094261-be08-47be-aad0-6224c9b76377
+        source: dila
+      - domain: rosans.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/ec84f40c-3c89-49d1-9d66-591ce980efc5
+        source: dila
+      - domain: rosay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/0a2fb0f6-438e-4630-8bee-eb50c3db4670
+        source: dila
+      - domain: rosaysurlieure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/75693112-65ec-4ec0-82dd-616b381b60ad
+        source: dila
+      - domain: rosbruck.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/58bb737c-d3c3-4dec-afe5-352e09feefa4
+        source: dila
+      - domain: roscanvel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3ac1d7b9-f189-4aa7-997a-1f56e24165d1
+        source: dila
+      - domain: roscoff.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/18a44861-28d4-411c-b844-7d3a227795e3
+        source: dila
+      - domain: rosel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/7bc8ad79-0834-4b31-989d-4ca43b552b97
+        source: dila
+      - domain: rosenau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/85c5c5ea-b81a-4982-9310-5dd54f2efc4e
+        source: dila
+      - domain: roset-fluans25.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/8ceea7e7-1131-4997-9431-cc53a143a56f
+        source: dila
+      - domain: rosey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/3b8ffbc0-c75b-463d-a78a-d8fed2e6a9fb
+        source: dila
+      - domain: rosieres-aux-salines.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/96be22de-eac6-4c55-b822-69ca2a50b863
+        source: dila
+      - domain: rosieres-en-haye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/00c81048-188c-49f2-a5d6-a942132573dc
+        source: dila
+      - domain: rosieres-santerre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/8b9df53c-eab0-4f29-b65d-a638d61f4cc8
+        source: dila
+      - domain: rosieres-tarn.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/9ee79925-b3ac-402f-ade3-065fd7cd3b74
+        source: dila
+      - domain: rosieres10.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/63d1ec2a-9269-4310-b65d-8c8eb35e1d7d
+        source: dila
+      - domain: rosnay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/c20d8d00-468b-4b61-81f5-e5b812f3857b
+        source: dila
+      - domain: rosnay85.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/cdf2402b-45cf-49c8-aae1-bada952b1099
+        source: dila
+      - domain: rosnysousbois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-saint-denis/983bfc92-d1b8-44a5-b05a-72861f7de492
+        source: dila
+      - domain: rosoy-89.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/349f6109-9805-468e-b912-b1627676e7f3
+        source: dila
+      - domain: rosoy-en-multien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/4744e56a-91a4-4de3-ae7b-4cb69bec01b7
+        source: dila
+      - domain: rosoy60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/c35e3aa4-ea65-4262-b138-d0bfc7fb0bb7
+        source: dila
+      - domain: rospez.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/d2af5fa7-918a-42c6-aacd-d5aed6c4337c
+        source: dila
+      - domain: rosselange.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/01dd8143-0f76-4208-9dce-41460252bf92
+        source: dila
+      - domain: rossfeld.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/0f5671b6-f03c-4b7d-9ca5-9d8efb9ba3a3
+        source: dila
+      - domain: rossillon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/2943d817-68f0-4480-9c9f-54333b2e03ba
+        source: dila
+      - domain: rossillon01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/2943d817-68f0-4480-9c9f-54333b2e03ba
+        source: dila
+      - domain: rosteig.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/ec90a420-d2c1-41ce-ab1b-ff7452fe6829
+        source: dila
+      - domain: rosult.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/e4c6224c-89af-4809-86d9-9dfc403a94f1
+        source: dila
+      - domain: rotalier39.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/bc50622a-65dd-4e30-b967-762eccd3ac44
+        source: dila
+      - domain: rothau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/0abd971b-976a-47e8-968d-e00c27fbe0d8
+        source: dila
+      - domain: rothbach.alsace
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/1c520048-5628-497f-b98a-c69658ed4959
+        source: dila
+      - domain: rotherens.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/bcccfab7-ab99-41ae-9248-7aef5694811b
+        source: dila
+      - domain: rothois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/c4cb8378-85d5-4655-8fa6-989e03931539
+        source: dila
+      - domain: rots.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/d4b4ea13-92e9-4cea-90aa-3798834ef0ef
+        source: dila
+      - domain: rott.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/8cc0e962-b9d5-41ae-92b0-04b038a49dec
+        source: dila
+      - domain: rottelsheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/ea1fd280-d67a-4d37-a025-984cea091bfc
+        source: dila
+      - domain: rou-marson.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/8231e9af-b422-4abb-9443-8cf70ca464a2
+        source: dila
+      - domain: rouairoux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/3fc28af7-2138-40bb-8fb0-d85a11b46f07
+        source: dila
+      - domain: rouans.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/68192aae-829a-4043-b41f-32e44682f7e9
+        source: dila
+      - domain: roubia.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/6ad02c91-714e-40f8-afeb-b7ca6f0d3507
+        source: dila
+      - domain: roucourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/41124abe-2025-4628-983d-9a18bd18146f
+        source: dila
+      - domain: roucy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/8cb551b8-8736-41bd-a110-9c2423184b0d
+        source: dila
+      - domain: roudouallec.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/88bb6420-bf1b-49b0-b1b2-c9208e190b36
+        source: dila
+      - domain: rouede.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/fcc693e2-ab9b-450f-9017-5dda55b4e084
+        source: dila
+      - domain: rouen.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/714de63f-0737-4603-8593-c0d04e4c378d
+        source: dila
+      - domain: rouesse-vasse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/12a5cd5e-03a7-47d6-a9ae-7dae5dbe2b47
+        source: dila
+      - domain: rouez.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/61ed4711-e125-4286-a314-1b3c3e43b6c6
+        source: dila
+      - domain: rouffiac17.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/4a60af01-430a-4bb2-80cf-9b2681c97060
+        source: dila
+      - domain: rouffiac81.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/843be93e-8035-449c-a1d2-0d673e4d7490
+        source: dila
+      - domain: rouffignac-perigordnoir.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/bc049569-7642-44be-896f-e63f00b15ac4
+        source: dila
+      - domain: rouffignac17.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/01135e18-7971-4849-8c87-a850ce516728
+        source: dila
+      - domain: rougegoutte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/e38fb469-b44c-42b9-9928-b1819ad08539
+        source: dila
+      - domain: rougemont-le-chateau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/44d8e96d-3a26-4031-a3cb-75732a7b2a2a
+        source: dila
+      - domain: rougemontier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/9f263999-26a4-47e6-872c-55f7b3295c08
+        source: dila
+      - domain: rougeperriers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/d7bcaddd-8b20-489c-abb1-ed4c34828975
+        source: dila
+      - domain: rougiers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/c4485112-ff2a-41d2-ba54-42fddabb3743
+        source: dila
+      - domain: rougon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/9946419f-ed16-4076-ad5f-080df765060f
+        source: dila
+      - domain: rouhling.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/56bebdcb-92b7-42f9-b8a6-3dbf7bc63240
+        source: dila
+      - domain: rouillac22.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/59f36974-b6f8-420b-8275-b0cd48223a28
+        source: dila
+      - domain: rouille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/8b4fd29b-9a3e-43fa-9682-83c01c5cf9ce
+        source: dila
+      - domain: rouillon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/0d788d31-d35e-444d-9387-68aa50652d73
+        source: dila
+      - domain: rouilly-saint-loup.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/89a0eb6f-b530-4342-84d6-28336969bcc2
+        source: dila
+      - domain: roujan.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/cf0af51f-6c82-42f2-ad5e-c9b390f7c095
+        source: dila
+      - domain: roulans.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/72f9cc3a-4d05-4dc9-a352-112dd45842d7
+        source: dila
+      - domain: roullet-saint-estephe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/f319c95f-7d52-4a49-babe-769da6d1e5de
+        source: dila
+      - domain: roulletestephe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/f319c95f-7d52-4a49-babe-769da6d1e5de
+        source: dila
+      - domain: roumare.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/34c8c970-8b95-4fa1-9357-c9fcf9a210b6
+        source: dila
+      - domain: roumegoux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/7f10d183-a0e3-42cc-b56c-601b966e989c
+        source: dila
+      - domain: roumoiseine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/e6a0bbae-eb2a-40f1-a539-c9ad04a08039
+        source: dila
+      - domain: roumoules.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/1a63f1e1-9a7f-49af-921f-fbf0dacd48ba
+        source: dila
+      - domain: rountzenheim-auenheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/aa94e0c0-c9fd-4f6b-b56b-c84c3d2a6bc7
+        source: dila
+      - domain: rouperrouxlecoquet.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/4ad19d0f-8f8c-454c-8a01-f64ebbe578d3
+        source: dila
+      - domain: roura.gf
+        fiche: https://lannuaire.service-public.gouv.fr/guyane/guyane/afb87384-076c-4cbf-ad2b-cfcbfd3b8845
+        source: dila
+      - domain: roure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/97ba84f2-386d-4c1f-8051-66abdce0b54e
+        source: dila
+      - domain: rousies.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/9ace5c29-54b4-4f95-ac17-b29ba151d419
+        source: dila
+      - domain: roussennac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/b1968d2a-2cba-492f-8b1a-336118d1291f
+        source: dila
+      - domain: roussetlesvignes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/ea7eb984-ae81-4d50-b769-0eeb96ebc3ac
+        source: dila
+      - domain: roussieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/f8432d5b-4742-4405-b878-12f7e18d955e
+        source: dila
+      - domain: roussillon-conflent.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/61b26ada-c60e-4f2b-8f20-7c86e0def5ac
+        source: dila
+      - domain: roussillon-en-provence.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/91327188-3e32-4840-a462-d89961948b1d
+        source: dila
+      - domain: roussines.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/d980b2eb-889e-4609-9978-3a65bfa9c275
+        source: dila
+      - domain: roussylevillage.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/33ffb811-bb4c-4b50-b7a7-8fafd4b7766c
+        source: dila
+      - domain: routot.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/6064bfb0-8485-4c0a-9834-d1e453d24b06
+        source: dila
+      - domain: rouville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/9bed37b2-6a34-45e8-a6e5-49ac2314b211
+        source: dila
+      - domain: rouville60.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/de090bb4-a9c9-4bbb-ae1b-a3f6dfdcd1af
+        source: dila
+      - domain: rouvillers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/be3173c7-1150-4eb8-9627-3ed57f70fd1e
+        source: dila
+      - domain: rouvray21.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/4ae02f33-fc6b-4d46-ad3c-d91fc9bd66ab
+        source: dila
+      - domain: rouvres-en-plaine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/f0cc8478-9cb8-45da-bf86-4c1238acc01d
+        source: dila
+      - domain: rouvres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/4463fd59-b2db-4af0-9713-9b30e2744096
+        source: dila
+      - domain: rouvres77.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/5e1ab8c6-78d5-46e8-b981-46991ade4a75
+        source: dila
+      - domain: rouvresenmultien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/23609bcb-86e7-4848-972c-37bfbcbc738a
+        source: dila
+      - domain: rouvresenplaine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/f0cc8478-9cb8-45da-bf86-4c1238acc01d
+        source: dila
+      - domain: rouvroy-les-merles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b34895d3-612e-4045-85b6-ab482ef0cf94
+        source: dila
+      - domain: rouvroyensanterre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/22b2d529-1409-421e-b2c2-1961c04c2a86
+        source: dila
+      - domain: rouxmesnil-bouteilles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/657c6cd3-ac48-41b0-9268-0ef265e69a97
+        source: dila
+      - domain: rouziers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/32c95952-fffd-4cd8-8388-6b4b7ecc94e2
+        source: dila
+      - domain: roville-devant-bayon.mairie54.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/f1c8e5e2-d58d-4e34-a224-6a90c451771d
+        source: dila
+      - domain: rovon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/2c9587ee-de12-4353-9b68-24a4a87afa4b
+        source: dila
+      - domain: royas.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/0a68e7e9-eaa4-4a7a-8657-55963407c5bf
+        source: dila
+      - domain: royat.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/95d85fbc-1feb-4256-a36e-4d2e304fc649
+        source: dila
+      - domain: royaucourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/68319905-d7b3-471d-b973-332f4d5cc7ad
+        source: dila
+      - domain: royaumeix.mairie54.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/1f8cbc0a-92f2-4aea-bd5b-bc43503a4c0e
+        source: dila
+      - domain: roybon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/c04afe38-4510-4ea0-9d78-1146beedfa43
+        source: dila
+      - domain: roye-70.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f3b383db-d6fc-44cb-bd54-9e760f9f5bf2
+        source: dila
+      - domain: roye.eu
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/6e10a6d8-2607-400c-8704-be1621aca3b2
+        source: dila
+      - domain: roye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f3b383db-d6fc-44cb-bd54-9e760f9f5bf2
+        source: dila
+      - domain: royeres87.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/6e97bccd-702e-4f4e-bdda-ddc762d17864
+        source: dila
+      - domain: roynac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/d2a3d0d9-aaf1-4616-8a96-b77419edc4d0
+        source: dila
+      - domain: roz-sur-couesnon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/f47fa4df-ad25-4e45-a6fc-af6f115a663e
+        source: dila
+      - domain: rozay-en-brie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/b90034ba-d746-43c1-bda3-4c2e98d2ba0c
+        source: dila
+      - domain: roziercotesdaurec.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/c9c2e8cb-ef44-4cf2-b180-b2a31864f703
+        source: dila
+      - domain: rozieresenbeauce.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/23564198-014e-4718-86a7-39bc60062eb4
+        source: dila
+      - domain: rozlandrieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/31f71727-993f-4c93-9764-b9995cb63501
+        source: dila
+      - domain: rozoy-le-vieil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/5d2b3447-7ade-4366-9273-4655f5019412
+        source: dila
+      - domain: rozoy-sur-serre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/ac701221-92d7-4495-8bcf-8686141d7e02
+        source: dila
+      - domain: ruaudin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/8bb89682-a9bc-41d0-a1ed-3a31925dca76
+        source: dila
+      - domain: rubelles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/6e544638-0e02-44c5-99b4-0b8c4f655fee
+        source: dila
+      - domain: rubrouck.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/23f4c1ea-1583-414a-86e7-e1ce61a35e9e
+        source: dila
+      - domain: ruch.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/3a84859c-fbf2-4d1e-8869-b2e7e1ad67cb
+        source: dila
+      - domain: rudelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/8a78b028-47cd-425c-a462-ed4728ac243b
+        source: dila
+      - domain: ruelisheim.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/aa7760dd-8d81-4c1c-914b-eeb171a9d904
+        source: dila
+      - domain: ruesnes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/4d309760-afcf-4310-a856-ebbe154d1e74
+        source: dila
+      - domain: ruffec36.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/d8cd99a9-66d2-42e7-b915-3548c1ec28b8
+        source: dila
+      - domain: ruffey-le-chateau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/d183372c-adf9-43eb-a6c8-54f7062cbfc3
+        source: dila
+      - domain: ruffeylesbeaune.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/040ec3d4-38a2-469e-801e-a7430063a8db
+        source: dila
+      - domain: ruffeylesechirey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/0cebc8cb-c31f-4532-83bf-d8b2fa952b01
+        source: dila
+      - domain: ruffeysurseille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/28e83ede-1ec5-472c-8134-cf16697d1766
+        source: dila
+      - domain: ruffiac.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/c4232a2b-93d1-4aea-9aba-3a2bf6fc5b9f
+        source: dila
+      - domain: ruffiac47.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/80b5f6ee-1fb0-48e5-a828-58d942c7bf3b
+        source: dila
+      - domain: ruffieux73.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/eb226eca-ac99-42d2-b669-b88572382bad
+        source: dila
+      - domain: rugles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/0e07e362-26dc-499d-a790-e01ee3256fb8
+        source: dila
+      - domain: ruillefroidfonds.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/3e6774a2-0962-4c3a-a7e0-9dde7bdbec73
+        source: dila
+      - domain: ruisseauville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/7c20bac4-a732-40de-8e63-bb944424fa4b
+        source: dila
+      - domain: rullacsaintcirq.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/31849336-7fcc-4519-875a-5c2c02082df1
+        source: dila
+      - domain: rully.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/bbe41ce0-8d35-417f-8a42-4c208d9a2386
+        source: dila
+      - domain: rumaucourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/db815274-6873-4dd4-9f9d-c6b5d0fa8c71
+        source: dila
+      - domain: rumegies.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/f9ae7e7f-48e3-47c0-b61e-628b94405220
+        source: dila
+      - domain: rumigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/c29da605-1dec-4b5e-b13d-1dcd976dc137
+        source: dila
+      - domain: rumilly-en-cambresis.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/77c3b4cb-48e4-4923-9556-f6889149f5a8
+        source: dila
+      - domain: rumilly-terredesavoie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/5ba54675-ce30-41a4-b46f-e158ed12a414
+        source: dila
+      - domain: rumilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/25bf5931-31c4-4b9e-810a-e73c919813ff
+        source: dila
+      - domain: ruminghem.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/006d99a4-5335-4ff5-9bb3-85d40eccdeda
+        source: dila
+      - domain: rungis.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-de-marne/89c7071a-82b5-46ea-9759-1e264dea64ba
+        source: dila
+      - domain: ruoms.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/1d53a132-e522-415b-b4c1-19c12fd3c37a
+        source: dila
+      - domain: ruptsurmoselle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/f2eb40db-d304-4f0e-a8bb-a22d862f51ee
+        source: dila
+      - domain: ruralesentredeuxmers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/9fe9623c-b24a-45de-878b-254abf045a1a
+        source: dila
+      - domain: rurange-les-thionville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/82371d25-2f75-455a-8e90-eb08755a1fd3
+        source: dila
+      - domain: rurey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/b203891f-bf5c-44cc-b0b3-924d9eb03b4e
+        source: dila
+      - domain: rusio.fr
+        fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/d437fa60-21b2-4d71-94e1-2376f7e09cf8
+        source: dila
+      - domain: russange.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/570f954c-1641-4ee3-bba2-b79657c24708
+        source: dila
+      - domain: russy-bemont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/6a5f93dc-e95c-4ce8-9859-13f0885bf943
+        source: dila
+      - domain: rustiques.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/7f94495f-96d4-4be1-be87-c33fa0ba38e9
+        source: dila
+      - domain: rustrel.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/0d2f56c6-463a-4fed-9b0a-0715f33ddd2c
+        source: dila
+      - domain: rutali.fr
+        fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/201debf1-f074-44c1-acbc-6ca9c43a9cfa
+        source: dila
+      - domain: ruvigny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/b4653beb-5086-4b21-a3da-84c8416ef8a7
+        source: dila
+      - domain: ruy-montceau.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/995d2c5b-f4bf-4cb8-beb8-eda3f71bbd99
+        source: dila
+      - domain: ruyaulcourt.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/1bdbe07d-539f-407f-8cc9-762753c35916
+        source: dila
+      - domain: ruynes-margeride.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/c8359aa3-8e23-4ba5-b3a5-b124f7ba6458
+        source: dila
+      - domain: rye.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/11732c05-a624-4835-ae55-83097ccd0d26
+        source: dila
       - domain: sacoue.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/f16a982d-622c-4f5b-9534-1bca3528fa03
         source: dila
