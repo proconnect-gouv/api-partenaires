@@ -11,6 +11,8 @@ const mairie = {
   site_internet:
     '[{"libelle": "", "valeur": "http://coisesaintjeanpiedgauthier.fr"}]',
   adresse_courriel: "secretariat@coise73.fr",
+  url_service_public:
+    "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/1",
 };
 
 const other_service = {
@@ -37,6 +39,7 @@ describe("build_dila_index", () => {
         name: "Coise-Saint-Jean-Pied-Gauthier",
         names: new Set(["Coise-Saint-Jean-Pied-Gauthier"]),
         siren: "217300896",
+        url: "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/1",
       },
     ]);
     expect(index.get("coise73.fr")).toEqual(
