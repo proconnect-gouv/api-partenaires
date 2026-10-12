@@ -16,6 +16,11 @@ function is_internationalized(domain: string): boolean {
   );
 }
 
+export function is_sovereign(domain: string): boolean {
+  const extension = domain.split(".").at(-1) ?? "";
+  return SOVEREIGN_EXTENSIONS.has(extension) && !is_internationalized(domain);
+}
+
 export function dila_ok(
   declared_by: Map<string, Fiche[]>,
   domain: string,
@@ -26,8 +31,7 @@ export function dila_ok(
       ? { ok: false, reason: "shared" }
       : { ok: false, reason: "undeclared" };
   }
-  const extension = domain.split(".").at(-1) ?? "";
-  if (!SOVEREIGN_EXTENSIONS.has(extension) || is_internationalized(domain)) {
+  if (!is_sovereign(domain)) {
     return { ok: false, reason: "not_sovereign" };
   }
   // RPNT 2.2 deferred: needs INSEE COG spellings

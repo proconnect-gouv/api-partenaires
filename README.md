@@ -58,12 +58,13 @@ oidc_providers:
 
 ## Scripts
 
-| Script                 | Description                |
-| ---------------------- | -------------------------- |
-| `bun run dev`          | Serveur local (hot reload) |
-| `bun test src`         | Tests unitaires            |
-| `bun run typecheck`    | Vérification TypeScript    |
-| `bun run format:check` | Vérification du formatage  |
+| Script                                    | Description                                                                        |
+| ----------------------------------------- | ---------------------------------------------------------------------------------- |
+| `bun run dev`                             | Serveur local (hot reload)                                                         |
+| `bun test src`                            | Tests unitaires                                                                    |
+| `bun run typecheck`                       | Vérification TypeScript                                                            |
+| `bun run format:check`                    | Vérification du formatage                                                          |
+| `bun run explain:domain <domaine\|email>` | Explique pourquoi un domaine est accepté ou refusé (liste, DILA, RPNT, fiche, nom) |
 
 ## Tests d'intégration
 
