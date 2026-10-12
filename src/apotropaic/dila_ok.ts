@@ -30,6 +30,5 @@ export function dila_ok(
   if (!SOVEREIGN_EXTENSIONS.has(extension) || is_internationalized(domain)) {
     return { ok: false, reason: "not_sovereign" };
   }
-  // RPNT 2.2 deferred: needs INSEE COG spellings
   return { ok: true, owner };
 }
