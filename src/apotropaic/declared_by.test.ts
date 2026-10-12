@@ -35,6 +35,7 @@ describe("build_dila_index", () => {
         domains: new Set(["coisesaintjeanpiedgauthier.fr", "coise73.fr"]),
         id: "1",
         name: "Coise-Saint-Jean-Pied-Gauthier",
+        names: new Set(["Coise-Saint-Jean-Pied-Gauthier"]),
         siren: "217300896",
       },
     ]);
@@ -57,6 +58,18 @@ describe("build_dila_index", () => {
 
     expect(departement_of("97411")).toBe("974");
     expect(departement_of("2A004")).toBe("2A");
+  });
+
+  test("joins the COG spellings of the fiche's commune", () => {
+    const cog_names = new Map([["73089", new Set(["Coise Saint Jean"])]]);
+
+    expect(
+      build_dila_index([mairie], cog_names).declared_by.get("coise73.fr")?.[0]
+        ?.names,
+    ).toEqual(new Set(["Coise-Saint-Jean-Pied-Gauthier", "Coise Saint Jean"]));
+    expect(
+      build_dila_index([mairie]).declared_by.get("coise73.fr")?.[0]?.names,
+    ).toEqual(new Set(["Coise-Saint-Jean-Pied-Gauthier"]));
   });
 
   test("indexes a collectivité fiche that declares no domain", () => {
