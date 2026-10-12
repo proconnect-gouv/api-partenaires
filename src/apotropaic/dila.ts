@@ -6,7 +6,7 @@ const DILA_EXPORT_URL =
   "https://api-lannuaire.service-public.gouv.fr/api/explore/v2.1/catalog/" +
   "datasets/api-lannuaire-administration/exports/json" +
   "?select=id%2Csiret%2Csiren%2Cnom%2Cpivot%2Ccode_insee_commune" +
-  "%2Csite_internet%2Cadresse_courriel";
+  "%2Csite_internet%2Cadresse_courriel%2Curl_service_public";
 
 type FetchLike = (url: string) => Promise<Response>;
 

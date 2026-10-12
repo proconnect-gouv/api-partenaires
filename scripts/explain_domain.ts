@@ -64,12 +64,24 @@ function fiche_brief(fiche: Fiche): string {
   return `${fiche.name} (dép. ${fiche.departement ?? "?"}, SIREN ${fiche.siren})`;
 }
 
-type Check = { label: string; ok: boolean | null; detail: string };
+function fiche_link(fiche: Fiche): string {
+  return fiche.url ?? `fiche ${fiche.id}`;
+}
 
-function render(check: Check, gate_passed: boolean): string {
+type Check = {
+  label: string;
+  ok: boolean | null;
+  detail: string;
+  lines?: string[];
+};
+
+function render(check: Check, gate_passed: boolean): string[] {
   const mark = check.ok === null ? "·" : check.ok ? "✓" : "✗";
   const note = check.ok === false && gate_passed ? " (not enforced)" : "";
-  return `   ${mark} ${check.label.padEnd(17)} ${check.detail}${note}`;
+  return [
+    `   ${mark} ${check.label.padEnd(17)} ${check.detail}${note}`,
+    ...(check.lines ?? []).map((line) => `${" ".repeat(23)}${line}`),
+  ];
 }
 
 function gate(rows: { uid: string; row: AllowedDomain }[]): {
@@ -135,13 +147,15 @@ function explain(domain: string): Status {
       detail:
         declaring.length === 0
           ? "no collectivité fiche declares it"
-          : [
-              noun(declaring.length, "fiche", "fiches"),
-              ...declaring.slice(0, SHOWN_FICHES).map(fiche_brief),
-              ...(declaring.length > SHOWN_FICHES
-                ? [`… ${count.format(declaring.length - SHOWN_FICHES)} more`]
-                : []),
-            ].join(" · "),
+          : noun(declaring.length, "fiche", "fiches"),
+      lines: [
+        ...declaring
+          .slice(0, SHOWN_FICHES)
+          .flatMap((fiche) => [fiche_brief(fiche), `  ${fiche_link(fiche)}`]),
+        ...(declaring.length > SHOWN_FICHES
+          ? [`… ${count.format(declaring.length - SHOWN_FICHES)} more`]
+          : []),
+      ],
     },
     {
       label: "sole owner",
@@ -165,10 +179,11 @@ function explain(domain: string): Status {
           label: "row fiche",
           ok: row_fiche !== undefined && row_fiche.siren === owner?.siren,
           detail: !row_fiche
-            ? `${row_fiche_id} is not a collectivité in DILA`
+            ? "not a collectivité in DILA"
             : row_fiche.siren === owner?.siren
-              ? `${row_fiche.id}, the owner`
+              ? "the owner's"
               : `${fiche_brief(row_fiche)}, not the owner${owner ? ` (SIREN ${owner.siren})` : ""}`,
+          lines: dila_rows.map((row) => row.fiche),
         }
       : {
           label: "row fiche",
@@ -177,8 +192,9 @@ function explain(domain: string): Status {
             listed.length > 0
               ? "routed row, cites no fiche"
               : owner
-                ? `a new row would cite ${owner.id}`
+                ? "a new row would cite the owner's"
                 : "no owner fiche to cite",
+          lines: listed.length === 0 && owner ? [fiche_link(owner)] : [],
         },
   ];
 
@@ -249,14 +265,14 @@ function explain(domain: string): Status {
         ? `⚠️  ${domain}  valid, ${reasons(result.warnings)}`
         : `✅ ${domain}  valid`,
     refused: `❌ ${domain}  refused: ${reasons(result.errors)}`,
-    "would pass": `🟢 ${domain}  not listed, would pass citing fiche ${owner?.id}`,
+    "would pass": `🟢 ${domain}  not listed, would pass`,
     "would be refused": `⛔ ${domain}  not listed, would be refused: ${reasons(result.errors)}`,
   }[status];
 
   console.log(
     [
       header,
-      ...checks.map((check) => render(check, result.errors.length === 0)),
+      ...checks.flatMap((check) => render(check, result.errors.length === 0)),
     ].join("\n"),
   );
   return status;

@@ -9,6 +9,7 @@ export type Fiche = {
   name: string;
   names: ReadonlySet<string>;
   siren: string;
+  url: string | null;
 };
 
 const text_schema = z
@@ -110,6 +111,7 @@ const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
       code_insee_commune: text_schema,
       site_internet: domains_schema(domain_from_url),
       adresse_courriel: domains_schema(domain_from_email),
+      url_service_public: text_schema,
     })
     .transform((record): Fiche | null => {
       if (!record.id || !COLLECTIVITE_TYPES.has(record.pivot ?? ""))
@@ -130,6 +132,7 @@ const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
           record.siren ||
           record.siret.match(/^\d{9}/)?.[0] ||
           `fiche:${record.id}`,
+        url: record.url_service_public || null,
       };
     })
     .catch(null);
