@@ -21,6 +21,28 @@ if (!parsed.success) {
   process.exit(1);
 }
 
+const count = new Intl.NumberFormat("en-US");
+const stat = (label: string, value: number) =>
+  `  ${label.padEnd(16)}${count.format(value).padStart(8)}`;
+const rows = parsed.data.oidc_providers.flatMap(
+  (provider) => provider.allowed_attached_email_domains,
+);
+const rows_by_source = Object.groupBy(rows, (row) => row.source);
+
+console.log(
+  [
+    `📊 ${path}`,
+    stat("providers", parsed.data.oidc_providers.length),
+    stat("domains", rows.length),
+    ...Object.entries(rows_by_source)
+      .toSorted(([a], [b]) => a.localeCompare(b))
+      .map(([source, list]) => stat(`  ${source}`, list?.length ?? 0)),
+    `📚 DILA export`,
+    stat("collectivités", dila_index.fiches.size),
+    stat("declared domains", dila_index.declared_by.size),
+  ].join("\n"),
+);
+
 const sources = check_sources(parsed.data, dila_index);
 const errors = [...check_not_allowed(parsed.data), ...sources.errors];
 
