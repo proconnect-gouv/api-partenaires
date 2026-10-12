@@ -35694,9 +35694,6 @@ oidc_providers:
       - domain: mairie-saint-hilaire-peyroux.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/0ab5b464-b5f5-42c5-9559-9f07754a5e88
         source: dila
-      - domain: mairie-saint-hilaire.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/9942627b-2bef-44b3-aa11-b0081b7eb2c3
-        source: dila
       - domain: mairie-saint-hippolyte.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/2117014e-d82e-421f-9cea-47a5113740e6
         source: dila
@@ -35705,9 +35702,6 @@ oidc_providers:
         source: dila
       - domain: mairie-saint-julien69.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/5cb643d9-e255-416f-8f1a-76905dfa5457
-        source: dila
-      - domain: mairie-saint-lary.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/hautes-pyrenees/0cddc962-2f76-4a1b-8ec0-1dab75377416
         source: dila
       - domain: mairie-saint-laurent-en-beaumont.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/be59b8cf-8394-4ac5-a51b-35cdcd7cbf04
@@ -58966,9 +58960,6 @@ oidc_providers:
       - domain: st-felix.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/5839da27-6637-4ec3-b537-b2f4ddaa8a0f
         source: dila
-      - domain: st-ferreol.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/f59d7ec1-5fe7-45ff-afc8-57666e294e1d
-        source: dila
       - domain: st-genest-malifaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/0cc63473-a145-4f36-b0df-ae93ad8d49bb
         source: dila
@@ -59020,9 +59011,6 @@ oidc_providers:
       - domain: st-hilaire-la-palud.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/2380d44d-718d-44ae-ae09-d1f29bc2c032
         source: dila
-      - domain: st-hilaire.fr
-        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/d146a10d-1b91-44f9-8fa7-bf0a27c37a64
-        source: dila
       - domain: st-jacut-les-pins.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/8a2480ee-014f-498a-a2ec-9d1b74901740
         source: dila
@@ -59059,9 +59047,6 @@ oidc_providers:
       - domain: st-just-sauvage.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/243ff63a-34a4-406e-9478-76c3a42ab0e4
         source: dila
-      - domain: st-leger.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/22d174fe-dab6-4a25-a30e-ecd2e9542d2a
-        source: dila
       - domain: st-mamertdugard.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/831e8773-6eda-4bf1-b914-9a5e1eda4d71
         source: dila
@@ -59091,9 +59076,6 @@ oidc_providers:
         source: dila
       - domain: st-mathieu.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/65128827-89ea-4f93-bb36-368b9a6932a5
-        source: dila
-      - domain: st-maurice.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/43b03c0f-84c2-46b4-b713-fd549f018872
         source: dila
       - domain: st-menoux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/cfa65a21-ec14-40ba-bcd2-6995895665e1
@@ -59157,9 +59139,6 @@ oidc_providers:
         source: dila
       - domain: st-sauveur.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/b9abc118-71f4-42b3-9510-a9e216ba3cf8
-        source: dila
-      - domain: st-sernin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/59114bc2-a905-4fa1-aba7-fbf90232e25d
         source: dila
       - domain: st-setiers.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f8b46ecf-b160-49c1-b08e-782eb82cb600
@@ -59425,9 +59404,6 @@ oidc_providers:
       - domain: steradegonde17.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/0698f393-2329-4f1d-915e-e74ce19f66af
         source: dila
-      - domain: stesabine.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/3423e8fb-5ab1-4348-9f6b-b0acd40301cd
-        source: dila
       - domain: stestephe.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/ea9c4cfa-8048-453d-8a7b-fcd271d25e82
         source: dila
@@ -59656,9 +59632,6 @@ oidc_providers:
       - domain: stmaixentsurvie.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/690db429-5dd0-4d71-b852-40448f2f06fe
         source: dila
-      - domain: stmarcel.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/40b05c1d-2f9a-48c7-912e-26d73c7cc46c
-        source: dila
       - domain: stmarceldardeche.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/5033ee08-883c-4553-933a-a174e1640c4b
         source: dila
@@ -59790,9 +59763,6 @@ oidc_providers:
         source: dila
       - domain: stpaterneracan.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/f1e6b120-b895-44dc-a974-b3eb88521b84
-        source: dila
-      - domain: stpaul.fr
-        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/f9334808-6fa7-4c78-bc5a-a79ff218dc1b
         source: dila
       - domain: stpaul60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/bf3309db-7f35-49fe-a8c0-4b2db4e15a8f
@@ -67130,9 +67100,6 @@ oidc_providers:
       - domain: ville-saint-andre-les-vergers.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/70ba9ef4-4658-42de-8dc7-3ded656f3211
         source: dila
-      - domain: ville-saint-andre.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/e0b6e82d-4254-49bf-8c85-a296d8f64dec
-        source: dila
       - domain: ville-saint-aubin-les-elbeuf.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/090fc254-6f6f-4b13-8a96-d1f91990f918
         source: dila
@@ -67201,9 +67168,6 @@ oidc_providers:
         source: dila
       - domain: ville-saint-omer.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/33c28cbc-6da4-4941-9221-ca394b874813
-        source: dila
-      - domain: ville-saint-pere.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/54cd5bcf-0212-4c92-a032-26c491317f01
         source: dila
       - domain: ville-saint-priest.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/0df5b742-29e4-459b-ac85-299c14250fbd

@@ -1,5 +1,6 @@
 import type { DilaIndex } from "#src/apotropaic/declared_by";
 import { dila_ok, dila_refusal_message } from "#src/apotropaic/dila_ok";
+import { carries_name, reconstructs } from "#src/apotropaic/names";
 import {
   type AllowedDomain,
   fiche_id,
@@ -7,11 +8,12 @@ import {
   type Source,
 } from "#src/oidc_providers_config";
 
-type FicheRefusal = "fiche_not_found" | "fiche_siren_mismatch";
+type FicheRefusal = "fiche_not_found" | "fiche_siren_mismatch" | "lacks_name";
 
 const fiche_refusal_message: { [R in FicheRefusal]: string } = {
   fiche_not_found: "fiche is not a collectivite in DILA",
   fiche_siren_mismatch: "fiche SIREN differs from the domain's owner",
+  lacks_name: "RPNT 2.2: does not carry the collectivite name",
 };
 
 type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
@@ -36,12 +38,26 @@ const check_by_source: {
         message: fiche_refusal_message.fiche_not_found,
       };
     }
-    return fiche.siren === verdict.owner.siren
+    if (fiche.siren !== verdict.owner.siren) {
+      return {
+        severity: "error",
+        message: fiche_refusal_message.fiche_siren_mismatch,
+      };
+    }
+    const named =
+      [...fiche.names].some((name) =>
+        reconstructs({
+          departement: fiche.departement,
+          domain: row.domain,
+          name,
+        }),
+      ) ||
+      [...verdict.owner.names].some((name) =>
+        carries_name({ domain: row.domain, name }),
+      );
+    return named
       ? null
-      : {
-          severity: "error",
-          message: fiche_refusal_message.fiche_siren_mismatch,
-        };
+      : { severity: "error", message: fiche_refusal_message.lacks_name };
   },
   routed: (row) => ({
     severity: "warning",

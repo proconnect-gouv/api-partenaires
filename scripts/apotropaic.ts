@@ -165,7 +165,7 @@ console.log(
       value: eligible.length - allowlisted,
     }),
     `🗺️ INSEE COG: ${count.format(cog_names.size)} commune codes, former communes' names included`,
-    `🔎 Not enforced: RPNT 2.2 name part (reported above). Not checked: RPNT 1.3-1.8 and 2.3-2.8. RPNT v0.2.2: https://suiteterritoriale.anct.gouv.fr/conformite/referentiel`,
+    `🔎 Not checked: RPNT 1.3-1.8 and 2.3-2.8. RPNT v0.2.2: https://suiteterritoriale.anct.gouv.fr/conformite/referentiel`,
   ].join("\n"),
 );
 
