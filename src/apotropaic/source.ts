@@ -21,15 +21,6 @@ type RowVerdict = { severity: "error" | "warning"; message: string } | null;
 const check_by_source: {
   [S in Source]: (row: RowBySource[S], index: DilaIndex) => RowVerdict;
 } = {
-  candidate: (row, { fiches }) => {
-    if (!fiches.has(fiche_id(row.fiche) ?? "")) {
-      return {
-        severity: "error",
-        message: fiche_refusal_message.fiche_not_found,
-      };
-    }
-    return null;
-  },
   dila: (row, { declared_by, fiches }) => {
     const verdict = dila_ok(declared_by, row.domain);
     if (!verdict.ok) {

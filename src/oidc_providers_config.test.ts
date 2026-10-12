@@ -104,8 +104,8 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     ).toThrow();
   });
 
-  test("accepte une source candidate avec sa fiche", () => {
-    expect(
+  test("rejette la source candidate, retirée", () => {
+    expect(() =>
       oidc_providers_config_schema.parse({
         oidc_providers: [
           {
@@ -117,21 +117,6 @@ describe("validation de la configuration fournisseurs OIDC", () => {
                   "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6d708ca6-cc85-469b-acc0-878803b80963",
                 source: "candidate",
               },
-            ],
-          },
-        ],
-      }).oidc_providers[0]?.allowed_attached_email_domains[0]?.source,
-    ).toBe("candidate");
-  });
-
-  test("rejette une source candidate sans fiche", () => {
-    expect(() =>
-      oidc_providers_config_schema.parse({
-        oidc_providers: [
-          {
-            uid: "x",
-            allowed_attached_email_domains: [
-              { domain: "a.fr", source: "candidate" },
             ],
           },
         ],
