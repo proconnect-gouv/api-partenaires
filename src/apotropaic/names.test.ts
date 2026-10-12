@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { carries_name, name_stems } from "./names";
+import { carries_name, name_stems, reconstructs } from "./names";
 
 describe("name_stems", () => {
   test.each([
@@ -46,5 +46,26 @@ describe("carries_name (RPNT 2.2)", () => {
     expect(
       carries_name({ domain: "stpaul.fr", name: "Saint-Paul-lez-Durance" }),
     ).toBe(false);
+  });
+});
+describe("reconstructs", () => {
+  test.each([
+    ["coise73.fr", "Coise-Saint-Jean-Pied-Gauthier", "73"],
+    ["abzac-16.fr", "Abzac", "16"],
+    ["mairie-de-maron.fr", "Maron", "54"],
+    ["agglo-agen.fr", "Agen Agglomération", "47"],
+    ["ajaccio2a.fr", "Ajaccio", "2A"],
+    ["caden.questembert-communaute.fr", "Caden", "56"],
+    ["vernou-en-sologne.com", "Vernou-en-Sologne", "41"],
+  ])("%s from %s (%s)", (domain, name, departement) => {
+    expect(reconstructs({ departement, domain, name })).toBe(true);
+  });
+
+  test.each([
+    ["stpaul.fr", "Saint-Paul-lez-Durance", "13"],
+    ["coise73.xyz", "Coise-Saint-Jean-Pied-Gauthier", "73"],
+    ["mairie-73.fr", "Coise-Saint-Jean-Pied-Gauthier", "73"],
+  ])("not %s from %s (%s)", (domain, name, departement) => {
+    expect(reconstructs({ departement, domain, name })).toBe(false);
   });
 });

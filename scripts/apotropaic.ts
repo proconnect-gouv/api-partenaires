@@ -3,7 +3,7 @@ import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
-import { carries_name } from "#src/apotropaic/names";
+import { carries_name, reconstructs } from "#src/apotropaic/names";
 import { check_not_allowed, denied_by } from "#src/apotropaic/not_allowed";
 import { check_sources } from "#src/apotropaic/source";
 import {
@@ -49,7 +49,7 @@ const line = ({
   total: number;
   value: number;
 }) =>
-  `  ${mark} ${count.format(value).padStart(7)} ${percent.format(value / total).padStart(6)}  ${text.padEnd(48)}${note}`.trimEnd();
+  `  ${mark} ${count.format(value).padStart(7)} ${percent.format(value / total).padStart(6)}  ${text.padEnd(50)} ${note}`.trimEnd();
 
 const rows = parsed.data.oidc_providers.flatMap(
   (provider) => provider.allowed_attached_email_domains,
@@ -61,6 +61,17 @@ const named = dila_rows.filter((row) => {
   return (
     fiche !== undefined &&
     carries_name({ domain: row.domain, name: fiche.name })
+  );
+}).length;
+const reconstructed = dila_rows.filter((row) => {
+  const fiche = dila_index.fiches.get(fiche_id(row.fiche) ?? "");
+  return (
+    fiche !== undefined &&
+    reconstructs({
+      departement: fiche.departement,
+      domain: row.domain,
+      name: fiche.name,
+    })
   );
 }).length;
 const source_meaning: { [S in Source]: string } = {
@@ -116,6 +127,12 @@ console.log(
       text: "  dila rows carrying their fiche's DILA name",
       total: dila_rows.length,
       value: named,
+    }),
+    line({
+      note: "RPNT 2.2",
+      text: "  dila rows reconstructing their fiche's DILA name",
+      total: dila_rows.length,
+      value: reconstructed,
     }),
     `📚 DILA export: ${count.format(dila_index.fiches.size)} collectivités declare ${count.format(declared)} domains`,
     ...(Object.keys(refusal_meaning) as DeclaredRefusal[])

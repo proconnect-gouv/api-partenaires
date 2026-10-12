@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { RECONSTRUCTIBLE_EXTENSIONS } from "#src/apotropaic/extensions";
 
 const ARTICLES = ["l'", "la ", "le ", "les ", "l’"] as const;
 
@@ -141,4 +142,127 @@ export function carries_name({
 }): boolean {
   const flat = domain.toLowerCase().replace(/[-.]/g, "");
   return [...name_stems(name)].some((stem) => flat.includes(stem));
+}
+
+const PREFIXES = [
+  "agglo-",
+  "ca-",
+  "cc-",
+  "cdc-",
+  "commune",
+  "commune-",
+  "commune-de-",
+  "commune-du-",
+  "communede-",
+  "cu-",
+  "la-mairie-",
+  "la-mairie-de-",
+  "mairie",
+  "mairie-",
+  "mairie-de-",
+  "mairie-du-",
+  "mairie-la-",
+  "mairiede-",
+  "ville",
+  "ville-",
+  "ville-de-",
+  "ville-du-",
+  "villede-",
+] as const;
+
+const SUFFIXES = [
+  "-agglo",
+  "-agglomeration",
+  "-co",
+  "-comm",
+  "-commune",
+  "-communaute",
+  "-fr",
+  "-mairie",
+  "-metropole",
+  "-off",
+  "-officiel",
+  "-village",
+  "-ville",
+  "commune",
+  "mairie",
+  "ville",
+] as const;
+
+// "mairie-de-maron" → maron
+function without_prefix(label: string): readonly string[] {
+  return PREFIXES.filter((prefix) => label.startsWith(prefix)).map((prefix) =>
+    label.slice(prefix.length),
+  );
+}
+
+// "abbeville-officiel" → abbeville
+function without_suffix(label: string): readonly string[] {
+  return SUFFIXES.filter((suffix) => label.endsWith(suffix)).map((suffix) =>
+    label.slice(0, -suffix.length),
+  );
+}
+
+// "coise73" → coise, "abzac-16" → abzac: a trailing département or postal code
+function without_number(label: string): readonly string[] {
+  const match = label.match(/^(?<rest>.*?)-?\d{2,5}$/);
+  return match?.groups?.rest ? [match.groups.rest] : [];
+}
+
+// "ajaccio2a" → ajaccio, "56-lorient" → lorient: the département code at either end
+function without_departement(
+  label: string,
+  departement: string | null,
+): readonly string[] {
+  const code = departement?.toLowerCase();
+  if (!code) return [];
+  return [code, `-${code}`].flatMap((affix) => [
+    ...(label.endsWith(affix) ? [label.slice(0, -affix.length)] : []),
+    ...(label.startsWith(affix) ? [label.slice(affix.length)] : []),
+  ]);
+}
+
+// Every core left once known prefixes, suffixes and numbers are peeled off, in any combination.
+function cores(label: string, departement: string | null): ReadonlySet<Stem> {
+  const seen = new Set<string>();
+  const queue = [label];
+  for (let value = queue.pop(); value !== undefined; value = queue.pop()) {
+    if (seen.has(value)) continue;
+    seen.add(value);
+    queue.push(
+      ...[
+        ...without_prefix(value),
+        ...without_suffix(value),
+        ...without_number(value),
+        ...without_departement(value, departement),
+      ].filter((core) => core.length >= 3),
+    );
+  }
+  return new Set(
+    [...seen].flatMap((value) => {
+      const stem = stem_schema.safeParse(value.replaceAll("-", ""));
+      return stem.success ? [stem.data] : [];
+    }),
+  );
+}
+
+export function reconstructs({
+  departement,
+  domain,
+  name,
+}: {
+  departement: string | null;
+  domain: string;
+  name: string;
+}): boolean {
+  const labels = domain.toLowerCase().split(".");
+  const extension = labels.pop() ?? "";
+  if (labels.length === 0 || !RECONSTRUCTIBLE_EXTENSIONS.has(extension)) {
+    return false;
+  }
+  const stems = name_stems(name);
+  // Each label alone, and all joined: "caden.questembert-communaute.fr" holds caden.
+  return [...new Set([...labels, labels.join("")])].some((body) =>
+    [...cores(body, departement)].some((core) => stems.has(core)),
+  );
 }

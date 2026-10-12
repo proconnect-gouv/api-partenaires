@@ -1,23 +1,5 @@
 import { type Fiche, sole_owner } from "#src/apotropaic/declared_by";
-
-const SOVEREIGN_EXTENSIONS = new Set([
-  "alsace",
-  "bzh",
-  "corsica",
-  "eu",
-  "fr",
-  "gf",
-  "gp",
-  "mq",
-  "nc",
-  "paris",
-  "pf",
-  "pm",
-  "re",
-  "tf",
-  "wf",
-  "yt",
-]);
+import { SOVEREIGN_EXTENSIONS } from "#src/apotropaic/extensions";
 
 export type DilaRefusal = "not_sovereign" | "shared" | "undeclared";
 
