@@ -172,15 +172,15 @@ console.log(
 const sources = check_sources(parsed.data, dila_index);
 const errors = [...check_not_allowed(parsed.data), ...sources.errors];
 
-if (errors.length > 0) {
-  console.error(`🚨 ${path}:\n${errors.join("\n")}`);
-  process.exit(1);
-}
-
 if (sources.warnings.length > 0) {
   console.warn(
     `⚠️ ${path}: ${sources.warnings.length} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
   );
+}
+
+if (errors.length > 0) {
+  console.error(`🚨 ${path}:\n${errors.join("\n")}`);
+  process.exit(1);
 }
 
 console.log(
