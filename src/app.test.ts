@@ -29,6 +29,7 @@ function create_test_app({
     check_ready,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
     enable_sandbox_endpoint: false,
+    is_domain_reachable: async () => true,
     max_timestamp_diff: 300,
     oidc_clients_api_secret: "test-oidc-clients-secret",
     oidc_clients,

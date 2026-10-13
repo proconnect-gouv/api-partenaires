@@ -44,17 +44,17 @@ oidc_providers:
 
 ## Routes
 
-| Route                                          | Auth                                  | Description                                                                |
-| ---------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
-| `GET /livez`                                   | _(aucune)_                            | Sonde de vie                                                               |
-| `GET /readyz`                                  | _(aucune)_                            | Sonde de disponibilité (ping mongo)                                        |
-| `GET /api/oidc_providers/:uid/configuration`   | `OIDC_PROVIDERS_API_SECRET`           | Lecture de la configuration                                                |
-| `PATCH /api/oidc_providers/:uid/configuration` | `OIDC_PROVIDERS_API_SECRET`           | Modification des attached_email_domains (`{ attached_email_domains: [] }`) |
-| `GET /api/oidc_clients`                        | `OIDC_CLIENTS_API_SECRET`             | Liste les clients OIDC                                                     |
-| `POST /api/oidc_clients`                       | `OIDC_CLIENTS_API_SECRET` + `?email=` | Crée un client OIDC                                                        |
-| `GET /api/oidc_clients/:id`                    | `OIDC_CLIENTS_API_SECRET` + `?email=` | Lecture d'un client OIDC                                                   |
-| `PATCH /api/oidc_clients/:id`                  | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC                                     |
-| `DELETE /api/oidc_clients/:id`                 | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC                                               |
+| Route                                          | Auth                                  | Description                                                                                                                                       |
+| ---------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /livez`                                   | _(aucune)_                            | Sonde de vie                                                                                                                                      |
+| `GET /readyz`                                  | _(aucune)_                            | Sonde de disponibilité (ping mongo)                                                                                                               |
+| `GET /api/oidc_providers/:uid/configuration`   | `OIDC_PROVIDERS_API_SECRET`           | Lecture de la configuration                                                                                                                       |
+| `PATCH /api/oidc_providers/:uid/configuration` | `OIDC_PROVIDERS_API_SECRET`           | Modification des attached_email_domains (`{ attached_email_domains: [] }`), les nouveaux domaines doivent résoudre via `dns.google` (MX, sinon A) |
+| `GET /api/oidc_clients`                        | `OIDC_CLIENTS_API_SECRET`             | Liste les clients OIDC                                                                                                                            |
+| `POST /api/oidc_clients`                       | `OIDC_CLIENTS_API_SECRET` + `?email=` | Crée un client OIDC                                                                                                                               |
+| `GET /api/oidc_clients/:id`                    | `OIDC_CLIENTS_API_SECRET` + `?email=` | Lecture d'un client OIDC                                                                                                                          |
+| `PATCH /api/oidc_clients/:id`                  | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC                                                                                                            |
+| `DELETE /api/oidc_clients/:id`                 | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC                                                                                                                      |
 
 ## Scripts
 

@@ -137,6 +137,7 @@ function create_test_app({
     max_timestamp_diff: 300,
     client_secret_cipher_pass: CIPHER_PASS,
     enable_sandbox_endpoint: enable_sandbox,
+    is_domain_reachable: async () => true,
   });
 }
 
@@ -553,6 +554,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
+      is_domain_reachable: async () => true,
     });
     const id = new ObjectId().toHexString();
     const path = `/api/oidc_clients/${id}?email=${encodeURIComponent(CALLER)}`;
@@ -629,6 +631,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
+      is_domain_reachable: async () => true,
     });
     const res = await api_call(app, "GET", "/api/oidc_clients", {
       email: CALLER,

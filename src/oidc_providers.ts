@@ -7,11 +7,13 @@ const patch_body_schema = z.object({
 });
 
 export function create_oidc_providers_app({
-  providers,
+  is_domain_reachable,
   oidc_providers_config,
+  providers,
 }: {
-  providers: OidcProviderStore;
+  is_domain_reachable: (domain: string) => Promise<boolean>;
   oidc_providers_config: OidcProvidersConfig;
+  providers: OidcProviderStore;
 }) {
   return new Hono<{ Variables: { body_text: string } }>()
     .get("/:uid/configuration", async (c) => {
@@ -75,6 +77,18 @@ export function create_oidc_providers_app({
             attached_email_domains: taken,
           },
           409,
+        );
+      }
+
+      const reachable = await Promise.all(added.map(is_domain_reachable));
+      const unreachable = added.filter((_, index) => !reachable[index]);
+      if (unreachable.length > 0) {
+        return c.json(
+          {
+            error: "attached_email_domain_unreachable",
+            attached_email_domains: unreachable,
+          },
+          422,
         );
       }
 

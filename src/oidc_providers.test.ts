@@ -10,6 +10,7 @@ const ENRICHED_UID = "enriched-uid";
 const GHOST_UID = "ffffffff-ffff-4fff-8fff-ffffffffffff";
 // seeded in the store but absent from the fixture config
 const OTHER_UID = "00000000-0000-4000-8000-000000000001";
+const UNREACHABLE_DOMAINS = ["polyfi.fr", "unreachable.fr"];
 
 function sign(
   method: string,
@@ -126,6 +127,7 @@ function create_test_app() {
             { domain: "polyfi.fr", source: "routed" },
             { domain: "fifi.fr", source: "routed" },
             { domain: "taken.fr", source: "routed" },
+            { domain: "unreachable.fr", source: "routed" },
           ],
         },
         {
@@ -143,6 +145,8 @@ function create_test_app() {
       ],
     },
     check_ready: async () => {},
+    is_domain_reachable: async (domain) =>
+      !UNREACHABLE_DOMAINS.includes(domain),
     oidc_clients,
     oidc_providers_api_secret: PARTNER_SECRET,
     oidc_clients_api_secret: "oidc-clients-secret",
@@ -259,6 +263,40 @@ describe("OIDC provider configuration API", () => {
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       { json_data: { attached_email_domains: ["polyfi.fr"] } },
+    );
+    expect(res.status).toBe(200);
+  });
+
+  test("rejects a domain that does not resolve", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      {
+        json_data: {
+          attached_email_domains: ["moncomptepro.fr", "unreachable.fr"],
+        },
+      },
+    );
+    expect(res.status).toBe(422);
+    expect(await res.json()).toEqual({
+      error: "attached_email_domain_unreachable",
+      attached_email_domains: ["unreachable.fr"],
+    });
+  });
+
+  test("keeps an attached domain that no longer resolves", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      {
+        json_data: {
+          attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+        },
+      },
     );
     expect(res.status).toBe(200);
   });
