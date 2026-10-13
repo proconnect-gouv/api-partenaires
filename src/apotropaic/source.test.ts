@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import { oidc_providers_config_schema } from "#src/oidc_providers_config";
+import type { AllowedDomain } from "#src/oidc_providers_config";
 import { build_dila_index } from "./declared_by";
-import { check_sources } from "./source";
+import { check_row, partition_reports, type RowVerdict } from "./source";
 
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
@@ -31,103 +31,93 @@ function fiche_url(id: string) {
   return `https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/${id}`;
 }
 
-function config_with(row: Record<string, string>) {
-  return oidc_providers_config_schema.parse({
-    oidc_providers: [{ uid, allowed_attached_email_domains: [row] }],
-  });
+function dila_row(domain: string, id: string): AllowedDomain {
+  return { domain, fiche: fiche_url(id), source: "dila" };
 }
 
-describe("check_sources", () => {
-  test("warns on a routed domain without checking it", () => {
+function refusal_code(verdict: RowVerdict) {
+  return verdict.ok ? null : verdict.error.code;
+}
+
+describe("check_row", () => {
+  test("approves a routed row as an exception, without DILA", () => {
     expect(
-      check_sources(
-        config_with({ domain: "nowhere.fr", source: "routed" }),
-        index,
-      ),
-    ).toEqual({
-      errors: [],
-      warnings: [`nowhere.fr: routed exception, not rule (uid "${uid}")`],
+      check_row({ domain: "nowhere.fr", source: "routed" }, index),
+    ).toEqual({ ok: true, value: { code: "routed" } });
+  });
+
+  test("refuses a routed row on the not-allowed list", () => {
+    expect(
+      refusal_code(check_row({ domain: "gmail.com", source: "routed" }, index)),
+    ).toBe("not_allowed");
+  });
+
+  test("approves a dila row with its owner and the matched name", () => {
+    const verdict = check_row(dila_row("coise.fr", coise_id), index);
+
+    expect(verdict.ok && verdict.value).toMatchObject({
+      code: "dila",
+      name: { rule: "reconstructs", spelling: "Coise" },
+      owner: { id: coise_id, siren: "217300896" },
     });
   });
 
-  test("accepts a dila domain DILA attests to the row's fiche", () => {
+  test("refuses a dila domain DILA does not attest", () => {
     expect(
-      check_sources(
-        config_with({
-          domain: "coise.fr",
-          fiche: fiche_url(coise_id),
-          source: "dila",
-        }),
-        index,
-      ),
-    ).toEqual({ errors: [], warnings: [] });
+      refusal_code(check_row(dila_row("nowhere.fr", coise_id), index)),
+    ).toBe("undeclared");
   });
 
-  test("rejects a dila domain DILA does not attest", () => {
-    expect(
-      check_sources(
-        config_with({
-          domain: "nowhere.fr",
-          fiche: fiche_url(coise_id),
-          source: "dila",
-        }),
-        index,
-      ),
-    ).toEqual({
-      errors: [`nowhere.fr: no collectivite declares it (uid "${uid}")`],
-      warnings: [],
+  test("refuses a dila row whose fiche is not in DILA, citing it", () => {
+    const missing = dila_row(
+      "coise.fr",
+      "00000000-0000-0000-0000-000000000000",
+    );
+
+    expect(check_row(missing, index)).toEqual({
+      ok: false,
+      error: {
+        code: "fiche_not_found",
+        fiche_url: fiche_url("00000000-0000-0000-0000-000000000000"),
+      },
     });
   });
 
-  test("rejects a dila row whose fiche is not in DILA", () => {
-    expect(
-      check_sources(
-        config_with({
-          domain: "coise.fr",
-          fiche: fiche_url("00000000-0000-0000-0000-000000000000"),
-          source: "dila",
-        }),
-        index,
-      ),
-    ).toEqual({
-      errors: [`coise.fr: fiche is not a collectivite in DILA (uid "${uid}")`],
-      warnings: [],
+  test("refuses a dila row whose fiche is another collectivité, naming both", () => {
+    const verdict = check_row(dila_row("coise.fr", other_id), index);
+
+    expect(!verdict.ok && verdict.error).toMatchObject({
+      code: "fiche_siren_mismatch",
+      fiche: { siren: "999999999" },
+      owner: { siren: "217300896" },
     });
   });
 
-  test("rejects a dila row whose fiche is another collectivité", () => {
-    expect(
-      check_sources(
-        config_with({
-          domain: "coise.fr",
-          fiche: fiche_url(other_id),
-          source: "dila",
-        }),
-        index,
-      ),
-    ).toEqual({
-      errors: [
-        `coise.fr: fiche SIREN differs from the domain's owner (uid "${uid}")`,
-      ],
-      warnings: [],
+  test("refuses a dila domain without its collectivité's name, listing the spellings tried", () => {
+    expect(check_row(dila_row("stpaul.fr", paul_id), index)).toEqual({
+      ok: false,
+      error: { code: "lacks_name", spellings: ["Saint-Paul-lez-Durance"] },
     });
   });
+});
 
-  test("rejects a dila domain that does not carry its collectivité's name", () => {
-    expect(
-      check_sources(
-        config_with({
-          domain: "stpaul.fr",
-          fiche: fiche_url(paul_id),
-          source: "dila",
-        }),
-        index,
-      ),
-    ).toEqual({
-      errors: [
-        `stpaul.fr: RPNT 2.2: does not carry the collectivite name (uid "${uid}")`,
-      ],
-      warnings: [],
+describe("partition_reports", () => {
+  test("errors are refusals, warnings are routed approvals", () => {
+    const report = (domain: string, row: AllowedDomain) => ({
+      domain,
+      uid,
+      verdict: check_row(row, index),
+    });
+    const routed = report("nowhere.fr", {
+      domain: "nowhere.fr",
+      source: "routed",
+    });
+    const approved = report("coise.fr", dila_row("coise.fr", coise_id));
+    const refused = report("stpaul.fr", dila_row("stpaul.fr", paul_id));
+
+    expect(partition_reports([routed, approved, refused])).toEqual({
+      errors: [refused],
+      warnings: [routed],
     });
   });
 });

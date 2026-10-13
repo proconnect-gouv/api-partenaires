@@ -1,13 +1,11 @@
 import { type Fiche, sole_owner } from "#src/apotropaic/declared_by";
 import { SOVEREIGN_EXTENSIONS } from "#src/apotropaic/extensions";
+import { err, ok, type Result } from "#src/result";
 
-export type DilaRefusal = "not_sovereign" | "shared" | "undeclared";
-
-export const dila_refusal_message: { [R in DilaRefusal]: string } = {
-  not_sovereign: "RPNT 1.2: extension is not sovereign",
-  shared: "shared: several collectivites declare it",
-  undeclared: "no collectivite declares it",
-};
+export type DilaRefusal =
+  | { code: "not_sovereign"; extension: string; internationalized: boolean }
+  | { code: "shared"; fiches: Fiche[] }
+  | { code: "undeclared" };
 
 function is_internationalized(domain: string): boolean {
   return (
@@ -16,23 +14,27 @@ function is_internationalized(domain: string): boolean {
   );
 }
 
-export function is_sovereign(domain: string): boolean {
+export function check_sovereign(
+  domain: string,
+): Result<null, Extract<DilaRefusal, { code: "not_sovereign" }>> {
   const extension = domain.split(".").at(-1) ?? "";
-  return SOVEREIGN_EXTENSIONS.has(extension) && !is_internationalized(domain);
+  const internationalized = is_internationalized(domain);
+  return SOVEREIGN_EXTENSIONS.has(extension) && !internationalized
+    ? ok(null)
+    : err({ code: "not_sovereign", extension, internationalized });
 }
 
 export function dila_ok(
   declared_by: Map<string, Fiche[]>,
   domain: string,
-): { ok: true; owner: Fiche } | { ok: false; reason: DilaRefusal } {
+): Result<{ owner: Fiche }, DilaRefusal> {
   const owner = sole_owner(declared_by, domain);
   if (!owner) {
-    return (declared_by.get(domain)?.length ?? 0) > 0
-      ? { ok: false, reason: "shared" }
-      : { ok: false, reason: "undeclared" };
+    const fiches = declared_by.get(domain) ?? [];
+    return fiches.length > 0
+      ? err({ code: "shared", fiches })
+      : err({ code: "undeclared" });
   }
-  if (!is_sovereign(domain)) {
-    return { ok: false, reason: "not_sovereign" };
-  }
-  return { ok: true, owner };
+  const sovereign = check_sovereign(domain);
+  return sovereign.ok ? ok({ owner }) : sovereign;
 }

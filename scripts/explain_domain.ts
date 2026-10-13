@@ -1,5 +1,4 @@
 import { parseArgs } from "node:util";
-import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
 import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import {
   build_dila_index,
@@ -7,18 +6,18 @@ import {
   sole_owner,
 } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
+import { check_sovereign } from "#src/apotropaic/dila_ok";
+import { check_not_allowed } from "#src/apotropaic/not_allowed";
 import {
-  dila_ok,
-  dila_refusal_message,
-  is_sovereign,
-} from "#src/apotropaic/dila_ok";
-import { carries_name, reconstructs } from "#src/apotropaic/names";
-import { check_not_allowed, denied_by } from "#src/apotropaic/not_allowed";
-import { check_sources } from "#src/apotropaic/source";
+  check_fiche,
+  check_name,
+  check_row,
+  describe_approval,
+  describe_refusal,
+  type RowVerdict,
+} from "#src/apotropaic/source";
 import {
-  type AllowedDomain,
   fiche_id,
-  type OidcProvidersConfig,
   oidc_providers_config_schema,
 } from "#src/oidc_providers_config";
 
@@ -48,16 +47,11 @@ const dila_index = build_dila_index(
 );
 
 const SHOWN_FICHES = 3;
-const UNLISTED_UID = "(not listed)";
 const count = new Intl.NumberFormat("en-US");
 const plural = new Intl.PluralRules("en-US");
 
 function noun(n: number, one: string, other: string): string {
   return `${count.format(n)} ${plural.select(n) === "one" ? one : other}`;
-}
-
-function quoted(names: Iterable<string>): string {
-  return [...names].map((name) => `"${name}"`).join(", ");
 }
 
 function fiche_brief(fiche: Fiche): string {
@@ -84,21 +78,8 @@ function render(check: Check, gate_passed: boolean): string[] {
   ];
 }
 
-function gate(rows: { uid: string; row: AllowedDomain }[]): {
-  errors: string[];
-  warnings: string[];
-} {
-  const gated: OidcProvidersConfig = {
-    oidc_providers: rows.map(({ uid, row }) => ({
-      uid,
-      allowed_attached_email_domains: [row],
-    })),
-  };
-  const sources = check_sources(gated, dila_index);
-  return {
-    errors: [...check_not_allowed(gated), ...sources.errors],
-    warnings: sources.warnings,
-  };
+function owner_fiche_url(owner: Fiche): string {
+  return owner.url ?? `https://lannuaire.service-public.gouv.fr/_/${owner.id}`;
 }
 
 type Status = "valid" | "refused" | "would pass" | "would be refused";
@@ -109,16 +90,21 @@ function explain(domain: string): Status {
       .filter((row) => row.domain === domain)
       .map((row) => ({ uid: provider.uid, row })),
   );
-  const denied = denied_by(domain);
   const declaring = dila_index.declared_by.get(domain) ?? [];
   const owner = sole_owner(dila_index.declared_by, domain);
-  const verdict = dila_ok(dila_index.declared_by, domain);
   const dila_rows = listed.flatMap(({ row }) =>
     row.source === "dila" ? [row] : [],
   );
-  const row_fiche_id = dila_rows.map((row) => fiche_id(row.fiche))[0];
-  const row_fiche = dila_index.fiches.get(row_fiche_id ?? "");
-  const name_fiche = row_fiche ?? owner;
+  const row_fiche = dila_index.fiches.get(
+    dila_rows.map((row) => fiche_id(row.fiche))[0] ?? "",
+  );
+  const allowed = check_not_allowed(domain);
+  const sovereign = check_sovereign(domain);
+  const fiche =
+    owner && dila_rows[0]
+      ? check_fiche(dila_rows[0].fiche, owner, dila_index.fiches)
+      : null;
+  const name = owner ? check_name(domain, row_fiche ?? owner, owner) : null;
 
   const checks: Check[] = [
     {
@@ -136,10 +122,8 @@ function explain(domain: string): Status {
     },
     {
       label: "not-allowed list",
-      ok: !denied,
-      detail: denied
-        ? `listed via ${denied}${isAFreeDomain(denied) ? " (generic mail provider)" : ""}`
-        : "not listed",
+      ok: allowed.ok,
+      detail: allowed.ok ? "not listed" : describe_refusal(allowed.error),
     },
     {
       label: "declared in DILA",
@@ -151,7 +135,7 @@ function explain(domain: string): Status {
       lines: [
         ...declaring
           .slice(0, SHOWN_FICHES)
-          .flatMap((fiche) => [fiche_brief(fiche), `  ${fiche_link(fiche)}`]),
+          .flatMap((f) => [fiche_brief(f), `  ${fiche_link(f)}`]),
         ...(declaring.length > SHOWN_FICHES
           ? [`… ${count.format(declaring.length - SHOWN_FICHES)} more`]
           : []),
@@ -169,111 +153,90 @@ function explain(domain: string): Status {
     },
     {
       label: "RPNT 1.2",
-      ok: is_sovereign(domain),
-      detail: is_sovereign(domain)
+      ok: sovereign.ok,
+      detail: sovereign.ok
         ? `.${domain.split(".").at(-1)} is sovereign`
-        : `.${domain.split(".").at(-1)} is not sovereign, or the name is internationalized`,
+        : describe_refusal(sovereign.error),
     },
-    dila_rows.length > 0
+    fiche
       ? {
           label: "row fiche",
-          ok: row_fiche !== undefined && row_fiche.siren === owner?.siren,
-          detail: !row_fiche
-            ? "not a collectivité in DILA"
-            : row_fiche.siren === owner?.siren
-              ? "the owner's"
-              : `${fiche_brief(row_fiche)}, not the owner${owner ? ` (SIREN ${owner.siren})` : ""}`,
-          lines: dila_rows.map((row) => row.fiche),
+          ok: fiche.ok,
+          detail: fiche.ok ? "the owner's" : describe_refusal(fiche.error),
+          lines: fiche.ok ? dila_rows.map((row) => row.fiche) : [],
         }
       : {
           label: "row fiche",
           ok: null,
           detail:
-            listed.length > 0
-              ? "routed row, cites no fiche"
-              : owner
-                ? "a new row would cite the owner's"
-                : "no owner fiche to cite",
-          lines: listed.length === 0 && owner ? [fiche_link(owner)] : [],
+            dila_rows.length > 0
+              ? "no owner to compare it with"
+              : listed.length > 0
+                ? "routed row, cites no fiche"
+                : owner
+                  ? "a new row would cite the owner's"
+                  : "no owner fiche to cite",
+          lines:
+            dila_rows.length > 0
+              ? dila_rows.map((row) => row.fiche)
+              : listed.length === 0 && owner
+                ? [fiche_link(owner)]
+                : [],
         },
+    name
+      ? {
+          label: "RPNT 2.2 name",
+          ok: name.ok,
+          detail: name.ok
+            ? `${name.value.rule === "reconstructs" ? "built from" : "carries"} "${name.value.spelling}"`
+            : describe_refusal(name.error),
+        }
+      : { label: "RPNT 2.2 name", ok: null, detail: "no owner to compare" },
   ];
 
-  if (name_fiche) {
-    const rebuilt = [...name_fiche.names].filter((name) =>
-      reconstructs({ departement: name_fiche.departement, domain, name }),
-    );
-    const carried = [...(owner?.names ?? [])].filter((name) =>
-      carries_name({ domain, name }),
-    );
-    checks.push({
-      label: "RPNT 2.2 name",
-      ok: rebuilt.length > 0 || carried.length > 0,
-      detail:
-        rebuilt.length > 0
-          ? `built from ${quoted(rebuilt)}`
-          : carried.length > 0
-            ? `carries ${quoted(carried)}`
-            : `carries none of ${quoted(name_fiche.names)}`,
-    });
-  } else {
-    checks.push({
-      label: "RPNT 2.2 name",
-      ok: null,
-      detail: "no fiche to compare",
-    });
-  }
-
-  const result =
+  const verdicts: RowVerdict[] =
     listed.length > 0
-      ? gate(listed)
-      : owner
-        ? gate([
+      ? listed.map(({ row }) => check_row(row, dila_index))
+      : [
+          check_row(
             {
-              uid: UNLISTED_UID,
-              row: {
-                domain,
-                fiche: `https://lannuaire.service-public.gouv.fr/_/${owner.id}`,
-                source: "dila",
-              },
+              domain,
+              fiche: owner ? owner_fiche_url(owner) : "",
+              source: "dila",
             },
-          ])
-        : {
-            errors: [
-              ...(denied ? [`not allowed, listed: ${denied}`] : []),
-              ...(verdict.ok ? [] : [dila_refusal_message[verdict.reason]]),
-            ],
-            warnings: [],
-          };
-  const reasons = (lines: string[]) =>
-    lines
-      .map((line) =>
-        line.replace(`${domain}: `, "").replace(/ \(uid "[^"]+"\)$/, ""),
-      )
-      .join("; ");
+            dila_index,
+          ),
+        ];
+  const refusals = verdicts.flatMap((verdict) =>
+    verdict.ok ? [] : [describe_refusal(verdict.error)],
+  );
+  const exceptions = verdicts.flatMap((verdict) =>
+    verdict.ok && verdict.value.code === "routed"
+      ? [describe_approval(verdict.value)]
+      : [],
+  );
+  const passed = refusals.length === 0;
 
   const status: Status =
     listed.length > 0
-      ? result.errors.length === 0
+      ? passed
         ? "valid"
         : "refused"
-      : result.errors.length === 0
+      : passed
         ? "would pass"
         : "would be refused";
   const header = {
     valid:
-      result.warnings.length > 0
-        ? `⚠️  ${domain}  valid, ${reasons(result.warnings)}`
+      exceptions.length > 0
+        ? `⚠️  ${domain}  valid, ${exceptions.join("; ")}`
         : `✅ ${domain}  valid`,
-    refused: `❌ ${domain}  refused: ${reasons(result.errors)}`,
+    refused: `❌ ${domain}  refused: ${refusals.join("; ")}`,
     "would pass": `🟢 ${domain}  not listed, would pass`,
-    "would be refused": `⛔ ${domain}  not listed, would be refused: ${reasons(result.errors)}`,
+    "would be refused": `⛔ ${domain}  not listed, would be refused: ${refusals.join("; ")}`,
   }[status];
 
   console.log(
-    [
-      header,
-      ...checks.flatMap((check) => render(check, result.errors.length === 0)),
-    ].join("\n"),
+    [header, ...checks.flatMap((check) => render(check, passed))].join("\n"),
   );
   return status;
 }

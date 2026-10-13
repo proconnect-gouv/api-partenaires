@@ -1,11 +1,14 @@
-import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
 import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
 import { carries_name, reconstructs } from "#src/apotropaic/names";
-import { check_not_allowed, denied_by } from "#src/apotropaic/not_allowed";
-import { check_sources } from "#src/apotropaic/source";
+import { check_not_allowed } from "#src/apotropaic/not_allowed";
+import {
+  check_sources,
+  format_report,
+  partition_reports,
+} from "#src/apotropaic/source";
 import {
   fiche_id,
   oidc_providers_config_schema,
@@ -81,7 +84,7 @@ const source_meaning: { [S in Source]: string } = {
   routed: "routed: manual exception, not attested by DILA",
 };
 
-type DeclaredRefusal = DilaRefusal | "generic_mail" | "not_allowed";
+type DeclaredRefusal = DilaRefusal["code"] | "generic_mail" | "not_allowed";
 const refusal_meaning: {
   [R in DeclaredRefusal]: { rpnt: string; text: string };
 } = {
@@ -104,10 +107,14 @@ const declared = dila_index.declared_by.size;
 const declared_by_verdict = Object.groupBy(
   dila_index.declared_by.keys(),
   (domain): DeclaredRefusal | "eligible" => {
-    const listed = denied_by(domain);
-    if (listed) return isAFreeDomain(listed) ? "generic_mail" : "not_allowed";
+    const allowed = check_not_allowed(domain);
+    if (!allowed.ok) {
+      return allowed.error.deny_list_name === "generic_mail"
+        ? "generic_mail"
+        : "not_allowed";
+    }
     const verdict = dila_ok(dila_index.declared_by, domain);
-    return verdict.ok ? "eligible" : verdict.reason;
+    return verdict.ok ? "eligible" : verdict.error.code;
   },
 );
 const eligible = declared_by_verdict.eligible ?? [];
@@ -169,17 +176,18 @@ console.log(
   ].join("\n"),
 );
 
-const sources = check_sources(parsed.data, dila_index);
-const errors = [...check_not_allowed(parsed.data), ...sources.errors];
+const { errors, warnings } = partition_reports(
+  check_sources(parsed.data, dila_index),
+);
 
-if (sources.warnings.length > 0) {
+if (warnings.length > 0) {
   console.warn(
-    `⚠️ ${path}: ${sources.warnings.length} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
+    `⚠️ ${path}: ${warnings.length} routed exceptions, not rules:\n${warnings.map(format_report).join("\n")}`,
   );
 }
 
 if (errors.length > 0) {
-  console.error(`🚨 ${path}:\n${errors.join("\n")}`);
+  console.error(`🚨 ${path}:\n${errors.map(format_report).join("\n")}`);
   process.exit(1);
 }
 
