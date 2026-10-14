@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
+import type { FindUnreachableDomains } from "./domain_reachable";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
 import { create_oidc_providers_app } from "./oidc_providers";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
@@ -35,6 +36,7 @@ export function create_app({
   check_ready,
   client_secret_cipher_pass,
   enable_sandbox_endpoint,
+  find_unreachable_domains,
   max_timestamp_diff,
   oidc_clients_api_secret,
   oidc_clients,
@@ -45,6 +47,7 @@ export function create_app({
   check_ready: () => Promise<unknown>;
   client_secret_cipher_pass: string;
   enable_sandbox_endpoint: boolean;
+  find_unreachable_domains: FindUnreachableDomains;
   max_timestamp_diff: number;
   oidc_clients_api_secret: string;
   oidc_clients: OidcClientStore;
@@ -75,7 +78,11 @@ export function create_app({
     .use("/api/oidc_providers/*", oidc_providers_middleware)
     .route(
       "/api/oidc_providers",
-      create_oidc_providers_app({ providers, oidc_providers_config }),
+      create_oidc_providers_app({
+        find_unreachable_domains,
+        oidc_providers_config,
+        providers,
+      }),
     )
     .use("/api/oidc_clients", oidc_clients_middleware)
     .use("/api/oidc_clients/*", oidc_clients_middleware)
