@@ -2,16 +2,18 @@ import { Hono } from "hono";
 import { z } from "zod";
 import type { OidcProviderStore } from "./app";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
+
+const MAX_ADDED_DOMAINS = 1_000;
 const patch_body_schema = z.object({
   attached_email_domains: z.array(z.string()),
 });
 
 export function create_oidc_providers_app({
-  is_domain_reachable,
+  find_unreachable_domains,
   oidc_providers_config,
   providers,
 }: {
-  is_domain_reachable: (domain: string) => Promise<boolean>;
+  find_unreachable_domains: (domains: string[]) => Promise<string[]>;
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
 }) {
@@ -62,9 +64,15 @@ export function create_oidc_providers_app({
 
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
-      const added = body.data.attached_email_domains.filter(
+      const added = [...new Set(body.data.attached_email_domains)].filter(
         (domain) => !provider.attachedEmailDomains.includes(domain),
       );
+      if (added.length > MAX_ADDED_DOMAINS) {
+        return c.json(
+          { error: "too_many_added_domains", max: MAX_ADDED_DOMAINS },
+          422,
+        );
+      }
       const elsewhere = await providers.distinct("attachedEmailDomains", {
         attachedEmailDomains: { $in: added },
         uid: { $ne: uid },
@@ -80,8 +88,13 @@ export function create_oidc_providers_app({
         );
       }
 
-      const reachable = await Promise.all(added.map(is_domain_reachable));
-      const unreachable = added.filter((_, index) => !reachable[index]);
+      let unreachable: string[];
+      try {
+        unreachable = await find_unreachable_domains(added);
+      } catch (error) {
+        console.error(error);
+        return c.json({ error: "dns_unavailable" }, 502);
+      }
       if (unreachable.length > 0) {
         return c.json(
           {

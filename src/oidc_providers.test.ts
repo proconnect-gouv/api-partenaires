@@ -11,6 +11,11 @@ const GHOST_UID = "ffffffff-ffff-4fff-8fff-ffffffffffff";
 // seeded in the store but absent from the fixture config
 const OTHER_UID = "00000000-0000-4000-8000-000000000001";
 const UNREACHABLE_DOMAINS = ["polyfi.fr", "unreachable.fr"];
+const DNS_DOWN_DOMAIN = "dns-down.fr";
+const BULK_DOMAINS = Array.from(
+  { length: 1_001 },
+  (_, index) => `bulk-${index}.fr`,
+);
 
 function sign(
   method: string,
@@ -128,6 +133,11 @@ function create_test_app() {
             { domain: "fifi.fr", source: "routed" },
             { domain: "taken.fr", source: "routed" },
             { domain: "unreachable.fr", source: "routed" },
+            { domain: DNS_DOWN_DOMAIN, source: "routed" },
+            ...BULK_DOMAINS.map((domain) => ({
+              domain,
+              source: "routed" as const,
+            })),
           ],
         },
         {
@@ -145,8 +155,10 @@ function create_test_app() {
       ],
     },
     check_ready: async () => {},
-    is_domain_reachable: async (domain) =>
-      !UNREACHABLE_DOMAINS.includes(domain),
+    find_unreachable_domains: async (domains) => {
+      if (domains.includes(DNS_DOWN_DOMAIN)) throw new Error("dns down");
+      return domains.filter((domain) => UNREACHABLE_DOMAINS.includes(domain));
+    },
     oidc_clients,
     oidc_providers_api_secret: PARTNER_SECRET,
     oidc_clients_api_secret: "oidc-clients-secret",
@@ -297,6 +309,45 @@ describe("OIDC provider configuration API", () => {
           attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
         },
       },
+    );
+    expect(res.status).toBe(200);
+  });
+
+  test("answers 502 when DNS cannot be resolved", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: [DNS_DOWN_DOMAIN] } },
+    );
+    expect(res.status).toBe(502);
+    expect(await res.json()).toEqual({ error: "dns_unavailable" });
+  });
+
+  test("rejects more than 1000 added domains", async () => {
+    const app = create_test_app();
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: BULK_DOMAINS } },
+    );
+    expect(res.status).toBe(422);
+    expect(await res.json()).toEqual({
+      error: "too_many_added_domains",
+      max: 1_000,
+    });
+  });
+
+  test("counts a repeated domain once against the cap", async () => {
+    const app = create_test_app();
+    const domains = BULK_DOMAINS.slice(0, 1_000);
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: [...domains, ...domains] } },
     );
     expect(res.status).toBe(200);
   });

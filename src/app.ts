@@ -35,7 +35,7 @@ export function create_app({
   check_ready,
   client_secret_cipher_pass,
   enable_sandbox_endpoint,
-  is_domain_reachable,
+  find_unreachable_domains,
   max_timestamp_diff,
   oidc_clients_api_secret,
   oidc_clients,
@@ -46,7 +46,7 @@ export function create_app({
   check_ready: () => Promise<unknown>;
   client_secret_cipher_pass: string;
   enable_sandbox_endpoint: boolean;
-  is_domain_reachable: (domain: string) => Promise<boolean>;
+  find_unreachable_domains: (domains: string[]) => Promise<string[]>;
   max_timestamp_diff: number;
   oidc_clients_api_secret: string;
   oidc_clients: OidcClientStore;
@@ -78,7 +78,7 @@ export function create_app({
     .route(
       "/api/oidc_providers",
       create_oidc_providers_app({
-        is_domain_reachable,
+        find_unreachable_domains,
         oidc_providers_config,
         providers,
       }),
