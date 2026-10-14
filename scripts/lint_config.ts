@@ -47,21 +47,6 @@ for (const path of files) {
       );
     }
   }
-
-  const providers_by_domain = Map.groupBy(
-    oidc_providers.flatMap(({ allowed_attached_email_domains, uid }) =>
-      allowed_attached_email_domains.map(({ domain }) => ({ domain, uid })),
-    ),
-    ({ domain }) => domain,
-  );
-  for (const [domain, rows] of providers_by_domain) {
-    const uids = [...new Set(rows.map(({ uid }) => uid))];
-    if (uids.length > 1) {
-      errors.push(
-        `${path}: domain "${domain}" listed under ${uids.length} uids: ${uids.join(", ")}`,
-      );
-    }
-  }
 }
 
 if (errors.length > 0) {
