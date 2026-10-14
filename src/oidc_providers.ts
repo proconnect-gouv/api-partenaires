@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { z } from "zod";
 import type { OidcProviderStore } from "./app";
+import type { FindUnreachableDomains } from "./domain_reachable";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
 
 const MAX_ADDED_DOMAINS = 1_000;
@@ -13,7 +14,7 @@ export function create_oidc_providers_app({
   oidc_providers_config,
   providers,
 }: {
-  find_unreachable_domains: (domains: string[]) => Promise<string[]>;
+  find_unreachable_domains: FindUnreachableDomains;
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
 }) {
@@ -88,18 +89,16 @@ export function create_oidc_providers_app({
         );
       }
 
-      let unreachable: string[];
-      try {
-        unreachable = await find_unreachable_domains(added);
-      } catch (error) {
-        console.error(error);
+      const unreachable = await find_unreachable_domains(added);
+      if (!unreachable.ok) {
+        console.error(unreachable.error);
         return c.json({ error: "dns_unavailable" }, 502);
       }
-      if (unreachable.length > 0) {
+      if (unreachable.value.length > 0) {
         return c.json(
           {
             error: "attached_email_domain_unreachable",
-            attached_email_domains: unreachable,
+            attached_email_domains: unreachable.value,
           },
           422,
         );

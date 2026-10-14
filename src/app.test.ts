@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { create_app, type OidcProviderStore } from "./app";
 import type { OidcClientStore } from "./oidc_clients";
+import { ok } from "./result";
 
 function create_test_app({
   check_ready = async () => {},
@@ -29,7 +30,7 @@ function create_test_app({
     check_ready,
     client_secret_cipher_pass: "test-cipher-pass-32-bytes-long!!",
     enable_sandbox_endpoint: false,
-    find_unreachable_domains: async () => [],
+    find_unreachable_domains: async () => ok([]),
     max_timestamp_diff: 300,
     oidc_clients_api_secret: "test-oidc-clients-secret",
     oidc_clients,

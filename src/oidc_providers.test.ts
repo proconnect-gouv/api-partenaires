@@ -1,7 +1,9 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, test } from "bun:test";
 import { create_app, type OidcProvider } from "./app";
+import type { FindUnreachableDomains } from "./domain_reachable";
 import type { OidcClientStore } from "./oidc_clients";
+import { err, ok } from "./result";
 
 const PARTNER_SECRET = "test-partner-secret";
 const MONCOMPTEPRO_UID = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
@@ -46,10 +48,10 @@ function api_call(
 
 function create_test_app({
   extra_allowed_domains = [],
-  find_unreachable_domains = async () => [],
+  find_unreachable_domains = async () => ok([]),
 }: {
   extra_allowed_domains?: string[];
-  find_unreachable_domains?: (domains: string[]) => Promise<string[]>;
+  find_unreachable_domains?: FindUnreachableDomains;
 } = {}) {
   const providers = new Map<string, OidcProvider>([
     [
@@ -277,7 +279,7 @@ describe("OIDC provider configuration API", () => {
   test("rejects a domain that does not resolve", async () => {
     const app = create_test_app({
       extra_allowed_domains: ["mairie-de-nulle-part.fr"],
-      find_unreachable_domains: async (domains) => domains,
+      find_unreachable_domains: async (domains) => ok(domains),
     });
     const res = await api_call(
       app,
@@ -294,7 +296,7 @@ describe("OIDC provider configuration API", () => {
 
   test("keeps an attached domain that no longer resolves", async () => {
     const app = create_test_app({
-      find_unreachable_domains: async (domains) => domains,
+      find_unreachable_domains: async (domains) => ok(domains),
     });
     const res = await api_call(
       app,
@@ -308,9 +310,13 @@ describe("OIDC provider configuration API", () => {
   test("answers 502 when DNS cannot be resolved", async () => {
     const app = create_test_app({
       extra_allowed_domains: ["dns-en-greve.fr"],
-      find_unreachable_domains: async () => {
-        throw new Error("dns en grève");
-      },
+      find_unreachable_domains: async () =>
+        err({
+          domain: "dns-en-greve.fr",
+          kind: "http_status",
+          status: 503,
+          type: "MX",
+        }),
     });
     const res = await api_call(
       app,
