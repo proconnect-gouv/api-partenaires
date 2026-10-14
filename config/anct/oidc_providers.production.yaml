@@ -700,6 +700,9 @@ oidc_providers:
       - domain: grand-fougeray.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/ac8ef5f0-9199-4042-bf16-0f511d7b38b4
         source: dila
+      - domain: grandchamp.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/4af1991e-2899-4c21-ac05-550ce94def9e
+        source: dila
       - domain: groix.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/99d2402e-a486-42d9-b586-238fb01cebcb
         source: dila
@@ -750,6 +753,9 @@ oidc_providers:
         source: dila
       - domain: guiler-sur-goyen.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/08ed02ab-4f62-4b86-bdb5-903c1ecd9074
+        source: dila
+      - domain: guillac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/5488965c-d9ad-4a62-bfd8-1b74cf48e121
         source: dila
       - domain: guilliers.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/959b76cb-7c3b-4ded-96e9-a89cbe55fe78
@@ -1545,6 +1551,9 @@ oidc_providers:
         source: dila
       - domain: mairie-bohars.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/1a73cd65-4c6d-49c7-90a5-4ea2713564e2
+        source: dila
+      - domain: mairie-brece.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/7c4c49f5-35ac-4b1c-a2a0-3f88b7b106fa
         source: dila
       - domain: mairie-brest.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/24c74d5d-49c7-4fdc-b735-e33cc550e46b
@@ -2875,6 +2884,9 @@ oidc_providers:
       - domain: saint-eloy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3cac19ad-d2c8-4552-939a-72319e65b4c7
         source: dila
+      - domain: saint-erblon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/0f29d655-f452-4670-b956-871c798c31da
+        source: dila
       - domain: saint-evarzec.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/e8f39c67-9e1c-4d75-97bd-3e85250b1f98
         source: dila
@@ -2931,6 +2943,9 @@ oidc_providers:
         source: dila
       - domain: saint-judoce.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/426ecf43-eb33-48ae-bf4e-31c3cc9c9594
+        source: dila
+      - domain: saint-julien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52bf2b63-203d-4b59-8fd1-065054c72a75
         source: dila
       - domain: saint-juvat.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/9b68ec52-7df6-40cb-9a98-6d9e54b38ac6
@@ -3160,6 +3175,9 @@ oidc_providers:
       - domain: saintperan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/aa781eed-e8c3-4003-b160-9352051b857c
         source: dila
+      - domain: saintphilibert.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/36e84519-ffe0-4082-8045-6c5ee0e080dd
+        source: dila
       - domain: saintpierrequiberon.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/9f6749f1-f1a5-420d-9a9d-e47a9bf838c9
         source: dila
@@ -3273,6 +3291,9 @@ oidc_providers:
         source: dila
       - domain: stnicolasdupelem.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/278f50ff-fe00-49e6-9428-bebf8168d395
+        source: dila
+      - domain: stphilibert.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/36e84519-ffe0-4082-8045-6c5ee0e080dd
         source: dila
       - domain: stthurial.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/57f313fd-3b56-49dd-86eb-2ec8e5f37acb
@@ -4338,6 +4359,9 @@ oidc_providers:
       - domain: mairie-brach.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/a3fdf62d-b63c-4bb0-81d4-4760f104c1e5
         source: dila
+      - domain: mairie-branne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/7bbd64c0-b059-4186-a4f4-74a6cc39d475
+        source: dila
       - domain: mairie-braud.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/8680e92b-1990-4f43-8db8-347ec22bda04
         source: dila
@@ -4398,6 +4422,9 @@ oidc_providers:
       - domain: mairie-latresne.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/b287fffc-6355-436a-aa76-4e117df253cb
         source: dila
+      - domain: mairie-le-temple.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/12f0973b-a8f0-4d90-843f-1cc5c5150cca
+        source: dila
       - domain: mairie-le-tuzan.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/857533ca-fccb-425a-a5cf-82c0db756bc4
         source: dila
@@ -4427,6 +4454,9 @@ oidc_providers:
         source: dila
       - domain: mairie-moulis-medoc.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/f77e1747-603b-4608-9835-05bf748ee410
+        source: dila
+      - domain: mairie-moulon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/2604672b-bca0-422e-bcc3-930b13efdd9f
         source: dila
       - domain: mairie-naujac.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/e4c75c7c-1558-493d-901b-69ad45e001c1
@@ -4466,6 +4496,9 @@ oidc_providers:
         source: dila
       - domain: mairie-saintdenisdepile.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/1001842c-08f5-412a-809e-adabec5d8c56
+        source: dila
+      - domain: mairie-saintleon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/4534608c-b084-4f08-8282-2de91061ca19
         source: dila
       - domain: mairie-saintlouisdemontferrand.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/3e7885a7-b06f-4350-9f8f-0efab200bfd8
@@ -4565,6 +4598,9 @@ oidc_providers:
         source: dila
       - domain: mauriac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/aa45109a-3ad8-41ab-8bf7-65d3be123fb3
+        source: dila
+      - domain: mazeres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/e346d6cd-716b-409e-93a9-824b1838a65e
         source: dila
       - domain: mazion.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/8dde7b94-a74c-4e11-9a6f-2917e2277ee3
@@ -4802,6 +4838,9 @@ oidc_providers:
         source: dila
       - domain: saintefoylagrande.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/b9bd9c3e-7812-4332-adf1-db1ecffb2bfa
+        source: dila
+      - domain: saintehelene.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/8902392a-d30a-4ed5-bd5c-33216d2b4465
         source: dila
       - domain: sainteterre.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/2bd3bd00-8fe7-4b04-b96a-e11f325cb90a
@@ -5174,6 +5213,9 @@ oidc_providers:
       - domain: belle-eglise.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/6307fb62-495f-49e9-b354-fc8b5f978926
         source: dila
+      - domain: bellefontaine.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/9492daac-0ea2-4b97-bab5-197e2f232767
+        source: dila
       - domain: belloy-60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/f74fb890-cb47-4652-b4fd-b110b365170f
         source: dila
@@ -5281,6 +5323,9 @@ oidc_providers:
         source: dila
       - domain: buicourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e7c79eb0-5b70-4c82-9194-9dc8bf948466
+        source: dila
+      - domain: bussy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b009f84a-325b-4828-8a1b-1383e24e56d3
         source: dila
       - domain: cambronne-les-clermont.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/bdfd63af-ae0b-45e7-a51b-10ed0d56dcd7
@@ -5954,6 +5999,9 @@ oidc_providers:
       - domain: mairie-chevrieres.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/4a826250-4e43-4bb7-bf70-b13b2eece462
         source: dila
+      - domain: mairie-clermont.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0446c6f2-3dca-44b2-93fb-e9be752fb724
+        source: dila
       - domain: mairie-compiegne.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b9b02bf4-edf4-4f2a-9e7e-a77412b6d7cd
         source: dila
@@ -6049,6 +6097,9 @@ oidc_providers:
         source: dila
       - domain: mairie-pierrefonds.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/ed297d32-45ea-485f-9bc0-c6771c000b0e
+        source: dila
+      - domain: mairie-rieux.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/9c696bf3-c955-429c-8600-c184e9e1cc16
         source: dila
       - domain: mairie-rouvroy-les-merles.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b34895d3-612e-4045-85b6-ab482ef0cf94
@@ -6203,6 +6254,9 @@ oidc_providers:
       - domain: mours.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/856e6fb3-4f33-4d01-b5b1-b448f34e15fc
         source: dila
+      - domain: moussy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/b2eb2a66-8f38-4a0d-b1be-5b67bc35101e
+        source: dila
       - domain: mouy.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b4194ff6-4f35-4ebf-9fd5-1b510794c380
         source: dila
@@ -6340,6 +6394,9 @@ oidc_providers:
         source: dila
       - domain: porquericourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/eaa8934d-b0d0-450c-bd6f-d9885049b19e
+        source: dila
+      - domain: precy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/da476300-ce71-4a6a-ac1f-4d12bccfd57a
         source: dila
       - domain: previllers.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/9cbbaa94-eb22-47ba-bffa-9a37cc6d3352
@@ -6497,6 +6554,9 @@ oidc_providers:
       - domain: saintremyenleau.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/8ef2cc66-2cc1-4887-979f-44d3cb3b95cf
         source: dila
+      - domain: saintthibault.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/1d8f7496-e982-4a7a-af3a-81fd4a0022ba
+        source: dila
       - domain: saintvaastdelongmont.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/5d89d99d-18a7-413a-84cb-38d90b628893
         source: dila
@@ -6524,6 +6584,9 @@ oidc_providers:
       - domain: songeons.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/382496c2-871f-4530-8630-7c98ec92f54c
         source: dila
+      - domain: st-felix.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/5839da27-6637-4ec3-b537-b2f4ddaa8a0f
+        source: dila
       - domain: stcrepin-ibouvillers.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/85d992dc-2577-45fa-abd1-438af17dc84e
         source: dila
@@ -6544,6 +6607,9 @@ oidc_providers:
         source: dila
       - domain: thelloise.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/c2db65b0-ce21-46cc-a21d-8c2b903ac8d4
+        source: dila
+      - domain: theuville.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/fdac9777-e2c6-4045-bb8a-9f641c3917ea
         source: dila
       - domain: thiers-sur-theve.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/8199e7da-fb32-4fec-a805-3307e911dea6
@@ -7123,6 +7189,9 @@ oidc_providers:
       - domain: bridore.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/b8a4c727-26a2-4dea-ae49-a1aea866d1da
         source: dila
+      - domain: brinay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/653393d1-adb3-42a6-a2bd-2c7c6f67d2f9
+        source: dila
       - domain: brion36.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/196c53e3-7549-4b27-bb80-96f83febbc8a
         source: dila
@@ -7335,6 +7404,9 @@ oidc_providers:
         source: dila
       - domain: chassignolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/8d710261-82b0-4366-876a-f6f8fdae6566
+        source: dila
+      - domain: chassy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/cf6291f5-ca49-4c4a-b911-a5d295d62777
         source: dila
       - domain: chateau-renard.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/2d108882-96ec-4ccd-b64d-84d3aa66f1dd
@@ -7786,6 +7858,9 @@ oidc_providers:
       - domain: epiedsenbeauce.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/6328252d-4f60-4000-9baf-100f92522e06
         source: dila
+      - domain: epineuil.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/d48e3ffa-ef39-46c8-8ae6-44ac231a8663
+        source: dila
       - domain: ermenonville-la-grande.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/f2c5e114-862e-4e93-95ec-c78aa93b04b4
         source: dila
@@ -7918,6 +7993,9 @@ oidc_providers:
       - domain: genille.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/724b3eca-4843-457b-970a-51c0f92fd156
         source: dila
+      - domain: genouilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/e80e5a0b-b49c-4811-9dd3-700eae3fecb1
+        source: dila
       - domain: germigny-des-pres.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/5786b176-2073-4dcc-84c8-26d27ac9d0a7
         source: dila
@@ -7947,6 +8025,9 @@ oidc_providers:
         source: dila
       - domain: grangermont.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/844a537c-eae7-4ef7-ade7-9545049a41bd
+        source: dila
+      - domain: griselles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/2a0bdf9c-65b2-4497-8e22-3b42ce56a185
         source: dila
       - domain: gron18.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/eb25c46c-1455-49b9-a6f1-8f4d737bfd80
@@ -8323,6 +8404,9 @@ oidc_providers:
       - domain: luynes.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/6a88d457-eb84-415b-b865-c90087e266f4
         source: dila
+      - domain: luze.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/15d73813-d21d-466d-85a4-f8a76ab183be
+        source: dila
       - domain: luzille.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/188b1620-b1cc-4d13-bbd1-0999efbbca7c
         source: dila
@@ -8331,6 +8415,9 @@ oidc_providers:
         source: dila
       - domain: magny28120.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/f8372557-369a-4e44-bd5d-dab422cbb0ff
+        source: dila
+      - domain: maille.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/134e65b2-a78d-4590-8634-95bc4e91ac2d
         source: dila
       - domain: maillebois.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/f9c3dab3-dd1c-4bf9-8182-8e84e3d17113
@@ -8556,6 +8643,9 @@ oidc_providers:
         source: dila
       - domain: mairie-lange.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/5167c87b-8740-4808-b7d9-335226ae7b1e
+        source: dila
+      - domain: mairie-lesbordes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/156f1014-0f7a-4368-ab96-9893c8931b5c
         source: dila
       - domain: mairie-maray.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/4cf46e18-8ef5-42f3-ad74-b211e8bef0b7
@@ -8920,6 +9010,9 @@ oidc_providers:
       - domain: marignymarmande.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/1d5d7752-3d1b-4162-b794-24a2d807c4d9
         source: dila
+      - domain: marmagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/690685d9-57f5-4a01-bff2-5f7a6a2cb156
+        source: dila
       - domain: marolles-les-buis.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/2ebc9554-8ea7-4c29-96ca-3796a3696fff
         source: dila
@@ -9097,6 +9190,9 @@ oidc_providers:
       - domain: montrieuxensologne.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/946ed541-66a9-455e-8bc6-128bc9dc07de
         source: dila
+      - domain: monts.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/c6588253-d8e0-4c1a-84a1-f2ede9a93957
+        source: dila
       - domain: morancez.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/29eba538-57e0-464c-b7c1-5143f0bbab02
         source: dila
@@ -9226,6 +9322,9 @@ oidc_providers:
       - domain: noyers-sur-cher.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/359da2fd-d662-499a-8f90-4bba253c0642
         source: dila
+      - domain: noyers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/9b3755af-eeed-4b0c-b881-e27cc4a6f254
+        source: dila
       - domain: noyers45.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/9b3755af-eeed-4b0c-b881-e27cc4a6f254
         source: dila
@@ -9243,6 +9342,9 @@ oidc_providers:
         source: dila
       - domain: oison.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/4de74ee9-3d24-4dab-8a53-e38150ba45ba
+        source: dila
+      - domain: olivet.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/4eb00f05-f9fc-4a0a-9f25-5a8b99e51b2a
         source: dila
       - domain: olle28.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/72b7db8e-4e25-4fd4-a891-0d8f6bedde26
@@ -9907,6 +10009,9 @@ oidc_providers:
       - domain: semblancay.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/7f625503-5408-4fdd-9e41-00d4aa9edab2
         source: dila
+      - domain: senantes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/f0294847-b437-4c2b-8030-dd534a4fed21
+        source: dila
       - domain: sennecay18.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/07185b03-a105-46d7-8a26-e2d91c2a3231
         source: dila
@@ -10014,6 +10119,9 @@ oidc_providers:
         source: dila
       - domain: sthilairesurpuiseaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/643d14c9-d7ab-4d7a-8bd9-918782b1ff90
+        source: dila
+      - domain: sthippolyte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/02b9e2e6-bf81-4cf9-a721-a6deb9373ac6
         source: dila
       - domain: stlaurentdesbois41.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/e109ee84-28c3-4802-af9c-d15976198580
@@ -10510,6 +10618,9 @@ oidc_providers:
       - domain: ville-notre-dame-doe.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/421d9065-ab01-4661-94ac-f4d25b0ef31e
         source: dila
+      - domain: ville-ormes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/c165545f-2d4a-4820-b9c8-69e1a0fc4846
+        source: dila
       - domain: ville-orval.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a2e61f3e-ff07-48e7-8f81-732572a01535
         source: dila
@@ -10983,6 +11094,9 @@ oidc_providers:
       - domain: fletrange.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/3b28277b-2093-42a3-9b2e-e258b793f523
         source: dila
+      - domain: fleury.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/af7a45db-1c3b-4732-bdef-80b53bb9349e
+        source: dila
       - domain: flevy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/286ab816-4969-453a-9440-9eb95805fc63
         source: dila
@@ -11193,6 +11307,9 @@ oidc_providers:
       - domain: mairie-altviller.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/64130e4b-1d1d-4f4c-887a-fe55bb17bc18
         source: dila
+      - domain: mairie-antilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/07b75a75-dce1-483d-96af-7e40e3e6ce77
+        source: dila
       - domain: mairie-aube.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/39134542-ca08-4ab1-84fe-2ad9ae0f6b4c
         source: dila
@@ -11201,6 +11318,9 @@ oidc_providers:
         source: dila
       - domain: mairie-betting.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b28fe414-75e4-407d-9ef5-383b491cf115
+        source: dila
+      - domain: mairie-bousse.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/ad53217a-9b0b-47e3-871d-7fb4e4971376
         source: dila
       - domain: mairie-bouzonville.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/d9220e26-da10-4850-bdb1-65cfebe427ca
@@ -11607,6 +11727,9 @@ oidc_providers:
       - domain: remeling.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/05f825cb-00c7-49e1-aa03-cd0c66aaa162
         source: dila
+      - domain: remilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/3be7b0c0-4e7c-44fb-aafe-4f9f7947013d
+        source: dila
       - domain: retonfey.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/335c905e-5485-4e91-ba32-42cbf6ecf05b
         source: dila
@@ -11792,6 +11915,9 @@ oidc_providers:
         source: dila
       - domain: vany.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/1e84ac75-537f-4878-b42a-60209a1148f3
+        source: dila
+      - domain: varize.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8bc2040f-a5f3-4f9e-a5ae-b952b4e06fc4
         source: dila
       - domain: vaudreching.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/331715eb-f9b0-46ba-93f6-25d4d5e44140
@@ -12862,6 +12988,9 @@ oidc_providers:
       - domain: mairie-saurat.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/316f56dd-7a94-43a6-b08a-0ec4db188ac8
         source: dila
+      - domain: mairie-savignac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/e37ee8bc-7253-4db3-bee5-19e8a6abdd3c
+        source: dila
       - domain: mairie-sentein.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/df96935e-7ecf-495a-9f69-2d4d311ec81c
         source: dila
@@ -13371,6 +13500,9 @@ oidc_providers:
       - domain: clermont74.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/34cae894-b7d9-4304-98a2-26b1d21711f4
         source: dila
+      - domain: clery.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7a5e7d07-42f4-4680-9c44-fdaf8d33e1bb
+        source: dila
       - domain: cluses.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/182cdd44-abaa-4f97-b3ef-61b9706c3b0e
         source: dila
@@ -13577,6 +13709,9 @@ oidc_providers:
         source: dila
       - domain: gresysurisere.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7a612ee9-c15d-4983-993b-0496b4a3fdbc
+        source: dila
+      - domain: grignon.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/d563a2dc-758f-4db3-8047-3ee5fc49019c
         source: dila
       - domain: groisy.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/961ff63e-9bb7-4be9-bf29-479641ded036
@@ -13845,6 +13980,9 @@ oidc_providers:
       - domain: mairie-chamousset.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/08c39d8c-44d9-4771-b331-4138307b5eb4
         source: dila
+      - domain: mairie-champagny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/aefcea03-498a-41ae-9720-2dc4ecd40862
+        source: dila
       - domain: mairie-charvonnex.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/81c381ea-b6cf-41d5-98bb-6f47a9f74b9c
         source: dila
@@ -13940,6 +14078,9 @@ oidc_providers:
         source: dila
       - domain: mairie-neuvecelle.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/07517137-a087-4bbe-970c-3199296eb23c
+        source: dila
+      - domain: mairie-passy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/2bf88e0e-1556-4823-a1a8-018a9099ea16
         source: dila
       - domain: mairie-pers-jussy.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/a7c9b534-f5dc-42da-a63e-e693fbe2cc22
@@ -14292,6 +14433,9 @@ oidc_providers:
       - domain: portedemaurienne.eu
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/f2bf2fe1-e3f6-45ef-977d-fd832ef2d6c9
         source: dila
+      - domain: presilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/6f19b341-c1e1-4c22-b349-510d3a17166e
+        source: dila
       - domain: pugny-chatenod.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/cc4dc566-b407-4232-aa1f-b255edaa0bf5
         source: dila
@@ -14345,6 +14489,9 @@ oidc_providers:
         source: dila
       - domain: saint-pierre-de-curtille.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a24cfc99-80ed-4b6c-b92f-8078f7b9aef5
+        source: dila
+      - domain: saint-sigismond.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/642bd8a0-132b-40ec-a65c-19ab6e416b8d
         source: dila
       - domain: saint-sixt.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/fa436ebe-1ead-4f54-8e08-ef9d19a73fe8
@@ -14798,6 +14945,9 @@ oidc_providers:
       - domain: bully42.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/5607dd41-b1c4-4717-9ddc-23c8b345591a
         source: dila
+      - domain: bussieres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/1ca16a79-cd1c-4f18-80fe-ad6c64593750
+        source: dila
       - domain: bussieres42.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/1ca16a79-cd1c-4f18-80fe-ad6c64593750
         source: dila
@@ -14870,6 +15020,9 @@ oidc_providers:
       - domain: chandon42.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/101c056f-ca5b-497a-9a11-ccef10d562dc
         source: dila
+      - domain: changy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/3c48eac1-31af-408d-83a6-b7ab10a2a232
+        source: dila
       - domain: charnay-en-beaujolais.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/434e6b1c-3a41-4846-a5e3-487a279f508f
         source: dila
@@ -14926,6 +15079,9 @@ oidc_providers:
         source: dila
       - domain: claveisolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6daf92e7-e50f-4ea5-9a80-c2d330141d2d
+        source: dila
+      - domain: cogny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/be4b6feb-eb0c-4b2f-874d-f0e33f6e0102
         source: dila
       - domain: coise.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/e26df18c-b97f-44b4-8b66-97895d89c7a6
@@ -15161,6 +15317,9 @@ oidc_providers:
       - domain: lachamba.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/10694e93-ee76-4a09-9d91-b590db286bf0
         source: dila
+      - domain: lachassagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/1dfd4eae-25e4-4b14-b29e-62296a83c1c7
+        source: dila
       - domain: lacotesaintdidier.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/bf498e77-8000-42d4-989f-5ed4156dbbf7
         source: dila
@@ -15227,6 +15386,9 @@ oidc_providers:
       - domain: lesardillats.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/2abf199d-4d2c-4ada-a46e-2385d5eb49ab
         source: dila
+      - domain: lescheres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6171e0c7-37bf-4e71-9ff2-99877f23d052
+        source: dila
       - domain: leshaies.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/95b7040a-a0c4-466b-8ae4-4dd8bb78ff72
         source: dila
@@ -15256,6 +15418,9 @@ oidc_providers:
         source: dila
       - domain: loire-sur-rhone.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/82501bfc-e37a-41d9-a4c1-299ba166eb8e
+        source: dila
+      - domain: loire.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/98176853-dc73-4bf6-ad1e-4ebdd6c6130b
         source: dila
       - domain: loireforez.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/084d41a6-93e1-404a-a54a-a339822f810f
@@ -15326,6 +15491,9 @@ oidc_providers:
       - domain: mairie-charentay.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/698b754c-b8ce-4f1c-8bd6-a8b2247b4d78
         source: dila
+      - domain: mairie-charly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/f54263ac-0421-487a-ab32-a3852faf3109
+        source: dila
       - domain: mairie-chasselay.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6eeeed11-e58f-44db-a515-a14f68ba395e
         source: dila
@@ -15340,6 +15508,9 @@ oidc_providers:
         source: dila
       - domain: mairie-commelle-vernay.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/d599216d-2e32-4285-a39f-fb3b6179a276
+        source: dila
+      - domain: mairie-cours.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/2cdc867b-5098-4f48-af46-4425cfad3c58
         source: dila
       - domain: mairie-craponne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/3e649a43-f36c-4c35-aee3-3a8785bd6da4
@@ -15404,6 +15575,9 @@ oidc_providers:
       - domain: mairie-lentilly.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/ac465eb5-c41e-4096-8151-c80e1787ceef
         source: dila
+      - domain: mairie-lescheres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6171e0c7-37bf-4e71-9ff2-99877f23d052
+        source: dila
       - domain: mairie-letra.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/ec2799dd-2aee-4986-ab2f-a90e2a8a48ac
         source: dila
@@ -15419,6 +15593,9 @@ oidc_providers:
       - domain: mairie-messimy.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/f03cdc6a-eca4-4daf-903e-d996c84bc95f
         source: dila
+      - domain: mairie-millery.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/85cf73ad-34d9-4d5d-82a4-33d8f55aa0f8
+        source: dila
       - domain: mairie-morance.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/595d8ef6-c052-445a-8e28-06fdb5cd8a6d
         source: dila
@@ -15427,6 +15604,9 @@ oidc_providers:
         source: dila
       - domain: mairie-palogneux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/403f0618-f81a-445d-a95c-364c63f34715
+        source: dila
+      - domain: mairie-pommiers.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/583dd00d-5b0a-45e9-9296-f84cae944133
         source: dila
       - domain: mairie-pusignan.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/b708d199-fdd7-4161-b6de-b764f4179ea7
@@ -15613,6 +15793,9 @@ oidc_providers:
         source: dila
       - domain: mizerieux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/9bfc0466-b80a-42e5-a3b3-5e2f01652b34
+        source: dila
+      - domain: montagny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/5fb0dacb-48a2-4f71-bf7c-1209c2f2d5e8
         source: dila
       - domain: montagny69.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/1fdf07b0-6fe7-4576-9bc8-190c43f96bb8
@@ -16151,6 +16334,9 @@ oidc_providers:
       - domain: ste-agathe-la-bouteresse.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/ac9613d9-f0ef-4caf-8c37-3ff1c8fe3981
         source: dila
+      - domain: ste-colombe.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/82ac51dc-6ee7-45e2-b223-ead807074751
+        source: dila
       - domain: stetiennelavarenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/0a60c05e-512a-487a-bd26-8025c7fb124f
         source: dila
@@ -16193,6 +16379,9 @@ oidc_providers:
       - domain: stsauveurenrue.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/71829f0b-47f3-4608-9533-ca9cc45ec85a
         source: dila
+      - domain: stsixte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/5627f3fb-52ca-4a45-ba57-a7002953df3b
+        source: dila
       - domain: stsymphoriendelay.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/1373c769-f1c9-4e78-9fd6-43a1145fa727
         source: dila
@@ -16216,6 +16405,9 @@ oidc_providers:
         source: dila
       - domain: ternand.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/f7972af6-6c1e-4f81-92de-a0dd110696ed
+        source: dila
+      - domain: ternay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/3955da42-bf60-41a9-9a92-ccfd1b17ef39
         source: dila
       - domain: thelislacombe.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/ac02be5c-c9bf-40f8-bdb6-6136e4a3905b
@@ -16282,6 +16474,9 @@ oidc_providers:
         source: dila
       - domain: vezelin-sur-loire.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/f825e86a-2f38-4b6e-9445-3255a0aade7b
+        source: dila
+      - domain: villars.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/4a20086e-eeff-4158-8d92-87607d5c2bee
         source: dila
       - domain: ville-bron.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/e3bbbabc-b37e-49a2-90a2-bedc9cb23449
@@ -17089,6 +17284,12 @@ oidc_providers:
       - domain: saintejuliettesurviaur.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/7050c33c-ed76-4581-9208-f511431c8841
         source: dila
+      - domain: sainteradegonde.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/aec2dcb2-9ec8-4646-9f23-e9dc131d579c
+        source: dila
+      - domain: sainthippolyte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3853f3eb-3e98-4e37-a385-1d9abfc9a48b
+        source: dila
       - domain: saintjeandelnous.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/2706375c-f2ea-4833-be43-8fa50b7463c7
         source: dila
@@ -17184,6 +17385,9 @@ oidc_providers:
         source: dila
       - domain: taussac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/4be4fe15-1ddc-4132-9986-e9fb195b2d1a
+        source: dila
+      - domain: tayrac.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/a16c1c09-50f0-4912-8126-80a9c27c1d98
         source: dila
       - domain: therondels.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3e0b33b7-06fd-45f7-9324-e2fc35dc3416
@@ -17309,6 +17513,9 @@ oidc_providers:
         source: dila
       - domain: allonnes-49.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/ef1f30b4-f14c-4298-89b1-4731f113fcd2
+        source: dila
+      - domain: allonnes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/7c856dfc-0cee-442e-a336-f1d8b6533e37
         source: dila
       - domain: ambriereslesvallees.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/f6c6c95b-ffb8-440d-813f-da48ab8f783b
@@ -18147,6 +18354,9 @@ oidc_providers:
       - domain: heric.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/cfb848b0-8d31-4898-a5ff-94a798fdd38d
         source: dila
+      - domain: houssay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/98f83b23-1bc1-49bd-9b30-352f9b4e743f
+        source: dila
       - domain: huille-lezigne.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/485397b4-66ae-4390-b843-21cae5867398
         source: dila
@@ -18450,6 +18660,9 @@ oidc_providers:
       - domain: laval.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/39b5f5eb-6139-45df-b05e-ab33a24a29f3
         source: dila
+      - domain: lavardin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/d9ada5e3-4642-41c4-9aee-337ece535834
+        source: dila
       - domain: lavare-72.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/2b633ed7-77c2-4525-8c32-65ac6e99f28c
         source: dila
@@ -18530,6 +18743,9 @@ oidc_providers:
         source: dila
       - domain: leperrier.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/959a3379-ad67-4d42-90a3-2288208b7f3f
+        source: dila
+      - domain: lepin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/014f1e93-7bc0-4e3e-9ea8-4b945a960470
         source: dila
       - domain: lepine-iledenoirmoutier.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/4ca0dc1a-bbaf-4619-b12d-836c360103f5
@@ -19488,6 +19704,9 @@ oidc_providers:
       - domain: parignesurbraye.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/22877a27-4b57-452e-938c-3789ab1fea33
         source: dila
+      - domain: parnay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/70c578a6-67ef-4d39-a1b5-68aade29d6a2
+        source: dila
       - domain: parne-sur-roc.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/e85481ec-df9b-4a30-8ec0-6580658bb5d7
         source: dila
@@ -19866,6 +20085,9 @@ oidc_providers:
       - domain: saintecerotte72.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9ac66465-3da2-40c9-a7cc-56b3b5a8aa18
         source: dila
+      - domain: sainteflorence.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/d05916e1-9f34-4df6-b646-f96a3383b656
+        source: dila
       - domain: saintefoy85.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/87928dfa-2527-494f-bcd6-64c45ebfe1b2
         source: dila
@@ -19974,6 +20196,9 @@ oidc_providers:
       - domain: saintmartindufouilloux49.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/281fc2f0-c096-4a32-8cbb-6fe346fb30a3
         source: dila
+      - domain: saintmesmin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/7697507f-5f02-4a32-935d-71936143c6ee
+        source: dila
       - domain: saintmicheldelaroe.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/0fe14723-fa00-47a5-a0cb-9ad4bfa94065
         source: dila
@@ -20042,6 +20267,9 @@ oidc_providers:
         source: dila
       - domain: saintsaturnindulimet.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/73ead775-5ae4-4154-b3cb-5a3d7b39f1dc
+        source: dila
+      - domain: sainturbain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/af921b0c-a4e7-4eb8-8f86-a36c5c815aae
         source: dila
       - domain: saintvalerien85.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/b371baf2-306a-4ae6-bcb3-8dce6e18e3e5
@@ -20472,6 +20700,9 @@ oidc_providers:
       - domain: villaines-sous-malicorne.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9f661fce-242a-4bbe-bccb-0c0a329958df
         source: dila
+      - domain: ville-allonnes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/7c856dfc-0cee-442e-a336-f1d8b6533e37
+        source: dila
       - domain: ville-andouille.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/4a8f6c04-637a-4613-86c4-706b21e92a2a
         source: dila
@@ -20492,6 +20723,9 @@ oidc_providers:
         source: dila
       - domain: ville-champagne.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/e642bafd-a026-44bd-9d55-8109e4c57138
+        source: dila
+      - domain: ville-change.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/b5305405-6739-489a-a0d0-200a30afc701
         source: dila
       - domain: ville-chantonnay.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/47081bf1-431a-4fc6-b62e-86690b280405
@@ -20528,6 +20762,9 @@ oidc_providers:
         source: dila
       - domain: ville-lafleche.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/05e9f38f-6396-4c2a-8544-fc025e6663e5
+        source: dila
+      - domain: ville-lamontagne.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/4af20974-0c30-4bc6-b530-9f4a27879d09
         source: dila
       - domain: ville-lege44.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/0d6e48f1-a798-497b-9a30-fb7cc6ad5058
@@ -20601,6 +20838,9 @@ oidc_providers:
       - domain: ville-saint-berthevin.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/12bc990f-8717-4699-8a47-e8239a89b70e
         source: dila
+      - domain: ville-saint-symphorien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/d0dce54f-6e0e-4729-840c-67cbdd0ad44e
+        source: dila
       - domain: ville-saumur.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/513be453-fd51-4ecb-9339-f697e498ea6d
         source: dila
@@ -20660,6 +20900,9 @@ oidc_providers:
         source: dila
       - domain: vivy.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/001a9d22-9383-48a1-9caa-b679fc7bf75d
+        source: dila
+      - domain: vix.fr
+        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/091ef02f-c3f8-4746-bf5d-654533552490
         source: dila
       - domain: voivres-les-le-mans.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/d89b107c-05c6-4044-97b4-16768a2847a7
@@ -21271,9 +21514,6 @@ oidc_providers:
         source: dila
       - domain: alloinay.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/090aeb13-62ae-4f78-9f93-823182662db9
-        source: dila
-      - domain: allonnes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/7c856dfc-0cee-442e-a336-f1d8b6533e37
         source: dila
       - domain: alpedhuez-mairie.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/04377c5a-d015-49d3-a0e5-02f65062fe01
@@ -22733,9 +22973,6 @@ oidc_providers:
       - domain: azaylebrule.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/408fe5a3-8e93-437a-b813-c4024f723284
         source: dila
-      - domain: aze.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/b3b807ed-cdad-4ad3-8996-497e3570cfdb
-        source: dila
       - domain: azelot.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/61dbcfc4-a03b-474e-9b20-421b3a1e9903
         source: dila
@@ -23635,9 +23872,6 @@ oidc_providers:
         source: dila
       - domain: bellefontaine-88.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/ca57595e-c646-4559-89f0-d02ae2dbfd7d
-        source: dila
-      - domain: bellefontaine.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/9492daac-0ea2-4b97-bab5-197e2f232767
         source: dila
       - domain: bellegarde-adoulins.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/7053872d-27f4-4957-8e2b-85f28492f83c
@@ -25510,9 +25744,6 @@ oidc_providers:
       - domain: brimont.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/bc8e420f-2c23-4e26-a744-a7921de214e8
         source: dila
-      - domain: brinay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/653393d1-adb3-42a6-a2bd-2c7c6f67d2f9
-        source: dila
       - domain: brinckheim.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/f5229381-baec-450f-83ba-b3592b460739
         source: dila
@@ -25822,17 +26053,11 @@ oidc_providers:
       - domain: bussieredunoise.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/b7a3cd7f-588d-4004-bd62-7c9fc46973e5
         source: dila
-      - domain: bussieres.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/1ca16a79-cd1c-4f18-80fe-ad6c64593750
-        source: dila
       - domain: bussieres77.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/6de2dc02-a4ba-4bc5-92b5-cb43a86ce0b1
         source: dila
       - domain: bussy-saint-georges.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/75cc4bd0-7e62-4e64-b32e-3b0b50733ec5
-        source: dila
-      - domain: bussy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b009f84a-325b-4828-8a1b-1383e24e56d3
         source: dila
       - domain: bussylespoix.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/29253039-e2b2-436d-b2a4-c94569f2141d
@@ -27538,9 +27763,6 @@ oidc_providers:
       - domain: champagnelesec.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/a03f1199-0acf-433d-bcbb-30ddffd510e4
         source: dila
-      - domain: champagney.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/c02d6560-335b-45b5-a230-d9e756a56655
-        source: dila
       - domain: champagnier.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/b5a2bc34-610e-4be1-beca-a791ec80c9f9
         source: dila
@@ -27687,9 +27909,6 @@ oidc_providers:
         source: dila
       - domain: changis-sur-marne.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/c7addd83-39b8-4e85-92c3-6a46c2b97397
-        source: dila
-      - domain: changy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/3c48eac1-31af-408d-83a6-b7ab10a2a232
         source: dila
       - domain: chaniers.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/4601609e-8beb-4a62-9800-cacc0162b21f
@@ -27902,9 +28121,6 @@ oidc_providers:
         source: dila
       - domain: chassignieu.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/3c1ea44d-c871-47e1-a664-f5eb5f617b24
-        source: dila
-      - domain: chassy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/cf6291f5-ca49-4c4a-b911-a5d295d62777
         source: dila
       - domain: chasteaux19.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/5a684c2c-bc57-49a5-9c80-1147571151ba
@@ -28676,9 +28892,6 @@ oidc_providers:
       - domain: clermontsaves.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/91c6bdd7-8a48-4834-aa13-1ead8a86d987
         source: dila
-      - domain: clery.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7a5e7d07-42f4-4680-9c44-fdaf8d33e1bb
-        source: dila
       - domain: clerysursomme.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/b2db1d12-e00a-4475-823c-f95069233bac
         source: dila
@@ -28780,9 +28993,6 @@ oidc_providers:
         source: dila
       - domain: cognin-les-gorges.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/52924870-70e9-4ff0-ac3d-7bbaf24e10f4
-        source: dila
-      - domain: cogny.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/be4b6feb-eb0c-4b2f-874d-f0e33f6e0102
         source: dila
       - domain: cogolin.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/dee6f89f-69bf-4753-ac2f-0b6ae85e3169
@@ -31710,9 +31920,6 @@ oidc_providers:
       - domain: epinaysurorge.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/624a3813-1a40-4661-8142-45ecc359ad18
         source: dila
-      - domain: epineuil.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/d48e3ffa-ef39-46c8-8ae6-44ac231a8663
-        source: dila
       - domain: epinouze.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/a457ee95-7392-410e-b231-20d9eac1ab3a
         source: dila
@@ -32551,9 +32758,6 @@ oidc_providers:
       - domain: fixstgeneys.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/f46e50c0-9b0c-4249-91ff-55f5d5459bc9
         source: dila
-      - domain: flacey.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/6a0301ab-7575-4da7-8063-b92c28445561
-        source: dila
       - domain: flacheres.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/c0b410b0-83a2-4c32-8798-9a6353989755
         source: dila
@@ -32646,9 +32850,6 @@ oidc_providers:
         source: dila
       - domain: fleury-sur-andelle.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/2c23ec96-0cc3-4a12-b5fe-55f4f8701660
-        source: dila
-      - domain: fleury.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/af7a45db-1c3b-4732-bdef-80b53bb9349e
         source: dila
       - domain: fleury50.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/ac145429-d1bd-4aa0-8e73-759e470734b0
@@ -32880,9 +33081,6 @@ oidc_providers:
         source: dila
       - domain: fontenaymauvoisin.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/89ad0649-8684-4d27-b23d-6094b06c4b3b
-        source: dila
-      - domain: fontenelle.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/00e17d85-0ced-4e30-aac4-f164cac6ec0e
         source: dila
       - domain: fontenelle02.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/684c41ef-0a51-4a82-b75c-e1440c048a0f
@@ -33613,9 +33811,6 @@ oidc_providers:
       - domain: genouilleux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/558077ee-5770-4fff-9072-ca785d5e7bef
         source: dila
-      - domain: genouilly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/e80e5a0b-b49c-4811-9dd3-700eae3fecb1
-        source: dila
       - domain: gensac-de-boulogne.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/d4a26970-777f-472e-8792-9fd5f6a6852e
         source: dila
@@ -34172,9 +34367,6 @@ oidc_providers:
       - domain: grandcampmaisy.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/d0bd5da7-c59a-4650-bfd6-3f0688f912a4
         source: dila
-      - domain: grandchamp.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/4af1991e-2899-4c21-ac05-550ce94def9e
-        source: dila
       - domain: grandchamp78.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/7f8b4a1b-7862-44a1-806f-080a8d20a677
         source: dila
@@ -34367,9 +34559,6 @@ oidc_providers:
       - domain: griesheim.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/82cf602d-cc31-49ff-91ca-a9a838ecf036
         source: dila
-      - domain: grignon.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/d563a2dc-758f-4db3-8047-3ee5fc49019c
-        source: dila
       - domain: grigny91.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/bf9ab01c-1071-4782-b87e-d759882897e9
         source: dila
@@ -34378,9 +34567,6 @@ oidc_providers:
         source: dila
       - domain: grimbosq.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/023ca248-99f6-41bd-9e3d-0e11cbc8aae8
-        source: dila
-      - domain: griselles.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/2a0bdf9c-65b2-4497-8e22-3b42ce56a185
         source: dila
       - domain: griselles21.collectivite.fr
         source: routed
@@ -34482,9 +34668,6 @@ oidc_providers:
         source: dila
       - domain: guilherand-granges.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/c899b0af-2044-434a-a71c-13e73d522b5d
-        source: dila
-      - domain: guillac.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/5488965c-d9ad-4a62-bfd8-1b74cf48e121
         source: dila
       - domain: guillaucourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/cc448dde-8d8c-4265-8fae-09eb4d0b5c2d
@@ -35304,9 +35487,6 @@ oidc_providers:
         source: dila
       - domain: houppeville.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/4b8ca360-b1ba-429f-b9dc-ed26ded5a104
-        source: dila
-      - domain: houssay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/98f83b23-1bc1-49bd-9b30-352f9b4e743f
         source: dila
       - domain: houtkerque.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/d05b5d0d-daf3-48dd-b106-a65d9c0fd440
@@ -36562,9 +36742,6 @@ oidc_providers:
       - domain: lacharitesurloire.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/a187793b-9f28-4e6d-b400-7b2c58b94ebf
         source: dila
-      - domain: lachassagne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/1dfd4eae-25e4-4b14-b29e-62296a83c1c7
-        source: dila
       - domain: lachau.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/1603a40d-2ea9-4e56-a1b2-6d43d5d296f8
         source: dila
@@ -37728,9 +37905,6 @@ oidc_providers:
       - domain: lavardens.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/59d0a819-5c52-4b83-9e9e-15f16fa79de1
         source: dila
-      - domain: lavardin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/d9ada5e3-4642-41c4-9aee-337ece535834
-        source: dila
       - domain: lavault-ste-anne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/0fa34937-f1fa-4b9f-a239-e266f59d9a0f
         source: dila
@@ -38133,9 +38307,6 @@ oidc_providers:
       - domain: lechateaudoleron.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/5ba86d83-7dd8-4132-95fc-53e9d020f1ea
         source: dila
-      - domain: lechatelet.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/7804b538-ae17-4fc2-a169-2f40027d2a02
-        source: dila
       - domain: lechateley.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/3002201a-4114-406d-91b0-a1e440830ae3
         source: dila
@@ -38490,9 +38661,6 @@ oidc_providers:
       - domain: leperrey.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/c0459861-e40f-4be2-88e6-8896f8f483af
         source: dila
-      - domain: lepin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/014f1e93-7bc0-4e3e-9ea8-4b945a960470
-        source: dila
       - domain: lepinlagarenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/f865bf38-d8fb-4d12-a9e4-eb5594a56d03
         source: dila
@@ -38716,9 +38884,6 @@ oidc_providers:
         source: dila
       - domain: leschateliers.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/c040ef95-1870-4782-b854-d34aa69922e0
-        source: dila
-      - domain: lescheres.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6171e0c7-37bf-4e71-9ff2-99877f23d052
         source: dila
       - domain: lescheroux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/e535cb39-0403-495d-b15b-b451de08b8a6
@@ -39449,9 +39614,6 @@ oidc_providers:
       - domain: loire-semene.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/2efa5cc7-f0d5-4ad0-ba9d-de02d29a52eb
         source: dila
-      - domain: loire.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/98176853-dc73-4bf6-ad1e-4ebdd6c6130b
-        source: dila
       - domain: loirelesmarais.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/bf59fcc3-84af-4509-88fb-1eef3220bea4
         source: dila
@@ -39851,9 +40013,6 @@ oidc_providers:
       - domain: lurcylevis.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/66fb6fe6-7a00-473c-a47a-dee7c067498c
         source: dila
-      - domain: lure.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/6573a60e-026a-4a40-aa72-ecc61552982f
-        source: dila
       - domain: luri.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/179b6f2d-3fdc-4240-8787-35fad43d7edc
         source: dila
@@ -39910,9 +40069,6 @@ oidc_providers:
         source: dila
       - domain: luzancy.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/c5848a50-b884-4354-8948-65609f1e28be
-        source: dila
-      - domain: luze.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/15d73813-d21d-466d-85a4-f8a76ab183be
         source: dila
       - domain: luzillat.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/090781f6-df67-4c81-9991-4c65bc0847a3
@@ -40024,9 +40180,6 @@ oidc_providers:
         source: dila
       - domain: maillat.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/eaf1cdee-9a50-4f0a-bfeb-64d142d2515d
-        source: dila
-      - domain: maille.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/134e65b2-a78d-4590-8634-95bc4e91ac2d
         source: dila
       - domain: maille86.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/70e1577c-a441-47ae-b288-95f913d123b4
@@ -40201,9 +40354,6 @@ oidc_providers:
         source: dila
       - domain: mairie-antignac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/73415221-6c2e-4abe-a24e-1bd8d24e1aba
-        source: dila
-      - domain: mairie-antilly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/07b75a75-dce1-483d-96af-7e40e3e6ce77
         source: dila
       - domain: mairie-antugnac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/dcec9ad9-4a10-4d41-9def-eb846a7ebe0d
@@ -40426,9 +40576,6 @@ oidc_providers:
         source: dila
       - domain: mairie-bargemon.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/bf94c3e6-d70f-47a3-a628-f85df6742318
-        source: dila
-      - domain: mairie-baron.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/8c657734-a494-4a3c-9e04-8c43327c0f00
         source: dila
       - domain: mairie-barraux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/b36e9be2-0001-471a-aec1-76d4203eccfe
@@ -40682,9 +40829,6 @@ oidc_providers:
       - domain: mairie-boussac46.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/c12ec480-82b3-44b0-82e9-8697d7893ed9
         source: dila
-      - domain: mairie-bousse.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/ad53217a-9b0b-47e3-871d-7fb4e4971376
-        source: dila
       - domain: mairie-boussens.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/4ad54ab2-ab73-4a37-9ee0-4e99d0ef136b
         source: dila
@@ -40709,9 +40853,6 @@ oidc_providers:
       - domain: mairie-brainville.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/9f1483db-39c0-4cbf-8f8b-4f1fe6bea7d4
         source: dila
-      - domain: mairie-branne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/7bbd64c0-b059-4186-a4f4-74a6cc39d475
-        source: dila
       - domain: mairie-bras.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/ce2a9be7-3e3b-477e-9b2f-6360f44bf8bb
         source: dila
@@ -40720,9 +40861,6 @@ oidc_providers:
         source: dila
       - domain: mairie-brax31.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/9d445166-4216-4eb2-b525-39505a764486
-        source: dila
-      - domain: mairie-brece.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/7c4c49f5-35ac-4b1c-a2a0-3f88b7b106fa
         source: dila
       - domain: mairie-bren.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/9b47f880-22e1-4aee-96ed-f87e2d1100cd
@@ -40961,9 +41099,6 @@ oidc_providers:
       - domain: mairie-chamberet.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/7de74f47-2c2a-4339-98c1-3630294db71c
         source: dila
-      - domain: mairie-champagny.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/aefcea03-498a-41ae-9720-2dc4ecd40862
-        source: dila
       - domain: mairie-champigneulles.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/80c5a615-eb6d-458e-ade9-f97e61cd9aaf
         source: dila
@@ -41005,9 +41140,6 @@ oidc_providers:
         source: dila
       - domain: mairie-charlevillemezieres.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/e387f188-4aa6-4881-bbec-729c41a68b1a
-        source: dila
-      - domain: mairie-charly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/f54263ac-0421-487a-ab32-a3852faf3109
         source: dila
       - domain: mairie-charme.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/1298c246-02a6-42fc-967d-495a35663a4f
@@ -41098,9 +41230,6 @@ oidc_providers:
         source: dila
       - domain: mairie-clerieux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/d8683b21-374f-4d27-8d44-c10ba20c2dec
-        source: dila
-      - domain: mairie-clermont.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/0446c6f2-3dca-44b2-93fb-e9be752fb724
         source: dila
       - domain: mairie-climbach.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/82d5dd6b-b99f-49e4-95f7-bee9b3664194
@@ -41204,9 +41333,6 @@ oidc_providers:
       - domain: mairie-courcy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/0787217b-588c-4fec-bf57-cbb999450512
         source: dila
-      - domain: mairie-cours.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/2cdc867b-5098-4f48-af46-4425cfad3c58
-        source: dila
       - domain: mairie-courtavon.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/7e423d9e-659b-4b47-aa27-5eab6bfdb2a0
         source: dila
@@ -41248,9 +41374,6 @@ oidc_providers:
         source: dila
       - domain: mairie-crezancy.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/c117ea01-9d62-4caa-9be6-200a3ae854ab
-        source: dila
-      - domain: mairie-crissey.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/cadcc51f-0efc-41e1-83bb-d0a7103206d5
         source: dila
       - domain: mairie-criteuillamagdeleine.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/99106255-04ef-46a8-b5a9-3bf899833a13
@@ -42143,9 +42266,6 @@ oidc_providers:
       - domain: mairie-labrousse.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/3f7e1a94-cf18-4ad2-a65d-e2ac2f262223
         source: dila
-      - domain: mairie-labruyere.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/dacf5db9-256a-4581-9346-4c1f94ab708b
-        source: dila
       - domain: mairie-labruyeredorsa.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/190c83b3-7902-4a20-8597-acc985662b5f
         source: dila
@@ -42311,9 +42431,6 @@ oidc_providers:
       - domain: mairie-le-teil.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/9153ed4f-d909-4d1f-a803-9bcd59f74400
         source: dila
-      - domain: mairie-le-temple.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/12f0973b-a8f0-4d90-843f-1cc5c5150cca
-        source: dila
       - domain: mairie-le-thillay.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/17c52e52-51a8-4931-a59b-3ad915eda82d
         source: dila
@@ -42395,15 +42512,6 @@ oidc_providers:
       - domain: mairie-lerouret.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/62997004-0485-4c16-b8bb-cf2c18a3d8d7
         source: dila
-      - domain: mairie-les-bordes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/6985e391-933c-4637-b087-5bf07d732fcf
-        source: dila
-      - domain: mairie-lesbordes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/156f1014-0f7a-4368-ab96-9893c8931b5c
-        source: dila
-      - domain: mairie-lescheres.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/6171e0c7-37bf-4e71-9ff2-99877f23d052
-        source: dila
       - domain: mairie-lesches.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/0cea22b3-84c1-452f-990b-6d192154170f
         source: dila
@@ -42442,9 +42550,6 @@ oidc_providers:
         source: dila
       - domain: mairie-levens.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-maritimes/9bba262c-91fd-4c83-8f14-2cb7c836394a
-        source: dila
-      - domain: mairie-levernois.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/58af9b29-42ae-40a9-b813-41986245e28d
         source: dila
       - domain: mairie-leymen.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/dbccb1ec-d380-4849-8d5c-b91052682906
@@ -42560,9 +42665,6 @@ oidc_providers:
       - domain: mairie-lunion.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/bbc7e0e6-8897-431d-9b27-c3400d245445
         source: dila
-      - domain: mairie-lure.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/6573a60e-026a-4a40-aa72-ecc61552982f
-        source: dila
       - domain: mairie-lussan.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/29ab7a44-307f-47e1-abd6-cb4f1907a0ca
         source: dila
@@ -42580,9 +42682,6 @@ oidc_providers:
         source: dila
       - domain: mairie-luxe.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/07612e84-90ed-400b-80db-b86a6df77881
-        source: dila
-      - domain: mairie-luze.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/4ffa6a82-5a89-47d7-bc9b-3ba1c619c087
         source: dila
       - domain: mairie-luzinay.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/df039723-0ba3-4335-a823-ef52a634a3e7
@@ -42721,9 +42820,6 @@ oidc_providers:
         source: dila
       - domain: mairie-millas.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/3aae5825-c2eb-43de-a6b1-98708d7f4fb9
-        source: dila
-      - domain: mairie-millery.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/85cf73ad-34d9-4d5d-82a4-33d8f55aa0f8
         source: dila
       - domain: mairie-mirabel.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/53a9f01f-683a-4deb-abd5-02fd13510dc2
@@ -42910,9 +43006,6 @@ oidc_providers:
         source: dila
       - domain: mairie-moulineaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/6284954c-213b-4453-b852-30957cfd7a45
-        source: dila
-      - domain: mairie-moulon.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/2604672b-bca0-422e-bcc3-930b13efdd9f
         source: dila
       - domain: mairie-mouries.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/841b3525-ad17-4ffc-92ad-69f24f6bef26
@@ -43151,9 +43244,6 @@ oidc_providers:
       - domain: mairie-parsac-rimondeix.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/b636834e-4f14-4687-97c3-b9b37c8f151c
         source: dila
-      - domain: mairie-passy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/2bf88e0e-1556-4823-a1a8-018a9099ea16
-        source: dila
       - domain: mairie-pavant.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/e071b538-219e-425d-8aab-14ae420ff7c9
         source: dila
@@ -43267,9 +43357,6 @@ oidc_providers:
         source: dila
       - domain: mairie-pomas.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/b2ff6acc-ef0f-43b6-a173-fe5b3da0c9b7
-        source: dila
-      - domain: mairie-pommiers.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/583dd00d-5b0a-45e9-9296-f84cae944133
         source: dila
       - domain: mairie-pompertuzat.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/316313dc-a4e7-46a6-a4b7-058cdd92b8b1
@@ -43441,9 +43528,6 @@ oidc_providers:
         source: dila
       - domain: mairie-rieux-volvestre.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/3165b6b3-fc7c-4098-8217-b103902097e3
-        source: dila
-      - domain: mairie-rieux.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/9c696bf3-c955-429c-8600-c184e9e1cc16
         source: dila
       - domain: mairie-rimogne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/46fa2d61-8beb-4015-a3df-6d52d5561abd
@@ -43730,9 +43814,6 @@ oidc_providers:
       - domain: mairie-saintlaurentsursave.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/04a20580-e0eb-4398-aae8-8c58ed85c6f3
         source: dila
-      - domain: mairie-saintleon.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/4534608c-b084-4f08-8282-2de91061ca19
-        source: dila
       - domain: mairie-saintleu.fr
         fiche: https://lannuaire.service-public.gouv.fr/la-reunion/la-reunion/04ef57f5-87ab-4096-8331-233dde880eae
         source: dila
@@ -43876,9 +43957,6 @@ oidc_providers:
         source: dila
       - domain: mairie-saverne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/e71f7f85-c035-4c2c-8a76-b971b0aad8de
-        source: dila
-      - domain: mairie-savignac.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/e37ee8bc-7253-4db3-bee5-19e8a6abdd3c
         source: dila
       - domain: mairie-savins.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/44b1dfff-c72f-4b20-88ae-9ba3955d08bd
@@ -46165,9 +46243,6 @@ oidc_providers:
       - domain: marlyleroi.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/15089681-1ae4-4b40-b8de-1e5946e3ccab
         source: dila
-      - domain: marmagne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/690685d9-57f5-4a01-bff2-5f7a6a2cb156
-        source: dila
       - domain: marmanhac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/9dc1a8c1-eceb-4153-8a67-b482daf90d8e
         source: dila
@@ -46563,9 +46638,6 @@ oidc_providers:
         source: dila
       - domain: mazeres-sur-salat.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/128cf3c6-22cb-44ef-803a-f6bd2f94d155
-        source: dila
-      - domain: mazeres.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/e346d6cd-716b-409e-93a9-824b1838a65e
         source: dila
       - domain: mazerolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/40e2c173-bbab-4905-b8fe-9ff73e7ce6d6
@@ -47576,9 +47648,6 @@ oidc_providers:
       - domain: montagnieu-isere.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/e45b24d5-3265-42da-b55e-d4ed03dcefe9
         source: dila
-      - domain: montagny.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/5fb0dacb-48a2-4f71-bf7c-1209c2f2d5e8
-        source: dila
       - domain: montagrier.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/f90c3436-224d-4477-8d23-a9ccce812443
         source: dila
@@ -48187,9 +48256,6 @@ oidc_providers:
       - domain: monts-sur-orne.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/0bca9e04-ddcd-4cc1-9cb6-82f9891ee772
         source: dila
-      - domain: monts.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/c6588253-d8e0-4c1a-84a1-f2ede9a93957
-        source: dila
       - domain: montsaintaignan.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/b2c53a5e-afbd-41fb-9b21-2c2aa6c65066
         source: dila
@@ -48496,9 +48562,6 @@ oidc_providers:
         source: dila
       - domain: moussy-le-vieux.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/480d574a-8ec6-4f1b-8648-bebb4d5e5548
-        source: dila
-      - domain: moussy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/b2eb2a66-8f38-4a0d-b1be-5b67bc35101e
         source: dila
       - domain: moussy51.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/77182191-1bd1-400a-8513-d5cfe513a77d
@@ -49222,9 +49285,6 @@ oidc_providers:
       - domain: nojeon-en-vexin.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/d74081e6-3b32-4aa6-b04b-a844c73b8324
         source: dila
-      - domain: nolay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/39278d68-ff99-4e13-a834-71c885201e07
-        source: dila
       - domain: nomexy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/1eb55b23-2f6d-439f-abce-d674f339c0aa
         source: dila
@@ -49405,9 +49465,6 @@ oidc_providers:
       - domain: noyers-sur-jabron.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/419112f2-aeaa-4234-b327-e419f6ba3dbd
         source: dila
-      - domain: noyers.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/9b3755af-eeed-4b0c-b881-e27cc4a6f254
-        source: dila
       - domain: nozay91.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/68e11b0e-c7b8-402e-871d-b9d14bde4ea4
         source: dila
@@ -49584,9 +49641,6 @@ oidc_providers:
         source: dila
       - domain: oletta.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/f987bc3c-10e9-4a3a-b2dc-3f3a853a9e54
-        source: dila
-      - domain: olivet.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/4eb00f05-f9fc-4a0a-9f25-5a8b99e51b2a
         source: dila
       - domain: olizy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/53f19a67-c541-4c42-b961-a540896416d8
@@ -50139,9 +50193,6 @@ oidc_providers:
         source: dila
       - domain: parnans.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/d0a343d0-65bf-4fda-bc60-cc2581eb170d
-        source: dila
-      - domain: parnay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/maine-et-loire/70c578a6-67ef-4d39-a1b5-68aade29d6a2
         source: dila
       - domain: parslesromilly.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/b0039e20-b4bd-4dbe-afa7-15a39175d7f8
@@ -51408,9 +51459,6 @@ oidc_providers:
       - domain: prechacq-les-bains.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/0c22b3db-ed97-4fb6-9d50-8e4ec5f8cdb5
         source: dila
-      - domain: precy.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/da476300-ce71-4a6a-ac1f-4d12bccfd57a
-        source: dila
       - domain: precysurmarne.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/64f3d104-ef75-47e6-9765-c0482ec92854
         source: dila
@@ -51440,9 +51488,6 @@ oidc_providers:
         source: dila
       - domain: preserville.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/c7e79cfe-0106-4cef-aa1d-1e7ca59825d7
-        source: dila
-      - domain: presilly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/6f19b341-c1e1-4c22-b349-510d3a17166e
         source: dila
       - domain: presles-et-thierny.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/3f6e20b3-3929-40b6-af50-3441e4c7049d
@@ -52147,9 +52192,6 @@ oidc_providers:
         source: dila
       - domain: remiencourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/2d28684a-6db3-430e-8b5d-09bebbb0b8a3
-        source: dila
-      - domain: remilly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/3be7b0c0-4e7c-44fb-aafe-4f9f7947013d
         source: dila
       - domain: remire-montjoly.fr
         fiche: https://lannuaire.service-public.gouv.fr/guyane/guyane/8d1c1e8e-baca-4863-9d8c-820c110db4a8
@@ -53485,9 +53527,6 @@ oidc_providers:
       - domain: saint-ennemond.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/b0c15405-aa4b-4e3d-853f-16814d290b09
         source: dila
-      - domain: saint-erblon.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/0f29d655-f452-4670-b956-871c798c31da
-        source: dila
       - domain: saint-etienne-aux-clos.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/3d14702c-1224-4d58-a665-b54bab020ae0
         source: dila
@@ -53547,9 +53586,6 @@ oidc_providers:
         source: dila
       - domain: saint-ferreol-trente-pas.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/e5d27013-7875-4bcc-b92b-5896053713d2
-        source: dila
-      - domain: saint-florentin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/b9afc0a5-6836-4397-97c5-a28fe9193d11
         source: dila
       - domain: saint-floret.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/854c1ed0-2da5-4c72-8aaa-72ccdceef1bc
@@ -53862,9 +53898,6 @@ oidc_providers:
         source: dila
       - domain: saint-julien-vocance.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/46d2eace-0223-4431-8460-f8209f7db911
-        source: dila
-      - domain: saint-julien.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52bf2b63-203d-4b59-8fd1-065054c72a75
         source: dila
       - domain: saint-junien.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/f520ea75-a336-4892-a19e-d5c2e6ca21b5
@@ -54259,9 +54292,6 @@ oidc_providers:
       - domain: saint-paulien.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-loire/9b9ea192-2895-493c-afad-695affac786d
         source: dila
-      - domain: saint-pere.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/ebbe321b-01e9-4f74-9f2c-aa355e95294e
-        source: dila
       - domain: saint-pereuse.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/237e3d66-26e3-4ad9-a5e8-d7e1cb079035
         source: dila
@@ -54493,9 +54523,6 @@ oidc_providers:
       - domain: saint-severin-destissac.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/b2c24ca8-d4be-48d1-aff8-66c7da1b2b24
         source: dila
-      - domain: saint-sigismond.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/642bd8a0-132b-40ec-a65c-19ab6e416b8d
-        source: dila
       - domain: saint-simeon77.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/c568cbc7-424a-4cbe-86c4-ff91fc9b57ca
         source: dila
@@ -54591,9 +54618,6 @@ oidc_providers:
         source: dila
       - domain: saint-vaize.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/5b582b7c-bd11-4a4b-a55f-e80675dfbc9d
-        source: dila
-      - domain: saint-valerien.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/38538c54-67ea-44f8-9e35-e864d42e155b
         source: dila
       - domain: saint-valery-sur-somme.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/53d7bf4e-6718-40d6-a172-e543b641ec0a
@@ -55189,9 +55213,6 @@ oidc_providers:
       - domain: sainte-marie-lapanouze.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/d3e5ea4b-d1d5-43f6-93c4-624e9b60e7ac
         source: dila
-      - domain: sainte-marie.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/bc236ce4-2d96-4add-b270-e4ede5642963
-        source: dila
       - domain: sainte-maxime.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/2d741628-79ac-425c-8bbc-ea99f51ce23e
         source: dila
@@ -55294,9 +55315,6 @@ oidc_providers:
       - domain: saintefeyre.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/e38057b4-ff25-40ea-b3db-7758a043d9b8
         source: dila
-      - domain: sainteflorence.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/d05916e1-9f34-4df6-b646-f96a3383b656
-        source: dila
       - domain: saintefoy40.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/83d7ebc1-c12b-40cb-9a12-907aa7c0bd6e
         source: dila
@@ -55305,9 +55323,6 @@ oidc_providers:
         source: dila
       - domain: saintegenevieve54.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/e5f730a9-d318-4881-9365-08b884c492c6
-        source: dila
-      - domain: saintehelene.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/8902392a-d30a-4ed5-bd5c-33216d2b4465
         source: dila
       - domain: saintejulie.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/3389443a-8a0a-41a6-bff2-704da312aa67
@@ -55371,9 +55386,6 @@ oidc_providers:
         source: dila
       - domain: saintepreuve.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/fd1c274c-c7e1-4c84-8ae0-0adf7ef6d1dd
-        source: dila
-      - domain: sainteradegonde.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/aec2dcb2-9ec8-4646-9f23-e9dc131d579c
         source: dila
       - domain: sainteradegonde86.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/6abc9ccd-77d1-4ffc-958d-6106bae9e35c
@@ -55632,9 +55644,6 @@ oidc_providers:
         source: dila
       - domain: sainthilairetaurieux.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/e53b4028-f464-46b2-bd1a-d0b4bfc4b66b
-        source: dila
-      - domain: sainthippolyte.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3853f3eb-3e98-4e37-a385-1d9abfc9a48b
         source: dila
       - domain: sainthippolytedecaton.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/5bff510b-3f36-45f3-9db0-ebbdd10ab8fc
@@ -56158,9 +56167,6 @@ oidc_providers:
       - domain: saintmesmin-10.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/d7efe778-f85a-494a-99a3-2ad5a70eb82a
         source: dila
-      - domain: saintmesmin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/7697507f-5f02-4a32-935d-71936143c6ee
-        source: dila
       - domain: saintmichelsurorge.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/essonne/8c77c368-df34-4be1-b57d-4bf1ab6f1c10
         source: dila
@@ -56286,9 +56292,6 @@ oidc_providers:
         source: dila
       - domain: saintpere.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/daa7ce11-6521-496e-861a-8fe40e6670e7
-        source: dila
-      - domain: saintphilibert.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/36e84519-ffe0-4082-8045-6c5ee0e080dd
         source: dila
       - domain: saintphilippe.re
         fiche: https://lannuaire.service-public.gouv.fr/la-reunion/la-reunion/8af862b9-39ef-4e3a-8a08-7e8a8735356e
@@ -56545,9 +56548,6 @@ oidc_providers:
       - domain: saintsulpicesurrisle.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/e7caaeed-695d-44b6-a36b-83f35733d4c5
         source: dila
-      - domain: saintthibault.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/1d8f7496-e982-4a7a-af3a-81fd4a0022ba
-        source: dila
       - domain: saintthibaultdesvignes.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/0add9454-d894-4dc7-8f9e-7fc85387658d
         source: dila
@@ -56556,9 +56556,6 @@ oidc_providers:
         source: dila
       - domain: saintthomasenroyans.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/eff05412-2091-438e-8eba-0a14a6ad909e
-        source: dila
-      - domain: sainturbain.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/af921b0c-a4e7-4eb8-8f86-a36c5c815aae
         source: dila
       - domain: saintuze.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/2f2333b8-163a-4394-8d31-c31cb6ad73fc
@@ -56580,9 +56577,6 @@ oidc_providers:
         source: dila
       - domain: saintvarent.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/5dfc8d0d-cd64-4756-a92b-ab0e89d21a9b
-        source: dila
-      - domain: saintverand.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/06e30cb6-9f07-425b-912f-cf7a212c6e89
         source: dila
       - domain: saintviance.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/cd74d44a-15a5-474d-b2c6-f9b15cb3407a
@@ -56622,9 +56616,6 @@ oidc_providers:
         source: dila
       - domain: saintvincentdebarres.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/7110636f-f047-497c-8102-5f96b1c28dc8
-        source: dila
-      - domain: saintvincentdespres.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/bac2935d-db3d-47dc-83d7-bab237247f98
         source: dila
       - domain: saintvincentsurlisle.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/ce64776f-1812-4f40-b603-20fc3e7a157e
@@ -56865,9 +56856,6 @@ oidc_providers:
         source: dila
       - domain: santes.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/a357198b-58dd-42ef-90e9-ce751b107d08
-        source: dila
-      - domain: santilly.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/f79ca678-b111-4fdc-8a0c-916b0bd7ab37
         source: dila
       - domain: santo-pietro-di-tenda.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/9b153306-e978-4c5b-b024-7783bf2fc875
@@ -57395,9 +57383,6 @@ oidc_providers:
         source: dila
       - domain: senaillac-lauzes.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/d0c11fd1-666c-4b34-bdc1-0496ea03deec
-        source: dila
-      - domain: senantes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/f0294847-b437-4c2b-8030-dd534a4fed21
         source: dila
       - domain: senas.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/d172c735-918c-4ce0-b0ac-8a1c0547eb15
@@ -58177,9 +58162,6 @@ oidc_providers:
       - domain: st-felix-de-lodez.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/6b2a8f8d-f852-45b8-b4a0-6028c0bbd3eb
         source: dila
-      - domain: st-felix.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/5839da27-6637-4ec3-b537-b2f4ddaa8a0f
-        source: dila
       - domain: st-genies-de-comolas.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/bccbe299-d4ec-4f3b-bb48-b3ffbd95a3de
         source: dila
@@ -58284,9 +58266,6 @@ oidc_providers:
         source: dila
       - domain: st-sauveur-la-sagne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/afde670b-1656-44fb-95d4-cd9c9e49b24d
-        source: dila
-      - domain: st-sauveur.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/b9abc118-71f4-42b3-9510-a9e216ba3cf8
         source: dila
       - domain: st-setiers.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f8b46ecf-b160-49c1-b08e-782eb82cb600
@@ -58405,9 +58384,6 @@ oidc_providers:
       - domain: stdiziermasbaraud.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/5bc78c88-e18b-48b6-9b40-dd3224dd5254
         source: dila
-      - domain: ste-colombe.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/82ac51dc-6ee7-45e2-b223-ead807074751
-        source: dila
       - domain: ste-marguerite-sur-mer.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/4d6b81a3-1b29-4a41-96bd-5acb14d39e59
         source: dila
@@ -58512,9 +58488,6 @@ oidc_providers:
         source: dila
       - domain: sthilairesurerre.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/b7d2a180-c732-462c-ab47-203df0716822
-        source: dila
-      - domain: sthippolyte.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/02b9e2e6-bf81-4cf9-a721-a6deb9373ac6
         source: dila
       - domain: sthymetieresurvalouse.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/d6655b17-1a10-4c00-9da4-bc0e66160e8a
@@ -58663,9 +58636,6 @@ oidc_providers:
       - domain: stphilbertdeschamps.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/411d0ac9-8756-40a0-86e1-b9de464a62db
         source: dila
-      - domain: stphilibert.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/morbihan/36e84519-ffe0-4082-8045-6c5ee0e080dd
-        source: dila
       - domain: stpierredartheglise.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/fb0e8e90-ec6b-42e2-b845-aad1a5df201c
         source: dila
@@ -58720,9 +58690,6 @@ oidc_providers:
       - domain: stseverin.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/eb04f4f6-3403-4b81-b40a-910d21b44f5e
         source: dila
-      - domain: stsixte.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/5627f3fb-52ca-4a45-ba57-a7002953df3b
-        source: dila
       - domain: stsorlindevienne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/270d4760-d722-4105-8414-4a59c1fb08c0
         source: dila
@@ -58756,9 +58723,6 @@ oidc_providers:
       - domain: suaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/8f6e6d5c-1869-47a1-86c0-e23571881783
         source: dila
-      - domain: subligny.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/787a0af4-d219-4926-84d9-bf140b2e7546
-        source: dila
       - domain: succieu.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/c5e4bde8-515f-4bcd-90a3-abb3e5aa5576
         source: dila
@@ -58789,9 +58753,6 @@ oidc_providers:
         source: routed
       - domain: sulignat.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/d4527af5-3c96-4359-9027-37a27d2fe0c1
-        source: dila
-      - domain: sully.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/fe521663-25f2-49f9-a550-68c833108aa7
         source: dila
       - domain: sumene.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/9dde195a-bb4b-4f25-a319-8529c514cf21
@@ -58984,9 +58945,6 @@ oidc_providers:
       - domain: taxenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/60bd8652-3a8b-4f05-9e52-291460c30015
         source: dila
-      - domain: tayrac.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/a16c1c09-50f0-4912-8126-80a9c27c1d98
-        source: dila
       - domain: teche.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/44c73248-7b4b-4c6c-bfad-58662ca4f35e
         source: dila
@@ -59034,9 +58992,6 @@ oidc_providers:
         source: dila
       - domain: ternant17.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/5eae9700-6c8e-421c-8bcf-5656792f20b9
-        source: dila
-      - domain: ternay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/rhone/3955da42-bf60-41a9-9a92-ccfd1b17ef39
         source: dila
       - domain: ternay86.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/c9fd3f3e-d3bc-4010-9bf2-16d4d64d9ee2
@@ -59171,9 +59126,6 @@ oidc_providers:
         source: dila
       - domain: thervay.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/e5bd2dab-18a5-4597-b42b-986ea9372a87
-        source: dila
-      - domain: theuville.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/fdac9777-e2c6-4045-bb8a-9f641c3917ea
         source: dila
       - domain: theys.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/24ad2413-412b-49c6-818a-3a4195f37c6c
@@ -60506,9 +60458,6 @@ oidc_providers:
       - domain: variscourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/2a3c79a0-e242-4ffc-85b9-48aa30523f3e
         source: dila
-      - domain: varize.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8bc2040f-a5f3-4f9e-a5ae-b952b4e06fc4
-        source: dila
       - domain: varreddes.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/a6ec01ad-9b5b-4972-a669-a8efe9bb5901
         source: dila
@@ -61384,9 +61333,6 @@ oidc_providers:
       - domain: villars-les-dombes.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/278a8c30-df76-4d69-8eb9-ccec0d00d815
         source: dila
-      - domain: villars.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/4a20086e-eeff-4158-8d92-87607d5c2bee
-        source: dila
       - domain: villars84400.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/33d5ebf6-b09a-45f3-b8f4-5128b8e32efb
         source: dila
@@ -61443,9 +61389,6 @@ oidc_providers:
         source: dila
       - domain: ville-alignan-du-vent.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/c85a21d2-7a39-4258-bfc8-b390eff03088
-        source: dila
-      - domain: ville-allonnes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/7c856dfc-0cee-442e-a336-f1d8b6533e37
         source: dila
       - domain: ville-allonville.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/fb3916ca-6d82-4aee-ae72-046b135381f0
@@ -61884,9 +61827,6 @@ oidc_providers:
         source: dila
       - domain: ville-champsurdrac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/65652a2f-e0e9-406f-859a-50731567e11e
-        source: dila
-      - domain: ville-change.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/b5305405-6739-489a-a0d0-200a30afc701
         source: dila
       - domain: ville-chantenay-saint-imbert.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/1828f3fa-05c9-4d8e-9448-3cbb2023ea69
@@ -62641,9 +62581,6 @@ oidc_providers:
       - domain: ville-lamentin.fr
         fiche: https://lannuaire.service-public.gouv.fr/guadeloupe/guadeloupe/4ff6951d-4333-4f9d-b4d7-50803cd5c57a
         source: dila
-      - domain: ville-lamontagne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/4af20974-0c30-4bc6-b530-9f4a27879d09
-        source: dila
       - domain: ville-landser.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/b6cbadc4-5a84-4950-a57c-e5b194ca6ac3
         source: dila
@@ -63151,9 +63088,6 @@ oidc_providers:
       - domain: ville-orignyenthierache.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/f23f1d82-bef2-4d8a-a6d9-0c412de7b3d8
         source: dila
-      - domain: ville-ormes.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/c165545f-2d4a-4820-b9c8-69e1a0fc4846
-        source: dila
       - domain: ville-osny.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/efb2f344-c84b-42d8-bb9b-9094c01de3e6
         source: dila
@@ -63481,9 +63415,6 @@ oidc_providers:
       - domain: ville-saint-gobain.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/000e7ffe-1892-4a65-a809-62677c07d6b2
         source: dila
-      - domain: ville-saint-hippolyte.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/7c03d572-6587-4147-89bd-e6f8a55b6cbb
-        source: dila
       - domain: ville-saint-jacques.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/dc601f1b-fbc7-411e-9ea2-34ac1e9cc278
         source: dila
@@ -63513,9 +63444,6 @@ oidc_providers:
         source: dila
       - domain: ville-saint-sauveur.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/82d6964a-2cbb-4fb8-83ed-2e5fa39e5771
-        source: dila
-      - domain: ville-saint-symphorien.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/d0dce54f-6e0e-4729-840c-67cbdd0ad44e
         source: dila
       - domain: ville-saint-valery-en-caux.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/aa1535a0-be3f-478e-89b8-564bd9b7802d
@@ -63564,9 +63492,6 @@ oidc_providers:
         source: dila
       - domain: ville-saintesuzanne.re
         fiche: https://lannuaire.service-public.gouv.fr/la-reunion/la-reunion/28751332-1c28-4853-8d8c-4e8dbb5f4d77
-        source: dila
-      - domain: ville-saintflorentin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/b9afc0a5-6836-4397-97c5-a28fe9193d11
         source: dila
       - domain: ville-saintgratien.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-d-oise/a569d202-440f-4030-913a-4be95eb052c4
@@ -64761,9 +64686,6 @@ oidc_providers:
       - domain: vivonne.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/vienne/ace10940-30ae-45cb-985e-5668c85f8725
         source: dila
-      - domain: vix.fr
-        fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/091ef02f-c3f8-4746-bf5d-654533552490
-        source: dila
       - domain: vocance.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/460e4797-af89-4baa-bc7e-7c8291ff833c
         source: dila
@@ -65540,6 +65462,9 @@ oidc_providers:
       - domain: avrigney-virey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/0b0b552c-1547-4ba3-841c-c4aa177884ae
         source: dila
+      - domain: aze.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/b3b807ed-cdad-4ad3-8996-497e3570cfdb
+        source: dila
       - domain: badevel.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/1c607cd6-5327-470c-b1a6-8099ce2e18ea
         source: dila
@@ -65971,6 +65896,9 @@ oidc_providers:
         source: dila
       - domain: chamesol.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/bc7a10f3-724e-4f99-bc0a-70b67e1ec9e4
+        source: dila
+      - domain: champagney.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/c02d6560-335b-45b5-a230-d9e756a56655
         source: dila
       - domain: champagny21.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/cea682a2-d4df-412e-89ca-8527164e8bc3
@@ -66667,6 +66595,9 @@ oidc_providers:
       - domain: filain.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/36024d97-dfc0-4057-85d5-9d73d5fc8c05
         source: dila
+      - domain: flacey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/6a0301ab-7575-4da7-8063-b92c28445561
+        source: dila
       - domain: flagey-echezeaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/0edf62ef-7c40-4bea-bcdb-94b578d4d5f8
         source: dila
@@ -66723,6 +66654,9 @@ oidc_providers:
         source: dila
       - domain: fontenaysousfouronnes.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/220b4766-ccac-44ee-b415-5aff312c6750
+        source: dila
+      - domain: fontenelle.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/00e17d85-0ced-4e30-aac4-f164cac6ec0e
         source: dila
       - domain: fontenotte.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/4f424899-346f-43be-9264-f65996ac5013
@@ -67249,6 +67183,9 @@ oidc_providers:
       - domain: lebreuilbourgogne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/329587e4-09f4-478a-9fd8-9b14ff320d4e
         source: dila
+      - domain: lechatelet.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/7804b538-ae17-4fc2-a169-2f40027d2a02
+        source: dila
       - domain: lefay.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/1295fdab-00b2-406e-a88e-fd3b52e75a93
         source: dila
@@ -67399,6 +67336,9 @@ oidc_providers:
       - domain: lucy-sur-yonne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/39c9386b-4d23-487a-a8bc-a1dd6752ace7
         source: dila
+      - domain: lure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/6573a60e-026a-4a40-aa72-ecc61552982f
+        source: dila
       - domain: lusigny-sur-ouche.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/375cd777-a9f5-4f86-b009-b107cc291662
         source: dila
@@ -67455,6 +67395,9 @@ oidc_providers:
         source: dila
       - domain: mairie-balot.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/5636ed43-4620-4a9f-8c4f-36865e2e33ad
+        source: dila
+      - domain: mairie-baron.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/8c657734-a494-4a3c-9e04-8c43327c0f00
         source: dila
       - domain: mairie-beaucourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/territoire-de-belfort/f451ac39-71aa-420b-967a-628f735d3cf4
@@ -67554,6 +67497,9 @@ oidc_providers:
         source: dila
       - domain: mairie-creancey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/ba8ca3eb-7420-40b9-9df3-c9a53c06c1a1
+        source: dila
+      - domain: mairie-crissey.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/cadcc51f-0efc-41e1-83bb-d0a7103206d5
         source: dila
       - domain: mairie-cubrylesfaverney.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/07029ac6-c58b-4a5f-9f93-c7d8922635b6
@@ -67663,6 +67609,9 @@ oidc_providers:
       - domain: mairie-jussey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f3e99548-cb0e-4151-8600-1a4cb122a8fc
         source: dila
+      - domain: mairie-labruyere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/dacf5db9-256a-4581-9346-4c1f94ab708b
+        source: dila
       - domain: mairie-laclayette.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/c6d4e890-25db-492a-b69a-b28aee44532d
         source: dila
@@ -67675,11 +67624,17 @@ oidc_providers:
       - domain: mairie-lavau.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/33b3aea8-fd9d-4042-b4d2-ff69e7f31920
         source: dila
+      - domain: mairie-les-bordes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/6985e391-933c-4637-b087-5bf07d732fcf
+        source: dila
       - domain: mairie-leval.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/var/8f61f175-0539-4c58-bd8c-95819b3f0004
         source: dila
       - domain: mairie-levallarrey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/0a0eaee3-1db0-4a78-958a-9d4e4bc964cc
+        source: dila
+      - domain: mairie-levernois.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/58af9b29-42ae-40a9-b813-41986245e28d
         source: dila
       - domain: mairie-ligny-le-chatel-89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/1ca4802f-cd34-49e3-b181-f62e15f0b1b7
@@ -67693,8 +67648,14 @@ oidc_providers:
       - domain: mairie-longeault-pluvault.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/fc810e86-c1d9-4d59-8560-bce8753b6afb
         source: dila
+      - domain: mairie-lure.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/6573a60e-026a-4a40-aa72-ecc61552982f
+        source: dila
       - domain: mairie-lux21.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/1a724c6e-8b36-49f9-8137-eef6026019e2
+        source: dila
+      - domain: mairie-luze.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/4ffa6a82-5a89-47d7-bc9b-3ba1c619c087
         source: dila
       - domain: mairie-maiche.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/a8c8af94-f5fa-42f2-8563-6b1da1b60e15
@@ -68410,6 +68371,9 @@ oidc_providers:
       - domain: noiron-sous-gevrey.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/eb656156-77de-498a-8d93-72e7d43f1657
         source: dila
+      - domain: nolay.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/39278d68-ff99-4e13-a834-71c885201e07
+        source: dila
       - domain: nommay.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/1662c24e-7498-41ad-8666-20220cc157bd
         source: dila
@@ -68848,6 +68812,9 @@ oidc_providers:
       - domain: saint-fargeau.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/f0219a95-73fd-4b38-ae61-2a636cc5389a
         source: dila
+      - domain: saint-florentin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/b9afc0a5-6836-4397-97c5-a28fe9193d11
+        source: dila
       - domain: saint-gengoux-de-scisse.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/516b16a1-ebea-4c95-af11-7817be46b07e
         source: dila
@@ -68929,6 +68896,9 @@ oidc_providers:
       - domain: saint-micaud.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/52eca680-2bed-4334-8d1e-ee5484595b4a
         source: dila
+      - domain: saint-pere.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/ebbe321b-01e9-4f74-9f2c-aa355e95294e
+        source: dila
       - domain: saint-remy71.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/5c9310c8-7849-488f-bb5e-f3083483ab1a
         source: dila
@@ -68943,6 +68913,9 @@ oidc_providers:
         source: dila
       - domain: saint-usuge.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/731c1ab5-c9ff-4f8c-9c2d-63da83bcd68e
+        source: dila
+      - domain: saint-valerien.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/38538c54-67ea-44f8-9e35-e864d42e155b
         source: dila
       - domain: saint-vallerin.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/3c76f0bd-bf5c-4ab7-95b4-1910a2f9ed6e
@@ -68993,6 +68966,9 @@ oidc_providers:
         source: dila
       - domain: sainte-helene.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/c734ae9f-c73f-4e60-9bfd-fc411900ae1c
+        source: dila
+      - domain: sainte-marie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/bc236ce4-2d96-4add-b270-e4ede5642963
         source: dila
       - domain: sainte-radegonde71.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/c5749dac-e11b-425c-b035-ccd066f23031
@@ -69069,6 +69045,12 @@ oidc_providers:
       - domain: saintserninduplain.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/ccb55134-2e5d-4c0f-baae-702ae269ebc6
         source: dila
+      - domain: saintverand.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/06e30cb6-9f07-425b-912f-cf7a212c6e89
+        source: dila
+      - domain: saintvincentdespres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/bac2935d-db3d-47dc-83d7-bab237247f98
+        source: dila
       - domain: saintvit.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/9d1c085b-ca19-4875-bccb-0a851b80f5dd
         source: dila
@@ -69083,6 +69065,9 @@ oidc_providers:
         source: dila
       - domain: sance.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/5a9d8a46-d128-4c9d-8e0a-54cd54fa7113
+        source: dila
+      - domain: santilly.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/f79ca678-b111-4fdc-8a0c-916b0bd7ab37
         source: dila
       - domain: saone.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/4a3e08d1-d1e1-44e2-8b79-55df4ecaf8f7
@@ -69267,6 +69252,9 @@ oidc_providers:
       - domain: st-julien-de-civry.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/758564f6-52ff-48f9-94d1-3a1796a97c90
         source: dila
+      - domain: st-sauveur.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/b9abc118-71f4-42b3-9510-a9e216ba3cf8
+        source: dila
       - domain: stambreuil.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/34a62158-a1da-47aa-88e2-1db730e86843
         source: dila
@@ -69306,8 +69294,14 @@ oidc_providers:
       - domain: stvincentenbresse.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/c5317e5e-aa80-453c-bb99-fdb3e2ff48cb
         source: dila
+      - domain: subligny.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/787a0af4-d219-4926-84d9-bf140b2e7546
+        source: dila
       - domain: suin.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/1791799d-2e67-47bb-9a3c-1d2cb17fb68e
+        source: dila
+      - domain: sully.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/fe521663-25f2-49f9-a550-68c833108aa7
         source: dila
       - domain: taillecourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/ae6e9eb1-e733-43ab-9bb3-9719806e220a
@@ -69732,8 +69726,14 @@ oidc_providers:
       - domain: ville-pontarlier.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/78869c21-653d-4103-8caa-48cd1af2c4a9
         source: dila
+      - domain: ville-saint-hippolyte.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/7c03d572-6587-4147-89bd-e6f8a55b6cbb
+        source: dila
       - domain: ville-sainteanne.fr
         fiche: https://lannuaire.service-public.gouv.fr/guadeloupe/guadeloupe/389adc13-7c67-4282-9819-33fb4533b7a0
+        source: dila
+      - domain: ville-saintflorentin.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/b9afc0a5-6836-4397-97c5-a28fe9193d11
         source: dila
       - domain: ville-semur-en-auxois.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/8b6d38e0-0280-42d6-b225-a1f680e467a9
