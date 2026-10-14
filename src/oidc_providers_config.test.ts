@@ -69,6 +69,22 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     ).toThrow();
   });
 
+  test.each(["Wix.com", " a.fr", "a.fr.", "__proto__"])(
+    "rejette le domaine non canonique %p",
+    (domain) => {
+      expect(() =>
+        oidc_providers_config_schema.parse({
+          oidc_providers: [
+            {
+              uid: "x",
+              allowed_attached_email_domains: [{ domain, source: "routed" }],
+            },
+          ],
+        }),
+      ).toThrow();
+    },
+  );
+
   test("rejette une source dila sans fiche", () => {
     expect(() =>
       oidc_providers_config_schema.parse({

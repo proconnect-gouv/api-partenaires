@@ -5,14 +5,16 @@ const FICHE_URL =
 
 const fiche_url_schema = z.string().regex(FICHE_URL);
 
+const domain_schema = z.string().regex(/^[a-z0-9-]+(\.[a-z0-9-]+)+$/);
+
 const allowed_domain_schema = z.discriminatedUnion("source", [
   z.object({
-    domain: z.string(),
+    domain: domain_schema,
     fiche: fiche_url_schema,
     source: z.literal("dila"),
   }),
   z.object({
-    domain: z.string(),
+    domain: domain_schema,
     source: z.literal("routed"),
   }),
 ]);
