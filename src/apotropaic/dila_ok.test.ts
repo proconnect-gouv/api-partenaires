@@ -22,8 +22,7 @@ describe("dila_ok", () => {
     ]).declared_by;
 
     const verdict = dila_ok(index, "coise.fr");
-    expect(verdict.ok).toBe(true);
-    expect(verdict.ok && verdict.owner.siren).toBe("217300896");
+    expect(verdict.ok && verdict.value.owner.siren).toBe("217300896");
   });
 
   test("refuses a non-sovereign extension", () => {
@@ -33,7 +32,11 @@ describe("dila_ok", () => {
 
     expect(dila_ok(index, "coise.com")).toEqual({
       ok: false,
-      reason: "not_sovereign",
+      error: {
+        code: "not_sovereign",
+        extension: "com",
+        internationalized: false,
+      },
     });
   });
 
@@ -44,7 +47,11 @@ describe("dila_ok", () => {
 
     expect(dila_ok(index, "xn--coise-bsa.fr")).toEqual({
       ok: false,
-      reason: "not_sovereign",
+      error: {
+        code: "not_sovereign",
+        extension: "fr",
+        internationalized: true,
+      },
     });
   });
 
@@ -63,16 +70,16 @@ describe("dila_ok", () => {
       mairie("2", "999999999", "shared.fr", "shared.fr"),
     ]).declared_by;
 
-    expect(dila_ok(index, "shared.fr")).toEqual({
-      ok: false,
-      reason: "shared",
-    });
+    const verdict = dila_ok(index, "shared.fr");
+    expect(
+      !verdict.ok && verdict.error.code === "shared" && verdict.error.fiches,
+    ).toHaveLength(2);
   });
 
   test("refuses a domain nobody declares", () => {
     expect(dila_ok(build_dila_index([]).declared_by, "nowhere.fr")).toEqual({
       ok: false,
-      reason: "undeclared",
+      error: { code: "undeclared" },
     });
   });
 });

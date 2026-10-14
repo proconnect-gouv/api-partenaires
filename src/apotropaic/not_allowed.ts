@@ -1,5 +1,5 @@
 import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
-import type { OidcProvidersConfig } from "#src/oidc_providers_config";
+import { err, ok, type Result } from "#src/result";
 
 const COLLIDING_BRANDS = [
   "champagne.fr",
@@ -118,20 +118,36 @@ const SITE_BUILDERS_AND_SOCIAL_NETWORKS = [
 
 const STATE = ["gouv.fr"];
 
-const NOT_ALLOWED = new Set([
-  ...COLLIDING_BRANDS,
-  ...MAIRIE_DIRECTORIES,
-  ...MUNICIPAL_SAAS,
-  ...NATIONAL_INSTITUTIONS,
-  ...SHARED_PUBLIC_MAILBOXES,
-  ...SITE_BUILDERS_AND_SOCIAL_NETWORKS,
-  ...STATE,
-]);
+export type DenyListName =
+  | "colliding_brand"
+  | "generic_mail"
+  | "mairie_directory"
+  | "municipal_saas"
+  | "national_institution"
+  | "shared_public_mailbox"
+  | "site_builder"
+  | "state";
 
-const ALLOWED = new Set([
-  "suite.anct.gouv.fr",
-  "suiteterritoriale.anct.gouv.fr",
-]);
+const NOT_ALLOWED: Record<string, DenyListName> = Object.fromEntries(
+  (
+    [
+      ["colliding_brand", COLLIDING_BRANDS],
+      ["mairie_directory", MAIRIE_DIRECTORIES],
+      ["municipal_saas", MUNICIPAL_SAAS],
+      ["national_institution", NATIONAL_INSTITUTIONS],
+      ["shared_public_mailbox", SHARED_PUBLIC_MAILBOXES],
+      ["site_builder", SITE_BUILDERS_AND_SOCIAL_NETWORKS],
+      ["state", STATE],
+    ] as const
+  ).flatMap(([deny_list_name, domains]) =>
+    domains.map((domain) => [domain, deny_list_name] as const),
+  ),
+);
+
+const ALLOWED: Record<string, true> = {
+  "suite.anct.gouv.fr": true,
+  "suiteterritoriale.anct.gouv.fr": true,
+};
 
 export function parent_domains(domain: string): string[] {
   const labels = domain.split(".");
@@ -140,28 +156,26 @@ export function parent_domains(domain: string): string[] {
     .map((_, index) => labels.slice(index + 1).join("."));
 }
 
-export function denied_by(domain: string): string | null {
-  if (ALLOWED.has(domain)) return null;
+export type NotAllowed = {
+  code: "not_allowed";
+  deny_list_name: DenyListName;
+  listed: string;
+};
+
+export function check_not_allowed(domain: string): Result<null, NotAllowed> {
+  if (ALLOWED[domain]) return ok(null);
   for (const name of [domain, ...parent_domains(domain)]) {
-    if (isAFreeDomain(name)) return name;
-    if (NOT_ALLOWED.has(name)) return name;
-  }
-  return null;
-}
-
-export function check_not_allowed(config: OidcProvidersConfig): string[] {
-  const errors: string[] = [];
-
-  for (const provider of config.oidc_providers) {
-    for (const { domain } of provider.allowed_attached_email_domains) {
-      const listed = denied_by(domain);
-      if (listed) {
-        errors.push(
-          `${domain}: not allowed, listed: ${listed} (uid "${provider.uid}")`,
-        );
-      }
+    if (isAFreeDomain(name)) {
+      return err({
+        code: "not_allowed",
+        deny_list_name: "generic_mail",
+        listed: name,
+      });
+    }
+    const deny_list_name = NOT_ALLOWED[name];
+    if (deny_list_name) {
+      return err({ code: "not_allowed", deny_list_name, listed: name });
     }
   }
-
-  return errors;
+  return ok(null);
 }

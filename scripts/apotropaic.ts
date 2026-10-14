@@ -1,11 +1,16 @@
-import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
 import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
 import { carries_name, reconstructs } from "#src/apotropaic/names";
-import { check_not_allowed, denied_by } from "#src/apotropaic/not_allowed";
-import { check_sources } from "#src/apotropaic/source";
+import { check_not_allowed } from "#src/apotropaic/not_allowed";
+import {
+  check_sources,
+  describe_refusal,
+  partition_reports,
+  type RowReport,
+} from "#src/apotropaic/source";
+import { code, md, table } from "#src/markdown";
 import {
   fiche_id,
   oidc_providers_config_schema,
@@ -36,24 +41,25 @@ const percent = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
   style: "percent",
 });
-const line = ({
-  mark = " ",
-  note = "",
-  text,
-  total,
-  value,
-}: {
-  mark?: string;
-  note?: string;
-  text: string;
-  total: number;
-  value: number;
-}) =>
-  `  ${mark} ${count.format(value).padStart(7)} ${percent.format(value / total).padStart(6)}  ${text.padEnd(50)} ${note}`.trimEnd();
+const plural = new Intl.PluralRules("en-US");
+const all_of = new Intl.ListFormat("en-US", { type: "conjunction" });
+
+function noun(n: number, one: string, other: string): string {
+  return `${count.format(n)} ${plural.select(n) === "one" ? one : other}`;
+}
+
+function share({ total, value }: { total: number; value: number }): string[] {
+  return [count.format(value), percent.format(value / total)];
+}
+
+function provider(uid: string): string {
+  return `\`${uid.slice(0, 8)}\``;
+}
 
 const rows = parsed.data.oidc_providers.flatMap(
   (provider) => provider.allowed_attached_email_domains,
 );
+const providers = parsed.data.oidc_providers.length;
 const rows_by_source = Object.groupBy(rows, (row) => row.source);
 const dila_rows = rows.filter((row) => row.source === "dila");
 const named = dila_rows.filter((row) => {
@@ -77,11 +83,11 @@ const reconstructed = dila_rows.filter((row) => {
   );
 }).length;
 const source_meaning: { [S in Source]: string } = {
-  dila: "dila: one collectivité declares it, row cites its fiche",
-  routed: "routed: manual exception, not attested by DILA",
+  dila: "**dila**: one collectivité declares it, row cites its fiche",
+  routed: "**routed**: manual exception, not attested by DILA",
 };
 
-type DeclaredRefusal = DilaRefusal | "generic_mail" | "not_allowed";
+type DeclaredRefusal = DilaRefusal["code"] | "generic_mail" | "not_allowed";
 const refusal_meaning: {
   [R in DeclaredRefusal]: { rpnt: string; text: string };
 } = {
@@ -104,85 +110,146 @@ const declared = dila_index.declared_by.size;
 const declared_by_verdict = Object.groupBy(
   dila_index.declared_by.keys(),
   (domain): DeclaredRefusal | "eligible" => {
-    const listed = denied_by(domain);
-    if (listed) return isAFreeDomain(listed) ? "generic_mail" : "not_allowed";
+    const allowed = check_not_allowed(domain);
+    if (!allowed.ok) {
+      return allowed.error.deny_list_name === "generic_mail"
+        ? "generic_mail"
+        : "not_allowed";
+    }
     const verdict = dila_ok(dila_index.declared_by, domain);
-    return verdict.ok ? "eligible" : verdict.reason;
+    return verdict.ok ? "eligible" : verdict.error.code;
   },
 );
 const eligible = declared_by_verdict.eligible ?? [];
 const allowlist = new Set(rows.map((row) => row.domain));
 const allowlisted = eligible.filter((domain) => allowlist.has(domain)).length;
 
-console.log(
-  [
-    `📊 ${path}: ${count.format(rows.length)} domains, ${count.format(parsed.data.oidc_providers.length)} ${new Intl.PluralRules("en-US").select(parsed.data.oidc_providers.length) === "one" ? "provider" : "providers"}`,
-    ...(Object.keys(source_meaning) as Source[]).map((source) =>
-      line({
-        text: source_meaning[source],
-        total: rows.length,
-        value: rows_by_source[source]?.length ?? 0,
-      }),
-    ),
-    line({
-      note: "RPNT 2.2",
-      text: "  dila rows carrying their fiche's DILA name",
-      total: dila_rows.length,
-      value: named,
+function allowlist_stats(): string {
+  return [
+    "## 📊 Allowlist",
+    `\`${path}\`: **${noun(rows.length, "domain", "domains")}**, ${noun(providers, "provider", "providers")}`,
+    table({
+      align: ["-:", "-:", "-", "-"],
+      head: ["rows", "share", "source", "RPNT"],
+      rows: [
+        ...(Object.keys(source_meaning) as Source[]).map((source) => [
+          ...share({
+            total: rows.length,
+            value: rows_by_source[source]?.length ?? 0,
+          }),
+          source_meaning[source],
+          "",
+        ]),
+        [
+          ...share({ total: dila_rows.length, value: named }),
+          "↳ dila rows carrying their fiche's DILA name",
+          "RPNT 2.2",
+        ],
+        [
+          ...share({ total: dila_rows.length, value: reconstructed }),
+          "↳ dila rows reconstructing their fiche's DILA name",
+          "RPNT 2.2",
+        ],
+      ],
     }),
-    line({
-      note: "RPNT 2.2",
-      text: "  dila rows reconstructing their fiche's DILA name",
-      total: dila_rows.length,
-      value: reconstructed,
-    }),
-    `📚 DILA export: ${count.format(dila_index.fiches.size)} collectivités declare ${count.format(declared)} domains`,
-    ...(Object.keys(refusal_meaning) as DeclaredRefusal[])
-      .filter((reason) => declared_by_verdict[reason])
-      .map((reason) =>
-        line({
-          mark: "−",
-          note: refusal_meaning[reason].rpnt,
-          text: refusal_meaning[reason].text,
-          total: declared,
-          value: declared_by_verdict[reason]?.length ?? 0,
-        }),
-      ),
-    line({
-      mark: "=",
-      text: "eligible",
-      total: declared,
-      value: eligible.length,
-    }),
-    line({
-      text: "  allowlisted",
-      total: eligible.length,
-      value: allowlisted,
-    }),
-    line({
-      text: "  eligible, no row yet",
-      total: eligible.length,
-      value: eligible.length - allowlisted,
+  ].join("\n\n");
+}
+
+function dila_stats(): string {
+  return [
+    "## 📚 DILA export",
+    `**${noun(dila_index.fiches.size, "collectivité", "collectivités")}** declare **${noun(declared, "domain", "domains")}**`,
+    table({
+      align: ["-", "-:", "-:", "-", "-"],
+      head: ["", "domains", "share", "verdict", "RPNT"],
+      rows: [
+        ...(Object.keys(refusal_meaning) as DeclaredRefusal[])
+          .filter((reason) => declared_by_verdict[reason])
+          .map((reason) => [
+            "−",
+            ...share({
+              total: declared,
+              value: declared_by_verdict[reason]?.length ?? 0,
+            }),
+            refusal_meaning[reason].text,
+            refusal_meaning[reason].rpnt,
+          ]),
+        [
+          "=",
+          ...share({ total: declared, value: eligible.length }),
+          "**eligible**",
+          "",
+        ],
+        [
+          "",
+          ...share({ total: eligible.length, value: allowlisted }),
+          "↳ allowlisted",
+          "",
+        ],
+        [
+          "",
+          ...share({
+            total: eligible.length,
+            value: eligible.length - allowlisted,
+          }),
+          "↳ eligible, no row yet",
+          "",
+        ],
+      ],
     }),
     `🗺️ INSEE COG: ${count.format(cog_names.size)} commune codes, former communes' names included`,
-    `🔎 Not checked: RPNT 1.3-1.8 and 2.3-2.8. RPNT v0.2.2: https://suiteterritoriale.anct.gouv.fr/conformite/referentiel`,
-  ].join("\n"),
-);
-
-const sources = check_sources(parsed.data, dila_index);
-const errors = [...check_not_allowed(parsed.data), ...sources.errors];
-
-if (sources.warnings.length > 0) {
-  console.warn(
-    `⚠️ ${path}: ${sources.warnings.length} routed exceptions, not rules:\n${sources.warnings.join("\n")}`,
-  );
+    "🔎 Not checked: RPNT 1.3-1.8 and 2.3-2.8, see [RPNT v0.2.2](https://suiteterritoriale.anct.gouv.fr/conformite/referentiel)",
+  ].join("\n\n");
 }
 
-if (errors.length > 0) {
-  console.error(`🚨 ${path}:\n${errors.join("\n")}`);
-  process.exit(1);
+function routed({ warnings }: { warnings: RowReport[] }): string {
+  if (warnings.length === 0) return "";
+  return [
+    `## ⚠️ ${noun(warnings.length, "routed exception", "routed exceptions")}`,
+    "Exceptions, not rules: DILA does not attest them.",
+    ...Object.entries(Object.groupBy(warnings, ({ uid }) => uid)).map(
+      ([uid, reports]) =>
+        `**provider ${provider(uid)}**: ${all_of.format(code((reports ?? []).map(({ domain }) => domain)))}`,
+    ),
+  ].join("\n\n");
 }
 
-console.log(
-  `🛡️ ${path}: parses, validates, and has no not-allowed or unattested domains`,
+function refused({ errors }: { errors: RowReport[] }): string {
+  if (errors.length === 0) return "";
+  return [
+    `## 🚨 ${noun(errors.length, "refused row", "refused rows")}`,
+    table({
+      align: ["-", "-", "-"],
+      head: ["domain", "provider", "refusal"],
+      rows: errors.map(({ domain, uid, verdict }) => [
+        `\`${domain}\``,
+        provider(uid),
+        verdict.ok ? "" : describe_refusal(verdict.error),
+      ]),
+    }),
+    `Why and how to fix: \`bun run explain:domain ${errors.map(({ domain }) => domain).join(" ")}\``,
+  ].join("\n\n");
+}
+
+function verdict({ errors }: { errors: RowReport[] }): string {
+  return errors.length > 0
+    ? `🚨 \`${path}\` has refused rows`
+    : `🛡️ \`${path}\`: parses, validates, and has no not-allowed or unattested domains`;
+}
+
+const { errors, warnings } = partition_reports(
+  check_sources(parsed.data, dila_index),
 );
+const sections = [
+  allowlist_stats(),
+  dila_stats(),
+  routed({ warnings }),
+  refused({ errors }),
+  verdict({ errors }),
+].filter(Boolean);
+
+console.log(sections.map(md).join("\n\n"));
+if (process.env.GITHUB_STEP_SUMMARY) {
+  await Bun.write(process.env.GITHUB_STEP_SUMMARY, sections.join("\n\n"));
+}
+process.exit(errors.length > 0 ? 1 : 0);

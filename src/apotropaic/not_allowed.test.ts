@@ -1,19 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { oidc_providers_config_schema } from "#src/oidc_providers_config";
-import { check_not_allowed, denied_by, parent_domains } from "./not_allowed";
-
-const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
-
-function config_with(domain: string) {
-  return oidc_providers_config_schema.parse({
-    oidc_providers: [
-      {
-        uid,
-        allowed_attached_email_domains: [{ domain, source: "routed" }],
-      },
-    ],
-  });
-}
+import { check_not_allowed, parent_domains } from "./not_allowed";
 
 describe("parent_domains", () => {
   test("lists strict ancestors, nearest first", () => {
@@ -27,44 +13,67 @@ describe("parent_domains", () => {
   });
 });
 
+function listed_by(domain: string): string | null {
+  const verdict = check_not_allowed(domain);
+  return verdict.ok ? null : verdict.error.listed;
+}
+
 describe("check_not_allowed", () => {
-  test("a configuration without a forbidden domain produces no error", () => {
-    expect(check_not_allowed(config_with("moncomptepro.fr"))).toEqual([]);
+  test("passes a domain absent from the list", () => {
+    expect(check_not_allowed("moncomptepro.fr")).toEqual({
+      ok: true,
+      value: null,
+    });
   });
 
-  test("rejects a domain from the forbidden list, naming the entry", () => {
-    expect(check_not_allowed(config_with("gmail.com"))).toEqual([
-      `gmail.com: not allowed, listed: gmail.com (uid "${uid}")`,
-    ]);
+  test("refuses a generic mail provider, flagged as such", () => {
+    expect(check_not_allowed("gmail.com")).toEqual({
+      ok: false,
+      error: {
+        code: "not_allowed",
+        deny_list_name: "generic_mail",
+        listed: "gmail.com",
+      },
+    });
+  });
+
+  test("names which deny list a domain matched", () => {
+    expect(check_not_allowed("wixsite.com")).toEqual({
+      ok: false,
+      error: {
+        code: "not_allowed",
+        deny_list_name: "site_builder",
+        listed: "wixsite.com",
+      },
+    });
   });
 
   test("refuses orange.fr: a perfect reconstruction of Orange (84) still dies here", () => {
-    expect(check_not_allowed(config_with("orange.fr"))).toEqual([
-      `orange.fr: not allowed, listed: orange.fr (uid "${uid}")`,
-    ]);
+    expect(listed_by("orange.fr")).toBe("orange.fr");
   });
 
-  test("refuses a domain carried by a listed parent", () => {
-    expect(check_not_allowed(config_with("x.pagesperso-orange.fr"))).toEqual([
-      `x.pagesperso-orange.fr: not allowed, listed: pagesperso-orange.fr (uid "${uid}")`,
-    ]);
+  test("refuses a domain carried by a listed parent, naming the parent", () => {
+    expect(listed_by("x.pagesperso-orange.fr")).toBe("pagesperso-orange.fr");
   });
 
   test("never refuses an allowed exception domain", () => {
-    expect(check_not_allowed(config_with("suite.anct.gouv.fr"))).toEqual([]);
-    expect(
-      check_not_allowed(config_with("suiteterritoriale.anct.gouv.fr")),
-    ).toEqual([]);
+    expect(listed_by("suite.anct.gouv.fr")).toBe(null);
+    expect(listed_by("suiteterritoriale.anct.gouv.fr")).toBe(null);
   });
 
   test("the exception covers only the domain it names, not its zone", () => {
-    expect(check_not_allowed(config_with("other.anct.gouv.fr"))).toEqual([
-      `other.anct.gouv.fr: not allowed, listed: gouv.fr (uid "${uid}")`,
-    ]);
+    expect(check_not_allowed("other.anct.gouv.fr")).toEqual({
+      ok: false,
+      error: {
+        code: "not_allowed",
+        deny_list_name: "state",
+        listed: "gouv.fr",
+      },
+    });
   });
 
   test("a bare tld suffix alone matches nothing", () => {
-    expect(denied_by("fr")).toBe(null);
-    expect(denied_by("coise.fr")).toBe(null);
+    expect(listed_by("fr")).toBe(null);
+    expect(listed_by("coise.fr")).toBe(null);
   });
 });
