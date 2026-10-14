@@ -128,7 +128,7 @@ export type DenyListName =
   | "site_builder"
   | "state";
 
-const NOT_ALLOWED: Record<string, DenyListName> = Object.fromEntries(
+const NOT_ALLOWED = new Map<string, DenyListName>(
   (
     [
       ["colliding_brand", COLLIDING_BRANDS],
@@ -163,7 +163,7 @@ export type NotAllowed = {
 };
 
 export function check_not_allowed(domain: string): Result<null, NotAllowed> {
-  if (ALLOWED[domain]) return ok(null);
+  if (Object.hasOwn(ALLOWED, domain)) return ok(null);
   for (const name of [domain, ...parent_domains(domain)]) {
     if (isAFreeDomain(name)) {
       return err({
@@ -172,7 +172,7 @@ export function check_not_allowed(domain: string): Result<null, NotAllowed> {
         listed: name,
       });
     }
-    const deny_list_name = NOT_ALLOWED[name];
+    const deny_list_name = NOT_ALLOWED.get(name);
     if (deny_list_name) {
       return err({ code: "not_allowed", deny_list_name, listed: name });
     }

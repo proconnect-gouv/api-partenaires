@@ -76,4 +76,8 @@ describe("check_not_allowed", () => {
     expect(listed_by("fr")).toBe(null);
     expect(listed_by("coise.fr")).toBe(null);
   });
+
+  test("object prototype keys are not deny-list entries", () => {
+    expect(listed_by("a.constructor")).toBe(null);
+  });
 });
