@@ -19,6 +19,9 @@ const app = create_app({
   oidc_providers_api_secret: config.OIDC_PROVIDERS_API_SECRET,
   oidc_providers_config: config.OIDC_PROVIDERS_CONFIG,
   providers: client.db().collection<OidcProvider>("provider"),
+  rate_limit_per_minute: config.RATE_LIMIT_PER_MINUTE,
+  rate_limit_per_minute_per_oidc_provider:
+    config.RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER,
 });
 
 export default {

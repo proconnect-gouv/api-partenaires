@@ -4,6 +4,7 @@ import type { FindUnreachableDomains } from "./domain_reachable";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
 import { create_oidc_providers_app } from "./oidc_providers";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
+import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
 
 export interface OidcProvider {
@@ -43,6 +44,8 @@ export function create_app({
   oidc_providers_api_secret,
   oidc_providers_config,
   providers,
+  rate_limit_per_minute,
+  rate_limit_per_minute_per_oidc_provider,
 }: {
   check_ready: () => Promise<unknown>;
   client_secret_cipher_pass: string;
@@ -54,6 +57,8 @@ export function create_app({
   oidc_providers_api_secret: string;
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
+  rate_limit_per_minute: number;
+  rate_limit_per_minute_per_oidc_provider: number;
 }) {
   const oidc_providers_middleware = create_signature_middleware({
     api_secret: oidc_providers_api_secret,
@@ -62,6 +67,19 @@ export function create_app({
   const oidc_clients_middleware = create_signature_middleware({
     api_secret: oidc_clients_api_secret,
     max_timestamp_diff,
+  });
+  const oidc_providers_rate_limit = create_rate_limit_middleware({
+    key: () => "oidc_providers",
+    limit_per_minute: rate_limit_per_minute,
+  });
+  const oidc_provider_rate_limit =
+    create_rate_limit_middleware<"/api/oidc_providers/:uid/*">({
+      key: (c) => c.req.param("uid"),
+      limit_per_minute: rate_limit_per_minute_per_oidc_provider,
+    });
+  const oidc_clients_rate_limit = create_rate_limit_middleware({
+    key: () => "oidc_clients",
+    limit_per_minute: rate_limit_per_minute,
   });
 
   return new Hono()
@@ -75,7 +93,12 @@ export function create_app({
         return c.json({ status: "unavailable" }, 503);
       }
     })
-    .use("/api/oidc_providers/*", oidc_providers_middleware)
+    .use(
+      "/api/oidc_providers/*",
+      oidc_providers_middleware,
+      oidc_providers_rate_limit,
+    )
+    .use("/api/oidc_providers/:uid/*", oidc_provider_rate_limit)
     .route(
       "/api/oidc_providers",
       create_oidc_providers_app({
@@ -84,8 +107,12 @@ export function create_app({
         providers,
       }),
     )
-    .use("/api/oidc_clients", oidc_clients_middleware)
-    .use("/api/oidc_clients/*", oidc_clients_middleware)
+    .use("/api/oidc_clients", oidc_clients_middleware, oidc_clients_rate_limit)
+    .use(
+      "/api/oidc_clients/*",
+      oidc_clients_middleware,
+      oidc_clients_rate_limit,
+    )
     .route(
       "/api/oidc_clients",
       enable_sandbox_endpoint
