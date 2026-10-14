@@ -21,6 +21,13 @@ import { zod_issues } from "#src/zod_issues";
 const cog_names = build_cog_names(await load_cog_export());
 const dila_index = build_dila_index(await load_dila_export(), cog_names);
 
+if (dila_index.rejected > 0) {
+  console.error(
+    `🚨 DILA export: ${dila_index.rejected} records could not be parsed`,
+  );
+  process.exit(1);
+}
+
 const path = "config/anct/oidc_providers.production.yaml";
 const file = Bun.file(path);
 const parsed = oidc_providers_config_schema.safeParse(

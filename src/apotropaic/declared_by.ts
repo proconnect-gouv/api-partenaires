@@ -31,7 +31,8 @@ const pivot_entry_schema = z
 
 const service_type_schema = z
   .string()
-  .transform(parse_json_or_keep)
+  .nullish()
+  .transform((raw) => (raw ? parse_json_or_keep(raw) : []))
   .pipe(
     z.union([
       z.array(pivot_entry_schema),
@@ -42,18 +43,15 @@ const service_type_schema = z
     (entries) =>
       entries.find((entry) => entry.type_service_local)?.type_service_local ??
       null,
-  )
-  .catch(null);
+  );
 
-const dila_value_schema = z
-  .union([
-    z.string(),
-    z
-      .object({ valeur: z.string().nullish() })
-      .loose()
-      .transform((value) => value.valeur ?? null),
-  ])
-  .catch(null);
+const dila_value_schema = z.union([
+  z.string(),
+  z
+    .object({ valeur: z.string().nullish() })
+    .loose()
+    .transform((value) => value.valeur ?? null),
+]);
 
 function coerce_dila_values(text: string): unknown[] {
   if (!text) return [];
@@ -134,12 +132,12 @@ const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
           `fiche:${record.id}`,
         url: record.url_service_public || null,
       };
-    })
-    .catch(null);
+    });
 
 export type DilaIndex = {
   declared_by: Map<string, Fiche[]>;
   fiches: Map<string, Fiche>;
+  rejected: number;
 };
 
 /** Collectivité fiches by id, and which of them declare each domain. */
@@ -149,10 +147,15 @@ export function build_dila_index(
 ): DilaIndex {
   const declared_by = new Map<string, Fiche[]>();
   const fiches = new Map<string, Fiche>();
-  for (const fiche of z
-    .array(fiche_schema(cog_names))
-    .catch([])
-    .parse(records)) {
+  const schema = fiche_schema(cog_names);
+  let rejected = 0;
+  for (const record of z.array(z.unknown()).parse(records)) {
+    const parsed = schema.safeParse(record);
+    if (!parsed.success) {
+      rejected++;
+      continue;
+    }
+    const fiche = parsed.data;
     if (!fiche) continue;
     fiches.set(fiche.id, fiche);
     for (const domain of fiche.domains) {
@@ -162,7 +165,7 @@ export function build_dila_index(
     }
   }
 
-  return { declared_by, fiches };
+  return { declared_by, fiches, rejected };
 }
 
 /** The single collectivité declaring this domain, or null if none/several. */

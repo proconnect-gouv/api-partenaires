@@ -83,15 +83,20 @@ describe("build_dila_index", () => {
     expect(fiches.get("1")?.siren).toBe("217300896");
   });
 
-  test("skips malformed input instead of throwing", () => {
-    expect(build_dila_index("not an array").declared_by.size).toBe(0);
-    expect(
-      build_dila_index([
-        null,
-        { ...mairie, id: 42 },
-        { ...mairie, pivot: "{not json" },
-      ]).declared_by.size,
-    ).toBe(0);
+  test("refuses an export that is not an array", () => {
+    expect(() => build_dila_index("not an array")).toThrow();
+  });
+
+  test("counts malformed records instead of dropping them silently", () => {
+    const index = build_dila_index([
+      null,
+      { ...mairie, id: 42 },
+      { ...mairie, pivot: "{not json" },
+      other_service,
+    ]);
+
+    expect(index.rejected).toBe(3);
+    expect(index.declared_by.size).toBe(0);
   });
 });
 
