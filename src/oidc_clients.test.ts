@@ -3,6 +3,7 @@ import { describe, expect, test } from "bun:test";
 import { ObjectId } from "mongodb";
 import { create_app, type OidcProviderStore } from "./app";
 import type { OidcClientDoc, OidcClientStore } from "./oidc_clients";
+import { ok } from "./result";
 
 const CALLER = "test@example.com";
 const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";
@@ -122,6 +123,8 @@ function create_test_app({
   };
   return create_app({
     providers,
+    rate_limit_per_minute: Infinity,
+    rate_limit_per_minute_per_oidc_provider: Infinity,
     oidc_providers_config: {
       oidc_providers: [
         {
@@ -137,6 +140,7 @@ function create_test_app({
     max_timestamp_diff: 300,
     client_secret_cipher_pass: CIPHER_PASS,
     enable_sandbox_endpoint: enable_sandbox,
+    find_unreachable_domains: async () => ok([]),
   });
 }
 
@@ -533,6 +537,8 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
       deleteOne: async () => ({ deletedCount: 0 }),
     };
     const app = create_app({
+      rate_limit_per_minute: Infinity,
+      rate_limit_per_minute_per_oidc_provider: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,
@@ -553,6 +559,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
+      find_unreachable_domains: async () => ok([]),
     });
     const id = new ObjectId().toHexString();
     const path = `/api/oidc_clients/${id}?email=${encodeURIComponent(CALLER)}`;
@@ -616,6 +623,8 @@ describe("unhandled exception in a route returns shaped 500", () => {
       },
     };
     const app = create_app({
+      rate_limit_per_minute: Infinity,
+      rate_limit_per_minute_per_oidc_provider: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,
@@ -629,6 +638,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
       max_timestamp_diff: 300,
       client_secret_cipher_pass: CIPHER_PASS,
       enable_sandbox_endpoint: true,
+      find_unreachable_domains: async () => ok([]),
     });
     const res = await api_call(app, "GET", "/api/oidc_clients", {
       email: CALLER,

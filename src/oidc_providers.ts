@@ -1,17 +1,22 @@
 import { Hono } from "hono";
 import { z } from "zod";
 import type { OidcProviderStore } from "./app";
+import type { FindUnreachableDomains } from "./domain_reachable";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
+
+const MAX_ADDED_DOMAINS = 1_000;
 const patch_body_schema = z.object({
   attached_email_domains: z.array(z.string()),
 });
 
 export function create_oidc_providers_app({
-  providers,
+  find_unreachable_domains,
   oidc_providers_config,
+  providers,
 }: {
-  providers: OidcProviderStore;
+  find_unreachable_domains: FindUnreachableDomains;
   oidc_providers_config: OidcProvidersConfig;
+  providers: OidcProviderStore;
 }) {
   return new Hono<{ Variables: { body_text: string } }>()
     .get("/:uid/configuration", async (c) => {
@@ -60,9 +65,15 @@ export function create_oidc_providers_app({
 
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
-      const added = body.data.attached_email_domains.filter(
+      const added = [...new Set(body.data.attached_email_domains)].filter(
         (domain) => !provider.attachedEmailDomains.includes(domain),
       );
+      if (added.length > MAX_ADDED_DOMAINS) {
+        return c.json(
+          { error: "too_many_added_domains", max: MAX_ADDED_DOMAINS },
+          422,
+        );
+      }
       const elsewhere = await providers.distinct("attachedEmailDomains", {
         attachedEmailDomains: { $in: added },
         uid: { $ne: uid },
@@ -75,6 +86,21 @@ export function create_oidc_providers_app({
             attached_email_domains: taken,
           },
           409,
+        );
+      }
+
+      const unreachable = await find_unreachable_domains(added);
+      if (!unreachable.ok) {
+        console.error(unreachable.error);
+        return c.json({ error: "dns_unavailable" }, 502);
+      }
+      if (unreachable.value.length > 0) {
+        return c.json(
+          {
+            error: "attached_email_domain_unreachable",
+            attached_email_domains: unreachable.value,
+          },
+          422,
         );
       }
 
