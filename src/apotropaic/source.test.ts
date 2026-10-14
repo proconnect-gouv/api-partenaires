@@ -35,6 +35,9 @@ function dila_row(domain: string, id: string): AllowedDomain {
   return { domain, fiche: fiche_url(id), source: "dila" };
 }
 
+function candidate_row(domain: string, id: string): AllowedDomain {
+  return { domain, fiche: fiche_url(id), source: "candidate" };
+}
 function refusal_code(verdict: RowVerdict) {
   return verdict.ok ? null : verdict.error.code;
 }
@@ -98,6 +101,47 @@ describe("check_row", () => {
       ok: false,
       error: { code: "lacks_name", spellings: ["Saint-Paul-lez-Durance"] },
     });
+  });
+
+  test("approves a candidate row that reconstructs its collectivité name", () => {
+    const verdict = check_row(
+      candidate_row("mairie-coise.fr", coise_id),
+      index,
+    );
+    expect(verdict.ok).toBe(true);
+    if (verdict.ok) {
+      expect(verdict.value.code).toBe("candidate");
+      if (verdict.value.code === "candidate") {
+        expect(verdict.value.name.rule).toBe("reconstructs");
+      }
+    }
+  });
+
+  test("refuses a candidate row whose domain does not match its collectivité name", () => {
+    const verdict = check_row(candidate_row("stpaul.fr", paul_id), index);
+    expect(verdict.ok).toBe(false);
+    if (!verdict.ok) {
+      expect(verdict.error.code).toBe("lacks_name");
+    }
+  });
+
+  test("refuses a candidate row whose fiche is missing from DILA", () => {
+    const verdict = check_row(
+      candidate_row("mairie-coise.fr", "00000000-0000-0000-0000-000000000000"),
+      index,
+    );
+    expect(verdict.ok).toBe(false);
+    if (!verdict.ok) {
+      expect(verdict.error.code).toBe("fiche_not_found");
+    }
+  });
+
+  test("refuses a candidate row on the not-allowed list", () => {
+    const verdict = check_row(candidate_row("orange.fr", coise_id), index);
+    expect(verdict.ok).toBe(false);
+    if (!verdict.ok) {
+      expect(verdict.error.code).toBe("not_allowed");
+    }
   });
 });
 

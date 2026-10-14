@@ -120,23 +120,25 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     ).toThrow();
   });
 
-  test("rejette la source candidate, retirée", () => {
-    expect(() =>
-      oidc_providers_config_schema.parse({
-        oidc_providers: [
-          {
-            uid: "x",
-            allowed_attached_email_domains: [
-              {
-                domain: "mairie-coise.fr",
-                fiche:
-                  "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6d708ca6-cc85-469b-acc0-878803b80963",
-                source: "candidate",
-              },
-            ],
-          },
-        ],
-      }),
-    ).toThrow();
+  test("accepte la source candidate avec fiche et siret optionnel", () => {
+    const config = oidc_providers_config_schema.parse({
+      oidc_providers: [
+        {
+          allowed_attached_email_domains: [
+            {
+              domain: "mairie-coise.fr",
+              fiche:
+                "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6d708ca6-cc85-469b-acc0-878803b80963",
+              siret: "21730089600016",
+              source: "candidate",
+            },
+          ],
+          uid: "x",
+        },
+      ],
+    });
+    expect(
+      config.oidc_providers[0]?.allowed_attached_email_domains[0]?.source,
+    ).toBe("candidate");
   });
 });
