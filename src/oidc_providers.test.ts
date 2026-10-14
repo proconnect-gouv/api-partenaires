@@ -282,7 +282,7 @@ describe("OIDC provider configuration API", () => {
       app,
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-      { json_data: { attached_email_domains: ["moncomptepro.fr", "fifi.fr"] } },
+      { json_data: { attached_email_domains: ["fifi.fr"] } },
     );
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({
