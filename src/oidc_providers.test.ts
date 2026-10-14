@@ -276,18 +276,19 @@ describe("OIDC provider configuration API", () => {
 
   test("rejects a domain that does not resolve", async () => {
     const app = create_test_app({
+      extra_allowed_domains: ["mairie-de-nulle-part.fr"],
       find_unreachable_domains: async (domains) => domains,
     });
     const res = await api_call(
       app,
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-      { json_data: { attached_email_domains: ["fifi.fr"] } },
+      { json_data: { attached_email_domains: ["mairie-de-nulle-part.fr"] } },
     );
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({
       error: "attached_email_domain_unreachable",
-      attached_email_domains: ["fifi.fr"],
+      attached_email_domains: ["mairie-de-nulle-part.fr"],
     });
   });
 
@@ -306,15 +307,16 @@ describe("OIDC provider configuration API", () => {
 
   test("answers 502 when DNS cannot be resolved", async () => {
     const app = create_test_app({
+      extra_allowed_domains: ["dns-en-greve.fr"],
       find_unreachable_domains: async () => {
-        throw new Error("dns down");
+        throw new Error("dns en grève");
       },
     });
     const res = await api_call(
       app,
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
-      { json_data: { attached_email_domains: ["fifi.fr"] } },
+      { json_data: { attached_email_domains: ["dns-en-greve.fr"] } },
     );
     expect(res.status).toBe(502);
     expect(await res.json()).toEqual({ error: "dns_unavailable" });
