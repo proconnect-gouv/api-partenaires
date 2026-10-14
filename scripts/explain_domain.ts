@@ -6,6 +6,7 @@ import {
   sole_owner,
 } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
+import { code, md, table } from "#src/markdown";
 import { check_sovereign } from "#src/apotropaic/dila_ok";
 import {
   check_not_allowed,
@@ -55,17 +56,6 @@ const count = new Intl.NumberFormat("en-US");
 const plural = new Intl.PluralRules("en-US");
 const all_of = new Intl.ListFormat("en-US", { type: "conjunction" });
 const one_of = new Intl.ListFormat("en-US", { type: "disjunction" });
-const tty = process.stdout.isTTY ?? false;
-
-function md(markdown: string): string {
-  return Bun.markdown
-    .ansi(markdown, { colors: tty, columns: 0, hyperlinks: tty })
-    .trimEnd();
-}
-
-function code(domains: Iterable<string>): string[] {
-  return [...domains].map((domain) => `\`${domain}\``);
-}
 
 function noun(n: number, one: string, other: string): string {
   return `${count.format(n)} ${plural.select(n) === "one" ? one : other}`;
@@ -413,10 +403,10 @@ function steps({
   enforced: boolean;
   failed_at: number;
 }): string {
-  return [
-    "| | step | check | result |",
-    "|-|-:|-|-|",
-    ...checks.map((check, index) => {
+  return table({
+    align: ["-", "-:", "-", "-"],
+    head: ["", "step", "check", "result"],
+    rows: checks.map((check, index) => {
       const mark = check.skipped
         ? "–"
         : check.ok === null
@@ -425,13 +415,11 @@ function steps({
             ? "✓"
             : "✗";
       const note = check.ok === false && !enforced ? " (not enforced)" : "";
-      const result = `${check.detail}${note}`.replaceAll("|", "\\|");
-      const cells = [mark, `${index + 1}`, check.label, result];
-      return `| ${cells
-        .map((cell) => (index + 1 === failed_at ? `**${cell}**` : cell))
-        .join(" | ")} |`;
+      return [mark, `${index + 1}`, check.label, `${check.detail}${note}`].map(
+        (cell) => (index + 1 === failed_at ? `**${cell}**` : cell),
+      );
     }),
-  ].join("\n");
+  });
 }
 
 function fiches({ declaring }: { declaring: Fiche[] }): string {
@@ -503,14 +491,13 @@ const explanations = positionals.map((input) =>
 );
 const statuses = explanations.map(({ status }) => status);
 console.log(
-  md(
-    [
-      ...explanations.map((explanation) => report({ explanation })),
-      legend(),
-      summary({ statuses }),
-    ]
-      .filter(Boolean)
-      .join("\n\n"),
-  ),
+  [
+    ...explanations.map((explanation) => report({ explanation })),
+    legend(),
+    summary({ statuses }),
+  ]
+    .filter(Boolean)
+    .map(md)
+    .join("\n\n"),
 );
 process.exit(statuses.every((status) => status === "valid") ? 0 : 1);

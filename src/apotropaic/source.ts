@@ -182,13 +182,6 @@ export function check_sources(
   );
 }
 
-export function format_report({ domain, uid, verdict }: RowReport): string {
-  const message = verdict.ok
-    ? describe_approval(verdict.value)
-    : describe_refusal(verdict.error);
-  return `${domain}: ${message} (uid "${uid}")`;
-}
-
 export function partition_reports(reports: RowReport[]): {
   errors: RowReport[];
   warnings: RowReport[];
