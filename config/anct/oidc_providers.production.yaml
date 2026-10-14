@@ -3997,7 +3997,7 @@ oidc_providers:
         source: candidate
       - domain: langan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/8cae97aa-ce7d-498f-885c-5af7f0ec83f0
-        siret: "21350144800046"
+        siret: "21350144800012"
         source: dila
       - domain: langoat.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/638d6c6e-0c42-40d6-a1d0-65688c9c0df5
@@ -84061,7 +84061,7 @@ oidc_providers:
         source: candidate
       - domain: forez-est.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/c4523d51-7d32-4b54-94a4-64700d643aaf
-        siret: "20006589400301"
+        siret: "20006589400012"
         source: dila
       - domain: fourneaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/19e1bb48-2a89-43b2-ae9d-e0a843c3de55
@@ -104051,7 +104051,7 @@ oidc_providers:
         source: candidate
       - domain: mairie-marollette.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9f073489-bfb7-4cd6-bce8-a09f5e89008e
-        siret: "21720188800054"
+        siret: "21720188800013"
         source: candidate
       - domain: mairie-marsacsurdon.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/09ef3d3e-222e-4070-974d-3554ef4824d8
@@ -106603,11 +106603,11 @@ oidc_providers:
         source: candidate
       - domain: marollette.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9f073489-bfb7-4cd6-bce8-a09f5e89008e
-        siret: "21720188800054"
+        siret: "21720188800013"
         source: dila
       - domain: marollette72.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9f073489-bfb7-4cd6-bce8-a09f5e89008e
-        siret: "21720188800054"
+        siret: "21720188800013"
         source: candidate
       - domain: martigne-sur-mayenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/94e67af3-9876-426b-b34a-479b62e426a2
@@ -115140,7 +115140,7 @@ oidc_providers:
         source: candidate
       - domain: ville-marollette.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/9f073489-bfb7-4cd6-bce8-a09f5e89008e
-        siret: "21720188800054"
+        siret: "21720188800013"
         source: candidate
       - domain: ville-martigne-sur-mayenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/94e67af3-9876-426b-b34a-479b62e426a2
