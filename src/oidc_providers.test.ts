@@ -46,7 +46,7 @@ function api_call(
 
 function create_test_app({
   extra_allowed_domains = [],
-  find_unreachable_domains = async () => [],
+  find_unreachable_domains = async (domains) => domains,
 }: {
   extra_allowed_domains?: string[];
   find_unreachable_domains?: (domains: string[]) => Promise<string[]>;
@@ -275,9 +275,7 @@ describe("OIDC provider configuration API", () => {
   });
 
   test("rejects a domain that does not resolve", async () => {
-    const app = create_test_app({
-      find_unreachable_domains: async (domains) => domains,
-    });
+    const app = create_test_app();
     const res = await api_call(
       app,
       "PATCH",
@@ -292,9 +290,7 @@ describe("OIDC provider configuration API", () => {
   });
 
   test("keeps an attached domain that no longer resolves", async () => {
-    const app = create_test_app({
-      find_unreachable_domains: async (domains) => domains,
-    });
+    const app = create_test_app();
     const res = await api_call(
       app,
       "PATCH",
@@ -340,7 +336,10 @@ describe("OIDC provider configuration API", () => {
 
   test("counts a repeated domain once against the cap", async () => {
     const domains = Array.from({ length: 1_000 }, (_, i) => `bulk-${i}.fr`);
-    const app = create_test_app({ extra_allowed_domains: domains });
+    const app = create_test_app({
+      extra_allowed_domains: domains,
+      find_unreachable_domains: async () => [],
+    });
     const res = await api_call(
       app,
       "PATCH",
@@ -421,7 +420,7 @@ describe("OIDC provider configuration API", () => {
   });
 
   test("modifies attached_email_domains with allowed domains for a registered OIDC provider", async () => {
-    const app = create_test_app();
+    const app = create_test_app({ find_unreachable_domains: async () => [] });
     const res = await api_call(
       app,
       "PATCH",
