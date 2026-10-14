@@ -1,32 +1,73 @@
-import type { Context, MiddlewareHandler } from "hono";
+import type { Context, Env, MiddlewareHandler } from "hono";
 
 const WINDOW_MS = 60_000;
 
-export function create_rate_limit_middleware({
+export type RateLimitState = {
+  readonly counts: ReadonlyMap<string, number>;
+  readonly window_start: number;
+};
+
+export type RateLimitDecision =
+  | { readonly kind: "allow" }
+  | { readonly kind: "deny"; readonly retry_after_s: number };
+
+export function decide_rate_limit({
   key,
   limit_per_minute,
   now,
+  state,
 }: {
-  key: (c: Context) => string;
+  key: string;
   limit_per_minute: number;
-  now: () => number;
-}): MiddlewareHandler {
-  const counts = new Map<string, number>();
-  let window_start = now();
+  now: number;
+  state: RateLimitState;
+}): { readonly decision: RateLimitDecision; readonly state: RateLimitState } {
+  const current =
+    now - state.window_start >= WINDOW_MS
+      ? { counts: new Map<string, number>(), window_start: now }
+      : state;
+  const count = current.counts.get(key) ?? 0;
+  if (count >= limit_per_minute) {
+    const retry_after_ms = current.window_start + WINDOW_MS - now;
+    return {
+      decision: {
+        kind: "deny",
+        retry_after_s: Math.ceil(retry_after_ms / 1000),
+      },
+      state: current,
+    };
+  }
+  return {
+    decision: { kind: "allow" },
+    state: {
+      counts: new Map(current.counts).set(key, count + 1),
+      window_start: current.window_start,
+    },
+  };
+}
+
+export function create_rate_limit_middleware<P extends string>({
+  key,
+  limit_per_minute,
+}: {
+  key: (c: Context<Env, P>) => string;
+  limit_per_minute: number;
+}): MiddlewareHandler<Env, P> {
+  let state: RateLimitState = { counts: new Map(), window_start: Date.now() };
   return async (c, next) => {
-    const time = now();
-    if (time - window_start >= WINDOW_MS) {
-      counts.clear();
-      window_start = time;
+    const result = decide_rate_limit({
+      key: key(c),
+      limit_per_minute,
+      now: Date.now(),
+      state,
+    });
+    state = result.state;
+    switch (result.decision.kind) {
+      case "allow":
+        return next();
+      case "deny":
+        c.header("Retry-After", String(result.decision.retry_after_s));
+        return c.json({ detail: "Too many requests" }, 429);
     }
-    const counted_key = key(c);
-    const count = (counts.get(counted_key) ?? 0) + 1;
-    counts.set(counted_key, count);
-    if (count > limit_per_minute) {
-      const retry_after_ms = window_start + WINDOW_MS - time;
-      c.header("Retry-After", String(Math.ceil(retry_after_ms / 1000)));
-      return c.json({ detail: "Too many requests" }, 429);
-    }
-    await next();
   };
 }

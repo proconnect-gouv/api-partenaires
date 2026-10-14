@@ -68,17 +68,15 @@ export function create_app({
   const oidc_providers_rate_limit = create_rate_limit_middleware({
     key: () => "oidc_providers",
     limit_per_minute: rate_limit_per_minute,
-    now: Date.now,
   });
-  const oidc_provider_rate_limit = create_rate_limit_middleware({
-    key: (c) => c.req.param("uid") ?? "",
-    limit_per_minute: rate_limit_per_minute_per_oidc_provider,
-    now: Date.now,
-  });
+  const oidc_provider_rate_limit =
+    create_rate_limit_middleware<"/api/oidc_providers/:uid/*">({
+      key: (c) => c.req.param("uid"),
+      limit_per_minute: rate_limit_per_minute_per_oidc_provider,
+    });
   const oidc_clients_rate_limit = create_rate_limit_middleware({
     key: () => "oidc_clients",
     limit_per_minute: rate_limit_per_minute,
-    now: Date.now,
   });
 
   return new Hono()
