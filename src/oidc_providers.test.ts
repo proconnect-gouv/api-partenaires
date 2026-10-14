@@ -1,7 +1,9 @@
 import { createHmac } from "node:crypto";
 import { describe, expect, test } from "bun:test";
 import { create_app, type OidcProvider } from "./app";
+import type { FindUnreachableDomains } from "./domain_reachable";
 import type { OidcClientStore } from "./oidc_clients";
+import { err, ok } from "./result";
 
 const PARTNER_SECRET = "test-partner-secret";
 const MONCOMPTEPRO_UID = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
@@ -45,8 +47,14 @@ function api_call(
 }
 
 function create_test_app({
+  extra_allowed_domains = [],
+  find_unreachable_domains = async () => ok([]),
   rate_limit_per_minute_per_oidc_provider = Infinity,
-}: { rate_limit_per_minute_per_oidc_provider?: number } = {}) {
+}: {
+  extra_allowed_domains?: string[];
+  find_unreachable_domains?: FindUnreachableDomains;
+  rate_limit_per_minute_per_oidc_provider?: number;
+} = {}) {
   const providers = new Map<string, OidcProvider>([
     [
       MONCOMPTEPRO_UID,
@@ -130,6 +138,10 @@ function create_test_app({
             { domain: "polyfi.fr", source: "routed" },
             { domain: "fifi.fr", source: "routed" },
             { domain: "taken.fr", source: "routed" },
+            ...extra_allowed_domains.map((domain) => ({
+              domain,
+              source: "routed" as const,
+            })),
           ],
         },
         {
@@ -147,6 +159,7 @@ function create_test_app({
       ],
     },
     check_ready: async () => {},
+    find_unreachable_domains,
     oidc_clients,
     oidc_providers_api_secret: PARTNER_SECRET,
     oidc_clients_api_secret: "oidc-clients-secret",
@@ -263,6 +276,86 @@ describe("OIDC provider configuration API", () => {
       "PATCH",
       `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
       { json_data: { attached_email_domains: ["polyfi.fr"] } },
+    );
+    expect(res.status).toBe(200);
+  });
+
+  test("rejects a domain that does not resolve", async () => {
+    const app = create_test_app({
+      extra_allowed_domains: ["mairie-de-nulle-part.fr"],
+      find_unreachable_domains: async (domains) => ok(domains),
+    });
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: ["mairie-de-nulle-part.fr"] } },
+    );
+    expect(res.status).toBe(422);
+    expect(await res.json()).toEqual({
+      error: "attached_email_domain_unreachable",
+      attached_email_domains: ["mairie-de-nulle-part.fr"],
+    });
+  });
+
+  test("keeps an attached domain that no longer resolves", async () => {
+    const app = create_test_app({
+      find_unreachable_domains: async (domains) => ok(domains),
+    });
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: ["polyfi.fr"] } },
+    );
+    expect(res.status).toBe(200);
+  });
+
+  test("answers 502 when DNS cannot be resolved", async () => {
+    const app = create_test_app({
+      extra_allowed_domains: ["dns-en-greve.fr"],
+      find_unreachable_domains: async () =>
+        err({
+          domain: "dns-en-greve.fr",
+          kind: "http_status",
+          status: 503,
+          type: "MX",
+        }),
+    });
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: ["dns-en-greve.fr"] } },
+    );
+    expect(res.status).toBe(502);
+    expect(await res.json()).toEqual({ error: "dns_unavailable" });
+  });
+
+  test("rejects more than 1000 added domains", async () => {
+    const domains = Array.from({ length: 1_001 }, (_, i) => `bulk-${i}.fr`);
+    const app = create_test_app({ extra_allowed_domains: domains });
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: domains } },
+    );
+    expect(res.status).toBe(422);
+    expect(await res.json()).toEqual({
+      error: "too_many_added_domains",
+      max: 1_000,
+    });
+  });
+
+  test("counts a repeated domain once against the cap", async () => {
+    const domains = Array.from({ length: 1_000 }, (_, i) => `bulk-${i}.fr`);
+    const app = create_test_app({ extra_allowed_domains: domains });
+    const res = await api_call(
+      app,
+      "PATCH",
+      `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+      { json_data: { attached_email_domains: [...domains, ...domains] } },
     );
     expect(res.status).toBe(200);
   });
