@@ -44,7 +44,9 @@ function api_call(
   });
 }
 
-function create_test_app() {
+function create_test_app({
+  rate_limit_per_minute_per_oidc_provider = Infinity,
+}: { rate_limit_per_minute_per_oidc_provider?: number } = {}) {
   const providers = new Map<string, OidcProvider>([
     [
       MONCOMPTEPRO_UID,
@@ -118,6 +120,7 @@ function create_test_app() {
   return create_app({
     providers: store,
     rate_limit_per_minute: 1_000,
+    rate_limit_per_minute_per_oidc_provider,
     oidc_providers_config: {
       oidc_providers: [
         {
@@ -352,5 +355,14 @@ describe("OIDC provider configuration API", () => {
       name: "moncomptepro",
       attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
     });
+  });
+
+  test("limits each provider separately", async () => {
+    const app = create_test_app({ rate_limit_per_minute_per_oidc_provider: 1 });
+    const configuration = (uid: string) =>
+      api_call(app, "GET", `/api/oidc_providers/${uid}/configuration`);
+    expect((await configuration(MONCOMPTEPRO_UID)).status).toBe(200);
+    expect((await configuration(MONCOMPTEPRO_UID)).status).toBe(429);
+    expect((await configuration(ENRICHED_UID)).status).toBe(200);
   });
 });

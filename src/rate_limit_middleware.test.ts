@@ -7,6 +7,7 @@ function create_test_app() {
   const app = new Hono()
     .use(
       create_rate_limit_middleware({
+        key: () => "all",
         limit_per_minute: 2,
         now: () => clock.time,
       }),

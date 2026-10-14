@@ -123,6 +123,7 @@ function create_test_app({
   return create_app({
     providers,
     rate_limit_per_minute: Infinity,
+    rate_limit_per_minute_per_oidc_provider: Infinity,
     oidc_providers_config: {
       oidc_providers: [
         {
@@ -535,6 +536,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
     };
     const app = create_app({
       rate_limit_per_minute: Infinity,
+      rate_limit_per_minute_per_oidc_provider: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,
@@ -619,6 +621,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
     };
     const app = create_app({
       rate_limit_per_minute: Infinity,
+      rate_limit_per_minute_per_oidc_provider: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,

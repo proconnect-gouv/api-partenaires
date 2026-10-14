@@ -25,4 +25,9 @@ export const config_schema = z.object({
     .pipe(oidc_providers_config_schema),
   PORT: z.coerce.number().default(3000),
   RATE_LIMIT_PER_MINUTE: z.coerce.number().int().positive().default(60),
+  RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER: z.coerce
+    .number()
+    .int()
+    .positive()
+    .default(10),
 });
