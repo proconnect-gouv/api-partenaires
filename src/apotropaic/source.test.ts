@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { AllowedDomain } from "#src/oidc_providers_config";
+import { ok } from "#src/result";
 import { build_dila_index } from "./declared_by";
 import { check_row, partition_reports, type RowVerdict } from "./source";
 
@@ -56,13 +57,14 @@ describe("check_row", () => {
   });
 
   test("approves a dila row with its owner and the matched name", () => {
-    const verdict = check_row(dila_row("coise.fr", coise_id), index);
-
-    expect(verdict.ok && verdict.value).toMatchObject({
-      code: "dila",
-      name: { rule: "reconstructs", spelling: "Coise" },
-      owner: { id: coise_id, siren: "217300896" },
-    });
+    const fiche = index.fiches.get(coise_id);
+    expect(check_row(dila_row("coise.fr", coise_id), index)).toEqual(
+      ok({
+        code: "dila",
+        name: { rule: "reconstructs", spelling: "Coise" },
+        owner: fiche as never,
+      }),
+    );
   });
 
   test("refuses a dila domain DILA does not attest", () => {
@@ -104,44 +106,43 @@ describe("check_row", () => {
   });
 
   test("approves a candidate row that reconstructs its collectivité name", () => {
-    const verdict = check_row(
-      candidate_row("mairie-coise.fr", coise_id),
-      index,
+    const fiche = index.fiches.get(coise_id);
+    expect(
+      check_row(candidate_row("mairie-coise.fr", coise_id), index),
+    ).toEqual(
+      ok({
+        code: "candidate",
+        name: { rule: "reconstructs", spelling: "Coise" },
+        owner: fiche as never,
+      }),
     );
-    expect(verdict.ok).toBe(true);
-    if (verdict.ok) {
-      expect(verdict.value.code).toBe("candidate");
-      if (verdict.value.code === "candidate") {
-        expect(verdict.value.name.rule).toBe("reconstructs");
-      }
-    }
   });
 
   test("refuses a candidate row whose domain does not match its collectivité name", () => {
-    const verdict = check_row(candidate_row("stpaul.fr", paul_id), index);
-    expect(verdict.ok).toBe(false);
-    if (!verdict.ok) {
-      expect(verdict.error.code).toBe("lacks_name");
-    }
+    expect(check_row(candidate_row("stpaul.fr", paul_id), index)).toEqual({
+      error: { code: "lacks_name", spellings: ["Saint-Paul-lez-Durance"] },
+      ok: false,
+    });
   });
 
   test("refuses a candidate row whose fiche is missing from DILA", () => {
-    const verdict = check_row(
-      candidate_row("mairie-coise.fr", "00000000-0000-0000-0000-000000000000"),
-      index,
+    const missing = candidate_row(
+      "mairie-coise.fr",
+      "00000000-0000-0000-0000-000000000000",
     );
-    expect(verdict.ok).toBe(false);
-    if (!verdict.ok) {
-      expect(verdict.error.code).toBe("fiche_not_found");
-    }
+    expect(check_row(missing, index)).toEqual({
+      error: {
+        code: "fiche_not_found",
+        fiche_url: fiche_url("00000000-0000-0000-0000-000000000000"),
+      },
+      ok: false,
+    });
   });
 
   test("refuses a candidate row on the not-allowed list", () => {
-    const verdict = check_row(candidate_row("orange.fr", coise_id), index);
-    expect(verdict.ok).toBe(false);
-    if (!verdict.ok) {
-      expect(verdict.error.code).toBe("not_allowed");
-    }
+    expect(
+      refusal_code(check_row(candidate_row("orange.fr", coise_id), index)),
+    ).toBe("not_allowed");
   });
 });
 
