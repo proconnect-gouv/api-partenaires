@@ -9,6 +9,7 @@ export type Fiche = {
   name: string;
   names: ReadonlySet<string>;
   siren: string;
+  siret: string | null;
   url: string | null;
 };
 
@@ -130,6 +131,7 @@ const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
           record.siren ||
           record.siret.match(/^\d{9}/)?.[0] ||
           `fiche:${record.id}`,
+        siret: record.siret.match(/^\d{14}$/)?.[0] ?? null,
         url: record.url_service_public || null,
       };
     });

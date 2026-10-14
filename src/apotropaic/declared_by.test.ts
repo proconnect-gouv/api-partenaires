@@ -39,6 +39,7 @@ describe("build_dila_index", () => {
         name: "Coise-Saint-Jean-Pied-Gauthier",
         names: new Set(["Coise-Saint-Jean-Pied-Gauthier"]),
         siren: "217300896",
+        siret: "21730089600016",
         url: "https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/1",
       },
     ]);

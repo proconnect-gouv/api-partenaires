@@ -16,11 +16,17 @@ import { err, ok, type Result } from "#src/result";
 
 type FicheRefusal =
   | { code: "fiche_not_found"; fiche_url: string }
+  | {
+      actual_siret: string | null;
+      code: "fiche_siret_mismatch";
+      expected_siret: string;
+      fiche: Fiche;
+    }
   | { code: "fiche_siren_mismatch"; fiche: Fiche; owner: Fiche };
+
 type NameRefusal = { code: "lacks_name"; spellings: string[] };
 
 export type Refusal = DilaRefusal | FicheRefusal | NameRefusal | NotAllowed;
-
 export type NameMatch = {
   rule: "carries_name" | "reconstructs";
   spelling: string;
@@ -61,6 +67,8 @@ const refusal_message: {
     `fiche is not a collectivite in DILA: ${fiche_url}`,
   fiche_siren_mismatch: ({ fiche, owner }) =>
     `fiche is ${fiche_brief(fiche)}, DILA owner is ${fiche_brief(owner)} ${owner.url ?? owner.id}`,
+  fiche_siret_mismatch: ({ actual_siret, expected_siret, fiche }) =>
+    `row SIRET is ${expected_siret}, ${fiche_brief(fiche)} SIRET is ${actual_siret ?? "none"}`,
   lacks_name: ({ spellings }) =>
     `RPNT 2.2: carries none of ${quoted(spellings)}`,
   not_allowed: ({ deny_list_name, listed }) =>
@@ -105,6 +113,21 @@ export function describe_approval(approval: Approval): string {
   );
 }
 
+export function check_siret(
+  expected_siret: string | undefined,
+  fiche: Fiche,
+): Result<null, Extract<FicheRefusal, { code: "fiche_siret_mismatch" }>> {
+  if (expected_siret === undefined) return ok(null);
+  return fiche.siret === expected_siret
+    ? ok(null)
+    : err({
+        actual_siret: fiche.siret,
+        code: "fiche_siret_mismatch",
+        expected_siret,
+        fiche,
+      });
+}
+
 export function check_fiche(
   fiche_url: string,
   owner: Fiche,
@@ -116,7 +139,6 @@ export function check_fiche(
     ? ok(fiche)
     : err({ code: "fiche_siren_mismatch", fiche, owner });
 }
-
 export function check_name(
   domain: string,
   fiche: Fiche,
@@ -145,6 +167,8 @@ const check_by_source: {
   candidate: (row, { fiches }) => {
     const fiche = fiches.get(fiche_id(row.fiche) ?? "");
     if (!fiche) return err({ code: "fiche_not_found", fiche_url: row.fiche });
+    const siret = check_siret(row.siret, fiche);
+    if (!siret.ok) return siret;
     const name = check_name(row.domain, fiche, fiche);
     return name.ok
       ? ok({ code: "candidate", name: name.value, owner: fiche })
@@ -156,6 +180,8 @@ const check_by_source: {
     const { owner } = owned.value;
     const fiche = check_fiche(row.fiche, owner, fiches);
     if (!fiche.ok) return fiche;
+    const siret = check_siret(row.siret, fiche.value);
+    if (!siret.ok) return siret;
     const name = check_name(row.domain, fiche.value, owner);
     return name.ok ? ok({ code: "dila", name: name.value, owner }) : name;
   },

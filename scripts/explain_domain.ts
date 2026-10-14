@@ -131,6 +131,14 @@ const refusal_context: {
       `the row cites ${fiche_brief(fiche)}, but ${fiche_brief(owner)} is the one declaring the domain`,
     ],
   }),
+  fiche_siret_mismatch: ({ actual_siret, expected_siret, fiche }) => ({
+    fix: actual_siret
+      ? `update row siret to "${actual_siret}"`
+      : "remove row siret field",
+    why: [
+      `the row states SIRET ${expected_siret}, but ${fiche_brief(fiche)} has ${actual_siret ? `SIRET ${actual_siret}` : "no SIRET in DILA"}`,
+    ],
+  }),
   lacks_name: () => ({
     fix: `pick a domain carrying the name, ${ROUTED_FALLBACK}`,
     why: [

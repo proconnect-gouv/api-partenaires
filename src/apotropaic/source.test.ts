@@ -9,35 +9,55 @@ const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 const paul_id = "c0ffee00-0000-4000-8000-000000000000";
 
-function mairie(id: string, siren: string, name: string, site: string | null) {
+function mairie({
+  id,
+  name,
+  siren,
+  site = null,
+  siret = `${siren}00016`,
+}: {
+  id: string;
+  name: string;
+  siren: string;
+  site?: string | null;
+  siret?: string | null;
+}) {
   return {
+    adresse_courriel: null,
+    code_insee_commune: "73089",
     id,
-    siret: null,
-    siren,
     nom: `Mairie - ${name}`,
     pivot: '[{"type_service_local": "mairie"}]',
-    code_insee_commune: "73089",
+    siren,
+    siret,
     site_internet: site && `[{"libelle": "", "valeur": "https://${site}"}]`,
-    adresse_courriel: null,
   };
 }
 
 const index = build_dila_index([
-  mairie(coise_id, "217300896", "Coise", "coise.fr"),
-  mairie(other_id, "999999999", "Other", null),
-  mairie(paul_id, "218400000", "Saint-Paul-lez-Durance", "stpaul.fr"),
+  mairie({ id: coise_id, name: "Coise", siren: "217300896", site: "coise.fr" }),
+  mairie({ id: other_id, name: "Other", siren: "999999999" }),
+  mairie({
+    id: paul_id,
+    name: "Saint-Paul-lez-Durance",
+    siren: "218400000",
+    site: "stpaul.fr",
+  }),
 ]);
-
 function fiche_url(id: string) {
   return `https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/${id}`;
 }
 
-function dila_row(domain: string, id: string): AllowedDomain {
-  return { domain, fiche: fiche_url(id), source: "dila" };
+function dila_row(domain: string, id: string, siret?: string): AllowedDomain {
+  return { domain, fiche: fiche_url(id), siret, source: "dila" };
 }
 
-function candidate_row(domain: string, id: string): AllowedDomain {
-  return { domain, fiche: fiche_url(id), source: "candidate" };
+function candidate_row(
+  domain: string,
+  id: string,
+  siret?: string,
+): AllowedDomain {
+  return { domain, fiche: fiche_url(id), siret, source: "candidate" };
 }
 function refusal_code(verdict: RowVerdict) {
   return verdict.ok ? null : verdict.error.code;
@@ -98,10 +118,38 @@ describe("check_row", () => {
     });
   });
 
+  test("refuses a dila domain whose siret does not match its fiche", () => {
+    const fiche = index.fiches.get(coise_id)!;
+    expect(
+      check_row(dila_row("coise.fr", coise_id, "99999999900011"), index),
+    ).toEqual({
+      error: {
+        actual_siret: fiche.siret,
+        code: "fiche_siret_mismatch",
+        expected_siret: "99999999900011",
+        fiche,
+      },
+      ok: false,
+    });
+  });
+
+  test("approves a dila domain with matching siret", () => {
+    const fiche = index.fiches.get(coise_id)!;
+    expect(
+      check_row(dila_row("coise.fr", coise_id, fiche.siret!), index),
+    ).toEqual(
+      ok({
+        code: "dila",
+        name: { rule: "reconstructs", spelling: "Coise" },
+        owner: fiche,
+      }),
+    );
+  });
+
   test("refuses a dila domain without its collectivité's name, listing the spellings tried", () => {
     expect(check_row(dila_row("stpaul.fr", paul_id), index)).toEqual({
-      ok: false,
       error: { code: "lacks_name", spellings: ["Saint-Paul-lez-Durance"] },
+      ok: false,
     });
   });
 
@@ -114,6 +162,39 @@ describe("check_row", () => {
         code: "candidate",
         name: { rule: "reconstructs", spelling: "Coise" },
         owner: fiche as never,
+      }),
+    );
+  });
+  test("refuses a candidate domain whose siret does not match its fiche", () => {
+    const fiche = index.fiches.get(coise_id)!;
+    expect(
+      check_row(
+        candidate_row("mairie-coise.fr", coise_id, "99999999900011"),
+        index,
+      ),
+    ).toEqual({
+      error: {
+        actual_siret: fiche.siret,
+        code: "fiche_siret_mismatch",
+        expected_siret: "99999999900011",
+        fiche,
+      },
+      ok: false,
+    });
+  });
+
+  test("approves a candidate row with matching siret", () => {
+    const fiche = index.fiches.get(coise_id)!;
+    expect(
+      check_row(
+        candidate_row("mairie-coise.fr", coise_id, fiche.siret!),
+        index,
+      ),
+    ).toEqual(
+      ok({
+        code: "candidate",
+        name: { rule: "reconstructs", spelling: "Coise" },
+        owner: fiche,
       }),
     );
   });
