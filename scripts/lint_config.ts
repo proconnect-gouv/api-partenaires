@@ -11,10 +11,14 @@ function find_duplicates(values: string[]): string[] {
   return [...duplicates];
 }
 
-const glob = new Bun.Glob("config/**/*.yaml");
+const paths = process.argv.slice(2);
+const files =
+  paths.length > 0
+    ? paths
+    : await Array.fromAsync(new Bun.Glob("config/**/*.yaml").scan("."));
 const errors: string[] = [];
 
-for await (const path of glob.scan(".")) {
+for (const path of files) {
   const file = Bun.file(path);
   const parsed = oidc_providers_config_schema.safeParse(
     Bun.YAML.parse(await file.text()),
@@ -43,6 +47,21 @@ for await (const path of glob.scan(".")) {
       );
     }
   }
+
+  const providers_by_domain = Map.groupBy(
+    oidc_providers.flatMap(({ allowed_attached_email_domains, uid }) =>
+      allowed_attached_email_domains.map(({ domain }) => ({ domain, uid })),
+    ),
+    ({ domain }) => domain,
+  );
+  for (const [domain, rows] of providers_by_domain) {
+    const uids = [...new Set(rows.map(({ uid }) => uid))];
+    if (uids.length > 1) {
+      errors.push(
+        `${path}: domain "${domain}" listed under ${uids.length} uids: ${uids.join(", ")}`,
+      );
+    }
+  }
 }
 
 if (errors.length > 0) {
@@ -50,4 +69,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("config/**/*.yaml: no duplicates found");
+console.log(`${paths.join(", ") || "config/**/*.yaml"}: no duplicates found`);
