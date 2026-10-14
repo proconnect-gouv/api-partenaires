@@ -17,7 +17,6 @@ import { err, ok, type Result } from "#src/result";
 type FicheRefusal =
   | { code: "fiche_not_found"; fiche_url: string }
   | { code: "fiche_siren_mismatch"; fiche: Fiche; owner: Fiche };
-
 type NameRefusal = { code: "lacks_name"; spellings: string[] };
 
 export type Refusal = DilaRefusal | FicheRefusal | NameRefusal | NotAllowed;
@@ -28,7 +27,9 @@ export type NameMatch = {
 };
 
 export type Approval =
-  { code: "dila"; name: NameMatch; owner: Fiche } | { code: "routed" };
+  | { code: "candidate"; name: NameMatch; owner: Fiche }
+  | { code: "dila"; name: NameMatch; owner: Fiche }
+  | { code: "routed" };
 
 export type RowVerdict = Result<Approval, Refusal>;
 
@@ -80,16 +81,18 @@ const refusal_message: {
 const approval_message: {
   [C in Approval["code"]]: (approval: Extract<Approval, { code: C }>) => string;
 } = {
+  candidate: ({ name, owner }) =>
+    `${fiche_brief(owner)} (candidate), ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
   dila: ({ name, owner }) =>
     `${fiche_brief(owner)} owns it, ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
   routed: () => "routed exception, not rule",
 };
 
 const approval_severity: { [C in Approval["code"]]: "ok" | "warning" } = {
+  candidate: "ok",
   dila: "ok",
   routed: "warning",
 };
-
 export function describe_refusal(refusal: Refusal): string {
   return (refusal_message[refusal.code] as (refusal: Refusal) => string)(
     refusal,
@@ -139,6 +142,14 @@ type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
 const check_by_source: {
   [S in Source]: (row: RowBySource[S], index: DilaIndex) => RowVerdict;
 } = {
+  candidate: (row, { fiches }) => {
+    const fiche = fiches.get(fiche_id(row.fiche) ?? "");
+    if (!fiche) return err({ code: "fiche_not_found", fiche_url: row.fiche });
+    const name = check_name(row.domain, fiche, fiche);
+    return name.ok
+      ? ok({ code: "candidate", name: name.value, owner: fiche })
+      : name;
+  },
   dila: (row, { declared_by, fiches }) => {
     const owned = dila_ok(declared_by, row.domain);
     if (!owned.ok) return owned;
@@ -150,7 +161,6 @@ const check_by_source: {
   },
   routed: () => ok({ code: "routed" }),
 };
-
 function check_source<S extends Source>(
   row: RowBySource[S],
   index: DilaIndex,

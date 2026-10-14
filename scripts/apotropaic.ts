@@ -90,6 +90,8 @@ const reconstructed = dila_rows.filter((row) => {
   );
 }).length;
 const source_meaning: { [S in Source]: string } = {
+  candidate:
+    "**candidate**: collectivité fiche exists, domain reconstructs or carries its name",
   dila: "**dila**: one collectivité declares it, row cites its fiche",
   routed: "**routed**: manual exception, not attested by DILA",
 };
