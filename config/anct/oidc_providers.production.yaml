@@ -47084,9 +47084,6 @@ oidc_providers:
       - domain: pleboulle.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/681646c9-c696-462d-8ed6-f834977bbcb3
         source: dila
-      - domain: pleboulle.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/681646c9-c696-462d-8ed6-f834977bbcb3
-        source: dila
       - domain: plechatel.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/10211e2a-3196-46b0-9bae-33676a3db0de
         source: dila
