@@ -117,6 +117,7 @@ function create_test_app() {
   };
   return create_app({
     providers: store,
+    rate_limit_per_minute: 1_000,
     oidc_providers_config: {
       oidc_providers: [
         {

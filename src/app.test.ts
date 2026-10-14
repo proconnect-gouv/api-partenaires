@@ -4,7 +4,11 @@ import type { OidcClientStore } from "./oidc_clients";
 
 function create_test_app({
   check_ready = async () => {},
-}: { check_ready?: () => Promise<unknown> } = {}) {
+  rate_limit_per_minute = 1_000,
+}: {
+  check_ready?: () => Promise<unknown>;
+  rate_limit_per_minute?: number;
+} = {}) {
   const providers: OidcProviderStore = {
     async distinct() {
       return [];
@@ -35,6 +39,7 @@ function create_test_app({
     oidc_providers_api_secret: "test-oidc-providers-secret",
     oidc_providers_config: { oidc_providers: [] },
     providers,
+    rate_limit_per_minute,
   });
 }
 
@@ -60,5 +65,15 @@ describe("liveness probes", () => {
     const res = await app.request("/readyz");
     expect(res.status).toBe(503);
     expect(await res.json()).toEqual({ status: "unavailable" });
+  });
+});
+
+describe("rate limit", () => {
+  test("unsigned requests do not use up the budget", async () => {
+    const app = create_test_app({ rate_limit_per_minute: 1 });
+    for (let i = 0; i < 3; i++) {
+      const res = await app.request("/api/oidc_providers/any/configuration");
+      expect(res.status).toBe(401);
+    }
   });
 });

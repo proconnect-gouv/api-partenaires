@@ -24,6 +24,7 @@ describe("environment parsing", () => {
       OIDC_PROVIDERS_API_SECRET: REQUIRED_ENV.OIDC_PROVIDERS_API_SECRET,
       OIDC_PROVIDERS_CONFIG: { oidc_providers: [] },
       PORT: 3000,
+      RATE_LIMIT_PER_MINUTE: 60,
     });
   });
 

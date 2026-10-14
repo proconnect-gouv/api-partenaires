@@ -24,6 +24,7 @@ bun run dev
 | `FEATURE_ENABLE_SANDBOX_ENDPOINT` | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)             |
 | `CLIENT_SECRET_CIPHER_PASS`       | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret`       |
 | `MAX_TIMESTAMP_DIFF`              | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`                 |
+| `RATE_LIMIT_PER_MINUTE`           | `60`                                 | Requêtes signées par minute et par secret (sinon `429`)         |
 
 L'accès à `/api/*` est authentifié par signature HMAC-SHA256 (`X-Signature` /
 `X-Timestamp`), migré depuis `pcdbapi`. Chaque surface utilise son propre
