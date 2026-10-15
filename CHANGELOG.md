@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.10.3](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.2...2026.10.3) (2026-10-15)
+
+### Ajouté
+
+- ✨ log domain and client changes ([#178](https://github.com/proconnect-gouv/api-partenaires/issues/178)) ([4ef2e08](https://github.com/proconnect-gouv/api-partenaires/commit/4ef2e08ba04202b77c8c1c0af95990cabded7729))
+
 ## [2026.10.2](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.1...2026.10.2) (2026-10-15)
 
 ### Ajouté
