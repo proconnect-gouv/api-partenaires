@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "explain:domain": "bun run scripts/explain_domain.ts",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "NODE_OPTIONS=--max-old-space-size=8192 prettier --write .",
+    "format:check": "NODE_OPTIONS=--max-old-space-size=8192 prettier --check .",
     "lint": "bun run format:check && bun run typecheck",
     "lint:apotropaic": "bun run scripts/apotropaic.ts",
     "lint:config": "bun run scripts/lint_config.ts",
