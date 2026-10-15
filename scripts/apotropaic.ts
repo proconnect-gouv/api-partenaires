@@ -133,7 +133,15 @@ const eligible = declared_by_verdict.eligible ?? [];
 const allowlist = new Set(rows.map((row) => row.domain));
 const allowlisted = eligible.filter((domain) => allowlist.has(domain)).length;
 
-function allowlist_stats(): string {
+function allowlist_stats({ reports }: { reports: RowReport[] }): string {
+  const overrides = reports.flatMap(({ verdict }) =>
+    verdict.ok && verdict.value.code === "reconstructible"
+      ? [verdict.value.overrides.code]
+      : [],
+  );
+  const overrides_by_code = Object.entries(
+    Object.groupBy(overrides, (code) => code),
+  ).toSorted(([a], [b]) => a.localeCompare(b));
   return [
     "## 📊 Allowlist",
     `\`${path}\`: **${noun(rows.length, "domain", "domains")}**, ${noun(providers, "provider", "providers")}`,
@@ -159,6 +167,16 @@ function allowlist_stats(): string {
           "↳ dila rows reconstructing their fiche's DILA name",
           "RPNT 2.2",
         ],
+        [
+          ...share({ total: rows.length, value: overrides.length }),
+          "**reconstructible**: refused by its source check, domain rebuilt from its fiche's name",
+          "",
+        ],
+        ...overrides_by_code.map(([code, codes]) => [
+          ...share({ total: overrides.length, value: codes?.length ?? 0 }),
+          `↳ overrides \`${code}\``,
+          "",
+        ]),
       ],
     }),
   ].join("\n\n");
@@ -246,11 +264,10 @@ function verdict({ errors }: { errors: RowReport[] }): string {
     : `🛡️ \`${path}\`: parses, validates, and has no not-allowed or unattested domains`;
 }
 
-const { errors, warnings } = partition_reports(
-  check_sources(parsed.data, dila_index),
-);
+const reports = check_sources(parsed.data, dila_index);
+const { errors, warnings } = partition_reports(reports);
 const sections = [
-  allowlist_stats(),
+  allowlist_stats({ reports }),
   dila_stats(),
   routed({ warnings }),
   refused({ errors }),
