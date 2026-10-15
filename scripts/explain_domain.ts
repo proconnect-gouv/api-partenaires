@@ -117,6 +117,12 @@ const refusal_context: {
     scene: Scene,
   ) => Context;
 } = {
+  declared_by_other: ({ declaring }) => ({
+    fix: "drop the row, the domain belongs to the collectivités declaring it",
+    why: [
+      `DILA gives it to ${all_of.format(declaring.map(fiche_brief))}, not to the row's collectivité`,
+    ],
+  }),
   fiche_not_found: (_, { owner }) => ({
     fix: owner
       ? `cite ${fiche_link({ fiche: owner, text: "the owner's fiche" })}`
@@ -185,6 +191,7 @@ function describe_context(refusal: Refusal, scene: Scene): Context {
 const STEP = { declared: 2, owner: 3 } as const;
 
 const FICHE_CODES: Refusal["code"][] = [
+  "declared_by_other",
   "fiche_not_found",
   "fiche_siren_mismatch",
 ];

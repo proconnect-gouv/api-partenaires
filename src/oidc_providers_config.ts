@@ -11,6 +11,13 @@ const allowed_domain_schema = z.discriminatedUnion("source", [
   z.object({
     domain: domain_schema,
     fiche: fiche_url_schema,
+    siret: z.string().optional(),
+    source: z.literal("candidate"),
+  }),
+  z.object({
+    domain: domain_schema,
+    fiche: fiche_url_schema,
+    siret: z.string().optional(),
     source: z.literal("dila"),
   }),
   z.object({
