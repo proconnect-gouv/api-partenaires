@@ -5,7 +5,10 @@ import { build_dila_index } from "./declared_by";
 import { check_row, partition_reports, type RowVerdict } from "./source";
 
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
+const bourg_id = "0b0a7000-0000-4000-8000-000000000000";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
+const hilaire_id = "5a1e0000-0000-4000-8000-000000000000";
+const martin_id = "3a1e0000-0000-4000-8000-000000000000";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 const paul_id = "c0ffee00-0000-4000-8000-000000000000";
 
@@ -40,6 +43,24 @@ const index = build_dila_index([
     name: "Saint-Paul-lez-Durance",
     site: "stpaul.fr",
     siren: "218400000",
+  }),
+  mairie({
+    id: bourg_id,
+    name: "Bourg-Saint-Maurice",
+    site: "lesarcs.fr",
+    siren: "217300557",
+  }),
+  mairie({
+    id: martin_id,
+    name: "Saint-Martin-de-Landelles",
+    site: "st-hilaire.fr",
+    siren: "200058204",
+  }),
+  mairie({
+    id: hilaire_id,
+    name: "Saint-Hilaire-du-Harcouët",
+    site: "st-hilaire.fr",
+    siren: "200058204",
   }),
 ]);
 
@@ -134,11 +155,37 @@ describe("check_row", () => {
 
   test("refuses a dila domain without its collectivité's name, listing the spellings tried", () => {
     expect(
-      check_row(dila_row({ domain: "stpaul.fr", id: paul_id }), index),
+      check_row(dila_row({ domain: "lesarcs.fr", id: bourg_id }), index),
     ).toEqual({
       ok: false,
-      error: { code: "lacks_name", spellings: ["Saint-Paul-lez-Durance"] },
+      error: { code: "lacks_name", spellings: ["Bourg-Saint-Maurice"] },
     });
+  });
+
+  test("approves a dila row carrying only its owner's saint head", () => {
+    const fiche = index.fiches.get(paul_id);
+    expect(
+      check_row(dila_row({ domain: "stpaul.fr", id: paul_id }), index),
+    ).toEqual(
+      ok({
+        code: "dila",
+        name: { rule: "saint_head", spelling: "Saint-Paul-lez-Durance" },
+        owner: fiche as never,
+      }),
+    );
+  });
+
+  test("approves a dila row carrying the saint head of its own fiche when the owner is a sibling fiche", () => {
+    const owner = index.fiches.get(martin_id);
+    expect(
+      check_row(dila_row({ domain: "st-hilaire.fr", id: hilaire_id }), index),
+    ).toEqual(
+      ok({
+        code: "dila",
+        name: { rule: "saint_head", spelling: "Saint-Hilaire-du-Harcouët" },
+        owner: owner as never,
+      }),
+    );
   });
 
   test("approves a candidate row that reconstructs its collectivité name", () => {
@@ -227,8 +274,8 @@ describe("partition_reports", () => {
       dila_row({ domain: "coise.fr", id: coise_id }),
     );
     const refused = report(
-      "stpaul.fr",
-      dila_row({ domain: "stpaul.fr", id: paul_id }),
+      "lesarcs.fr",
+      dila_row({ domain: "lesarcs.fr", id: bourg_id }),
     );
 
     expect(partition_reports([routed, approved, refused])).toEqual({

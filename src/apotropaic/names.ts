@@ -144,6 +144,39 @@ export function carries_name({
   return [...name_stems(name)].some((stem) => flat.includes(stem));
 }
 
+const SAINT_WORDS: Readonly<Record<string, true>> = {
+  saint: true,
+  sainte: true,
+  st: true,
+  ste: true,
+};
+
+function saint_head_forms(form: string): readonly string[] {
+  const words = form.split("-");
+  const [first] = words;
+  if (
+    words.length < 3 ||
+    first === undefined ||
+    !Object.hasOwn(SAINT_WORDS, first)
+  )
+    return [];
+  const head = words.slice(0, 2).join("-");
+  return [head, ...saint_forms(head)];
+}
+
+export function carries_saint_head({
+  domain,
+  name,
+}: {
+  domain: string;
+  name: string;
+}): boolean {
+  const flat = domain.toLowerCase().replace(/[-.]/g, "");
+  return name_slugs(name)
+    .flatMap(saint_head_forms)
+    .some((head) => flat.includes(head.replaceAll("-", "")));
+}
+
 const PREFIXES = [
   "agglo-",
   "ca-",
