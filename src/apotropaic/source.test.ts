@@ -2,10 +2,17 @@ import { describe, expect, test } from "bun:test";
 import type { AllowedDomain } from "#src/oidc_providers_config";
 import { ok } from "#src/result";
 import { build_dila_index } from "./declared_by";
-import { check_row, partition_reports, type RowVerdict } from "./source";
+import {
+  check_row,
+  describe_approval,
+  partition_reports,
+  type RowVerdict,
+} from "./source";
 
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
+const brie_id = "b41e0000-0000-4000-8000-000000000000";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
+const orange_id = "0a4e0000-0000-4000-8000-000000000000";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 const paul_id = "c0ffee00-0000-4000-8000-000000000000";
 
@@ -33,8 +40,15 @@ function mairie({
 }
 
 const index = build_dila_index([
+  mairie({ id: brie_id, name: "Brie", site: "brie.com", siren: "213500416" }),
   mairie({ id: coise_id, name: "Coise", site: "coise.fr", siren: "217300896" }),
-  mairie({ id: other_id, name: "Other", site: null, siren: "999999999" }),
+  mairie({ id: orange_id, name: "Orange", site: null, siren: "218400871" }),
+  mairie({
+    id: other_id,
+    name: "Other",
+    site: "commune-coise.fr",
+    siren: "999999999",
+  }),
   mairie({
     id: paul_id,
     name: "Saint-Paul-lez-Durance",
@@ -180,7 +194,7 @@ describe("check_row", () => {
     });
   });
 
-  test("refuses a candidate domain DILA declares for another collectivité, naming it", () => {
+  test("refuses a candidate domain DILA declares for another collectivité when it does not rebuild the fiche's name", () => {
     expect(
       check_row(candidate_row({ domain: "coise.fr", id: other_id }), index),
     ).toMatchObject({
@@ -202,17 +216,67 @@ describe("check_row", () => {
     });
   });
 
-  test("refuses a candidate row on the not-allowed list", () => {
+  test("approves a dila .com row that rebuilds its fiche's name, citing the not_sovereign refusal it overrides", () => {
+    const fiche = index.fiches.get(brie_id);
+    expect(
+      check_row(dila_row({ domain: "brie.com", id: brie_id }), index),
+    ).toEqual(
+      ok({
+        code: "reconstructible",
+        fiche: fiche as never,
+        overrides: {
+          code: "not_sovereign",
+          extension: "com",
+          internationalized: false,
+        },
+        spelling: "Brie",
+      }),
+    );
+  });
+
+  test("approves a candidate domain DILA declares for another collectivité when it rebuilds the row's fiche name", () => {
+    expect(
+      check_row(
+        candidate_row({ domain: "commune-coise.fr", id: coise_id }),
+        index,
+      ),
+    ).toMatchObject({
+      ok: true,
+      value: {
+        code: "reconstructible",
+        fiche: { siren: "217300896" },
+        overrides: {
+          code: "declared_by_other",
+          declaring: [{ siren: "999999999" }],
+        },
+        spelling: "Coise",
+      },
+    });
+  });
+
+  test("refuses a candidate row on the not-allowed list even when it rebuilds its fiche's name", () => {
     expect(
       refusal_code(
-        check_row(candidate_row({ domain: "orange.fr", id: coise_id }), index),
+        check_row(candidate_row({ domain: "orange.fr", id: orange_id }), index),
       ),
     ).toBe("not_allowed");
   });
 });
 
+describe("describe_approval", () => {
+  test("names the fiche, the rebuilt spelling and the refusal a reconstructible row overrides", () => {
+    const verdict = check_row(
+      dila_row({ domain: "brie.com", id: brie_id }),
+      index,
+    );
+    expect(verdict.ok && describe_approval(verdict.value)).toBe(
+      'Brie (SIREN 213500416) name rebuilt from "Brie", overrides: RPNT 1.2: .com is not a sovereign extension',
+    );
+  });
+});
+
 describe("partition_reports", () => {
-  test("errors are refusals, warnings are routed approvals", () => {
+  test("errors are refusals, warnings are routed approvals, reconstructible rows are neither", () => {
     const report = (domain: string, row: AllowedDomain) => ({
       domain,
       uid,
@@ -226,12 +290,16 @@ describe("partition_reports", () => {
       "coise.fr",
       dila_row({ domain: "coise.fr", id: coise_id }),
     );
+    const rebuilt = report(
+      "brie.com",
+      dila_row({ domain: "brie.com", id: brie_id }),
+    );
     const refused = report(
       "stpaul.fr",
       dila_row({ domain: "stpaul.fr", id: paul_id }),
     );
 
-    expect(partition_reports([routed, approved, refused])).toEqual({
+    expect(partition_reports([routed, approved, rebuilt, refused])).toEqual({
       errors: [refused],
       warnings: [routed],
     });

@@ -30,6 +30,12 @@ export type NameMatch = {
 export type Approval =
   | { code: "candidate"; name: NameMatch; owner: Fiche }
   | { code: "dila"; name: NameMatch; owner: Fiche }
+  | {
+      code: "reconstructible";
+      fiche: Fiche;
+      overrides: Refusal;
+      spelling: string;
+    }
   | { code: "routed" };
 
 export type RowVerdict = Result<Approval, Refusal>;
@@ -91,12 +97,15 @@ const approval_message: {
     `${fiche_brief(owner)} (candidate), ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
   dila: ({ name, owner }) =>
     `${fiche_brief(owner)} owns it, ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
+  reconstructible: ({ fiche, overrides, spelling }) =>
+    `${fiche_brief(fiche)} name rebuilt from "${spelling}", overrides: ${describe_refusal(overrides)}`,
   routed: () => "routed exception, not rule",
 };
 
 const approval_severity: { [C in Approval["code"]]: "ok" | "warning" } = {
   candidate: "ok",
   dila: "ok",
+  reconstructible: "ok",
   routed: "warning",
 };
 export function describe_refusal(refusal: Refusal): string {
@@ -180,9 +189,41 @@ function check_source<S extends Source>(
   return check_by_source[row.source](row, index);
 }
 
+const fiche_url_by_source: {
+  [S in Source]: (row: RowBySource[S]) => string | null;
+} = {
+  candidate: (row) => row.fiche,
+  dila: (row) => row.fiche,
+  routed: () => null,
+};
+function check_reconstructible<S extends Source>({
+  index,
+  refusal,
+  row,
+}: {
+  index: DilaIndex;
+  refusal: Refusal;
+  row: RowBySource[S];
+}): RowVerdict {
+  const fiche_url = fiche_url_by_source[row.source](row);
+  const id = fiche_url === null ? null : fiche_id(fiche_url);
+  const fiche = id === null ? undefined : index.fiches.get(id);
+  if (fiche === undefined) return err(refusal);
+  const spelling = [...fiche.names].find((name) =>
+    reconstructs({ departement: fiche.departement, domain: row.domain, name }),
+  );
+  return spelling === undefined
+    ? err(refusal)
+    : ok({ code: "reconstructible", fiche, overrides: refusal, spelling });
+}
+
 export function check_row(row: AllowedDomain, index: DilaIndex): RowVerdict {
   const allowed = check_not_allowed(row.domain);
-  return allowed.ok ? check_source(row, index) : allowed;
+  if (!allowed.ok) return allowed;
+  const verdict = check_source(row, index);
+  return verdict.ok
+    ? verdict
+    : check_reconstructible({ index, refusal: verdict.error, row });
 }
 
 export type RowReport = {

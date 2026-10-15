@@ -13,6 +13,7 @@ import {
   type DenyListName,
 } from "#src/apotropaic/not_allowed";
 import {
+  type Approval,
   check_fiche,
   check_name,
   check_row,
@@ -93,6 +94,13 @@ type Context = { fix: string; why: string[] };
 
 const ROUTED_FALLBACK =
   "or, if it really is theirs, list it as a routed exception";
+
+const approval_noted: { [C in Approval["code"]]: boolean } = {
+  candidate: false,
+  dila: false,
+  reconstructible: true,
+  routed: true,
+};
 
 const deny_list_why: { [L in DenyListName]: string } = {
   colliding_brand: "a brand that spells a commune's name, not the commune",
@@ -362,7 +370,7 @@ function explain(domain: string): Explanation {
       : 0,
     notes: verdicts.flatMap((verdict) =>
       verdict.ok
-        ? verdict.value.code === "routed"
+        ? approval_noted[verdict.value.code]
           ? [describe_approval(verdict.value)]
           : []
         : [describe_refusal(verdict.error)],
