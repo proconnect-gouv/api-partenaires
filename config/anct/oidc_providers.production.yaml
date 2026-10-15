@@ -51073,13 +51073,13 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/1be4a081-aa21-471a-a45e-7bc7e96e243f
         siret: "21390214100018"
         source: candidate
-      - domain: ville-etouars.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/c71a18c5-7b41-45da-b09e-517b6d1ec03e
-        siret: "21240163200014"
-        source: candidate
       - domain: ville-etrepigney.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2a223ca9-3784-4458-bfb4-d9dfe623df1c
         siret: "21390218200012"
+        source: candidate
+      - domain: ville-evans.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/af66481d-56ba-450f-88b2-284b4a6cfdb0
+        siret: "21390219000015"
         source: candidate
       - domain: ville-falletans.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/fa9112da-a1c9-4e52-aae2-b231f24b2131
@@ -108291,10 +108291,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/7b08b94b-b173-4d24-8155-4fd3b5560e55
         siret: "21580110100019"
         source: candidate
-      - domain: ville-etuz.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/dcbeebde-84ab-4e5c-a461-4443a7ca91c0
-        siret: "21700224500017"
-        source: candidate
       - domain: ville-fachin.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/4996527c-40b4-4f48-971f-7baa1217594f
         siret: "21580111900011"
@@ -109492,6 +109488,10 @@ oidc_providers:
         siret: "21580313100014"
         source: candidate
       - domain: vitrylache.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/979ce378-9d37-4032-8b29-27ade73dc906
+        siret: "21580313100014"
+        source: candidate
+      - domain: vitrylache58.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/979ce378-9d37-4032-8b29-27ade73dc906
         siret: "21580313100014"
         source: candidate
