@@ -110,6 +110,19 @@ export function create_oidc_providers_app({
         { returnDocument: "after" },
       );
       if (!updated) return c.json({ error: "not_found" }, 404);
+      const removed = provider.attachedEmailDomains.filter(
+        (domain) => !updated.attachedEmailDomains.includes(domain),
+      );
+      if (added.length > 0 || removed.length > 0) {
+        console.info(
+          JSON.stringify({
+            event: "oidc_provider.attached_email_domains.updated",
+            uid,
+            added,
+            removed,
+          }),
+        );
+      }
       return c.json({
         uid: updated.uid,
         name: updated.name,
