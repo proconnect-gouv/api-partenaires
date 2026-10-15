@@ -2,7 +2,17 @@ import { describe, expect, test } from "bun:test";
 import { build_dila_index } from "./declared_by";
 import { dila_ok } from "./dila_ok";
 
-function mairie(id: string, siren: string, site: string, mail: string) {
+function mairie({
+  id,
+  mail,
+  site,
+  siren,
+}: {
+  id: string;
+  mail: string;
+  site: string;
+  siren: string;
+}) {
   return {
     id,
     siret: null,
@@ -18,16 +28,28 @@ function mairie(id: string, siren: string, site: string, mail: string) {
 describe("dila_ok", () => {
   test("accepts a sovereign domain one collectivité uses for site and mail", () => {
     const index = build_dila_index([
-      mairie("1", "217300896", "coise.fr", "coise.fr"),
+      mairie({
+        id: "1",
+        mail: "coise.fr",
+        site: "coise.fr",
+        siren: "217300896",
+      }),
     ]).declared_by;
 
-    const verdict = dila_ok(index, "coise.fr");
-    expect(verdict.ok && verdict.value.owner.siren).toBe("217300896");
+    expect(dila_ok(index, "coise.fr")).toMatchObject({
+      ok: true,
+      value: { owner: { siren: "217300896" } },
+    });
   });
 
   test("refuses a non-sovereign extension", () => {
     const index = build_dila_index([
-      mairie("1", "217300896", "coise.com", "coise.com"),
+      mairie({
+        id: "1",
+        mail: "coise.com",
+        site: "coise.com",
+        siren: "217300896",
+      }),
     ]).declared_by;
 
     expect(dila_ok(index, "coise.com")).toEqual({
@@ -42,7 +64,12 @@ describe("dila_ok", () => {
 
   test("refuses an internationalized domain", () => {
     const index = build_dila_index([
-      mairie("1", "217300896", "xn--coise-bsa.fr", "xn--coise-bsa.fr"),
+      mairie({
+        id: "1",
+        mail: "xn--coise-bsa.fr",
+        site: "xn--coise-bsa.fr",
+        siren: "217300896",
+      }),
     ]).declared_by;
 
     expect(dila_ok(index, "xn--coise-bsa.fr")).toEqual({
@@ -57,7 +84,12 @@ describe("dila_ok", () => {
 
   test("accepts a domain declared on only one channel", () => {
     const index = build_dila_index([
-      mairie("1", "217300896", "coise.fr", "coise73.fr"),
+      mairie({
+        id: "1",
+        mail: "coise73.fr",
+        site: "coise.fr",
+        siren: "217300896",
+      }),
     ]).declared_by;
 
     expect(dila_ok(index, "coise.fr").ok).toBe(true);
@@ -66,14 +98,27 @@ describe("dila_ok", () => {
 
   test("refuses a domain several collectivités declare", () => {
     const index = build_dila_index([
-      mairie("1", "217300896", "shared.fr", "shared.fr"),
-      mairie("2", "999999999", "shared.fr", "shared.fr"),
+      mairie({
+        id: "1",
+        mail: "shared.fr",
+        site: "shared.fr",
+        siren: "217300896",
+      }),
+      mairie({
+        id: "2",
+        mail: "shared.fr",
+        site: "shared.fr",
+        siren: "999999999",
+      }),
     ]).declared_by;
 
-    const verdict = dila_ok(index, "shared.fr");
-    expect(
-      !verdict.ok && verdict.error.code === "shared" && verdict.error.fiches,
-    ).toHaveLength(2);
+    expect(dila_ok(index, "shared.fr")).toMatchObject({
+      error: {
+        code: "shared",
+        fiches: [{ siren: "217300896" }, { siren: "999999999" }],
+      },
+      ok: false,
+    });
   });
 
   test("refuses a domain nobody declares", () => {
