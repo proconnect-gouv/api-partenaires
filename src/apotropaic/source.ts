@@ -15,6 +15,7 @@ import {
 import { err, ok, type Result } from "#src/result";
 
 type FicheRefusal =
+  | { code: "declared_by_other"; declaring: Fiche[]; fiche: Fiche }
   | { code: "fiche_not_found"; fiche_url: string }
   | { code: "fiche_siren_mismatch"; fiche: Fiche; owner: Fiche };
 type NameRefusal = { code: "lacks_name"; spellings: string[] };
@@ -57,6 +58,11 @@ function fiche_brief(fiche: Fiche): string {
 const refusal_message: {
   [C in Refusal["code"]]: (refusal: Extract<Refusal, { code: C }>) => string;
 } = {
+  declared_by_other: ({ declaring, fiche }) => {
+    const shown = declaring.slice(0, SHOWN_FICHES).map(fiche_brief).join(", ");
+    const more = declaring.length > SHOWN_FICHES ? ", …" : "";
+    return `fiche is ${fiche_brief(fiche)}, DILA declares it for: ${shown}${more}`;
+  },
   fiche_not_found: ({ fiche_url }) =>
     `fiche is not a collectivite in DILA: ${fiche_url}`,
   fiche_siren_mismatch: ({ fiche, owner }) =>
@@ -142,9 +148,15 @@ type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
 const check_by_source: {
   [S in Source]: (row: RowBySource[S], index: DilaIndex) => RowVerdict;
 } = {
-  candidate: (row, { fiches }) => {
+  candidate: (row, { declared_by, fiches }) => {
     const fiche = fiches.get(fiche_id(row.fiche) ?? "");
     if (!fiche) return err({ code: "fiche_not_found", fiche_url: row.fiche });
+    const declaring = declared_by.get(row.domain) ?? [];
+    if (
+      declaring.length > 0 &&
+      !declaring.some((other) => other.siren === fiche.siren)
+    )
+      return err({ code: "declared_by_other", declaring, fiche });
     const name = check_name(row.domain, fiche, fiche);
     return name.ok
       ? ok({ code: "candidate", name: name.value, owner: fiche })
