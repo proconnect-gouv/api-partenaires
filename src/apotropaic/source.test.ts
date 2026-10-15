@@ -180,6 +180,28 @@ describe("check_row", () => {
     });
   });
 
+  test("refuses a candidate domain DILA declares for another collectivité, naming it", () => {
+    expect(
+      check_row(candidate_row({ domain: "coise.fr", id: other_id }), index),
+    ).toMatchObject({
+      error: {
+        code: "declared_by_other",
+        declaring: [{ siren: "217300896" }],
+        fiche: { siren: "999999999" },
+      },
+      ok: false,
+    });
+  });
+
+  test("approves a candidate domain DILA declares for its own collectivité", () => {
+    expect(
+      check_row(candidate_row({ domain: "coise.fr", id: coise_id }), index),
+    ).toMatchObject({
+      ok: true,
+      value: { code: "candidate", owner: { siren: "217300896" } },
+    });
+  });
+
   test("refuses a candidate row on the not-allowed list", () => {
     expect(
       refusal_code(
