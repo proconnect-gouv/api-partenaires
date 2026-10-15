@@ -167,6 +167,13 @@ export function create_oidc_clients_app({
       };
 
       const result = await oidc_clients.insertOne(doc);
+      console.info(
+        JSON.stringify({
+          event: "oidc_client.created",
+          id: result.insertedId.toHexString(),
+          by: email,
+        }),
+      );
       return c.json(
         format_oidc_client(client_secret_cipher_pass, {
           ...doc,
@@ -215,6 +222,14 @@ export function create_oidc_clients_app({
         { $set: update },
       );
       if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
+      console.info(
+        JSON.stringify({
+          event: "oidc_client.updated",
+          id: oid.toHexString(),
+          by: email,
+          fields: Object.keys(parsed.data),
+        }),
+      );
 
       const updated = await oidc_clients.findOne({
         _id: oid,
@@ -233,6 +248,13 @@ export function create_oidc_clients_app({
         collaborators: email,
       });
       if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
+      console.info(
+        JSON.stringify({
+          event: "oidc_client.deleted",
+          id: oid.toHexString(),
+          by: email,
+        }),
+      );
       return c.json({ deleted: true });
     });
 }
