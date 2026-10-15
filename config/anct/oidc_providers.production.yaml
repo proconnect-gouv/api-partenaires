@@ -459126,7 +459126,7 @@ oidc_providers:
       - domain: lanrivain.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
-        source: manual
+        source: routed
       - domain: lanrivain.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
