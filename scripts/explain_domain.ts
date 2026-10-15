@@ -14,11 +14,12 @@ import {
 } from "#src/apotropaic/not_allowed";
 import {
   type Approval,
+  check_dila_name,
   check_fiche,
-  check_name,
   check_row,
   describe_approval,
   describe_refusal,
+  name_rule_verb,
   type Refusal,
   type RowVerdict,
 } from "#src/apotropaic/source";
@@ -259,7 +260,9 @@ function explain(domain: string): Explanation {
     owner && dila_rows[0]
       ? check_fiche(dila_rows[0].fiche, owner, dila_index.fiches)
       : null;
-  const name = owner ? check_name(domain, row_fiche ?? owner, owner) : null;
+  const name = owner
+    ? check_dila_name({ domain, fiche: row_fiche ?? owner, owner })
+    : null;
 
   const checks: Check[] = [
     {
@@ -321,7 +324,7 @@ function explain(domain: string): Explanation {
       ? {
           codes: ["lacks_name"],
           detail: name.ok
-            ? `${name.value.rule === "reconstructs" ? "built from" : "carries"} "${name.value.spelling}"`
+            ? `${name_rule_verb[name.value.rule]} "${name.value.spelling}"`
             : describe_refusal(name.error),
           label: "RPNT 2.2 name",
           ok: name.ok,

@@ -1,5 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import { carries_name, name_stems, reconstructs } from "./names";
+import {
+  carries_name,
+  carries_saint_head,
+  name_stems,
+  reconstructs,
+} from "./names";
 
 describe("name_stems", () => {
   test.each([
@@ -45,6 +50,27 @@ describe("carries_name (RPNT 2.2)", () => {
   test("a short form shared by homonym communes does not carry the full name", () => {
     expect(
       carries_name({ domain: "stpaul.fr", name: "Saint-Paul-lez-Durance" }),
+    ).toBe(false);
+  });
+});
+
+describe("carries_saint_head", () => {
+  test.each([
+    ["st-sernin.fr", "Saint-Sernin-sur-Rance"],
+    ["stesabine.fr", "Sainte-Sabine-sur-Longève"],
+  ])("%s carries the saint head of %s", (domain, name) => {
+    expect(carries_saint_head({ domain, name })).toBe(true);
+  });
+
+  test("a plain saint name has no head beyond itself", () => {
+    expect(
+      carries_saint_head({ domain: "st-servan.fr", name: "Saint-Malo" }),
+    ).toBe(false);
+  });
+
+  test("a name without a saint head carries none", () => {
+    expect(
+      carries_saint_head({ domain: "coise.fr", name: "Coise-Saint-Jean" }),
     ).toBe(false);
   });
 });

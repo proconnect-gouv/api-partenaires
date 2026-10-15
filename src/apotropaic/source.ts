@@ -1,6 +1,10 @@
 import type { DilaIndex, Fiche } from "#src/apotropaic/declared_by";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
-import { carries_name, reconstructs } from "#src/apotropaic/names";
+import {
+  carries_name,
+  carries_saint_head,
+  reconstructs,
+} from "#src/apotropaic/names";
 import {
   check_not_allowed,
   type DenyListName,
@@ -23,7 +27,7 @@ type NameRefusal = { code: "lacks_name"; spellings: string[] };
 export type Refusal = DilaRefusal | FicheRefusal | NameRefusal | NotAllowed;
 
 export type NameMatch = {
-  rule: "carries_name" | "reconstructs";
+  rule: "carries_name" | "reconstructs" | "saint_head";
   spelling: string;
 };
 
@@ -90,13 +94,19 @@ const refusal_message: {
   undeclared: () => "no collectivite declares it in DILA",
 };
 
+export const name_rule_verb: { [R in NameMatch["rule"]]: string } = {
+  carries_name: "carries",
+  reconstructs: "built from",
+  saint_head: "carries the saint head of",
+};
+
 const approval_message: {
   [C in Approval["code"]]: (approval: Extract<Approval, { code: C }>) => string;
 } = {
   candidate: ({ name, owner }) =>
-    `${fiche_brief(owner)} (candidate), ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
+    `${fiche_brief(owner)} (candidate), ${name_rule_verb[name.rule]} "${name.spelling}"`,
   dila: ({ name, owner }) =>
-    `${fiche_brief(owner)} owns it, ${name.rule === "reconstructs" ? "built from" : "carries"} "${name.spelling}"`,
+    `${fiche_brief(owner)} owns it, ${name_rule_verb[name.rule]} "${name.spelling}"`,
   reconstructible: ({ fiche, overrides, spelling }) =>
     `${fiche_brief(fiche)} name rebuilt from "${spelling}", overrides: ${describe_refusal(overrides)}`,
   routed: () => "routed exception, not rule",
@@ -152,6 +162,25 @@ export function check_name(
       });
 }
 
+export function check_dila_name({
+  domain,
+  fiche,
+  owner,
+}: {
+  domain: string;
+  fiche: Fiche;
+  owner: Fiche;
+}): Result<NameMatch, NameRefusal> {
+  const name = check_name(domain, fiche, owner);
+  if (name.ok) return name;
+  const saint_head = name.error.spellings.find((spelling) =>
+    carries_saint_head({ domain, name: spelling }),
+  );
+  return saint_head === undefined
+    ? name
+    : ok({ rule: "saint_head", spelling: saint_head });
+}
+
 type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
 
 const check_by_source: {
@@ -177,7 +206,11 @@ const check_by_source: {
     const { owner } = owned.value;
     const fiche = check_fiche(row.fiche, owner, fiches);
     if (!fiche.ok) return fiche;
-    const name = check_name(row.domain, fiche.value, owner);
+    const name = check_dila_name({
+      domain: row.domain,
+      fiche: fiche.value,
+      owner,
+    });
     return name.ok ? ok({ code: "dila", name: name.value, owner }) : name;
   },
   routed: () => ok({ code: "routed" }),
