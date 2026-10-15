@@ -1,13 +1,23 @@
 import { describe, expect, test } from "bun:test";
-import type { AllowedDomain } from "#src/oidc_providers_config";
+import type {
+  AllowedDomain,
+  OidcProvidersConfig,
+} from "#src/oidc_providers_config";
 import { ok } from "#src/result";
 import { build_dila_index } from "./declared_by";
-import { check_row, partition_reports, type RowVerdict } from "./source";
+import {
+  build_gate_index,
+  check_row,
+  check_sources,
+  partition_reports,
+  type RowVerdict,
+} from "./source";
 
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 const paul_id = "c0ffee00-0000-4000-8000-000000000000";
+const homonym_id = "c0ffee00-0000-4000-8000-000000000001";
 
 function mairie({
   id,
@@ -32,8 +42,9 @@ function mairie({
   };
 }
 
-const index = build_dila_index([
+const dila = build_dila_index([
   mairie({ id: coise_id, name: "Coise", site: "coise.fr", siren: "217300896" }),
+  mairie({ id: homonym_id, name: "Coise", site: null, siren: "210100012" }),
   mairie({ id: other_id, name: "Other", site: null, siren: "999999999" }),
   mairie({
     id: paul_id,
@@ -42,6 +53,7 @@ const index = build_dila_index([
     siren: "218400000",
   }),
 ]);
+const index = build_gate_index({ oidc_providers: [] }, dila);
 
 function fiche_url(id: string) {
   return `https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/${id}`;
@@ -208,6 +220,61 @@ describe("check_row", () => {
         check_row(candidate_row({ domain: "orange.fr", id: coise_id }), index),
       ),
     ).toBe("not_allowed");
+  });
+});
+
+describe("check_sources", () => {
+  function config(rows: { id: string; uid: string }[]): OidcProvidersConfig {
+    return {
+      oidc_providers: rows.map(({ id, uid }) => ({
+        allowed_attached_email_domains: [
+          candidate_row({ domain: "mairie-coise.fr", id }),
+        ],
+        uid,
+      })),
+    };
+  }
+
+  test("refuses every candidate row of an undeclared domain cited for two collectivités", () => {
+    const reports = check_sources(
+      config([
+        { id: coise_id, uid },
+        { id: homonym_id, uid: other_id },
+      ]),
+      dila,
+    );
+    expect(reports).toMatchObject([
+      {
+        verdict: {
+          error: {
+            cited: [{ siren: "217300896" }, { siren: "210100012" }],
+            code: "cited_for_other",
+            fiche: { siren: "217300896" },
+          },
+          ok: false,
+        },
+      },
+      {
+        verdict: {
+          error: { code: "cited_for_other", fiche: { siren: "210100012" } },
+          ok: false,
+        },
+      },
+    ]);
+  });
+
+  test("approves candidate rows of one collectivité on several providers", () => {
+    const reports = check_sources(
+      config([
+        { id: coise_id, uid },
+        { id: coise_id, uid: other_id },
+      ]),
+      dila,
+    );
+    expect(reports).toMatchObject([
+      { verdict: { ok: true, value: { code: "candidate" } } },
+      { verdict: { ok: true, value: { code: "candidate" } } },
+    ]);
   });
 });
 
