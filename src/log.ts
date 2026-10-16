@@ -1,7 +1,7 @@
 export const log_levels = ["debug", "info", "error"] as const;
 export type LogLevel = (typeof log_levels)[number];
 
-let threshold: LogLevel = "debug";
+let threshold: LogLevel = "info";
 
 export function set_log_level(level: LogLevel) {
   threshold = level;

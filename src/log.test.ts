@@ -6,7 +6,7 @@ describe("log", () => {
   const info = spyOn(console, "info").mockImplementation(() => {});
 
   afterEach(() => {
-    set_log_level("debug");
+    set_log_level("info");
     debug.mockClear();
     info.mockClear();
   });
@@ -16,8 +16,7 @@ describe("log", () => {
     info.mockRestore();
   });
 
-  test("drops debug lines at the info level", () => {
-    set_log_level("info");
+  test("drops debug lines at the default info level", () => {
     log("debug", { event: "auth.rejected" });
     log("info", { event: "http.request" });
     expect(debug).not.toHaveBeenCalled();
@@ -26,7 +25,8 @@ describe("log", () => {
     );
   });
 
-  test("emits debug lines at the default debug level", () => {
+  test("emits debug lines once LOG_LEVEL is debug", () => {
+    set_log_level("debug");
     log("debug", { event: "auth.rejected", reason: "invalid_signature" });
     expect(debug).toHaveBeenCalledWith(
       '{"level":"debug","event":"auth.rejected","reason":"invalid_signature"}',
