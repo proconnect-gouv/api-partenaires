@@ -1,7 +1,9 @@
+import { parseArgs } from "node:util";
 import { build_cog_names, load_cog_export } from "#src/apotropaic/cog";
 import { build_dila_index } from "#src/apotropaic/declared_by";
 import { load_dila_export } from "#src/apotropaic/dila";
 import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
+import { build_digest, render_digest } from "#src/apotropaic/digest";
 import { carries_name, reconstructs } from "#src/apotropaic/names";
 import { check_not_allowed } from "#src/apotropaic/not_allowed";
 import {
@@ -13,10 +15,20 @@ import {
 import { code, md, table } from "#src/markdown";
 import {
   fiche_id,
+  type OidcProvidersConfig,
   oidc_providers_config_schema,
   type Source,
 } from "#src/oidc_providers_config";
 import { zod_issues } from "#src/zod_issues";
+
+const { values: options } = parseArgs({
+  options: {
+    "base-config": { type: "string" },
+    "base-sha": { type: "string" },
+    digest: { type: "string" },
+    "head-sha": { type: "string" },
+  },
+});
 
 const cog_names = build_cog_names(await load_cog_export());
 const dila_index = build_dila_index(await load_dila_export(), cog_names);
@@ -28,19 +40,20 @@ if (dila_index.rejected > 0) {
   process.exit(1);
 }
 
-const path = "config/anct/oidc_providers.production.yaml";
-const file = Bun.file(path);
-const parsed = oidc_providers_config_schema.safeParse(
-  Bun.YAML.parse(await file.text()),
-);
-
-if (!parsed.success) {
+async function load_config(path: string): Promise<OidcProvidersConfig> {
+  const parsed = oidc_providers_config_schema.safeParse(
+    Bun.YAML.parse(await Bun.file(path).text()),
+  );
+  if (parsed.success) return parsed.data;
   console.error(`🚨 ${path}: invalid config`);
   for (const issue of zod_issues(parsed.error)) {
     console.error(`  ${issue}`);
   }
   process.exit(1);
 }
+
+const path = "config/anct/oidc_providers.production.yaml";
+const config = await load_config(path);
 
 const count = new Intl.NumberFormat("en-US");
 const percent = new Intl.NumberFormat("en-US", {
@@ -63,10 +76,10 @@ function provider(uid: string): string {
   return `\`${uid.slice(0, 8)}\``;
 }
 
-const rows = parsed.data.oidc_providers.flatMap(
+const rows = config.oidc_providers.flatMap(
   (provider) => provider.allowed_attached_email_domains,
 );
-const providers = parsed.data.oidc_providers.length;
+const providers = config.oidc_providers.length;
 const rows_by_source = Object.groupBy(rows, (row) => row.source);
 const dila_rows = rows.filter((row) => row.source === "dila");
 const named = dila_rows.filter((row) => {
@@ -264,9 +277,37 @@ function verdict({ errors }: { errors: RowReport[] }): string {
     : `🛡️ \`${path}\`: parses, validates, and has no not-allowed or unattested domains`;
 }
 
-const reports = check_sources(parsed.data, dila_index);
+async function changes({ reports }: { reports: RowReport[] }): Promise<string> {
+  const base_path = options["base-config"];
+  if (base_path === undefined) return "";
+  const base_sha = options["base-sha"];
+  const head_sha = options["head-sha"];
+  if (base_sha === undefined || head_sha === undefined) {
+    console.error("🚨 --base-config needs --base-sha and --head-sha");
+    process.exit(1);
+  }
+  const base_config = await load_config(base_path);
+  const digest = build_digest({
+    base: {
+      config: base_config,
+      reports: check_sources(base_config, dila_index),
+    },
+    base_sha,
+    dila_date: new Date().toISOString().slice(0, 10),
+    head: { config, reports },
+    head_sha,
+    index: dila_index,
+  });
+  if (options.digest !== undefined) {
+    await Bun.write(options.digest, JSON.stringify(digest));
+  }
+  return render_digest(digest);
+}
+
+const reports = check_sources(config, dila_index);
 const { errors, warnings } = partition_reports(reports);
 const sections = [
+  await changes({ reports }),
   allowlist_stats({ reports }),
   dila_stats(),
   routed({ warnings }),
