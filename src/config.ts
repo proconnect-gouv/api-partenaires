@@ -10,7 +10,7 @@ export const config_schema = z.object({
     .enum(["true", "false"])
     .default("false")
     .transform((v) => v === "true"),
-  LOG_LEVEL: z.enum(log_levels).default("info"),
+  LOG_LEVEL: z.enum(log_levels).default("debug"),
   MAX_TIMESTAMP_DIFF: z.coerce.number().default(300),
   MONGODB_URI: z.string().default("mongodb://127.0.0.1:27017/partners"),
   OIDC_CLIENTS_API_SECRET: z.string(),
