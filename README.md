@@ -26,6 +26,7 @@ bun run dev
 | `MAX_TIMESTAMP_DIFF`                      | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`                                   |
 | `RATE_LIMIT_PER_MINUTE`                   | `60`                                 | Requêtes signées par minute et par secret (sinon `429`)                           |
 | `RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER` | `10`                                 | Requêtes par minute et par fournisseur `/api/oidc_providers/:uid/*` (sinon `429`) |
+| `LOG_LEVEL`                               | `info`                               | `debug`, `info` ou `error` ; `debug` ajoute la raison des `401` et `429`          |
 
 L'accès à `/api/*` est authentifié par signature HMAC-SHA256 (`X-Signature` /
 `X-Timestamp`), migré depuis `pcdbapi`. Chaque surface utilise son propre

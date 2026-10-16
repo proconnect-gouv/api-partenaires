@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type { MiddlewareHandler } from "hono";
+import { log } from "./log";
 
 function compute_signature(api_secret: string, message: string): string {
   return createHmac("sha256", api_secret).update(message).digest("hex");
@@ -24,15 +25,22 @@ export function create_signature_middleware({
     const timestamp = c.req.header("X-Timestamp");
 
     if (!signature || !timestamp) {
+      log("debug", { event: "auth.rejected", reason: "missing_headers" });
       return c.json({ detail: "Missing authentication headers" }, 401);
     }
 
     const ts = Number.parseInt(timestamp, 10);
     if (Number.isNaN(ts)) {
+      log("debug", { event: "auth.rejected", reason: "invalid_timestamp" });
       return c.json({ detail: "Invalid timestamp" }, 401);
     }
     const now = Math.floor(Date.now() / 1000);
     if (Math.abs(now - ts) > max_timestamp_diff) {
+      log("debug", {
+        event: "auth.rejected",
+        reason: "timestamp_expired",
+        skew_s: now - ts,
+      });
       return c.json({ detail: "Timestamp expired" }, 401);
     }
 
@@ -48,6 +56,7 @@ export function create_signature_middleware({
 
     const expected = compute_signature(api_secret, message);
     if (!safe_equal(signature, expected)) {
+      log("debug", { event: "auth.rejected", reason: "invalid_signature" });
       return c.json({ detail: "Invalid signature" }, 401);
     }
 
