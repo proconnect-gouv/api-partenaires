@@ -14,19 +14,19 @@ bun run dev
 
 ## Configuration
 
-| Variable                                  | Défaut                               | Description                                                                       |
-| ----------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------- |
-| `PORT`                                    | `3000`                               | Port d'écoute                                                                     |
-| `MONGODB_URI`                             | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)                            |
-| `OIDC_PROVIDERS_CONFIG`                   | `oidc_providers.yaml`                | Fichier YAML des uid éditables et attached_email_domains permis                   |
-| `OIDC_PROVIDERS_API_SECRET`               | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_providers/*`                                  |
-| `OIDC_CLIENTS_API_SECRET`                 | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*` (sandbox)                          |
-| `FEATURE_ENABLE_SANDBOX_ENDPOINT`         | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)                               |
-| `CLIENT_SECRET_CIPHER_PASS`               | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret`                         |
-| `MAX_TIMESTAMP_DIFF`                      | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`                                   |
-| `RATE_LIMIT_PER_MINUTE`                   | `60`                                 | Requêtes signées par minute et par secret (sinon `429`)                           |
-| `RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER` | `10`                                 | Requêtes par minute et par fournisseur `/api/oidc_providers/:uid/*` (sinon `429`) |
-| `LOG_LEVEL`                               | `info`                               | `debug`, `info` ou `error` ; `debug` ajoute la raison des `401` et `429`          |
+| Variable                                  | Défaut                               | Description                                                                                                                                                            |
+| ----------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PORT`                                    | `3000`                               | Port d'écoute                                                                                                                                                          |
+| `MONGODB_URI`                             | `mongodb://127.0.0.1:27017/partners` | Connexion MongoDB (collections `provider` et `client`)                                                                                                                 |
+| `OIDC_PROVIDERS_CONFIG`                   | `oidc_providers.yaml`                | Fichier YAML des uid éditables et attached_email_domains permis                                                                                                        |
+| `OIDC_PROVIDERS_API_SECRET`               | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_providers/*`                                                                                                                       |
+| `OIDC_CLIENTS_API_SECRET`                 | _(requis)_                           | Secret partagé HMAC pour `/api/oidc_clients/*` (sandbox)                                                                                                               |
+| `FEATURE_ENABLE_SANDBOX_ENDPOINT`         | `false`                              | Active l'endpoint `/api/oidc_clients` (sinon `403`)                                                                                                                    |
+| `CLIENT_SECRET_CIPHER_PASS`               | _(requis)_                           | Clé AES-256-GCM (32 octets) pour chiffrer `client_secret`                                                                                                              |
+| `MAX_TIMESTAMP_DIFF`                      | `300`                                | Fenêtre de validité (secondes) de `X-Timestamp`                                                                                                                        |
+| `RATE_LIMIT_PER_MINUTE`                   | `60`                                 | Requêtes signées par minute et par secret (sinon `429`)                                                                                                                |
+| `RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER` | `10`                                 | Requêtes par minute et par fournisseur `/api/oidc_providers/:uid/*` (sinon `429`)                                                                                      |
+| `LOG_LEVEL`                               | `info`                               | `debug`, `info` ou `error` ; `debug` ajoute le corps des réponses en erreur, la raison des `401`/`429`, le verdict DNS par domaine et l'erreur d'un `/readyz` en `503` |
 
 L'accès à `/api/*` est authentifié par signature HMAC-SHA256 (`X-Signature` /
 `X-Timestamp`), migré depuis `pcdbapi`. Chaque surface utilise son propre

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import type { FindUnreachableDomains } from "./domain_reachable";
-import { log } from "./log";
+import { log, log_enabled } from "./log";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
 import { create_oidc_providers_app } from "./oidc_providers";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
@@ -93,13 +93,22 @@ export function create_app({
         path: c.req.path,
         status: c.res.status,
       });
+      if (c.res.status >= 400 && log_enabled("debug"))
+        log("debug", {
+          body: await c.res.clone().text(),
+          event: "http.response",
+          method: c.req.method,
+          path: c.req.path,
+          status: c.res.status,
+        });
     })
     .get("/livez", (c) => c.json({ status: "ok" }))
     .get("/readyz", async (c) => {
       try {
         await check_ready();
         return c.json({ status: "ok" });
-      } catch {
+      } catch (error) {
+        log("debug", { error, event: "readyz.unavailable" });
         return c.json({ status: "unavailable" }, 503);
       }
     })

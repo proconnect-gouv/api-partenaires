@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { err, ok, type Result } from "./result";
+import { log } from "./log";
 
 const A = 1;
 const CONCURRENCY = 10;
@@ -133,6 +134,11 @@ export function create_find_unreachable_domains({
             stop.abort();
             return;
           }
+          log("debug", {
+            ...reachability.value,
+            domain,
+            event: "dns.checked",
+          });
           if (reachability.value.kind === "unreachable")
             unreachable.add(domain);
         }
