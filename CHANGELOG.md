@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.10.5](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.4...2026.10.5) (2026-10-16)
+
+### Ajouté
+
+- ✨ post a digest of allowlist changes vs main on pull requests ([#184](https://github.com/proconnect-gouv/api-partenaires/issues/184)) ([c6985a5](https://github.com/proconnect-gouv/api-partenaires/commit/c6985a5e9cfd2cef8cfb6cd29793bcba39b10871))
+
 ## [2026.10.4](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.3...2026.10.4) (2026-10-16)
 
 ### Modifié
