@@ -1,9 +1,14 @@
 import { describe, expect, test } from "bun:test";
-import type { AllowedDomain } from "#src/oidc_providers_config";
+import type {
+  AllowedDomain,
+  OidcProvidersConfig,
+} from "#src/oidc_providers_config";
 import { ok } from "#src/result";
 import { build_dila_index } from "./declared_by";
 import {
+  build_gate_index,
   check_row,
+  check_sources,
   describe_approval,
   partition_reports,
   type RowVerdict,
@@ -18,6 +23,7 @@ const martin_id = "3a1e0000-0000-4000-8000-000000000000";
 const orange_id = "0a4e0000-0000-4000-8000-000000000000";
 const other_id = "b2eb2a66-8f38-4a0d-b1be-5b67bc35101e";
 const paul_id = "c0ffee00-0000-4000-8000-000000000000";
+const homonym_id = "c0ffee00-0000-4000-8000-000000000001";
 
 function mairie({
   id,
@@ -42,9 +48,10 @@ function mairie({
   };
 }
 
-const index = build_dila_index([
+const dila = build_dila_index([
   mairie({ id: brie_id, name: "Brie", site: "brie.com", siren: "213500416" }),
   mairie({ id: coise_id, name: "Coise", site: "coise.fr", siren: "217300896" }),
+  mairie({ id: homonym_id, name: "Coise", site: null, siren: "210100012" }),
   mairie({ id: orange_id, name: "Orange", site: null, siren: "218400871" }),
   mairie({
     id: other_id,
@@ -77,6 +84,7 @@ const index = build_dila_index([
     siren: "200058204",
   }),
 ]);
+const index = build_gate_index({ oidc_providers: [] }, dila);
 
 function fiche_url(id: string) {
   return `https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/${id}`;
@@ -241,7 +249,7 @@ describe("check_row", () => {
     });
   });
 
-  test("refuses a candidate domain DILA declares for another collectivité when it does not rebuild the fiche's name", () => {
+  test("refuses a candidate domain DILA declares for another collectivité", () => {
     expect(
       check_row(candidate_row({ domain: "coise.fr", id: other_id }), index),
     ).toMatchObject({
@@ -281,23 +289,19 @@ describe("check_row", () => {
     );
   });
 
-  test("approves a candidate domain DILA declares for another collectivité when it rebuilds the row's fiche name", () => {
+  test("refuses a candidate domain DILA declares for another collectivité even when it rebuilds the row's fiche name", () => {
     expect(
       check_row(
         candidate_row({ domain: "commune-coise.fr", id: coise_id }),
         index,
       ),
     ).toMatchObject({
-      ok: true,
-      value: {
-        code: "reconstructible",
+      error: {
+        code: "declared_by_other",
+        declaring: [{ siren: "999999999" }],
         fiche: { siren: "217300896" },
-        overrides: {
-          code: "declared_by_other",
-          declaring: [{ siren: "999999999" }],
-        },
-        spelling: "Coise",
       },
+      ok: false,
     });
   });
 
@@ -322,6 +326,60 @@ describe("describe_approval", () => {
   });
 });
 
+describe("check_sources", () => {
+  function config(rows: { id: string; uid: string }[]): OidcProvidersConfig {
+    return {
+      oidc_providers: rows.map(({ id, uid }) => ({
+        allowed_attached_email_domains: [
+          candidate_row({ domain: "mairie-coise.fr", id }),
+        ],
+        uid,
+      })),
+    };
+  }
+
+  test("refuses every candidate row of an undeclared domain cited for two homonyms, though it rebuilds both names", () => {
+    const reports = check_sources(
+      config([
+        { id: coise_id, uid },
+        { id: homonym_id, uid: other_id },
+      ]),
+      dila,
+    );
+    expect(reports).toMatchObject([
+      {
+        verdict: {
+          error: {
+            cited: [{ siren: "217300896" }, { siren: "210100012" }],
+            code: "cited_for_other",
+            fiche: { siren: "217300896" },
+          },
+          ok: false,
+        },
+      },
+      {
+        verdict: {
+          error: { code: "cited_for_other", fiche: { siren: "210100012" } },
+          ok: false,
+        },
+      },
+    ]);
+  });
+
+  test("approves candidate rows of one collectivité on several providers", () => {
+    const reports = check_sources(
+      config([
+        { id: coise_id, uid },
+        { id: coise_id, uid: other_id },
+      ]),
+      dila,
+    );
+    expect(reports).toMatchObject([
+      { verdict: { ok: true, value: { code: "candidate" } } },
+      { verdict: { ok: true, value: { code: "candidate" } } },
+    ]);
+  });
+});
 describe("partition_reports", () => {
   test("errors are refusals, warnings are routed approvals, reconstructible rows are neither", () => {
     const report = (domain: string, row: AllowedDomain) => ({
