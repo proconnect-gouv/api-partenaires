@@ -4,6 +4,7 @@
 
 ### Ajouté
 
+- ✨ log one JSON line per event, with a debug level ([#187](https://github.com/proconnect-gouv/api-partenaires/issues/187)) ([0d39745](https://github.com/proconnect-gouv/api-partenaires/commit/0d39745563834b6703a015ba71fec0a0c1dca093))
 - ✨ post a digest of allowlist changes vs main on pull requests ([#184](https://github.com/proconnect-gouv/api-partenaires/issues/184)) ([c6985a5](https://github.com/proconnect-gouv/api-partenaires/commit/c6985a5e9cfd2cef8cfb6cd29793bcba39b10871))
 
 ## [2026.10.4](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.3...2026.10.4) (2026-10-16)
