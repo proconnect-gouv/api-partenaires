@@ -18,6 +18,7 @@ describe("environment parsing", () => {
     await expect(config_schema.parseAsync(REQUIRED_ENV)).resolves.toEqual({
       CLIENT_SECRET_CIPHER_PASS: REQUIRED_ENV.CLIENT_SECRET_CIPHER_PASS,
       FEATURE_ENABLE_SANDBOX_ENDPOINT: false,
+      LOG_LEVEL: "info",
       MAX_TIMESTAMP_DIFF: 300,
       MONGODB_URI: "mongodb://127.0.0.1:27017/partners",
       OIDC_CLIENTS_API_SECRET: REQUIRED_ENV.OIDC_CLIENTS_API_SECRET,
@@ -87,6 +88,12 @@ describe("environment parsing", () => {
         ...REQUIRED_ENV,
         CLIENT_SECRET_CIPHER_PASS: "too-short",
       }),
+    ).rejects.toThrow();
+  });
+
+  test("rejects an unknown LOG_LEVEL at boot", async () => {
+    await expect(
+      config_schema.parseAsync({ ...REQUIRED_ENV, LOG_LEVEL: "verbose" }),
     ).rejects.toThrow();
   });
 });

@@ -1,4 +1,5 @@
 import type { Context, Env, MiddlewareHandler } from "hono";
+import { log } from "./log";
 
 const WINDOW_MS = 60_000;
 
@@ -55,8 +56,9 @@ export function create_rate_limit_middleware<P extends string>({
 }): MiddlewareHandler<Env, P> {
   let state: RateLimitState = { counts: new Map(), window_start: Date.now() };
   return async (c, next) => {
+    const rate_key = key(c);
     const result = decide_rate_limit({
-      key: key(c),
+      key: rate_key,
       limit_per_minute,
       now: Date.now(),
       state,
@@ -66,6 +68,11 @@ export function create_rate_limit_middleware<P extends string>({
       case "allow":
         return next();
       case "deny":
+        log("debug", {
+          event: "rate_limit.denied",
+          key: rate_key,
+          retry_after_s: result.decision.retry_after_s,
+        });
         c.header("Retry-After", String(result.decision.retry_after_s));
         return c.json({ detail: "Too many requests" }, 429);
     }
