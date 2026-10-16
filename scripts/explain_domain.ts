@@ -14,6 +14,7 @@ import {
 } from "#src/apotropaic/not_allowed";
 import {
   type Approval,
+  build_gate_index,
   check_dila_name,
   check_fiche,
   check_row,
@@ -48,9 +49,12 @@ if (positionals.length === 0) {
 const config = oidc_providers_config_schema.parse(
   Bun.YAML.parse(await Bun.file(values.config).text()),
 );
-const dila_index = build_dila_index(
-  await load_dila_export(),
-  build_cog_names(await load_cog_export()),
+const dila_index = build_gate_index(
+  config,
+  build_dila_index(
+    await load_dila_export(),
+    build_cog_names(await load_cog_export()),
+  ),
 );
 
 const SHOWN_FICHES = 3;
@@ -126,6 +130,12 @@ const refusal_context: {
     scene: Scene,
   ) => Context;
 } = {
+  cited_for_other: ({ cited }) => ({
+    fix: "drop every row citing it, DILA declares it for none of them",
+    why: [
+      `rows cite it for ${all_of.format(cited.map(fiche_brief))}, so nobody can tell whose it is`,
+    ],
+  }),
   declared_by_other: ({ declaring }) => ({
     fix: "drop the row, the domain belongs to the collectivités declaring it",
     why: [
@@ -200,6 +210,7 @@ function describe_context(refusal: Refusal, scene: Scene): Context {
 const STEP = { declared: 2, owner: 3 } as const;
 
 const FICHE_CODES: Refusal["code"][] = [
+  "cited_for_other",
   "declared_by_other",
   "fiche_not_found",
   "fiche_siren_mismatch",

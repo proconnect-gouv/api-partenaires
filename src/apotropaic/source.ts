@@ -19,12 +19,17 @@ import {
 import { err, ok, type Result } from "#src/result";
 
 type FicheRefusal =
+  | { code: "cited_for_other"; cited: Fiche[]; fiche: Fiche }
   | { code: "declared_by_other"; declaring: Fiche[]; fiche: Fiche }
   | { code: "fiche_not_found"; fiche_url: string }
   | { code: "fiche_siren_mismatch"; fiche: Fiche; owner: Fiche };
 type NameRefusal = { code: "lacks_name"; spellings: string[] };
 
 export type Refusal = DilaRefusal | FicheRefusal | NameRefusal | NotAllowed;
+
+export type GateIndex = DilaIndex & {
+  cited_by: ReadonlyMap<string, Fiche[]>;
+};
 
 export type NameMatch = {
   rule: "carries_name" | "reconstructs" | "saint_head";
@@ -65,14 +70,18 @@ function fiche_brief(fiche: Fiche): string {
   return `${fiche.name} (SIREN ${fiche.siren})`;
 }
 
+function fiches_brief(fiches: Fiche[]): string {
+  const shown = fiches.slice(0, SHOWN_FICHES).map(fiche_brief).join(", ");
+  return fiches.length > SHOWN_FICHES ? `${shown}, …` : shown;
+}
+
 const refusal_message: {
   [C in Refusal["code"]]: (refusal: Extract<Refusal, { code: C }>) => string;
 } = {
-  declared_by_other: ({ declaring, fiche }) => {
-    const shown = declaring.slice(0, SHOWN_FICHES).map(fiche_brief).join(", ");
-    const more = declaring.length > SHOWN_FICHES ? ", …" : "";
-    return `fiche is ${fiche_brief(fiche)}, DILA declares it for: ${shown}${more}`;
-  },
+  cited_for_other: ({ cited, fiche }) =>
+    `fiche is ${fiche_brief(fiche)}, rows also cite it for: ${fiches_brief(cited.filter((other) => other.siren !== fiche.siren))}`,
+  declared_by_other: ({ declaring, fiche }) =>
+    `fiche is ${fiche_brief(fiche)}, DILA declares it for: ${fiches_brief(declaring)}`,
   fiche_not_found: ({ fiche_url }) =>
     `fiche is not a collectivite in DILA: ${fiche_url}`,
   fiche_siren_mismatch: ({ fiche, owner }) =>
@@ -184,9 +193,9 @@ export function check_dila_name({
 type RowBySource = { [S in Source]: Extract<AllowedDomain, { source: S }> };
 
 const check_by_source: {
-  [S in Source]: (row: RowBySource[S], index: DilaIndex) => RowVerdict;
+  [S in Source]: (row: RowBySource[S], index: GateIndex) => RowVerdict;
 } = {
-  candidate: (row, { declared_by, fiches }) => {
+  candidate: (row, { cited_by, declared_by, fiches }) => {
     const fiche = fiches.get(fiche_id(row.fiche) ?? "");
     if (!fiche) return err({ code: "fiche_not_found", fiche_url: row.fiche });
     const declaring = declared_by.get(row.domain) ?? [];
@@ -195,6 +204,12 @@ const check_by_source: {
       !declaring.some((other) => other.siren === fiche.siren)
     )
       return err({ code: "declared_by_other", declaring, fiche });
+    const cited = cited_by.get(row.domain) ?? [];
+    if (
+      declaring.length === 0 &&
+      cited.some((other) => other.siren !== fiche.siren)
+    )
+      return err({ code: "cited_for_other", cited, fiche });
     const name = check_name(row.domain, fiche, fiche);
     return name.ok
       ? ok({ code: "candidate", name: name.value, owner: fiche })
@@ -217,7 +232,7 @@ const check_by_source: {
 };
 function check_source<S extends Source>(
   row: RowBySource[S],
-  index: DilaIndex,
+  index: GateIndex,
 ): RowVerdict {
   return check_by_source[row.source](row, index);
 }
@@ -234,7 +249,7 @@ function check_reconstructible<S extends Source>({
   refusal,
   row,
 }: {
-  index: DilaIndex;
+  index: GateIndex;
   refusal: Refusal;
   row: RowBySource[S];
 }): RowVerdict {
@@ -250,13 +265,45 @@ function check_reconstructible<S extends Source>({
     : ok({ code: "reconstructible", fiche, overrides: refusal, spelling });
 }
 
-export function check_row(row: AllowedDomain, index: DilaIndex): RowVerdict {
+// Homonyms share a name, so a rebuilt name cannot tell whose domain it is:
+// refusals naming another owner stay refusals.
+const overridable_by_reconstructible: { [C in Refusal["code"]]: boolean } = {
+  cited_for_other: false,
+  declared_by_other: false,
+  fiche_not_found: true,
+  fiche_siren_mismatch: true,
+  lacks_name: true,
+  not_allowed: false,
+  not_sovereign: true,
+  shared: true,
+  undeclared: true,
+};
+
+export function check_row(row: AllowedDomain, index: GateIndex): RowVerdict {
   const allowed = check_not_allowed(row.domain);
   if (!allowed.ok) return allowed;
   const verdict = check_source(row, index);
-  return verdict.ok
+  return verdict.ok || !overridable_by_reconstructible[verdict.error.code]
     ? verdict
     : check_reconstructible({ index, refusal: verdict.error, row });
+}
+
+export function build_gate_index(
+  config: OidcProvidersConfig,
+  dila: DilaIndex,
+): GateIndex {
+  const cited_by = new Map<string, Fiche[]>();
+  for (const provider of config.oidc_providers)
+    for (const row of provider.allowed_attached_email_domains) {
+      if (row.source !== "candidate") continue;
+      const fiche = dila.fiches.get(fiche_id(row.fiche) ?? "");
+      if (!fiche) continue;
+      const cited = cited_by.get(row.domain) ?? [];
+      if (!cited.some((other) => other.siren === fiche.siren))
+        cited.push(fiche);
+      cited_by.set(row.domain, cited);
+    }
+  return { ...dila, cited_by };
 }
 
 export type RowReport = {
@@ -267,8 +314,9 @@ export type RowReport = {
 
 export function check_sources(
   config: OidcProvidersConfig,
-  index: DilaIndex,
+  dila: DilaIndex,
 ): RowReport[] {
+  const index = build_gate_index(config, dila);
   return config.oidc_providers.flatMap((provider) =>
     provider.allowed_attached_email_domains.map((row) => ({
       domain: row.domain,
