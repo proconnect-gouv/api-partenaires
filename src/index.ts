@@ -3,7 +3,7 @@ import { create_app, type OidcProvider } from "./app";
 import { config_schema } from "./config";
 import { create_find_unreachable_domains } from "./domain_reachable";
 import { set_log_level } from "./log";
-import type { OidcClientDoc } from "./oidc_clients";
+import type { OidcClientDoc } from "./oidc_clients/router";
 
 const config = await config_schema.parseAsync(process.env);
 set_log_level(config.LOG_LEVEL);

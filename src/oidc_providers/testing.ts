@@ -2,7 +2,7 @@ import { createHmac } from "node:crypto";
 import type { Hono } from "hono";
 import { create_app, type OidcProvider } from "#src/app";
 import type { FindUnreachableDomains } from "#src/domain_reachable";
-import type { OidcClientStore } from "#src/oidc_clients";
+import type { OidcClientStore } from "#src/oidc_clients/router";
 import { ok } from "#src/result";
 
 const PARTNER_SECRET = "test-partner-secret";

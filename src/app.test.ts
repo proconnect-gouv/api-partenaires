@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { create_app, type OidcProviderStore } from "./app";
-import type { OidcClientStore } from "./oidc_clients";
+import type { OidcClientStore } from "./oidc_clients/router";
 import { ok } from "./result";
 
 function create_test_app({
