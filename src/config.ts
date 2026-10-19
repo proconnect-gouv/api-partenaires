@@ -11,7 +11,7 @@ export const config_schema = z.object({
     .default("false")
     .transform((v) => v === "true"),
   LOG_LEVEL: z.enum(log_levels).default("info"),
-  MAX_TIMESTAMP_DIFF: z.coerce.number().default(300),
+  MAX_TIMESTAMP_DIFF: z.coerce.number().int().min(1).max(3600).default(300),
   MONGODB_URI: z.string().default("mongodb://127.0.0.1:27017/partners"),
   OIDC_CLIENTS_API_SECRET: z.string(),
   OIDC_PROVIDERS_API_SECRET: z.string(),
