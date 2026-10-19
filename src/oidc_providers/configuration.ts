@@ -1,16 +1,56 @@
-import { Hono } from "hono";
+import { type Context, Hono } from "hono";
 import { z } from "zod";
-import type { OidcProviderStore } from "./app";
-import type { FindUnreachableDomains } from "./domain_reachable";
-import { log } from "./log";
-import type { OidcProvidersConfig } from "./oidc_providers_config";
+import type { OidcProviderStore } from "#src/app";
+import type { FindUnreachableDomains } from "#src/domain_reachable";
+import { log } from "#src/log";
+import {
+  type AdmissionOutcome,
+  admit_domains,
+} from "#src/oidc_providers/admit";
+import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 
 const MAX_ADDED_DOMAINS = 1_000;
 const patch_body_schema = z.object({
   attached_email_domains: z.array(z.string()),
 });
 
-export function create_oidc_providers_app({
+type Refusal = Exclude<AdmissionOutcome, { kind: "admit" }>;
+type RefusalByKind = { [K in Refusal["kind"]]: Extract<Refusal, { kind: K }> };
+
+const patch_refusal_by_kind: {
+  [K in Refusal["kind"]]: (c: Context, refusal: RefusalByKind[K]) => Response;
+} = {
+  dns_unavailable: (c) => c.json({ error: "dns_unavailable" }, 502),
+  not_allowed: (c, { domains }) =>
+    c.json(
+      {
+        error: "attached_email_domain_not_allowed",
+        attached_email_domains: domains,
+      },
+      422,
+    ),
+  taken: (c, { domains }) =>
+    c.json(
+      { error: "attached_email_domain_taken", attached_email_domains: domains },
+      409,
+    ),
+  unreachable: (c, { domains }) =>
+    c.json(
+      {
+        error: "attached_email_domain_unreachable",
+        attached_email_domains: domains,
+      },
+      422,
+    ),
+};
+function patch_refusal<K extends Refusal["kind"]>(
+  c: Context,
+  refusal: RefusalByKind[K],
+) {
+  return patch_refusal_by_kind[refusal.kind](c, refusal);
+}
+
+export function create_configuration_app({
   find_unreachable_domains,
   oidc_providers_config,
   providers,
@@ -19,11 +59,13 @@ export function create_oidc_providers_app({
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
 }) {
+  const find_entry = (uid: string) =>
+    oidc_providers_config.oidc_providers.find((p) => p.uid === uid);
+
   return new Hono<{ Variables: { body_text: string } }>()
     .get("/:uid/configuration", async (c) => {
       const uid = c.req.param("uid");
-      if (!oidc_providers_config.oidc_providers.some((p) => p.uid === uid))
-        return c.json({ error: "uid_not_editable" }, 403);
+      if (!find_entry(uid)) return c.json({ error: "uid_not_editable" }, 403);
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
       return c.json({
@@ -38,9 +80,7 @@ export function create_oidc_providers_app({
     })
     .patch("/:uid/configuration", async (c) => {
       const uid = c.req.param("uid");
-      const entry = oidc_providers_config.oidc_providers.find(
-        (p) => p.uid === uid,
-      );
+      const entry = find_entry(uid);
       if (!entry) return c.json({ error: "uid_not_editable" }, 403);
 
       const body = patch_body_schema.safeParse(
@@ -54,15 +94,8 @@ export function create_oidc_providers_app({
             (allowed) => allowed.domain === attached_email_domain,
           ),
       );
-      if (forbidden.length > 0) {
-        return c.json(
-          {
-            error: "attached_email_domain_not_allowed",
-            attached_email_domains: forbidden,
-          },
-          422,
-        );
-      }
+      if (forbidden.length > 0)
+        return patch_refusal(c, { domains: forbidden, kind: "not_allowed" });
 
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
@@ -75,35 +108,14 @@ export function create_oidc_providers_app({
           422,
         );
       }
-      const elsewhere = await providers.distinct("attachedEmailDomains", {
-        attachedEmailDomains: { $in: added },
-        uid: { $ne: uid },
+      const admission = await admit_domains({
+        added,
+        allowed: entry.allowed_attached_email_domains,
+        find_unreachable_domains,
+        providers,
+        uid,
       });
-      const taken = added.filter((domain) => elsewhere.includes(domain));
-      if (taken.length > 0) {
-        return c.json(
-          {
-            error: "attached_email_domain_taken",
-            attached_email_domains: taken,
-          },
-          409,
-        );
-      }
-
-      const unreachable = await find_unreachable_domains(added);
-      if (!unreachable.ok) {
-        log("error", { ...unreachable.error, event: "dns.failure" });
-        return c.json({ error: "dns_unavailable" }, 502);
-      }
-      if (unreachable.value.length > 0) {
-        return c.json(
-          {
-            error: "attached_email_domain_unreachable",
-            attached_email_domains: unreachable.value,
-          },
-          422,
-        );
-      }
+      if (admission.kind !== "admit") return patch_refusal(c, admission);
 
       const updated = await providers.findOneAndUpdate(
         { uid },

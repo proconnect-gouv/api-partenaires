@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import type { FindUnreachableDomains } from "./domain_reachable";
 import { log, log_enabled } from "./log";
 import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
-import { create_oidc_providers_app } from "./oidc_providers";
+import { create_oidc_providers_app } from "./oidc_providers/index";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
