@@ -50,7 +50,7 @@ function patch_refusal<K extends Refusal["kind"]>(
   return patch_refusal_by_kind[refusal.kind](c, refusal);
 }
 
-export function create_configuration_app({
+export function create_configuration_router({
   find_unreachable_domains,
   oidc_providers_config,
   providers,

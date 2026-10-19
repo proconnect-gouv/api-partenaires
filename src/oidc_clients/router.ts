@@ -2,8 +2,8 @@ import { randomBytes } from "node:crypto";
 import { Hono, type MiddlewareHandler } from "hono";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
-import { decrypt_symetric, encrypt_symetric } from "./crypt";
-import { log } from "./log";
+import { decrypt_symetric, encrypt_symetric } from "#src/crypt";
+import { log } from "#src/log";
 
 const SIGNED_RESPONSE_ALGS = ["RS256", "ES256", "HS256"] as const;
 
@@ -123,7 +123,7 @@ const email_middleware: MiddlewareHandler<{
   await next();
 };
 
-export function create_oidc_clients_app({
+export function create_oidc_clients_router({
   oidc_clients,
   client_secret_cipher_pass,
 }: {

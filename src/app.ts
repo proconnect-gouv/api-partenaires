@@ -1,8 +1,11 @@
 import { Hono } from "hono";
 import type { FindUnreachableDomains } from "./domain_reachable";
 import { log, log_enabled } from "./log";
-import { create_oidc_clients_app, type OidcClientStore } from "./oidc_clients";
-import { create_oidc_providers_app } from "./oidc_providers/index";
+import {
+  create_oidc_clients_router,
+  type OidcClientStore,
+} from "./oidc_clients/router";
+import { create_oidc_providers_router } from "./oidc_providers/router";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
@@ -120,7 +123,7 @@ export function create_app({
     .use("/api/oidc_providers/:uid/*", oidc_provider_rate_limit)
     .route(
       "/api/oidc_providers",
-      create_oidc_providers_app({
+      create_oidc_providers_router({
         find_unreachable_domains,
         oidc_providers_config,
         providers,
@@ -135,8 +138,11 @@ export function create_app({
     .route(
       "/api/oidc_clients",
       enable_sandbox_endpoint
-        ? create_oidc_clients_app({ oidc_clients, client_secret_cipher_pass })
-        : create_unauthorized_app(),
+        ? create_oidc_clients_router({
+            oidc_clients,
+            client_secret_cipher_pass,
+          })
+        : create_unauthorized_router(),
     )
     .onError((err, c) => {
       log("error", { error: err, event: "http.error", path: c.req.path });
@@ -144,7 +150,7 @@ export function create_app({
     });
 }
 
-function create_unauthorized_app() {
+function create_unauthorized_router() {
   return new Hono<{ Variables: { email: string; body_text: string } }>().all(
     "*",
     (c) => c.json({ error: "sandbox_disabled" }, 403),
