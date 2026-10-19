@@ -96,4 +96,17 @@ describe("environment parsing", () => {
       config_schema.parseAsync({ ...REQUIRED_ENV, LOG_LEVEL: "verbose" }),
     ).rejects.toThrow();
   });
+
+  test("rejects a MAX_TIMESTAMP_DIFF outside 1 to 3600 seconds at boot", async () => {
+    for (const MAX_TIMESTAMP_DIFF of ["1", "3600"])
+      await expect(
+        config_schema.parseAsync({ ...REQUIRED_ENV, MAX_TIMESTAMP_DIFF }),
+      ).resolves.toMatchObject({
+        MAX_TIMESTAMP_DIFF: Number(MAX_TIMESTAMP_DIFF),
+      });
+    for (const MAX_TIMESTAMP_DIFF of ["", "0", "-1", "1.5", "3601", "1e9"])
+      await expect(
+        config_schema.parseAsync({ ...REQUIRED_ENV, MAX_TIMESTAMP_DIFF }),
+      ).rejects.toThrow();
+  });
 });

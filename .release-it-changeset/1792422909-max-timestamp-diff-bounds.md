@@ -1,0 +1,1 @@
+`MAX_TIMESTAMP_DIFF` doit être un entier de 1 à 3600 secondes : une valeur hors bornes (par exemple `1e9`, qui désactivait de fait la protection contre le rejeu, ou `0`) empêche désormais le service de démarrer.
