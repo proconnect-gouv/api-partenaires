@@ -8,8 +8,10 @@ import { build_digest, type Digest, digest_schema } from "./digest";
 import { check_sources } from "./source";
 
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
+const bourg_id = "0b0a7000-0000-4000-8000-000000000000";
 const brie_id = "b41e0000-0000-4000-8000-000000000000";
 const coise_id = "6d708ca6-cc85-469b-acc0-878803b80963";
+const coise_annex_id = "6d708ca6-0000-4000-8000-000000000002";
 const homonym_id = "c0ffee00-0000-4000-8000-000000000001";
 const sha = "a".repeat(40);
 
@@ -37,8 +39,15 @@ function mairie({
 }
 
 const index = build_dila_index([
+  mairie({
+    id: bourg_id,
+    name: "Bourg-Saint-Maurice",
+    site: "lesarcs.fr",
+    siren: "217300557",
+  }),
   mairie({ id: brie_id, name: "Brie", site: null, siren: "213500416" }),
   mairie({ id: coise_id, name: "Coise", site: "coise.fr", siren: "217300896" }),
+  mairie({ id: coise_annex_id, name: "Coise", site: null, siren: "217300896" }),
   mairie({ id: homonym_id, name: "Coise", site: null, siren: "210100012" }),
 ]);
 
@@ -106,12 +115,12 @@ describe("build_digest", () => {
       ],
     });
     expect(
-      result.changes.map(({ change, from, rows, same_name, to }) => ({
+      result.changes.map(({ change, from, rows, to, unfit }) => ({
         change,
         from,
         rows,
-        same_name,
         to,
+        unfit,
       })),
     ).toEqual(
       expect.arrayContaining([
@@ -119,36 +128,36 @@ describe("build_digest", () => {
           change: "removed",
           from: "candidate",
           rows: 1,
-          same_name: 0,
           to: "candidate",
+          unfit: 0,
         },
         {
           change: "added",
           from: "candidate",
           rows: 1,
-          same_name: 0,
           to: "candidate",
+          unfit: 0,
         },
         {
           change: "relabelled",
           from: "candidate",
           rows: 1,
-          same_name: 0,
           to: "dila",
+          unfit: 0,
         },
         {
           change: "repointed",
           from: "candidate",
           rows: 1,
-          same_name: 1,
           to: "candidate",
+          unfit: 0,
         },
         {
           change: "siret_changed",
           from: "candidate",
           rows: 1,
-          same_name: 0,
           to: "candidate",
+          unfit: 0,
         },
       ]),
     );
@@ -171,13 +180,110 @@ describe("build_digest", () => {
       ],
     });
     expect(result.refusals_introduced).toEqual({
-      rows: [{ code: "not_allowed", domain: "wanadoo.fr", uid }],
-      total: 1,
+      examples: [
+        {
+          code: "not_allowed",
+          domain: "wanadoo.fr",
+          providers: 1,
+          severity: "error",
+        },
+      ],
+      tallies: [
+        { code: "not_allowed", domains: 1, rows: 1, severity: "error" },
+      ],
     });
     expect(result.refusals_resolved).toBe(1);
   });
 
-  test("lists removed rows whose domain DILA declares for their collectivité", () => {
+  test("reports RPNT gaps the head introduces apart from refusals", () => {
+    const result = digest({
+      base: [],
+      head: [
+        { domain: "lesarcs.fr", fiche: fiche_url(bourg_id), source: "dila" },
+      ],
+    });
+    expect(result.gaps_introduced.tallies).toEqual([
+      { code: "lacks_name", domains: 1, rows: 1, severity: "info" },
+    ]);
+    expect(result.refusals_introduced.tallies).toEqual([]);
+  });
+
+  test("checks a dila row relabelled routed as it was on base, to show whether DILA still attests it", () => {
+    const result = digest({
+      base: [
+        { domain: "coise.fr", fiche: fiche_url(coise_id), source: "dila" },
+      ],
+      head: [{ domain: "coise.fr", source: "routed" }],
+    });
+    expect(result.changes).toMatchObject([
+      {
+        change: "relabelled",
+        verdicts: [{ code: "dila", domains: 1, rows: 1, severity: "ok" }],
+      },
+    ]);
+  });
+
+  test("lists moves to a collectivité the domain does not fit before homonym moves, with département, and SIREN when names match", () => {
+    const result = digest({
+      base: [
+        { domain: "coise.fr", fiche: fiche_url(coise_id), source: "candidate" },
+        {
+          domain: "mairie-coise.fr",
+          fiche: fiche_url(coise_id),
+          source: "candidate",
+        },
+      ],
+      head: [
+        { domain: "coise.fr", fiche: fiche_url(brie_id), source: "candidate" },
+        {
+          domain: "mairie-coise.fr",
+          fiche: fiche_url(homonym_id),
+          source: "candidate",
+        },
+      ],
+    });
+    expect(result.moves).toEqual({
+      kinds: { homonym: 1, same_siren: 0, unfit: 1 },
+      rows: [
+        {
+          domain: "coise.fr",
+          from: "Coise (73)",
+          kind: "unfit",
+          providers: 1,
+          to: "Brie (73)",
+        },
+        {
+          domain: "mairie-coise.fr",
+          from: "Coise (73) SIREN 217300896",
+          kind: "homonym",
+          providers: 1,
+          to: "Coise (73) SIREN 210100012",
+        },
+      ],
+    });
+  });
+
+  test("tells a new fiche of the same SIREN apart from a move", () => {
+    const result = digest({
+      base: [
+        { domain: "coise.fr", fiche: fiche_url(coise_id), source: "candidate" },
+      ],
+      head: [
+        {
+          domain: "coise.fr",
+          fiche: fiche_url(coise_annex_id),
+          source: "candidate",
+        },
+      ],
+    });
+    expect(result.moves.kinds).toEqual({
+      homonym: 0,
+      same_siren: 1,
+      unfit: 0,
+    });
+  });
+
+  test("lists removed domains with their collectivité and the domains it declares in DILA", () => {
     const result = digest({
       base: [
         { domain: "coise.fr", fiche: fiche_url(coise_id), source: "candidate" },
@@ -185,9 +291,20 @@ describe("build_digest", () => {
       ],
       head: [],
     });
-    expect(result.own_dila_removed).toEqual({
-      rows: [{ domain: "coise.fr", uid }],
-      total: 1,
+    expect(result.removals).toEqual({
+      rows: [
+        expect.objectContaining({
+          collectivite: "Brie (73)",
+          declares: [],
+          domain: "brie.fr",
+        }),
+        expect.objectContaining({
+          collectivite: "Coise (73)",
+          declares: ["coise.fr"],
+          domain: "coise.fr",
+        }),
+      ],
+      total: 2,
     });
   });
 });
@@ -217,18 +334,18 @@ describe("digest_schema", () => {
       "a domain carrying markdown",
       {
         ...valid,
-        own_dila_removed: {
-          rows: [{ domain: "x.fr](https://evil.example)", uid }],
-          total: 1,
-        },
-      },
-    ],
-    [
-      "a provider that is not a UUID",
-      {
-        ...valid,
-        own_dila_removed: {
-          rows: [{ domain: "x.fr", uid: "@team" }],
+        removals: {
+          rows: [
+            {
+              code: "candidate",
+              collectivite: null,
+              declares: [],
+              domain: "x.fr](https://evil.example)",
+              providers: 1,
+              severity: "ok",
+              source: "candidate",
+            },
+          ],
           total: 1,
         },
       },
@@ -238,7 +355,31 @@ describe("digest_schema", () => {
       {
         ...valid,
         refusals_introduced: {
-          rows: [{ code: "<img src=x>", domain: "x.fr", uid }],
+          examples: [
+            {
+              code: "<img src=x>",
+              domain: "x.fr",
+              providers: 1,
+              severity: "error",
+            },
+          ],
+          tallies: [],
+        },
+      },
+    ],
+    [
+      "a collectivité name carrying markdown",
+      {
+        ...valid,
+        moves: {
+          rows: [
+            {
+              domain: "x.fr",
+              from: "[Coise](https://evil.example)",
+              providers: 1,
+              to: null,
+            },
+          ],
           total: 1,
         },
       },

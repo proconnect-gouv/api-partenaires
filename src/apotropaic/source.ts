@@ -120,8 +120,10 @@ const approval_message: {
   rpnt_gap: ({ gap }) => `DILA attests it, ${describe_refusal(gap)}`,
 };
 
+export type Severity = "error" | "info" | "ok" | "warning";
+
 const approval_severity: {
-  [C in Approval["code"]]: "info" | "ok" | "warning";
+  [C in Approval["code"]]: Exclude<Severity, "error">;
 } = {
   candidate: "ok",
   dila: "ok",
@@ -129,6 +131,9 @@ const approval_severity: {
   routed: "warning",
   rpnt_gap: "info",
 };
+export function verdict_severity(verdict: RowVerdict): Severity {
+  return verdict.ok ? approval_severity[verdict.value.code] : "error";
+}
 export function describe_refusal(refusal: Refusal): string {
   return (refusal_message[refusal.code] as (refusal: Refusal) => string)(
     refusal,
@@ -324,7 +329,7 @@ export function partition_reports(reports: RowReport[]): {
   warnings: RowReport[];
 } {
   const by_severity = Object.groupBy(reports, (report) =>
-    report.verdict.ok ? approval_severity[report.verdict.value.code] : "error",
+    verdict_severity(report.verdict),
   );
   return {
     errors: by_severity.error ?? [],
