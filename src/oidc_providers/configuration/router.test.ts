@@ -286,6 +286,59 @@ describe("OIDC provider configuration API", () => {
     });
   });
 
+  test("marks a successful PATCH as deprecated with a sunset date", async () => {
+    const app = create_test_app();
+    const res = await api_call({
+      app,
+      json_data: { attached_email_domains: ["moncomptepro.fr"] },
+      method: "PATCH",
+      path: `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+    });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("Deprecation")).toMatch(/^@\d+$/);
+    expect(Date.parse(res.headers.get("Sunset") ?? "")).toBe(
+      Date.UTC(2027, 0, 17),
+    );
+  });
+
+  test("marks a PATCH on a uid not in oidc providers config as deprecated", async () => {
+    const app = create_test_app();
+    const res = await api_call({
+      app,
+      json_data: { attached_email_domains: [] },
+      method: "PATCH",
+      path: "/api/oidc_providers/00000000-0000-0000-0000-000000000000/configuration",
+    });
+    expect(res.status).toBe(403);
+    expect(res.headers.get("Deprecation")).toMatch(/^@\d+$/);
+    expect(res.headers.get("Sunset")).not.toBeNull();
+  });
+
+  test("marks a refused PATCH as deprecated too", async () => {
+    const app = create_test_app();
+    const res = await api_call({
+      app,
+      json_data: { attached_email_domains: ["evil.fr"] },
+      method: "PATCH",
+      path: `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+    });
+    expect(res.status).toBe(422);
+    expect(res.headers.get("Deprecation")).toMatch(/^@\d+$/);
+    expect(res.headers.get("Sunset")).not.toBeNull();
+  });
+
+  test("answers 405 with Allow to other methods on the configuration", async () => {
+    const app = create_test_app();
+    const res = await api_call({
+      app,
+      method: "DELETE",
+      path: `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
+    });
+    expect(res.status).toBe(405);
+    expect(res.headers.get("Allow")).toBe("GET, HEAD, PATCH");
+    expect(await res.json()).toEqual({ error: "method_not_allowed" });
+  });
+
   test("limits each provider separately", async () => {
     const app = create_test_app({ rate_limit_per_minute_per_oidc_provider: 1 });
     const configuration = (uid: string) =>

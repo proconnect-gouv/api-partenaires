@@ -12,6 +12,11 @@ export type AdmissionOutcome =
   | { readonly kind: "dns_unavailable" }
   | { readonly domains: readonly string[]; readonly kind: "unreachable" };
 
+export type Refusal = Exclude<AdmissionOutcome, { kind: "admit" }>;
+export type RefusalByKind = {
+  [K in Refusal["kind"]]: Extract<Refusal, { kind: K }>;
+};
+
 export async function admit_domains({
   added,
   allowed,

@@ -47,4 +47,7 @@ export type AllowedDomain = z.infer<typeof allowed_domain_schema>;
 
 export type OidcProvidersConfig = z.infer<typeof oidc_providers_config_schema>;
 
+export type EditableOidcProvider =
+  OidcProvidersConfig["oidc_providers"][number];
+
 export type Source = AllowedDomain["source"];

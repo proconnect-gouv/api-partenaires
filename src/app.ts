@@ -20,6 +20,11 @@ export interface OidcProvider {
   attachedEmailDomains: string[];
 }
 
+export type OidcProviderUpdate =
+  | { $addToSet: { attachedEmailDomains: string } }
+  | { $pull: { attachedEmailDomains: string } }
+  | { $set: { attachedEmailDomains: string[] } };
+
 export interface OidcProviderStore {
   distinct(
     key: "attachedEmailDomains",
@@ -31,8 +36,8 @@ export interface OidcProviderStore {
   findOne(filter: { uid: string }): Promise<OidcProvider | null>;
   findOneAndUpdate(
     filter: { uid: string },
-    update: { $set: { attachedEmailDomains: string[] } },
-    options: { returnDocument: "after" },
+    update: OidcProviderUpdate,
+    options: { returnDocument: "after" | "before" },
   ): Promise<OidcProvider | null>;
 }
 

@@ -1,0 +1,1 @@
+Nouvelles routes `GET`, `PUT` et `DELETE` sur `/api/oidc_providers/:uid/attached_email_domains[/:domain]` pour lister, rattacher ou détacher un domaine à la fois, sans écraser les modifications concurrentes. `PATCH /api/oidc_providers/:uid/configuration` est dépréciée (en-têtes `Deprecation` et `Sunset`) et sera retirée après le 17 janvier 2027.

@@ -21,6 +21,7 @@ services:
       OIDC_CLIENTS_API_SECRET: test-oidc-clients-secret
       OIDC_PROVIDERS_API_SECRET: test-oidc-providers-secret
       OIDC_PROVIDERS_CONFIG: /etc/oidc_providers/oidc_providers.yaml
+      RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER: 100
     volumes:
       - ./oidc_providers.yaml:/etc/oidc_providers/oidc_providers.yaml:ro
     ports:
