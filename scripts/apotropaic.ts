@@ -11,6 +11,7 @@ import {
   describe_refusal,
   partition_reports,
   type RowReport,
+  type RpntGap,
 } from "#src/apotropaic/source";
 import { code, md, table } from "#src/markdown";
 import {
@@ -128,6 +129,14 @@ const refusal_meaning: {
   shared: { rpnt: "", text: "declared by several collectivités (sole owner)" },
   undeclared: { rpnt: "RPNT 1.1 / 2.1", text: "declared by no collectivité" },
 };
+const gap_meaning: { [G in RpntGap["code"]]: { rpnt: string; text: string } } =
+  {
+    lacks_name: {
+      rpnt: "RPNT 2.2",
+      text: "carries none of its collectivité's names",
+    },
+    not_sovereign: refusal_meaning.not_sovereign,
+  };
 const declared = dila_index.declared_by.size;
 const declared_by_verdict = Object.groupBy(
   dila_index.declared_by.keys(),
@@ -254,6 +263,31 @@ function routed({ warnings }: { warnings: RowReport[] }): string {
   ].join("\n\n");
 }
 
+function rpnt_gaps({ infos }: { infos: RowReport[] }): string {
+  if (infos.length === 0) return "";
+  const by_gap = Object.groupBy(
+    infos.flatMap(({ verdict }) =>
+      verdict.ok && verdict.value.code === "rpnt_gap"
+        ? [verdict.value.gap.code]
+        : [],
+    ),
+    (gap) => gap,
+  );
+  return [
+    `## ℹ️ ${noun(infos.length, "RPNT gap", "RPNT gaps")}`,
+    "DILA attests these rows: RPNT conformity is reported, not enforced.",
+    table({
+      align: ["-:", "-", "-"],
+      head: ["rows", "gap", "RPNT"],
+      rows: (Object.keys(gap_meaning) as RpntGap["code"][]).map((gap) => [
+        count.format(by_gap[gap]?.length ?? 0),
+        gap_meaning[gap].text,
+        gap_meaning[gap].rpnt,
+      ]),
+    }),
+  ].join("\n\n");
+}
+
 function refused({ errors }: { errors: RowReport[] }): string {
   if (errors.length === 0) return "";
   return [
@@ -305,12 +339,13 @@ async function changes({ reports }: { reports: RowReport[] }): Promise<string> {
 }
 
 const reports = check_sources(config, dila_index);
-const { errors, warnings } = partition_reports(reports);
+const { errors, infos, warnings } = partition_reports(reports);
 const sections = [
   await changes({ reports }),
   allowlist_stats({ reports }),
   dila_stats(),
   routed({ warnings }),
+  rpnt_gaps({ infos }),
   refused({ errors }),
   verdict({ errors }),
 ].filter(Boolean);
