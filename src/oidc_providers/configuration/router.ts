@@ -1,21 +1,32 @@
 import { type Context, Hono } from "hono";
+import { createMiddleware } from "hono/factory";
 import { z } from "zod";
 import type { OidcProviderStore } from "#src/app";
 import type { FindUnreachableDomains } from "#src/domain_reachable";
 import { log } from "#src/log";
 import {
-  type AdmissionOutcome,
   admit_domains,
+  type Refusal,
+  type RefusalByKind,
 } from "#src/oidc_providers/admit";
+import {
+  create_editable_middleware,
+  method_not_allowed,
+} from "#src/oidc_providers/http";
 import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 
+const DEPRECATION = "@1792368000";
 const MAX_ADDED_DOMAINS = 1_000;
+const SUNSET = "Sun, 17 Jan 2027 00:00:00 GMT";
 const patch_body_schema = z.object({
   attached_email_domains: z.array(z.string()),
 });
 
-type Refusal = Exclude<AdmissionOutcome, { kind: "admit" }>;
-type RefusalByKind = { [K in Refusal["kind"]]: Extract<Refusal, { kind: K }> };
+const deprecated = createMiddleware(async (c, next) => {
+  c.header("Deprecation", DEPRECATION);
+  c.header("Sunset", SUNSET);
+  await next();
+});
 
 const patch_refusal_by_kind: {
   [K in Refusal["kind"]]: (c: Context, refusal: RefusalByKind[K]) => Response;
@@ -59,13 +70,11 @@ export function create_configuration_router({
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
 }) {
-  const find_entry = (uid: string) =>
-    oidc_providers_config.oidc_providers.find((p) => p.uid === uid);
+  const editable = create_editable_middleware({ oidc_providers_config });
 
   return new Hono<{ Variables: { body_text: string } }>()
-    .get("/:uid/configuration", async (c) => {
+    .get("/:uid/configuration", editable, async (c) => {
       const uid = c.req.param("uid");
-      if (!find_entry(uid)) return c.json({ error: "uid_not_editable" }, 403);
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
       return c.json({
@@ -78,10 +87,9 @@ export function create_configuration_router({
         attached_email_domains: provider.attachedEmailDomains,
       });
     })
-    .patch("/:uid/configuration", async (c) => {
+    .patch("/:uid/configuration", deprecated, editable, async (c) => {
       const uid = c.req.param("uid");
-      const entry = find_entry(uid);
-      if (!entry) return c.json({ error: "uid_not_editable" }, 403);
+      const entry = c.var.entry;
 
       const body = patch_body_schema.safeParse(
         await c.req.json().catch(() => null),
@@ -139,5 +147,6 @@ export function create_configuration_router({
         name: updated.name,
         attached_email_domains: updated.attachedEmailDomains,
       });
-    });
+    })
+    .all("/:uid/configuration", method_not_allowed("GET, HEAD, PATCH"));
 }

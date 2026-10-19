@@ -90,6 +90,81 @@ describe.serial(
       expect(res.status).toBe(403);
     });
 
+    test("rattache fifi.fr avec 201 et Location", async () => {
+      const res = await oidc_providers_api_call(
+        "PUT",
+        `/api/oidc_providers/${uid}/attached_email_domains/fifi.fr`,
+      );
+      expect(res.status).toBe(201);
+      expect(res.headers.get("Location")).toBe(
+        `/api/oidc_providers/${uid}/attached_email_domains/fifi.fr`,
+      );
+    });
+
+    test("répond 204 au même PUT", async () => {
+      const res = await oidc_providers_api_call(
+        "PUT",
+        `/api/oidc_providers/${uid}/attached_email_domains/fifi.fr`,
+      );
+      expect(res.status).toBe(204);
+    });
+
+    test("liste les domaines rattachés", async () => {
+      const res = await oidc_providers_api_call(
+        "GET",
+        `/api/oidc_providers/${uid}/attached_email_domains`,
+      );
+      expect(await res.json()).toEqual([
+        { domain: "moncomptepro.fr" },
+        { domain: "polyfi.fr" },
+        { domain: "fifi.fr" },
+      ]);
+    });
+
+    test("reflète le rattachement persisté en mongo", async () => {
+      const res = await oidc_providers_api_call(
+        "GET",
+        `/api/oidc_providers/${uid}/configuration`,
+      );
+      expect(await res.json()).toEqual({
+        uid,
+        name: "moncomptepro",
+        attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+      });
+    });
+
+    test("détache fifi.fr avec 204", async () => {
+      const res = await oidc_providers_api_call(
+        "DELETE",
+        `/api/oidc_providers/${uid}/attached_email_domains/fifi.fr`,
+      );
+      expect(res.status).toBe(204);
+    });
+
+    test("répond 404 au même DELETE", async () => {
+      const res = await oidc_providers_api_call(
+        "DELETE",
+        `/api/oidc_providers/${uid}/attached_email_domains/fifi.fr`,
+      );
+      expect(res.status).toBe(404);
+    });
+
+    test("refuse de rattacher un domaine d'un autre fournisseur", async () => {
+      const res = await oidc_providers_api_call(
+        "PUT",
+        `/api/oidc_providers/${uid}/attached_email_domains/intruder.fr`,
+      );
+      expect(res.status).toBe(409);
+    });
+
+    test("refuse de rattacher un domaine hors liste autorisée", async () => {
+      const res = await oidc_providers_api_call(
+        "PUT",
+        `/api/oidc_providers/${uid}/attached_email_domains/evil.fr`,
+      );
+      expect(res.status).toBe(403);
+    });
+
     test("refuse la modification d'un provider seedé mais absent du YAML", async () => {
       const res = await oidc_providers_api_call(
         "PATCH",

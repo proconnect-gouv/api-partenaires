@@ -1,6 +1,10 @@
 import { createHmac } from "node:crypto";
 import type { Hono } from "hono";
-import { create_app, type OidcProvider } from "#src/app";
+import {
+  create_app,
+  type OidcProvider,
+  type OidcProviderUpdate,
+} from "#src/app";
 import type { FindUnreachableDomains } from "#src/domain_reachable";
 import type { OidcClientStore } from "#src/oidc_clients/router";
 import { ok } from "#src/result";
@@ -8,10 +12,11 @@ import { ok } from "#src/result";
 const PARTNER_SECRET = "test-partner-secret";
 export const MONCOMPTEPRO_UID = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
 export const ENRICHED_UID = "enriched-uid";
+export const LEGACY_UID = "legacy-uid";
 // allowlisted in the fixture config but never seeded in the store
 export const GHOST_UID = "ffffffff-ffff-4fff-8fff-ffffffffffff";
 // seeded in the store but absent from the fixture config
-const OTHER_UID = "00000000-0000-4000-8000-000000000001";
+export const OTHER_UID = "00000000-0000-4000-8000-000000000001";
 
 export function sign({
   body,
@@ -57,10 +62,12 @@ export function api_call({
 }
 
 export function create_test_app({
+  concurrent_write = () => {},
   extra_allowed_domains = [],
   find_unreachable_domains = async () => ok([]),
   rate_limit_per_minute_per_oidc_provider = Infinity,
 }: {
+  concurrent_write?: (provider: OidcProvider) => void;
   extra_allowed_domains?: string[];
   find_unreachable_domains?: FindUnreachableDomains;
   rate_limit_per_minute_per_oidc_provider?: number;
@@ -94,6 +101,14 @@ export function create_test_app({
         attachedEmailDomains: ["polyfi.fr", "taken.fr"],
       },
     ],
+    [
+      LEGACY_UID,
+      {
+        uid: LEGACY_UID,
+        name: "legacy-provider",
+        attachedEmailDomains: ["legacy.fr"],
+      },
+    ],
   ]);
   const store = {
     async distinct(
@@ -118,12 +133,26 @@ export function create_test_app({
     },
     async findOneAndUpdate(
       { uid }: { uid: string },
-      { $set }: { $set: { attachedEmailDomains: string[] } },
+      update: OidcProviderUpdate,
+      { returnDocument }: { returnDocument: "after" | "before" },
     ) {
       const provider = providers.get(uid);
       if (!provider) return null;
-      provider.attachedEmailDomains = $set.attachedEmailDomains;
-      return provider;
+      concurrent_write(provider);
+      const before = structuredClone(provider);
+      const domains = provider.attachedEmailDomains;
+      if ("$addToSet" in update) {
+        const domain = update.$addToSet.attachedEmailDomains;
+        if (!domains.includes(domain))
+          provider.attachedEmailDomains = [...domains, domain];
+      }
+      if ("$pull" in update)
+        provider.attachedEmailDomains = domains.filter(
+          (domain) => domain !== update.$pull.attachedEmailDomains,
+        );
+      if ("$set" in update)
+        provider.attachedEmailDomains = update.$set.attachedEmailDomains;
+      return returnDocument === "before" ? before : provider;
     },
   };
   const oidc_clients: OidcClientStore = {
@@ -159,6 +188,10 @@ export function create_test_app({
           allowed_attached_email_domains: [
             { domain: "enriched.example.com", source: "routed" },
           ],
+        },
+        {
+          uid: LEGACY_UID,
+          allowed_attached_email_domains: [],
         },
         {
           uid: GHOST_UID,
