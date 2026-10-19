@@ -2,9 +2,11 @@ import { MongoClient } from "mongodb";
 import { create_app, type OidcProvider } from "./app";
 import { config_schema } from "./config";
 import { create_find_unreachable_domains } from "./domain_reachable";
+import { set_log_level } from "./log";
 import type { OidcClientDoc } from "./oidc_clients";
 
 const config = await config_schema.parseAsync(process.env);
+set_log_level(config.LOG_LEVEL);
 const client = new MongoClient(config.MONGODB_URI);
 await client.connect();
 

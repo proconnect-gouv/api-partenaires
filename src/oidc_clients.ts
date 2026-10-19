@@ -3,6 +3,7 @@ import { Hono, type MiddlewareHandler } from "hono";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 import { decrypt_symetric, encrypt_symetric } from "./crypt";
+import { log } from "./log";
 
 const SIGNED_RESPONSE_ALGS = ["RS256", "ES256", "HS256"] as const;
 
@@ -167,13 +168,11 @@ export function create_oidc_clients_app({
       };
 
       const result = await oidc_clients.insertOne(doc);
-      console.info(
-        JSON.stringify({
-          event: "oidc_client.created",
-          id: result.insertedId.toHexString(),
-          by: email,
-        }),
-      );
+      log("info", {
+        by: email,
+        event: "oidc_client.created",
+        id: result.insertedId.toHexString(),
+      });
       return c.json(
         format_oidc_client(client_secret_cipher_pass, {
           ...doc,
@@ -222,14 +221,12 @@ export function create_oidc_clients_app({
         { $set: update },
       );
       if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
-      console.info(
-        JSON.stringify({
-          event: "oidc_client.updated",
-          id: oid.toHexString(),
-          by: email,
-          fields: Object.keys(parsed.data),
-        }),
-      );
+      log("info", {
+        by: email,
+        event: "oidc_client.updated",
+        fields: Object.keys(parsed.data),
+        id: oid.toHexString(),
+      });
 
       const updated = await oidc_clients.findOne({
         _id: oid,
@@ -248,13 +245,11 @@ export function create_oidc_clients_app({
         collaborators: email,
       });
       if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
-      console.info(
-        JSON.stringify({
-          event: "oidc_client.deleted",
-          id: oid.toHexString(),
-          by: email,
-        }),
-      );
+      log("info", {
+        by: email,
+        event: "oidc_client.deleted",
+        id: oid.toHexString(),
+      });
       return c.json({ deleted: true });
     });
 }

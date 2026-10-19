@@ -22,6 +22,9 @@ on:
         ".github/workflows/config-lint.yml",
       ]
 
+permissions:
+  contents: read
+
 jobs:
   lint-config:
     runs-on: ubuntu-latest
@@ -61,5 +64,32 @@ jobs:
       - name: 🗓️ Cache DILA export
         uses: ./.github/actions/dila-cache
 
+      - name: 📥 Fetch base config
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          git show "$BASE_SHA:config/anct/oidc_providers.production.yaml" > "$RUNNER_TEMP/base.yaml"
+
       - name: 🛡️ Lint allowlist
-        run: bun run lint:apotropaic
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+            bun run lint:apotropaic --base-config "$RUNNER_TEMP/base.yaml" \
+              --base-sha "$BASE_SHA" --head-sha "$HEAD_SHA" \
+              --digest "$RUNNER_TEMP/digest.json"
+          else
+            bun run lint:apotropaic
+          fi
+
+      - name: 📤 Upload digest
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          if-no-files-found: ignore
+          name: apotropaic-digest
+          path: ${{ runner.temp }}/digest.json
+          retention-days: 7
