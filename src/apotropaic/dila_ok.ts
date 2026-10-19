@@ -24,17 +24,24 @@ export function check_sovereign(
     : err({ code: "not_sovereign", extension, internationalized });
 }
 
+export function dila_owner(
+  declared_by: Map<string, Fiche[]>,
+  domain: string,
+): Result<Fiche, Exclude<DilaRefusal, { code: "not_sovereign" }>> {
+  const owner = sole_owner(declared_by, domain);
+  if (owner) return ok(owner);
+  const fiches = declared_by.get(domain) ?? [];
+  return fiches.length > 0
+    ? err({ code: "shared", fiches })
+    : err({ code: "undeclared" });
+}
+
 export function dila_ok(
   declared_by: Map<string, Fiche[]>,
   domain: string,
 ): Result<{ owner: Fiche }, DilaRefusal> {
-  const owner = sole_owner(declared_by, domain);
-  if (!owner) {
-    const fiches = declared_by.get(domain) ?? [];
-    return fiches.length > 0
-      ? err({ code: "shared", fiches })
-      : err({ code: "undeclared" });
-  }
+  const owner = dila_owner(declared_by, domain);
+  if (!owner.ok) return owner;
   const sovereign = check_sovereign(domain);
-  return sovereign.ok ? ok({ owner }) : sovereign;
+  return sovereign.ok ? ok({ owner: owner.value }) : sovereign;
 }

@@ -101,6 +101,7 @@ const approval_noted: { [C in Approval["code"]]: boolean } = {
   dila: false,
   reconstructible: true,
   routed: true,
+  rpnt_gap: true,
 };
 
 const deny_list_why: { [L in DenyListName]: string } = {

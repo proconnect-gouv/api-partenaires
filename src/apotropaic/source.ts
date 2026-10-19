@@ -1,5 +1,9 @@
 import type { DilaIndex, Fiche } from "#src/apotropaic/declared_by";
-import { type DilaRefusal, dila_ok } from "#src/apotropaic/dila_ok";
+import {
+  check_sovereign,
+  type DilaRefusal,
+  dila_owner,
+} from "#src/apotropaic/dila_ok";
 import {
   carries_name,
   carries_saint_head,
@@ -23,6 +27,8 @@ type FicheRefusal =
   | { code: "fiche_not_found"; fiche_url: string }
   | { code: "fiche_siren_mismatch"; fiche: Fiche; owner: Fiche };
 type NameRefusal = { code: "lacks_name"; spellings: string[] };
+export type RpntGap =
+  Extract<DilaRefusal, { code: "not_sovereign" }> | NameRefusal;
 
 export type Refusal = DilaRefusal | FicheRefusal | NameRefusal | NotAllowed;
 
@@ -40,7 +46,8 @@ export type Approval =
       overrides: Refusal;
       spelling: string;
     }
-  | { code: "routed" };
+  | { code: "routed" }
+  | { code: "rpnt_gap"; gap: RpntGap };
 
 export type RowVerdict = Result<Approval, Refusal>;
 
@@ -110,13 +117,17 @@ const approval_message: {
   reconstructible: ({ fiche, overrides, spelling }) =>
     `${fiche_brief(fiche)} name rebuilt from "${spelling}", overrides: ${describe_refusal(overrides)}`,
   routed: () => "routed exception, not rule",
+  rpnt_gap: ({ gap }) => `DILA attests it, ${describe_refusal(gap)}`,
 };
 
-const approval_severity: { [C in Approval["code"]]: "ok" | "warning" } = {
+const approval_severity: {
+  [C in Approval["code"]]: "info" | "ok" | "warning";
+} = {
   candidate: "ok",
   dila: "ok",
   reconstructible: "ok",
   routed: "warning",
+  rpnt_gap: "info",
 };
 export function describe_refusal(refusal: Refusal): string {
   return (refusal_message[refusal.code] as (refusal: Refusal) => string)(
@@ -201,17 +212,20 @@ const check_by_source: {
       : name;
   },
   dila: (row, { declared_by, fiches }) => {
-    const owned = dila_ok(declared_by, row.domain);
-    if (!owned.ok) return owned;
-    const { owner } = owned.value;
-    const fiche = check_fiche(row.fiche, owner, fiches);
+    const owner = dila_owner(declared_by, row.domain);
+    if (!owner.ok) return owner;
+    const fiche = check_fiche(row.fiche, owner.value, fiches);
     if (!fiche.ok) return fiche;
+    const sovereign = check_sovereign(row.domain);
+    if (!sovereign.ok) return sovereign;
     const name = check_dila_name({
       domain: row.domain,
       fiche: fiche.value,
-      owner,
+      owner: owner.value,
     });
-    return name.ok ? ok({ code: "dila", name: name.value, owner }) : name;
+    return name.ok
+      ? ok({ code: "dila", name: name.value, owner: owner.value })
+      : name;
   },
   routed: () => ok({ code: "routed" }),
 };
@@ -250,13 +264,39 @@ function check_reconstructible<S extends Source>({
     : ok({ code: "reconstructible", fiche, overrides: refusal, spelling });
 }
 
+const rpnt_gap_by_code: {
+  [C in Refusal["code"]]: (
+    refusal: Extract<Refusal, { code: C }>,
+  ) => RowVerdict;
+} = {
+  declared_by_other: err,
+  fiche_not_found: err,
+  fiche_siren_mismatch: err,
+  lacks_name: (gap) => ok({ code: "rpnt_gap", gap }),
+  not_allowed: err,
+  not_sovereign: (gap) => ok({ code: "rpnt_gap", gap }),
+  shared: err,
+  undeclared: err,
+};
+
+const rpnt_gap_by_source: {
+  [S in Source]: (refusal: Refusal) => RowVerdict;
+} = {
+  candidate: err,
+  dila: (refusal) =>
+    (rpnt_gap_by_code[refusal.code] as (refusal: Refusal) => RowVerdict)(
+      refusal,
+    ),
+  routed: err,
+};
+
 export function check_row(row: AllowedDomain, index: DilaIndex): RowVerdict {
   const allowed = check_not_allowed(row.domain);
   if (!allowed.ok) return allowed;
   const verdict = check_source(row, index);
-  return verdict.ok
-    ? verdict
-    : check_reconstructible({ index, refusal: verdict.error, row });
+  if (verdict.ok) return verdict;
+  const rebuilt = check_reconstructible({ index, refusal: verdict.error, row });
+  return rebuilt.ok ? rebuilt : rpnt_gap_by_source[row.source](rebuilt.error);
 }
 
 export type RowReport = {
@@ -280,14 +320,15 @@ export function check_sources(
 
 export function partition_reports(reports: RowReport[]): {
   errors: RowReport[];
+  infos: RowReport[];
   warnings: RowReport[];
 } {
+  const by_severity = Object.groupBy(reports, (report) =>
+    report.verdict.ok ? approval_severity[report.verdict.value.code] : "error",
+  );
   return {
-    errors: reports.filter((report) => !report.verdict.ok),
-    warnings: reports.filter(
-      (report) =>
-        report.verdict.ok &&
-        approval_severity[report.verdict.value.code] === "warning",
-    ),
+    errors: by_severity.error ?? [],
+    infos: by_severity.info ?? [],
+    warnings: by_severity.warning ?? [],
   };
 }

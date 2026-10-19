@@ -167,12 +167,27 @@ describe("check_row", () => {
     });
   });
 
-  test("refuses a dila domain without its collectivité's name, listing the spellings tried", () => {
+  test("approves a dila domain without its collectivité's name as an RPNT 2.2 gap, listing the spellings tried", () => {
     expect(
       check_row(dila_row({ domain: "lesarcs.fr", id: bourg_id }), index),
-    ).toEqual({
+    ).toEqual(
+      ok({
+        code: "rpnt_gap",
+        gap: { code: "lacks_name", spellings: ["Bourg-Saint-Maurice"] },
+      }),
+    );
+  });
+
+  test("refuses a dila .com row citing another collectivité's fiche, before any RPNT gap", () => {
+    expect(
+      check_row(dila_row({ domain: "brie.com", id: coise_id }), index),
+    ).toMatchObject({
+      error: {
+        code: "fiche_siren_mismatch",
+        fiche: { siren: "217300896" },
+        owner: { siren: "213500416" },
+      },
       ok: false,
-      error: { code: "lacks_name", spellings: ["Bourg-Saint-Maurice"] },
     });
   });
 
@@ -323,7 +338,7 @@ describe("describe_approval", () => {
 });
 
 describe("partition_reports", () => {
-  test("errors are refusals, warnings are routed approvals, reconstructible rows are neither", () => {
+  test("errors are refusals, warnings are routed approvals, infos are RPNT gaps, reconstructible rows are none", () => {
     const report = (domain: string, row: AllowedDomain) => ({
       domain,
       uid,
@@ -341,13 +356,20 @@ describe("partition_reports", () => {
       "brie.com",
       dila_row({ domain: "brie.com", id: brie_id }),
     );
-    const refused = report(
+    const gap = report(
       "lesarcs.fr",
       dila_row({ domain: "lesarcs.fr", id: bourg_id }),
     );
+    const refused = report(
+      "stpaul.fr",
+      candidate_row({ domain: "stpaul.fr", id: paul_id }),
+    );
 
-    expect(partition_reports([routed, approved, rebuilt, refused])).toEqual({
+    expect(
+      partition_reports([routed, approved, rebuilt, gap, refused]),
+    ).toEqual({
       errors: [refused],
+      infos: [gap],
       warnings: [routed],
     });
   });
