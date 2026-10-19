@@ -69,21 +69,53 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     ).toThrow();
   });
 
-  test.each(["Wix.com", " a.fr", "a.fr.", "__proto__"])(
-    "rejette le domaine non canonique %p",
-    (domain) => {
-      expect(() =>
-        oidc_providers_config_schema.parse({
+  test.each([
+    "Wix.com",
+    " a.fr",
+    "a.fr.",
+    "__proto__",
+    "-a.fr",
+    "a-.fr",
+    "a.-fr",
+    `${"a".repeat(64)}.fr`,
+    `${"a".repeat(63)}.${"b".repeat(63)}.${"c".repeat(63)}.${"d".repeat(62)}`,
+  ])("rejette le domaine non canonique %p", (domain) => {
+    expect(() =>
+      oidc_providers_config_schema.parse({
+        oidc_providers: [
+          {
+            uid: "x",
+            allowed_attached_email_domains: [{ domain, source: "routed" }],
+          },
+        ],
+      }),
+    ).toThrow();
+  });
+
+  test("accepte un label de 63 caractères et un nom de 253", () => {
+    const domains = [
+      `${"a".repeat(63)}.fr`,
+      `${"a".repeat(63)}.${"b".repeat(63)}.${"c".repeat(63)}.${"d".repeat(61)}`,
+      "xn--mairie-sane-9gb.fr",
+    ];
+    expect(
+      oidc_providers_config_schema
+        .parse({
           oidc_providers: [
             {
               uid: "x",
-              allowed_attached_email_domains: [{ domain, source: "routed" }],
+              allowed_attached_email_domains: domains.map((domain) => ({
+                domain,
+                source: "routed",
+              })),
             },
           ],
-        }),
-      ).toThrow();
-    },
-  );
+        })
+        .oidc_providers[0]?.allowed_attached_email_domains.map(
+          ({ domain }) => domain,
+        ),
+    ).toEqual(domains);
+  });
 
   test("rejette une source dila sans fiche", () => {
     expect(() =>

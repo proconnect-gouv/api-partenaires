@@ -5,7 +5,10 @@ const FICHE_URL =
 
 const fiche_url_schema = z.string().regex(FICHE_URL);
 
-export const domain_schema = z.string().regex(/^[a-z0-9-]+(\.[a-z0-9-]+)+$/);
+export const domain_schema = z
+  .string()
+  .max(253)
+  .regex(/^(?!-)[a-z0-9-]{1,63}(?<!-)(\.(?!-)[a-z0-9-]{1,63}(?<!-))+$/);
 
 const allowed_domain_schema = z.discriminatedUnion("source", [
   z.object({
