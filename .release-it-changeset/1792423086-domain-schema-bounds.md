@@ -1,1 +1,0 @@
-Les domaines de `oidc_providers.yaml` sont désormais bornés : 63 caractères au plus par label, 253 pour le nom entier, sans tiret en début ou en fin de label ; un fichier hors bornes empêche le service de démarrer.
