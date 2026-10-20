@@ -1,5 +1,19 @@
 # Changelog
 
+## [2026.10.7](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.6...2026.10.7) (2026-10-20)
+
+### Changements
+
+- Un fournisseur d'identité dont le document Mongo n'a pas de champ `attachedEmailDomains` (ou le met à `null`) est désormais lu comme n'ayant aucun domaine rattaché, au lieu de répondre `500` ; son premier domaine peut être rattaché par `PUT`.
+
+### Modifié
+
+- 🔧(anct) regenerate the proconnect allowlist ([#201](https://github.com/proconnect-gouv/api-partenaires/issues/201)) ([28a3a21](https://github.com/proconnect-gouv/api-partenaires/commit/28a3a2130f91b70955a54269a792f129a85c1f01))
+
+### Corrigé
+
+- 🐛 read a provider without attachedEmailDomains as having none ([#196](https://github.com/proconnect-gouv/api-partenaires/issues/196)) ([a54fe6d](https://github.com/proconnect-gouv/api-partenaires/commit/a54fe6dc886a2ee0d2292fad625e859a730a5f4f))
+
 ## [2026.10.6](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.5...2026.10.6) (2026-10-20)
 
 ### Changements
