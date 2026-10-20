@@ -4,6 +4,7 @@ import {
   create_test_app,
   ENRICHED_UID,
   GHOST_UID,
+  INACTIVE_UID,
   MONCOMPTEPRO_UID,
   sign,
 } from "#src/oidc_providers/testing";
@@ -19,9 +20,10 @@ describe("OIDC provider configuration API", () => {
     });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      uid: MONCOMPTEPRO_UID,
-      name: "moncomptepro",
+      active: true,
       attached_email_domains: ["moncomptepro.fr", "polyfi.fr"],
+      name: "moncomptepro",
+      uid: MONCOMPTEPRO_UID,
     });
   });
 
@@ -34,13 +36,13 @@ describe("OIDC provider configuration API", () => {
     });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      uid: ENRICHED_UID,
-      name: "enriched-oidc-provider",
-      title: "Enriched Partner Title",
       active: true,
-      redirect_uris: ["https://enriched.example.com/callback"],
-      post_logout_redirect_uris: ["https://enriched.example.com/logout"],
       attached_email_domains: ["enriched.example.com"],
+      name: "enriched-oidc-provider",
+      post_logout_redirect_uris: ["https://enriched.example.com/logout"],
+      redirect_uris: ["https://enriched.example.com/callback"],
+      title: "Enriched Partner Title",
+      uid: ENRICHED_UID,
     });
   });
 
@@ -75,6 +77,24 @@ describe("OIDC provider configuration API", () => {
     });
     expect(res.status).toBe(403);
     expect(await res.json()).toEqual({ error: "uid_not_editable" });
+  });
+
+  test("refuses modification of an inactive provider and leaves it unchanged", async () => {
+    const app = create_test_app();
+    const path = `/api/oidc_providers/${INACTIVE_UID}/configuration`;
+    const res = await api_call({
+      app,
+      json_data: { attached_email_domains: ["inactive-new.fr"] },
+      method: "PATCH",
+      path,
+    });
+    expect(res.status).toBe(403);
+    expect(await res.json()).toEqual({ error: "oidc_provider_inactive" });
+    const read = await api_call({ app, method: "GET", path });
+    expect(await read.json()).toMatchObject({
+      active: false,
+      attached_email_domains: ["inactive.fr"],
+    });
   });
 
   test("rejects a domain not in the allowed list", async () => {
@@ -205,13 +225,13 @@ describe("OIDC provider configuration API", () => {
     const body = "{pas du json";
     const signature = sign({ body, method: "PATCH", path, timestamp });
     const res = await app.request(path, {
-      method: "PATCH",
+      body,
       headers: {
         "X-Signature": signature,
         "X-Timestamp": timestamp,
         "content-type": "application/json",
       },
-      body,
+      method: "PATCH",
     });
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({ error: "invalid_body" });
@@ -251,9 +271,9 @@ describe("OIDC provider configuration API", () => {
     });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      uid: MONCOMPTEPRO_UID,
-      name: "moncomptepro",
       attached_email_domains: [],
+      name: "moncomptepro",
+      uid: MONCOMPTEPRO_UID,
     });
   });
 
@@ -280,9 +300,9 @@ describe("OIDC provider configuration API", () => {
     });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      uid: MONCOMPTEPRO_UID,
-      name: "moncomptepro",
       attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+      name: "moncomptepro",
+      uid: MONCOMPTEPRO_UID,
     });
   });
 

@@ -29,7 +29,7 @@ describe("create_oidc_provider_store", () => {
     });
     expect(
       await store.findOneAndUpdate(
-        { uid: "u" },
+        { active: true, uid: "u" },
         { $addToSet: { attachedEmailDomains: "fifi.fr" } },
         { returnDocument: "before" },
       ),

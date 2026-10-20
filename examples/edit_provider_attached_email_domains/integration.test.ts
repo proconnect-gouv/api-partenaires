@@ -31,13 +31,13 @@ function oidc_providers_api_call(
   const body = json_data !== undefined ? JSON.stringify(json_data) : undefined;
   const signature = sign(method, path_with_query, timestamp, body);
   return fetch(`${base_url}${path_with_query}`, {
-    method,
+    body,
     headers: {
       "X-Signature": signature,
       "X-Timestamp": timestamp,
       ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
     },
-    body,
+    method,
   });
 }
 
@@ -69,9 +69,10 @@ describe.serial(
       );
       expect(res.status).toBe(200);
       expect(await res.json()).toEqual({
-        uid,
-        name: "moncomptepro",
+        active: true,
         attached_email_domains: ["moncomptepro.fr", "polyfi.fr"],
+        name: "moncomptepro",
+        uid,
       });
     });
 
@@ -128,9 +129,10 @@ describe.serial(
         `/api/oidc_providers/${uid}/configuration`,
       );
       expect(await res.json()).toEqual({
-        uid,
-        name: "moncomptepro",
+        active: true,
         attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+        name: "moncomptepro",
+        uid,
       });
     });
 
@@ -215,9 +217,9 @@ describe.serial(
       );
       expect(res.status).toBe(200);
       expect(await res.json()).toEqual({
-        uid,
-        name: "moncomptepro",
         attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+        name: "moncomptepro",
+        uid,
       });
     });
 
@@ -227,9 +229,10 @@ describe.serial(
         `/api/oidc_providers/${uid}/configuration`,
       );
       expect(await res.json()).toEqual({
-        uid,
-        name: "moncomptepro",
+        active: true,
         attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
+        name: "moncomptepro",
+        uid,
       });
     });
 
@@ -240,9 +243,10 @@ describe.serial(
       );
       expect(configuration.status).toBe(200);
       expect(await configuration.json()).toEqual({
-        uid: uid_without_domains,
-        name: "sans-attached-email-domains",
+        active: true,
         attached_email_domains: [],
+        name: "sans-attached-email-domains",
+        uid: uid_without_domains,
       });
       const list = await oidc_providers_api_call(
         "GET",
@@ -263,6 +267,26 @@ describe.serial(
         `/api/oidc_providers/${uid_without_domains}/attached_email_domains`,
       );
       expect(await list.json()).toEqual([{ domain: "numerique.gouv.fr" }]);
+    });
+
+    test("refuse toute écriture sur un fournisseur inactif", async () => {
+      const inactive_uid = "1a7c3e9b-0000-4000-8000-000000000000";
+      const domains = `/api/oidc_providers/${inactive_uid}/attached_email_domains`;
+      for (const [method, path, json_data] of [
+        ["PUT", `${domains}/inactive-new.fr`, undefined],
+        ["DELETE", `${domains}/inactive.fr`, undefined],
+        [
+          "PATCH",
+          `/api/oidc_providers/${inactive_uid}/configuration`,
+          { attached_email_domains: [] },
+        ],
+      ] as const) {
+        const res = await oidc_providers_api_call(method, path, { json_data });
+        expect(res.status).toBe(403);
+        expect(await res.json()).toEqual({ error: "oidc_provider_inactive" });
+      }
+      const list = await oidc_providers_api_call("GET", domains);
+      expect(await list.json()).toEqual([{ domain: "inactive.fr" }]);
     });
   },
 );

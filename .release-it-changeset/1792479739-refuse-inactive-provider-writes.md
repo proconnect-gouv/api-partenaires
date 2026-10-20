@@ -1,0 +1,1 @@
+Les écritures (`PUT`, `DELETE` et `PATCH`) sur un fournisseur d'identité dont le document Mongo n'a pas `active: true` répondent désormais `403 { "error": "oidc_provider_inactive" }`, comme la fédération qui le traite comme inactif ; les lectures restent permises.

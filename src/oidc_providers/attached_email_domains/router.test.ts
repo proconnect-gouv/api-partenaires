@@ -3,6 +3,7 @@ import {
   api_call,
   create_test_app,
   GHOST_UID,
+  INACTIVE_UID,
   LEGACY_UID,
   MONCOMPTEPRO_UID,
   OTHER_UID,
@@ -101,6 +102,43 @@ describe("OIDC provider attached email domains API", () => {
       expect(res.status).toBe(404);
       expect(await res.json()).toEqual({ error: "not_found" });
     }
+  });
+
+  test("refuses item writes on an inactive provider and leaves the list unchanged", async () => {
+    const app = create_test_app();
+    const domains = `/api/oidc_providers/${INACTIVE_UID}/attached_email_domains`;
+    for (const [method, domain] of [
+      ["PUT", "inactive-new.fr"],
+      ["PUT", "inactive.fr"],
+      ["DELETE", "inactive.fr"],
+    ] as const) {
+      const res = await api_call({ app, method, path: `${domains}/${domain}` });
+      expect(res.status).toBe(403);
+      expect(await res.json()).toEqual({ error: "oidc_provider_inactive" });
+    }
+    const list = await api_call({ app, method: "GET", path: domains });
+    expect(await list.json()).toEqual([{ domain: "inactive.fr" }]);
+  });
+
+  test("refuses item writes when the provider loses `active` before the write", async () => {
+    const app = create_test_app({
+      concurrent_write: (provider) => {
+        delete provider.active;
+      },
+    });
+    for (const [method, domain] of [
+      ["PUT", "fifi.fr"],
+      ["DELETE", "polyfi.fr"],
+    ] as const) {
+      const res = await api_call({ app, method, path: `${DOMAINS}/${domain}` });
+      expect(res.status).toBe(403);
+      expect(await res.json()).toEqual({ error: "oidc_provider_inactive" });
+    }
+    const list = await api_call({ app, method: "GET", path: DOMAINS });
+    expect(await list.json()).toEqual([
+      { domain: "moncomptepro.fr" },
+      { domain: "polyfi.fr" },
+    ]);
   });
 
   test("attaches an allowed domain with 201 and its Location", async () => {
