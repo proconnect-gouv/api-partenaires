@@ -10,3 +10,7 @@ oidc_providers:
       # already attached to the seeded `intruder` provider: allowlisted here so only the taken-domain check can refuse it
       - domain: intruder.fr
         source: routed
+  - uid: "b7c1e2a0-0000-4000-8000-000000000000"
+    allowed_attached_email_domains:
+      - domain: numerique.gouv.fr
+        source: routed

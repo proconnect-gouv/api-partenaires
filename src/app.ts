@@ -6,19 +6,10 @@ import {
   type OidcClientStore,
 } from "./oidc_clients/router";
 import { create_oidc_providers_router } from "./oidc_providers/router";
+import type { OidcProvider } from "./oidc_providers/store";
 import type { OidcProvidersConfig } from "./oidc_providers_config";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
-
-export interface OidcProvider {
-  uid: string;
-  name: string;
-  title?: string;
-  active?: boolean;
-  redirect_uris?: string[];
-  post_logout_redirect_uris?: string[];
-  attachedEmailDomains: string[];
-}
 
 export type OidcProviderUpdate =
   | { $addToSet: { attachedEmailDomains: string } }

@@ -1,0 +1,1 @@
+Un fournisseur d'identité dont le document Mongo n'a pas de champ `attachedEmailDomains` (ou le met à `null`) est désormais lu comme n'ayant aucun domaine rattaché, au lieu de répondre `500` ; son premier domaine peut être rattaché par `PUT`.

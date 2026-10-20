@@ -11,4 +11,8 @@ db.provider.insertMany([
     name: "intruder",
     attachedEmailDomains: ["intruder.fr"],
   },
+  {
+    uid: "b7c1e2a0-0000-4000-8000-000000000000",
+    name: "sans-attached-email-domains",
+  },
 ]);
