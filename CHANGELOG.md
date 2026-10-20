@@ -1,5 +1,30 @@
 # Changelog
 
+## [2026.10.6](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.5...2026.10.6) (2026-10-20)
+
+### Changements
+
+- Nouvelles routes `GET`, `PUT` et `DELETE` sur `/api/oidc_providers/:uid/attached_email_domains[/:domain]` pour lister, rattacher ou détacher un domaine à la fois, sans écraser les modifications concurrentes. `PATCH /api/oidc_providers/:uid/configuration` est dépréciée (en-têtes `Deprecation` et `Sunset`) et sera retirée après le 17 janvier 2027.
+- `MAX_TIMESTAMP_DIFF` doit être un entier de 1 à 3600 secondes : une valeur hors bornes (par exemple `1e9`, qui désactivait de fait la protection contre le rejeu, ou `0`) empêche désormais le service de démarrer.
+- Les domaines de `oidc_providers.yaml` sont désormais bornés : 63 caractères au plus par label, 253 pour le nom entier, sans tiret en début ou en fin de label ; un fichier hors bornes empêche le service de démarrer.
+
+### Ajouté
+
+- ✨ attach and detach one email domain at a time ([#191](https://github.com/proconnect-gouv/api-partenaires/issues/191)) ([d7e49b0](https://github.com/proconnect-gouv/api-partenaires/commit/d7e49b0e388d657c608aa5d953c06a7791ca2ce2))
+- ✨ make the allowlist digest say what a reviewer must check ([#190](https://github.com/proconnect-gouv/api-partenaires/issues/190)) ([975f123](https://github.com/proconnect-gouv/api-partenaires/commit/975f1235d76cb09b8d243b79a24c1bf44a185ce5))
+- ✨ report dila rows short of RPNT 1.2 or 2.2 as info, not refusals ([#189](https://github.com/proconnect-gouv/api-partenaires/issues/189)) ([ca902f9](https://github.com/proconnect-gouv/api-partenaires/commit/ca902f9e6a77d2618314f92c2aeaebb0eed7cd03))
+
+### Modifié
+
+- 🔧(anct) regenerate the proconnect allowlist ([#185](https://github.com/proconnect-gouv/api-partenaires/issues/185)) ([092c28d](https://github.com/proconnect-gouv/api-partenaires/commit/092c28dcbf3e3f1803842926425c554f17cc7498))
+- ♻️ name route factories routers, one router.ts per route folder ([#193](https://github.com/proconnect-gouv/api-partenaires/issues/193)) ([31e0d8f](https://github.com/proconnect-gouv/api-partenaires/commit/31e0d8fdb10933eba411eca071cdf58f06c9d777))
+- ♻️ split the oidc providers router into resource files and a pure admission core ([#192](https://github.com/proconnect-gouv/api-partenaires/issues/192)) ([b1f72bd](https://github.com/proconnect-gouv/api-partenaires/commit/b1f72bd5945eae7ee0326cee155088d10fa84fdd))
+
+### Corrigé
+
+- 🔒 bound domain labels and names in domain_schema ([#195](https://github.com/proconnect-gouv/api-partenaires/issues/195)) ([3d0c99f](https://github.com/proconnect-gouv/api-partenaires/commit/3d0c99f87c46794d7f5b2f9be96d9e2e98cdcfe5))
+- 🔒 refuse to boot with a MAX_TIMESTAMP_DIFF outside 1 to 3600 seconds ([#194](https://github.com/proconnect-gouv/api-partenaires/issues/194)) ([ca14111](https://github.com/proconnect-gouv/api-partenaires/commit/ca14111561d65ab2776dca1eb41e5dac60fcf591))
+
 ## [2026.10.5](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.4...2026.10.5) (2026-10-16)
 
 ### Ajouté
