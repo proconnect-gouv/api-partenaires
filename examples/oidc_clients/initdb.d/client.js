@@ -11,6 +11,7 @@ db.client.insertOne({
     "+sqGL4XE6aqzIMOp/DKC1jWB8I+8qE1jW6iz2tUv8lt+ZZzxjyoCBQeuAcJTFZxfLywkn6cAICK5JPLxYM0+8pk/q7CGHUfr/gzr3ZYRroWWE+egEEDxqRYDYe0=",
   claims: ["amr"],
   type: "private",
+  isXdaEnabled: false,
   scopes: ["openid"],
   createdAt: new Date(),
   updatedAt: new Date(),

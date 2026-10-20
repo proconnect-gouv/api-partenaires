@@ -33,6 +33,7 @@ export interface OidcClientDoc {
   client_secret: string;
   claims: string[];
   type: "private";
+  isXdaEnabled: boolean;
   scopes: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -164,6 +165,7 @@ export function create_oidc_clients_router({
         ),
         claims: ["amr"],
         type: "private",
+        isXdaEnabled: false,
         scopes: FIXED_SCOPES,
       };
 
