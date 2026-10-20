@@ -11,7 +11,9 @@ import {
 } from "#src/oidc_providers/admit";
 import {
   create_editable_middleware,
+  inactive,
   method_not_allowed,
+  refuse_unmatched_write,
 } from "#src/oidc_providers/http";
 import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 
@@ -78,13 +80,13 @@ export function create_configuration_router({
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
       return c.json({
-        uid: provider.uid,
-        name: provider.name,
-        title: provider.title,
         active: provider.active,
-        redirect_uris: provider.redirect_uris,
-        post_logout_redirect_uris: provider.post_logout_redirect_uris,
         attached_email_domains: provider.attachedEmailDomains,
+        name: provider.name,
+        post_logout_redirect_uris: provider.post_logout_redirect_uris,
+        redirect_uris: provider.redirect_uris,
+        title: provider.title,
+        uid: provider.uid,
       });
     })
     .patch("/:uid/configuration", deprecated, editable, async (c) => {
@@ -107,6 +109,7 @@ export function create_configuration_router({
 
       const provider = await providers.findOne({ uid });
       if (!provider) return c.json({ error: "not_found" }, 404);
+      if (provider.active !== true) return inactive(c);
       const added = [...new Set(body.data.attached_email_domains)].filter(
         (domain) => !provider.attachedEmailDomains.includes(domain),
       );
@@ -126,11 +129,11 @@ export function create_configuration_router({
       if (admission.kind !== "admit") return patch_refusal(c, admission);
 
       const updated = await providers.findOneAndUpdate(
-        { uid },
+        { active: true, uid },
         { $set: { attachedEmailDomains: body.data.attached_email_domains } },
         { returnDocument: "after" },
       );
-      if (!updated) return c.json({ error: "not_found" }, 404);
+      if (!updated) return refuse_unmatched_write({ c, providers, uid });
       const removed = provider.attachedEmailDomains.filter(
         (domain) => !updated.attachedEmailDomains.includes(domain),
       );
@@ -143,9 +146,9 @@ export function create_configuration_router({
         });
       }
       return c.json({
-        uid: updated.uid,
-        name: updated.name,
         attached_email_domains: updated.attachedEmailDomains,
+        name: updated.name,
+        uid: updated.uid,
       });
     })
     .all("/:uid/configuration", method_not_allowed("GET, HEAD, PATCH"));

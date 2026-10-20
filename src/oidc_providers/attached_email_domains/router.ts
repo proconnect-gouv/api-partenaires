@@ -10,7 +10,9 @@ import {
 import {
   create_editable_middleware,
   domain_param,
+  inactive,
   method_not_allowed,
+  refuse_unmatched_write,
 } from "#src/oidc_providers/http";
 import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 
@@ -74,6 +76,7 @@ export function create_attached_email_domains_router({
         const entry = c.var.entry;
         const provider = await providers.findOne({ uid });
         if (!provider) return c.json({ error: "not_found" }, 404);
+        if (provider.active !== true) return inactive(c);
         if (provider.attachedEmailDomains.includes(domain))
           return c.body(null, 204);
 
@@ -87,11 +90,11 @@ export function create_attached_email_domains_router({
         if (admission.kind !== "admit") return put_refusal(c, admission);
 
         const before = await providers.findOneAndUpdate(
-          { uid },
+          { active: true, uid },
           { $addToSet: { attachedEmailDomains: domain } },
           { returnDocument: "before" },
         );
-        if (!before) return c.json({ error: "not_found" }, 404);
+        if (!before) return refuse_unmatched_write({ c, providers, uid });
         if (before.attachedEmailDomains.includes(domain))
           return c.body(null, 204);
         log("info", {
@@ -112,11 +115,11 @@ export function create_attached_email_domains_router({
       async (c) => {
         const { domain, uid } = c.req.valid("param");
         const before = await providers.findOneAndUpdate(
-          { uid },
+          { active: true, uid },
           { $pull: { attachedEmailDomains: domain } },
           { returnDocument: "before" },
         );
-        if (!before) return c.json({ error: "not_found" }, 404);
+        if (!before) return refuse_unmatched_write({ c, providers, uid });
         if (!before.attachedEmailDomains.includes(domain))
           return c.json({ error: "attached_email_domain_not_found" }, 404);
         log("info", {

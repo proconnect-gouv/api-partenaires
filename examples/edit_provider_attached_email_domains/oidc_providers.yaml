@@ -1,6 +1,5 @@
 oidc_providers:
-  - uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"
-    allowed_attached_email_domains:
+  - allowed_attached_email_domains:
       - domain: moncomptepro.fr
         source: routed
       - domain: polyfi.fr
@@ -10,7 +9,14 @@ oidc_providers:
       # already attached to the seeded `intruder` provider: allowlisted here so only the taken-domain check can refuse it
       - domain: intruder.fr
         source: routed
-  - uid: "b7c1e2a0-0000-4000-8000-000000000000"
-    allowed_attached_email_domains:
+    uid: "71144ab3-ee1a-4401-b7b3-79b44f7daeeb"
+  - allowed_attached_email_domains:
       - domain: numerique.gouv.fr
         source: routed
+    uid: "b7c1e2a0-0000-4000-8000-000000000000"
+  - allowed_attached_email_domains:
+      - domain: inactive.fr
+        source: routed
+      - domain: inactive-new.fr
+        source: routed
+    uid: "1a7c3e9b-0000-4000-8000-000000000000"

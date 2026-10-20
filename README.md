@@ -63,6 +63,8 @@ oidc_providers:
 | `PATCH /api/oidc_clients/:id`                                    | `OIDC_CLIENTS_API_SECRET` + `?email=` | Mise à jour partielle d'un client OIDC                                                                                                                                                                                                                                   |
 | `DELETE /api/oidc_clients/:id`                                   | `OIDC_CLIENTS_API_SECRET` + `?email=` | Suppression d'un client OIDC                                                                                                                                                                                                                                             |
 
+Les écritures (`PATCH`, `PUT`, `DELETE`) sur `/api/oidc_providers/:uid/*` répondent `403 { "error": "oidc_provider_inactive" }` quand le fournisseur n'a pas `active: true` en base ; les lectures restent permises.
+
 ## Scripts
 
 | Script                                    | Description                                                                        |

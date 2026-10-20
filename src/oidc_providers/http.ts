@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import { createMiddleware } from "hono/factory";
 import { validator } from "hono/validator";
 import { z } from "zod";
+import type { OidcProviderStore } from "#src/app";
 import {
   domain_schema,
   type EditableOidcProvider,
@@ -38,7 +39,25 @@ export function create_editable_middleware({
   );
 }
 
+export function inactive(c: Context) {
+  return c.json({ error: "oidc_provider_inactive" }, 403);
+}
+
 export function method_not_allowed(allow: string) {
   return (c: Context) =>
     c.json({ error: "method_not_allowed" }, 405, { Allow: allow });
+}
+
+export async function refuse_unmatched_write({
+  c,
+  providers,
+  uid,
+}: {
+  c: Context;
+  providers: OidcProviderStore;
+  uid: string;
+}) {
+  return (await providers.findOne({ uid }))
+    ? inactive(c)
+    : c.json({ error: "not_found" }, 404);
 }

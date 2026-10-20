@@ -26,7 +26,7 @@ export interface OidcProviderStore {
   ): Promise<string[]>;
   findOne(filter: { uid: string }): Promise<OidcProvider | null>;
   findOneAndUpdate(
-    filter: { uid: string },
+    filter: { active: true; uid: string },
     update: OidcProviderUpdate,
     options: { returnDocument: "after" | "before" },
   ): Promise<OidcProvider | null>;
@@ -38,8 +38,8 @@ export function create_app({
   enable_sandbox_endpoint,
   find_unreachable_domains,
   max_timestamp_diff,
-  oidc_clients_api_secret,
   oidc_clients,
+  oidc_clients_api_secret,
   oidc_providers_api_secret,
   oidc_providers_config,
   providers,
@@ -51,8 +51,8 @@ export function create_app({
   enable_sandbox_endpoint: boolean;
   find_unreachable_domains: FindUnreachableDomains;
   max_timestamp_diff: number;
-  oidc_clients_api_secret: string;
   oidc_clients: OidcClientStore;
+  oidc_clients_api_secret: string;
   oidc_providers_api_secret: string;
   oidc_providers_config: OidcProvidersConfig;
   providers: OidcProviderStore;
@@ -135,8 +135,8 @@ export function create_app({
       "/api/oidc_clients",
       enable_sandbox_endpoint
         ? create_oidc_clients_router({
-            oidc_clients,
             client_secret_cipher_pass,
+            oidc_clients,
           })
         : create_unauthorized_router(),
     )
