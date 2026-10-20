@@ -4,6 +4,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 
 const base_url = "http://127.0.0.1:3000";
 const uid = "71144ab3-ee1a-4401-b7b3-79b44f7daeeb";
+const uid_without_domains = "b7c1e2a0-0000-4000-8000-000000000000";
 const oidc_providers_api_secret = "test-oidc-providers-secret";
 
 function sign(
@@ -230,6 +231,38 @@ describe.serial(
         name: "moncomptepro",
         attached_email_domains: ["moncomptepro.fr", "polyfi.fr", "fifi.fr"],
       });
+    });
+
+    test("lit un fournisseur sans attachedEmailDomains comme n'en ayant aucun", async () => {
+      const configuration = await oidc_providers_api_call(
+        "GET",
+        `/api/oidc_providers/${uid_without_domains}/configuration`,
+      );
+      expect(configuration.status).toBe(200);
+      expect(await configuration.json()).toEqual({
+        uid: uid_without_domains,
+        name: "sans-attached-email-domains",
+        attached_email_domains: [],
+      });
+      const list = await oidc_providers_api_call(
+        "GET",
+        `/api/oidc_providers/${uid_without_domains}/attached_email_domains`,
+      );
+      expect(list.status).toBe(200);
+      expect(await list.json()).toEqual([]);
+    });
+
+    test("rattache un premier domaine à un fournisseur sans attachedEmailDomains", async () => {
+      const res = await oidc_providers_api_call(
+        "PUT",
+        `/api/oidc_providers/${uid_without_domains}/attached_email_domains/numerique.gouv.fr`,
+      );
+      expect(res.status).toBe(201);
+      const list = await oidc_providers_api_call(
+        "GET",
+        `/api/oidc_providers/${uid_without_domains}/attached_email_domains`,
+      );
+      expect(await list.json()).toEqual([{ domain: "numerique.gouv.fr" }]);
     });
   },
 );

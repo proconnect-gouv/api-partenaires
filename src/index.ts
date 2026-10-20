@@ -1,9 +1,13 @@
 import { MongoClient } from "mongodb";
-import { create_app, type OidcProvider } from "./app";
+import { create_app } from "./app";
 import { config_schema } from "./config";
 import { create_find_unreachable_domains } from "./domain_reachable";
 import { set_log_level } from "./log";
 import type { OidcClientDoc } from "./oidc_clients/router";
+import {
+  create_oidc_provider_store,
+  type OidcProviderDocument,
+} from "./oidc_providers/store";
 
 const config = await config_schema.parseAsync(process.env);
 set_log_level(config.LOG_LEVEL);
@@ -20,7 +24,9 @@ const app = create_app({
   oidc_clients: client.db().collection<OidcClientDoc>("client"),
   oidc_providers_api_secret: config.OIDC_PROVIDERS_API_SECRET,
   oidc_providers_config: config.OIDC_PROVIDERS_CONFIG,
-  providers: client.db().collection<OidcProvider>("provider"),
+  providers: create_oidc_provider_store({
+    collection: client.db().collection<OidcProviderDocument>("provider"),
+  }),
   rate_limit_per_minute: config.RATE_LIMIT_PER_MINUTE,
   rate_limit_per_minute_per_oidc_provider:
     config.RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER,
