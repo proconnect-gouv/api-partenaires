@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import type { DnsFailure } from "#src/domain_reachable";
 import {
   api_call,
   create_test_app,
@@ -191,23 +192,53 @@ describe("OIDC provider attached email domains API", () => {
     });
   });
 
-  test("answers 502 when DNS cannot be resolved", async () => {
+  test.each<[DnsFailure, number, string]>([
+    [
+      {
+        domain: "fifi.fr",
+        issues: [],
+        kind: "bad_response",
+        record_type: "MX",
+      },
+      502,
+      "dns_bad_response",
+    ],
+    [
+      {
+        domain: "fifi.fr",
+        http_status: 503,
+        kind: "http_error",
+        record_type: "MX",
+      },
+      502,
+      "dns_http_error",
+    ],
+    [
+      {
+        cause: new TypeError(),
+        domain: "fifi.fr",
+        kind: "request_failed",
+        record_type: "A",
+      },
+      502,
+      "dns_request_failed",
+    ],
+    [
+      { domain: "fifi.fr", kind: "timeout", record_type: "MX" },
+      504,
+      "dns_timeout",
+    ],
+  ])("answers a DNS failure %o with %d %s", async (failure, status, error) => {
     const app = create_test_app({
-      find_unreachable_domains: async () =>
-        err({
-          domain: "fifi.fr",
-          kind: "http_status",
-          status: 503,
-          type: "MX",
-        }),
+      find_unreachable_domains: async () => err(failure),
     });
     const res = await api_call({
       app,
       method: "PUT",
       path: `${DOMAINS}/fifi.fr`,
     });
-    expect(res.status).toBe(502);
-    expect(await res.json()).toEqual({ error: "dns_unavailable" });
+    expect(res.status).toBe(status);
+    expect(await res.json()).toEqual({ error, domain: "fifi.fr" });
   });
 
   test("answers 204 when a concurrent PUT attached the domain first", async () => {

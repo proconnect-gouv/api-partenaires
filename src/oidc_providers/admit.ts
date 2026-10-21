@@ -1,6 +1,5 @@
 import type { OidcProviderStore } from "#src/app";
-import type { FindUnreachableDomains } from "#src/domain_reachable";
-import { log } from "#src/log";
+import type { DnsFailure, FindUnreachableDomains } from "#src/domain_reachable";
 import {
   type Admission,
   decide_admission,
@@ -9,7 +8,11 @@ import type { AllowedDomain } from "#src/oidc_providers_config";
 
 export type AdmissionOutcome =
   | Admission
-  | { readonly kind: "dns_unavailable" }
+  | {
+      readonly kind: "dns_lookup_failed";
+      readonly domain: string;
+      readonly reason: DnsFailure["kind"];
+    }
   | { readonly domains: readonly string[]; readonly kind: "unreachable" };
 
 export type Refusal = Exclude<AdmissionOutcome, { kind: "admit" }>;
@@ -38,10 +41,12 @@ export async function admit_domains({
   if (admission.kind !== "admit") return admission;
 
   const unreachable = await find_unreachable_domains(added);
-  if (!unreachable.ok) {
-    log("error", { ...unreachable.error, event: "dns.failure" });
-    return { kind: "dns_unavailable" };
-  }
+  if (!unreachable.ok)
+    return {
+      kind: "dns_lookup_failed",
+      domain: unreachable.error.domain,
+      reason: unreachable.error.kind,
+    };
   if (unreachable.value.length > 0)
     return { domains: unreachable.value, kind: "unreachable" };
   return admission;

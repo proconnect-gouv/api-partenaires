@@ -9,6 +9,7 @@ import {
 } from "#src/oidc_providers/admit";
 import {
   create_editable_middleware,
+  dns_lookup_failed_response,
   domain_param,
   method_not_allowed,
 } from "#src/oidc_providers/http";
@@ -17,7 +18,7 @@ import type { OidcProvidersConfig } from "#src/oidc_providers_config";
 const put_refusal_by_kind: {
   [K in Refusal["kind"]]: (c: Context, refusal: RefusalByKind[K]) => Response;
 } = {
-  dns_unavailable: (c) => c.json({ error: "dns_unavailable" }, 502),
+  dns_lookup_failed: dns_lookup_failed_response,
   not_allowed: (c) =>
     c.json({ error: "attached_email_domain_not_allowed" }, 403),
   taken: (c) => c.json({ error: "attached_email_domain_taken" }, 409),
