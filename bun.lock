@@ -5,7 +5,7 @@
     "": {
       "name": "@proconnect-gouv/partners",
       "dependencies": {
-        "@proconnect-gouv/proconnect.core": "^1.0.2",
+        "@proconnect-gouv/proconnect.core": "^1.1.0",
         "hono": "4.13.13",
         "mongodb": "7.7.0",
         "zod": "4.6.6",
@@ -22,7 +22,7 @@
   "packages": {
     "@mongodb-js/saslprep": ["@mongodb-js/saslprep@1.6.0", "", { "dependencies": { "sparse-bitfield": "^3.0.3" } }, "sha512-19jGXfpctLDJUELLUZGJ5BllcLT7rHdF+gTTaN2jzqu0bGkUhpdcYtgK2Vux+g3zuBAa0TM/W666QMIjYhYujw=="],
 
-    "@proconnect-gouv/proconnect.core": ["@proconnect-gouv/proconnect.core@1.0.2", "", { "dependencies": { "@types/lodash-es": "^4.17.12", "@types/oidc-provider": "^9.5.0", "@zootools/email-spell-checker": "^1.12.0", "bcryptjs": "^3.0.2", "is-disposable-email-domain": "^1.0.7", "lodash-es": "^4.18.1", "nanoid": "^6.0.1", "tld-extract": "^2.1.0" } }, "sha512-/D9SRwjSM/JIi541SO30Egrv0NeOoRZpjN3wCK57NyKw5VQPYe099SD+BEZP4/i6TgCLc1UXk61gSm/fb8Twsg=="],
+    "@proconnect-gouv/proconnect.core": ["@proconnect-gouv/proconnect.core@1.1.0", "", { "dependencies": { "@types/lodash-es": "^4.17.12", "@types/oidc-provider": "^9.5.0", "@zootools/email-spell-checker": "^1.12.0", "bcryptjs": "^3.0.2", "is-disposable-email-domain": "^1.0.7", "lodash-es": "^4.18.1", "nanoid": "^6.0.1", "tld-extract": "^2.1.0" } }, "sha512-7F19u5936GfbCTSpEHcLZggf861BjQXnbwbUrvA7/lKZFXDUjiANPn+9GtEahFUPA1vZeouB03QUJG+knTLsqQ=="],
 
     "@tsconfig/bun": ["@tsconfig/bun@1.0.11", "", {}, "sha512-DQA3HOKFQ+/yPTUa73k5QGcuEM1ExtL6uWQMR0QrfOTitm0oLHqHd1tI74WtEtMqlIu+tvSMELJ6p5uNxVE7lw=="],
 
