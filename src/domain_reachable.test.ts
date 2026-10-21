@@ -29,10 +29,10 @@ describe("decide_from_mx", () => {
     });
   });
 
-  test("no MX, or a CNAME alone, asks for the A record", () => {
-    expect(decide_from_mx({ Status: 0 })).toEqual({ kind: "ask_a" });
+  test("no MX, or a CNAME alone, is no MX", () => {
+    expect(decide_from_mx({ Status: 0 })).toEqual({ kind: "no_mx" });
     expect(decide_from_mx({ Answer: [CNAME_RECORD], Status: 0 })).toEqual({
-      kind: "ask_a",
+      kind: "no_mx",
     });
   });
 });
@@ -94,9 +94,9 @@ describe("find_unreachable_domains", () => {
       ok: false,
       error: {
         domain: "example.fr",
-        kind: "http_status",
-        status: 429,
-        type: "MX",
+        http_status: 429,
+        kind: "http_error",
+        record_type: "MX",
       },
     });
   });
@@ -105,8 +105,31 @@ describe("find_unreachable_domains", () => {
     const find_unreachable_domains = create_find_unreachable_domains({
       fetch: async () => Response.json({ Status: "ok" }),
     });
-    const result = await find_unreachable_domains(["example.fr"]);
-    expect(result.ok || result.error.kind).toBe("bad_response");
+    expect(await find_unreachable_domains(["example.fr"])).toMatchObject({
+      ok: false,
+      error: { kind: "bad_response" },
+    });
+  });
+
+  test("tells a timeout from another request failure", async () => {
+    const failing_with = (cause: unknown) =>
+      create_find_unreachable_domains({
+        fetch: () => Promise.reject(cause),
+      })(["example.fr"]);
+    expect(
+      await failing_with(new DOMException("too slow", "TimeoutError")),
+    ).toEqual({
+      ok: false,
+      error: { domain: "example.fr", kind: "timeout", record_type: "MX" },
+    });
+    expect(await failing_with(new TypeError("fetch failed"))).toMatchObject({
+      ok: false,
+      error: {
+        domain: "example.fr",
+        kind: "request_failed",
+        record_type: "MX",
+      },
+    });
   });
 
   test("aborts the lookups in flight and reports the first failure", async () => {
@@ -122,10 +145,9 @@ describe("find_unreachable_domains", () => {
       },
     });
     const domains = Array.from({ length: 50 }, (_, i) => `d${i}.fr`);
-    const result = await find_unreachable_domains(domains);
-    expect(result.ok || result.error).toMatchObject({
-      domain: "d0.fr",
-      kind: "http_status",
+    expect(await find_unreachable_domains(domains)).toMatchObject({
+      ok: false,
+      error: { domain: "d0.fr", kind: "http_error" },
     });
     expect(signals).toHaveLength(10);
     expect(signals.every((signal) => signal.aborted)).toBe(true);

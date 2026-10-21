@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import { createMiddleware } from "hono/factory";
 import { validator } from "hono/validator";
 import { z } from "zod";
+import type { DnsFailure } from "#src/domain_reachable";
 import {
   domain_schema,
   type EditableOidcProvider,
@@ -19,6 +20,24 @@ export const domain_param = validator("param", (value, c) => {
     ? parsed.data
     : c.json({ error: "invalid_domain" }, 400);
 });
+
+const dns_lookup_failed_responses = {
+  bad_response: { error: "dns_bad_response", status: 502 },
+  http_error: { error: "dns_http_error", status: 502 },
+  request_failed: { error: "dns_request_failed", status: 502 },
+  timeout: { error: "dns_timeout", status: 504 },
+} as const satisfies Record<
+  DnsFailure["kind"],
+  { error: string; status: 502 | 504 }
+>;
+
+export function dns_lookup_failed_response(
+  c: Context,
+  { domain, reason }: { domain: string; reason: DnsFailure["kind"] },
+) {
+  const { error, status } = dns_lookup_failed_responses[reason];
+  return c.json({ error, domain }, status);
+}
 
 export function create_editable_middleware({
   oidc_providers_config,

@@ -149,15 +149,15 @@ describe("OIDC provider configuration API", () => {
     expect(res.status).toBe(200);
   });
 
-  test("answers 502 when DNS cannot be resolved", async () => {
+  test("answers 502 when dns.google answers an HTTP error", async () => {
     const app = create_test_app({
       extra_allowed_domains: ["dns-en-greve.fr"],
       find_unreachable_domains: async () =>
         err({
           domain: "dns-en-greve.fr",
-          kind: "http_status",
-          status: 503,
-          type: "MX",
+          http_status: 503,
+          kind: "http_error",
+          record_type: "MX",
         }),
     });
     const res = await api_call({
@@ -167,7 +167,10 @@ describe("OIDC provider configuration API", () => {
       path: `/api/oidc_providers/${MONCOMPTEPRO_UID}/configuration`,
     });
     expect(res.status).toBe(502);
-    expect(await res.json()).toEqual({ error: "dns_unavailable" });
+    expect(await res.json()).toEqual({
+      error: "dns_http_error",
+      domain: "dns-en-greve.fr",
+    });
   });
 
   test("rejects more than 1000 added domains", async () => {
