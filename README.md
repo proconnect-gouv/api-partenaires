@@ -76,7 +76,8 @@ oidc_providers:
 ## Tests d'intégration
 
 Chaque dossier de `examples/` est un scénario docker compose exécuté en CI
-contre l'image construite :
+contre l'image construite. Ses services étendent (`extends`) ceux de
+`examples/compose.yaml`, seul fichier où figurent les images tierces :
 
 ```sh
 cd examples/edit_provider_attached_email_domains
