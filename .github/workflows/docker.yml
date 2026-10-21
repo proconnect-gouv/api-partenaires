@@ -68,7 +68,7 @@ jobs:
         run: echo "examples=$(ls -d examples/*/ | xargs -n1 basename | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
 
   integration-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: 🔗 Integration Tests (${{ matrix.example }})
     needs: [build, list-examples]
     strategy:
