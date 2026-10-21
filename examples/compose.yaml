@@ -1,0 +1,33 @@
+# Base services every example extends; the only file dependabot watches here.
+services:
+  mongo:
+    image: mongo:9.0.2
+    healthcheck:
+      test:
+        ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand({ ping: 1 })'"]
+      interval: 1s
+      timeout: 2s
+      retries: 10
+
+  partners:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    environment:
+      CLIENT_SECRET_CIPHER_PASS: JZBlwxfKnbn/RV025aw+dQxk+xoQT+Yr
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb://mongo:27017/partners
+      OIDC_CLIENTS_API_SECRET: test-oidc-clients-secret
+      OIDC_PROVIDERS_API_SECRET: test-oidc-providers-secret
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/readyz || exit 1"
+      interval: 1s
+      timeout: 1s
+      retries: 10
