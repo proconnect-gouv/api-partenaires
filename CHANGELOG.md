@@ -1,5 +1,29 @@
 # Changelog
 
+## [2026.10.8](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.7...2026.10.8) (2026-10-21)
+
+### Changements
+
+- L'erreur `502 dns_unavailable` des routes `PUT /api/oidc_providers/:uid/attached_email_domains/:domain` et `PATCH /api/oidc_providers/:uid/configuration` est remplacée par une erreur par cause d'échec de la résolution via `dns.google`, avec le domaine en cause (`{ error, domain }`) : `502 dns_bad_response` (réponse illisible), `502 dns_http_error` (statut HTTP d'erreur), `502 dns_request_failed` (requête échouée) et `504 dns_timeout` (pas de réponse en 5 secondes). Les journaux deviennent `dns.domain.reachable`, `dns.domain.unreachable` et `dns.lookup.failed`, avec `record_type` et, en cas d'échec, `error_type`.
+
+### Ajouté
+
+- ✨ answer each dns lookup failure with its own error ([#209](https://github.com/proconnect-gouv/api-partenaires/issues/209)) ([e729a3b](https://github.com/proconnect-gouv/api-partenaires/commit/e729a3b1ed09bfe9dd550b34c57233dc1f988aea))
+
+### Modifié
+
+- 🔧 share one base compose file across examples ([#211](https://github.com/proconnect-gouv/api-partenaires/issues/211)) ([3ec1eb0](https://github.com/proconnect-gouv/api-partenaires/commit/3ec1eb0de9f9870f617b5a3dfe97e697dcf81fba))
+- 🔧 run integration tests on a kernel mongo 9.0.2 accepts ([#210](https://github.com/proconnect-gouv/api-partenaires/issues/210)) ([6900b96](https://github.com/proconnect-gouv/api-partenaires/commit/6900b969862df41a310a807d4c3cd45683634f98))
+
+### Corrigé
+
+- 🐛 Set `isXdaEnabled` when creating an OIDC client ([#202](https://github.com/proconnect-gouv/api-partenaires/issues/202)) ([ff74bfb](https://github.com/proconnect-gouv/api-partenaires/commit/ff74bfb6d3ec66c7916eedb7f918594c5c3d8f6a))
+
+### Dépendances
+
+- :arrow_upper_right: [patch](deps-dev): Bump @types/bun ([#206](https://github.com/proconnect-gouv/api-partenaires/issues/206)) ([6adbf3c](https://github.com/proconnect-gouv/api-partenaires/commit/6adbf3c51da404a4adc2995a1ae45cf03a5ab56e))
+- :arrow_upper_right: [patch](deps): Bump @proconnect-gouv/proconnect.core ([#208](https://github.com/proconnect-gouv/api-partenaires/issues/208)) ([7792656](https://github.com/proconnect-gouv/api-partenaires/commit/7792656dd9dc9a5fa283d525fea5a19c7448792a))
+
 ## [2026.10.7](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.6...2026.10.7) (2026-10-20)
 
 ### Changements
