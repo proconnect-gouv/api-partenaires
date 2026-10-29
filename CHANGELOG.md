@@ -1,5 +1,14 @@
 # Changelog
 
+## [2026.10.9](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.8...2026.10.9) (2026-10-29)
+
+### Dépendances
+
+- :arrow_upper_right: [patch](deps): Bump oven/bun ([#213](https://github.com/proconnect-gouv/api-partenaires/issues/213)) ([4e9aa13](https://github.com/proconnect-gouv/api-partenaires/commit/4e9aa139dbd1c46e54b59ad463cafdd3a46a5a0c))
+- :arrow_upper_right: [patch](deps): Bump alpine from 3.24.2 to 3.24.3 ([#214](https://github.com/proconnect-gouv/api-partenaires/issues/214)) ([e920000](https://github.com/proconnect-gouv/api-partenaires/commit/e920000df39f15b0318190cc68951cc9833fd3b8))
+- :arrow_upper_right: [patch](deps-dev): Bump @types/bun ([#215](https://github.com/proconnect-gouv/api-partenaires/issues/215)) ([0960cfb](https://github.com/proconnect-gouv/api-partenaires/commit/0960cfb4b16b5e496beff5ad7ee50c6319c84274))
+- :arrow_upper_right: [patch](deps): Bump docker/login-action ([#216](https://github.com/proconnect-gouv/api-partenaires/issues/216)) ([5ffe001](https://github.com/proconnect-gouv/api-partenaires/commit/5ffe0011748d290e8dd273558e062a1fef040690))
+
 ## [2026.10.8](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.7...2026.10.8) (2026-10-21)
 
 ### Changements
