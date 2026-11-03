@@ -98,6 +98,25 @@ describe("build_dila_index", () => {
     expect(index.rejected).toBe(3);
     expect(index.declared_by.size).toBe(0);
   });
+
+  test("drops a declared host with no known TLD, keeping the fiche and its other domains", () => {
+    const index = build_dila_index([
+      {
+        ...mairie,
+        adresse_courriel: "contact@coise",
+        site_internet:
+          "http://www.coise73.frlistes/neuvy;http://coisesaintjeanpiedgauthier.fr",
+      },
+    ]);
+
+    expect(index.malformed_domains).toEqual(
+      new Set(["coise", "coise73.frlistes"]),
+    );
+    expect(index.declared_by.get("coise73.frlistes")).toBeUndefined();
+    expect(index.fiches.get("1")?.domains).toEqual(
+      new Set(["coisesaintjeanpiedgauthier.fr"]),
+    );
+  });
 });
 
 describe("sole_owner", () => {
