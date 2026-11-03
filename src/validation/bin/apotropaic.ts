@@ -248,6 +248,11 @@ function dila_stats(): string {
     }),
     `🗺️ INSEE COG: ${count.format(cog_names.size)} commune codes, former communes' and renamed communes' former names included`,
     "🔎 Not checked: RPNT 1.3-1.8 and 2.3-2.8, see [RPNT v0.2.2](https://suiteterritoriale.anct.gouv.fr/conformite/referentiel)",
+    ...(dila_index.malformed_domains.size > 0
+      ? [
+          `⚠️ DILA export: ${noun(dila_index.malformed_domains.size, "malformed domain", "malformed domains")} dropped: ${all_of.format(code(dila_index.malformed_domains))}`,
+        ]
+      : []),
   ].join("\n\n");
 }
 
