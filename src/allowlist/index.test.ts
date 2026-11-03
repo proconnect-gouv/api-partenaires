@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { oidc_providers_config_schema } from "./index";
+import { err, ok } from "#src/utils";
+import { drop_rows, oidc_providers_config_schema } from "./index";
 
 describe("validation de la configuration fournisseurs OIDC", () => {
   test("accepte une configuration valide", () => {
@@ -172,5 +173,61 @@ describe("validation de la configuration fournisseurs OIDC", () => {
     expect(
       config.oidc_providers[0]?.allowed_attached_email_domains[0]?.source,
     ).toBe("candidate");
+  });
+});
+
+describe("retrait de lignes refusées", () => {
+  const yaml = [
+    "oidc_providers:",
+    '  - uid: "a"',
+    "    allowed_attached_email_domains:",
+    "      - domain: coise.fr",
+    "        source: routed",
+    "      - domain: brie.fr",
+    '        siret: "21730089600016"',
+    "        source: routed",
+    '  - uid: "b"',
+    "    allowed_attached_email_domains:",
+    "      - domain: brie.fr",
+    "        source: routed",
+    "",
+  ].join("\n");
+
+  test("retire la ligne de ce fournisseur seulement, champs compris", () => {
+    expect(
+      drop_rows({ rows: [{ domain: "brie.fr", uid: "a" }], yaml }),
+    ).toEqual(
+      ok(
+        [
+          "oidc_providers:",
+          '  - uid: "a"',
+          "    allowed_attached_email_domains:",
+          "      - domain: coise.fr",
+          "        source: routed",
+          '  - uid: "b"',
+          "    allowed_attached_email_domains:",
+          "      - domain: brie.fr",
+          "        source: routed",
+          "",
+        ].join("\n"),
+      ),
+    );
+  });
+
+  test("échoue sans rien retirer si une ligne est introuvable", () => {
+    expect(
+      drop_rows({
+        rows: [
+          { domain: "coise.fr", uid: "a" },
+          { domain: "coise.fr", uid: "b" },
+        ],
+        yaml,
+      }),
+    ).toEqual(
+      err({
+        code: "rows_not_found",
+        missing: [{ domain: "coise.fr", uid: "b" }],
+      }),
+    );
   });
 });
