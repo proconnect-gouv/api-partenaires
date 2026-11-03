@@ -1,0 +1,50 @@
+import { mkdir } from "node:fs/promises";
+import { join } from "node:path";
+import { default_cache_dir } from "./cache_dir";
+
+const DILA_EXPORT_URL =
+  "https://api-lannuaire.service-public.gouv.fr/api/explore/v2.1/catalog/" +
+  "datasets/api-lannuaire-administration/exports/json" +
+  "?select=id%2Csiret%2Csiren%2Cnom%2Cpivot%2Ccode_insee_commune" +
+  "%2Csite_internet%2Cadresse_courriel%2Curl_service_public";
+
+type FetchLike = (url: string) => Promise<Response>;
+
+export type LoadDilaExportOptions = {
+  fetch?: FetchLike;
+  cache_dir?: string;
+  today?: Date;
+};
+
+export async function load_dila_export(
+  options: LoadDilaExportOptions = {},
+): Promise<unknown> {
+  const {
+    fetch: fetch_impl = fetch,
+    cache_dir = default_cache_dir(),
+    today = new Date(),
+  } = options;
+
+  const date_key = today.toISOString().slice(0, 10);
+  const cache_path = join(cache_dir, `dila-${date_key}.json`);
+  const cache_file = Bun.file(cache_path);
+
+  if (await cache_file.exists()) {
+    console.log(`🗓️ DILA export: cache hit (${cache_path})`);
+    return cache_file.json();
+  }
+
+  console.log(`🗓️ DILA export: cache miss, fetching ${DILA_EXPORT_URL}`);
+  const response = await fetch_impl(DILA_EXPORT_URL);
+  if (!response.ok) {
+    throw new Error(
+      `failed to fetch DILA export: ${response.status} ${response.statusText}`,
+    );
+  }
+  const body = await response.text();
+
+  await mkdir(cache_dir, { recursive: true });
+  await Bun.write(cache_path, body);
+
+  return JSON.parse(body);
+}

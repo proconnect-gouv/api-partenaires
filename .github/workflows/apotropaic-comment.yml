@@ -62,7 +62,7 @@ jobs:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
         run: |
-          bun run scripts/apotropaic_comment.ts "$RUNNER_TEMP/digest/digest.json" \
+          bun run src/validation/bin/apotropaic_comment.ts "$RUNNER_TEMP/digest/digest.json" \
             "$HEAD_SHA" "$RUN_URL" > "$RUNNER_TEMP/body.md"
 
       - name: 💬 Post or update comment

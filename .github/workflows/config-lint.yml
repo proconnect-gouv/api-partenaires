@@ -6,9 +6,9 @@ on:
     paths:
       [
         "config/**",
-        "src/apotropaic/**",
-        "scripts/apotropaic.ts",
-        "scripts/lint_config.ts",
+        "src/allowlist/**",
+        "src/utils/**",
+        "src/validation/**",
         ".github/workflows/config-lint.yml",
       ]
   pull_request:
@@ -16,9 +16,9 @@ on:
     paths:
       [
         "config/**",
-        "src/apotropaic/**",
-        "scripts/apotropaic.ts",
-        "scripts/lint_config.ts",
+        "src/allowlist/**",
+        "src/utils/**",
+        "src/validation/**",
         ".github/workflows/config-lint.yml",
       ]
 
