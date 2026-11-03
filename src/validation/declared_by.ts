@@ -1,3 +1,4 @@
+import { getEmailDomain } from "@proconnect-gouv/proconnect.core/services/email";
 import { z } from "zod";
 
 const COLLECTIVITE_TYPES = new Set(["mairie", "epci", "cg", "cr"]);
@@ -137,8 +138,18 @@ const fiche_schema = (cog_names: ReadonlyMap<string, ReadonlySet<string>>) =>
 export type DilaIndex = {
   declared_by: Map<string, Fiche[]>;
   fiches: Map<string, Fiche>;
+  malformed_domains: Set<string>;
   rejected: number;
 };
+
+function has_known_tld(domain: string): boolean {
+  try {
+    getEmailDomain(domain);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /** Collectivité fiches by id, and which of them declare each domain. */
 export function build_dila_index(
@@ -147,6 +158,7 @@ export function build_dila_index(
 ): DilaIndex {
   const declared_by = new Map<string, Fiche[]>();
   const fiches = new Map<string, Fiche>();
+  const malformed_domains = new Set<string>();
   const schema = fiche_schema(cog_names);
   let rejected = 0;
   for (const record of z.array(z.unknown()).parse(records)) {
@@ -155,8 +167,13 @@ export function build_dila_index(
       rejected++;
       continue;
     }
-    const fiche = parsed.data;
-    if (!fiche) continue;
+    if (!parsed.data) continue;
+    const { known = [], malformed = [] } = Object.groupBy(
+      parsed.data.domains,
+      (domain) => (has_known_tld(domain) ? "known" : "malformed"),
+    );
+    for (const domain of malformed) malformed_domains.add(domain);
+    const fiche = { ...parsed.data, domains: new Set(known) };
     fiches.set(fiche.id, fiche);
     for (const domain of fiche.domains) {
       const declaring = declared_by.get(domain) ?? [];
@@ -165,7 +182,7 @@ export function build_dila_index(
     }
   }
 
-  return { declared_by, fiches, rejected };
+  return { declared_by, fiches, malformed_domains, rejected };
 }
 
 /** The single collectivité declaring this domain, or null if none/several. */
