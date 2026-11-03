@@ -28,6 +28,7 @@ const { values: options } = parseArgs({
     "base-sha": { type: "string" },
     digest: { type: "string" },
     "head-sha": { type: "string" },
+    refused: { type: "string" },
   },
 });
 
@@ -353,5 +354,21 @@ const sections = [
 console.log(sections.map(md).join("\n\n"));
 if (process.env.GITHUB_STEP_SUMMARY) {
   await Bun.write(process.env.GITHUB_STEP_SUMMARY, sections.join("\n\n"));
+}
+if (options.refused !== undefined) {
+  await Bun.write(
+    options.refused,
+    JSON.stringify(
+      errors.map(({ domain, uid, verdict }) => ({
+        domain,
+        fiche: config.oidc_providers
+          .find((provider) => provider.uid === uid)
+          ?.allowed_attached_email_domains.find((row) => row.domain === domain)
+          ?.fiche,
+        refusal: verdict.ok ? "" : describe_refusal(verdict.error),
+        uid,
+      })),
+    ),
+  );
 }
 process.exit(errors.length > 0 ? 1 : 0);

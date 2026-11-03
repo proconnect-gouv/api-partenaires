@@ -5,6 +5,18 @@ on:
     - cron: "17 3 * * *" # 03:17 UTC daily
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+env:
+  FIX_BRANCH: apotropaic/drop-refused-${{ github.ref_name }}
+  GH_TOKEN: ${{ github.token }}
+  LABEL: 🛡️ cron
+  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  TEAM: "@proconnect-gouv/developers"
+
 jobs:
   lint-apotropaic:
     runs-on: ubuntu-latest
@@ -26,4 +38,117 @@ jobs:
         uses: ./.github/actions/dila-cache
 
       - name: 🛡️ Lint allowlist
-        run: bun run lint:apotropaic
+        id: lint
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          bun run lint:apotropaic --refused "$RUNNER_TEMP/refused.json" 2>&1 \
+            | tee "$RUNNER_TEMP/lint.log"
+
+      - name: 🔧 Drop refused rows
+        id: drop
+        if: steps.lint.outcome == 'failure'
+        continue-on-error: true
+        run: |
+          [ -s "$RUNNER_TEMP/refused.json" ] && [ "$(jq length "$RUNNER_TEMP/refused.json")" -gt 0 ] || exit 1
+          records="https://api-lannuaire.service-public.gouv.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration/records?select=id%2Cnom%2Csite_internet%2Cadresse_courriel&where="
+          {
+            echo "| domain | provider | refusal | DILA |"
+            echo "|---|---|---|---|"
+            jq -r '.[] | [.domain, .uid, .refusal, (.fiche // "")] | @tsv' "$RUNNER_TEMP/refused.json" \
+              | while IFS=$'\t' read -r domain uid refusal fiche; do
+                  dila="[who declares it](${records}search(%22${domain}%22))"
+                  [ -n "$fiche" ] && dila="[fiche]($fiche) · [record](${records}id%3D%22${fiche##*/}%22) · $dila"
+                  echo "| [\`$domain\`](https://$domain) | \`${uid:0:8}\` | $refusal | $dila |"
+                done
+          } > "$RUNNER_TEMP/rows.md"
+          jq -r 'map(.domain) | unique | .[]' "$RUNNER_TEMP/refused.json" \
+            | xargs bun run explain:domain > "$RUNNER_TEMP/explain.log" 2>&1 || true
+          bun run src/validation/bin/drop_refused.ts "$RUNNER_TEMP/refused.json"
+          bun run lint:apotropaic > "$RUNNER_TEMP/relint.log" 2>&1
+
+      - name: 📬 Open or update fix pull request
+        id: pr
+        if: steps.drop.outcome == 'success'
+        run: |
+          count=$(jq length "$RUNNER_TEMP/refused.json")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$FIX_BRANCH"
+          git commit -qam "🔧 drop $count rows DILA no longer attests"
+          git push -f origin "$FIX_BRANCH"
+          {
+            echo "$TEAM: today's DILA export no longer attests $count allowlisted rows, so the apotropaic cron failed ([run]($RUN_URL))."
+            echo
+            echo "This pull request drops them. The allowlist lints clean without them. A domain can come back once its collectivité's fiche lists it again."
+            echo
+            cat "$RUNNER_TEMP/rows.md"
+            echo
+            echo '<details><summary><code>bun run explain:domain</code></summary>'
+            echo
+            echo '```text'
+            cat "$RUNNER_TEMP/explain.log"
+            echo '```'
+            echo '</details>'
+          } > "$RUNNER_TEMP/pr.md"
+          number=$(gh pr list --head "$FIX_BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --body-file "$RUNNER_TEMP/pr.md"
+          else
+            gh label create "$LABEL" --color B60205 --force
+            gh pr create --base "$GITHUB_REF_NAME" --head "$FIX_BRANCH" --label "$LABEL" \
+              --title "🔧 drop $count rows DILA no longer attests" --body-file "$RUNNER_TEMP/pr.md"
+            number=$(gh pr list --head "$FIX_BRANCH" --state open --json number --jq '.[0].number')
+          fi
+          echo "url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/$number" >> "$GITHUB_OUTPUT"
+
+      - name: 🚨 Open or update alert issue
+        if: steps.lint.outcome == 'failure'
+        env:
+          PR_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          signature=$(grep -E '^(error:|🚨)' "$RUNNER_TEMP/lint.log" | sha256sum | cut -c1-16)
+          {
+            echo "<!-- signature: $signature -->"
+            echo "$TEAM: the apotropaic cron failed on \`$GITHUB_REF_NAME\` ([run]($RUN_URL))."
+            echo
+            if [ -n "$PR_URL" ]; then
+              echo "Fix proposed in $PR_URL: drop the rows DILA no longer attests."
+            else
+              echo "No automatic fix: read the log below, then \`bun run explain:domain <domain>\` for refused rows."
+            fi
+            echo
+            if [ -s "$RUNNER_TEMP/rows.md" ]; then
+              cat "$RUNNER_TEMP/rows.md"
+              echo
+            fi
+            echo "<details><summary>Log, commit <a href=\"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA\"><code>${GITHUB_SHA:0:7}</code></a></summary>"
+            echo
+            echo '```text'
+            grep -vE '^(\s*$|::)' "$RUNNER_TEMP/lint.log" | tail -n 40
+            echo '```'
+            echo '</details>'
+          } > "$RUNNER_TEMP/issue.md"
+          gh label create "$LABEL" --color B60205 --force
+          number=$(gh issue list --label "$LABEL" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$number" ]; then
+            gh issue create --label "$LABEL" --title "🚨 Apotropaic cron failing" \
+              --body-file "$RUNNER_TEMP/issue.md"
+            exit 0
+          fi
+          last=$(gh issue view "$number" --json body,comments \
+            --jq '[.body, .comments[].body] | map(capture("<!-- signature: (?<s>[0-9a-f]+) -->").s? // empty) | last // empty')
+          if [ "$last" != "$signature" ]; then
+            gh issue comment "$number" --body-file "$RUNNER_TEMP/issue.md"
+          fi
+
+      - name: ✅ Close alert issue
+        if: steps.lint.outcome == 'success'
+        run: |
+          for number in $(gh issue list --label "$LABEL" --state open --json number --jq '.[].number'); do
+            gh issue close "$number" --comment "✅ The apotropaic cron is green again ([run]($RUN_URL))."
+          done
+
+      - name: 🚨 Fail on lint failure
+        if: steps.lint.outcome == 'failure'
+        run: exit 1
