@@ -1,7 +1,7 @@
 # Base services every example extends; the only file dependabot watches here.
 services:
   mongo:
-    image: mongo:9.0.2
+    image: mongo:9.0.4
     healthcheck:
       test:
         ["CMD-SHELL", "mongosh --quiet --eval 'db.adminCommand({ ping: 1 })'"]
