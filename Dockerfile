@@ -6,7 +6,7 @@ COPY package.json bun.lock tsconfig.json ./
 RUN bun install --frozen-lockfile --production
 
 COPY src/ ./src/
-RUN bun build --compile --minify --sourcemap src/index.ts --outfile=partners
+RUN bun build --compile --minify --sourcemap src/api/bin/index.ts --outfile=partners
 
 FROM alpine:3.24.3 AS runtime
 RUN apk add --no-cache libstdc++
