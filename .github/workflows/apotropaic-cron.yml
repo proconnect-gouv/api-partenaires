@@ -26,6 +26,17 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: 🧾 Provenance
+        run: |
+          repo="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+          workflow="$repo/blob/$GITHUB_SHA/.github/workflows/apotropaic-cron.yml"
+          printf 'Workflow: %s\nRun: %s (attempt %s)\nEvent: %s by %s\nRef: %s at %s\n' \
+            "$workflow" "$RUN_URL" "$GITHUB_RUN_ATTEMPT" "$GITHUB_EVENT_NAME" "$GITHUB_TRIGGERING_ACTOR" \
+            "$GITHUB_REF_NAME" "$GITHUB_SHA" > "$RUNNER_TEMP/provenance.txt"
+          printf '\n\n---\n<sub>🧾 Provenance: [`apotropaic-cron.yml`](%s) · run [#%s](%s) attempt %s · `%s` by `%s` · `%s` at [`%s`](%s/commit/%s)</sub>\n' \
+            "$workflow" "$GITHUB_RUN_NUMBER" "$RUN_URL" "$GITHUB_RUN_ATTEMPT" "$GITHUB_EVENT_NAME" "$GITHUB_TRIGGERING_ACTOR" \
+            "$GITHUB_REF_NAME" "${GITHUB_SHA:0:7}" "$repo" "$GITHUB_SHA" > "$RUNNER_TEMP/provenance.md"
+
       - name: 🔧 Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
@@ -67,16 +78,11 @@ jobs:
           bun run src/validation/bin/drop_refused.ts "$RUNNER_TEMP/refused.json"
           bun run lint:apotropaic > "$RUNNER_TEMP/relint.log" 2>&1
 
-      - name: 📬 Open or update fix pull request
-        id: pr
+      - name: 📝 Write fix pull request
+        id: body
         if: steps.drop.outcome == 'success'
         run: |
           count=$(jq length "$RUNNER_TEMP/refused.json")
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -C "$FIX_BRANCH"
-          git commit -qam "🔧 drop $count rows DILA no longer attests"
-          git push -f origin "$FIX_BRANCH"
           {
             echo "$TEAM: today's DILA export no longer attests $count allowlisted rows, so the apotropaic cron failed ([run]($RUN_URL))."
             echo
@@ -90,22 +96,34 @@ jobs:
             cat "$RUNNER_TEMP/explain.log"
             echo '```'
             echo '</details>'
+            cat "$RUNNER_TEMP/provenance.md"
           } > "$RUNNER_TEMP/pr.md"
-          number=$(gh pr list --head "$FIX_BRANCH" --state open --json number --jq '.[0].number // empty')
-          if [ -n "$number" ]; then
-            gh pr edit "$number" --body-file "$RUNNER_TEMP/pr.md"
-          else
-            gh label create "$LABEL" --color B60205 --force
-            gh pr create --base "$GITHUB_REF_NAME" --head "$FIX_BRANCH" --label "$LABEL" \
-              --title "🔧 drop $count rows DILA no longer attests" --body-file "$RUNNER_TEMP/pr.md"
-            number=$(gh pr list --head "$FIX_BRANCH" --state open --json number --jq '.[0].number')
-          fi
-          echo "url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/$number" >> "$GITHUB_OUTPUT"
+          {
+            echo "title=🔧 drop $count rows DILA no longer attests"
+            echo "message<<EOF_MESSAGE"
+            printf '🔧 drop %s rows DILA no longer attests\n\n' "$count"
+            cat "$RUNNER_TEMP/provenance.txt"
+            echo "EOF_MESSAGE"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: 📬 Open or update fix pull request
+        id: pr
+        if: steps.drop.outcome == 'success'
+        continue-on-error: true
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          add-paths: config/anct/oidc_providers.production.yaml
+          body-path: ${{ runner.temp }}/pr.md
+          branch: ${{ env.FIX_BRANCH }}
+          commit-message: ${{ steps.body.outputs.message }}
+          labels: ${{ env.LABEL }}
+          sign-commits: true
+          title: ${{ steps.body.outputs.title }}
 
       - name: 🚨 Open or update alert issue
         if: steps.lint.outcome == 'failure'
         env:
-          PR_URL: ${{ steps.pr.outputs.url }}
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
         run: |
           signature=$(grep -E '^(error:|🚨)' "$RUNNER_TEMP/lint.log" | sha256sum | cut -c1-16)
           {
@@ -128,6 +146,7 @@ jobs:
             grep -vE '^(\s*$|::)' "$RUNNER_TEMP/lint.log" | tail -n 40
             echo '```'
             echo '</details>'
+            cat "$RUNNER_TEMP/provenance.md"
           } > "$RUNNER_TEMP/issue.md"
           gh label create "$LABEL" --color B60205 --force
           number=$(gh issue list --label "$LABEL" --state open --json number --jq '.[0].number // empty')
@@ -146,7 +165,7 @@ jobs:
         if: steps.lint.outcome == 'success'
         run: |
           for number in $(gh issue list --label "$LABEL" --state open --json number --jq '.[].number'); do
-            gh issue close "$number" --comment "✅ The apotropaic cron is green again ([run]($RUN_URL))."
+            gh issue close "$number" --comment "✅ The apotropaic cron is green again ([run]($RUN_URL)).$(cat "$RUNNER_TEMP/provenance.md")"
           done
 
       - name: 🚨 Fail on lint failure
