@@ -1,5 +1,35 @@
 # Changelog
 
+## [2026.11.0](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.8...2026.11.0) (2026-11-04)
+
+### Modifié
+
+- 🔧 drop 7 rows DILA no longer attests ([#231](https://github.com/proconnect-gouv/api-partenaires/issues/231)) ([1930591](https://github.com/proconnect-gouv/api-partenaires/commit/1930591815a3aee66737efe2c7786e077c3e9aeb))
+- ♻️ organize the source by domain ([#218](https://github.com/proconnect-gouv/api-partenaires/issues/218)) ([79be0ed](https://github.com/proconnect-gouv/api-partenaires/commit/79be0edb12c8294612f3c3c38d3e4149f54204a1))
+
+### Corrigé
+
+- 🐛 drop malformed DILA domains instead of crashing the allowlist lint ([#225](https://github.com/proconnect-gouv/api-partenaires/issues/225)) ([9d6daec](https://github.com/proconnect-gouv/api-partenaires/commit/9d6daec9a3fb96585504cc842587d6c96a59e0eb))
+
+### Dépendances
+
+- :arrow_upper_right: [patch](deps): Bump mongodb from 7.7.0 to 7.8.0 ([#221](https://github.com/proconnect-gouv/api-partenaires/issues/221)) ([b2c42be](https://github.com/proconnect-gouv/api-partenaires/commit/b2c42bec901e228d3a6ab1acc53cdfa95c7d8535))
+- :arrow_upper_right: [patch](deps): Bump @proconnect-gouv/proconnect.core ([#219](https://github.com/proconnect-gouv/api-partenaires/issues/219)) ([44fcec9](https://github.com/proconnect-gouv/api-partenaires/commit/44fcec9ea4b16db5f9284ac7ae06c14cd029f22a))
+- :arrow_upper_right: [patch](deps): Bump hono from 4.13.13 to 4.13.14 ([#220](https://github.com/proconnect-gouv/api-partenaires/issues/220)) ([ffefce2](https://github.com/proconnect-gouv/api-partenaires/commit/ffefce2645d6aac768db4e9f7d3a556fb0a7fb2a))
+- :arrow_upper_right: [patch](deps): Bump zod from 4.6.6 to 4.6.7 ([#207](https://github.com/proconnect-gouv/api-partenaires/issues/207)) ([96d8d0c](https://github.com/proconnect-gouv/api-partenaires/commit/96d8d0cd60a9673c6a3c00991d36eb45d06277df))
+- :arrow_upper_right: [patch](deps): Bump mongo in /examples ([#212](https://github.com/proconnect-gouv/api-partenaires/issues/212)) ([1c752f7](https://github.com/proconnect-gouv/api-partenaires/commit/1c752f7a7e46ce60617bf5a45bbc9f26eced80dc))
+- :arrow_upper_right: [patch](deps): Bump oven/bun ([#213](https://github.com/proconnect-gouv/api-partenaires/issues/213)) ([4e9aa13](https://github.com/proconnect-gouv/api-partenaires/commit/4e9aa139dbd1c46e54b59ad463cafdd3a46a5a0c))
+- :arrow_upper_right: [patch](deps): Bump alpine from 3.24.2 to 3.24.3 ([#214](https://github.com/proconnect-gouv/api-partenaires/issues/214)) ([e920000](https://github.com/proconnect-gouv/api-partenaires/commit/e920000df39f15b0318190cc68951cc9833fd3b8))
+- :arrow_upper_right: [patch](deps-dev): Bump @types/bun ([#215](https://github.com/proconnect-gouv/api-partenaires/issues/215)) ([0960cfb](https://github.com/proconnect-gouv/api-partenaires/commit/0960cfb4b16b5e496beff5ad7ee50c6319c84274))
+- :arrow_upper_right: [patch](deps): Bump docker/login-action ([#216](https://github.com/proconnect-gouv/api-partenaires/issues/216)) ([5ffe001](https://github.com/proconnect-gouv/api-partenaires/commit/5ffe0011748d290e8dd273558e062a1fef040690))
+
+### CI/CD
+
+- 👷 add a release note to the cron's drop pull requests ([#232](https://github.com/proconnect-gouv/api-partenaires/issues/232)) ([0fcc769](https://github.com/proconnect-gouv/api-partenaires/commit/0fcc769ae4e807a7a5682cb75de702cef2d6f36a))
+- 👷 sign the cron's fix commit despite the 62 MB allowlist ([#229](https://github.com/proconnect-gouv/api-partenaires/issues/229)) ([294eb60](https://github.com/proconnect-gouv/api-partenaires/commit/294eb60808e8cac09d2d8996e7381422b902fe4c))
+- 👷 sign the cron's fix commits and record their provenance ([#227](https://github.com/proconnect-gouv/api-partenaires/issues/227)) ([757e540](https://github.com/proconnect-gouv/api-partenaires/commit/757e5406ad8d298f9ad793cf84585f6fc37446cc))
+- 👷 alert the team when the apotropaic cron fails ([#224](https://github.com/proconnect-gouv/api-partenaires/issues/224)) ([43488cd](https://github.com/proconnect-gouv/api-partenaires/commit/43488cdc31395a1201d6983d70bc715920e746f5))
+
 ## [2026.10.8](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.7...2026.10.8) (2026-10-21)
 
 ### Changements
