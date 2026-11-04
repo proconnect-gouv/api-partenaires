@@ -115,10 +115,16 @@ jobs:
           TITLE: ${{ steps.body.outputs.title }}
         run: |
           config=config/anct/oidc_providers.production.yaml
+          changeset=".release-it-changeset/$(date -u +%F)-drop-refused.md"
           scratch="apotropaic/blob-$GITHUB_RUN_ID"
+          mkdir -p .release-it-changeset
+          jq -r '"Retrait de l’allowlist de \(length) lignes que l’annuaire DILA n’atteste plus : "
+              + (map("`\(.domain)` (fournisseur `\(.uid[0:8])`)") | join(", ")) + "."' \
+            "$RUNNER_TEMP/refused.json" > "$changeset"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -q -m "$TITLE" -- "$config"
+          git add "$changeset"
+          git commit -q -m "$TITLE" -- "$config" "$changeset"
           git push -q origin "HEAD:refs/heads/$scratch"
           trap 'gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/heads/$scratch" || true' EXIT
           commit=$(jq -n --arg message "$MESSAGE" --arg parent "$GITHUB_SHA" --arg tree "$(git rev-parse 'HEAD^{tree}')" \
