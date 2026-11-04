@@ -197664,10 +197664,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
         siret: "21730082100014"
         source: candidate
-      - domain: mairiedelachavanne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
-        siret: "21730082100014"
-        source: dila
       - domain: ville-la-chavanne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
         siret: "21730082100014"
@@ -202666,10 +202662,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
         source: candidate
-      - domain: mairiedesaintfrancoisdesales.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
-        siret: "21730234800016"
-        source: dila
       - domain: mairiesfds.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
@@ -349760,10 +349752,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/57342f3c-6464-42d8-8942-daa7eca623ef
         siret: "21260055500016"
         source: candidate
-      - domain: mairiedeboulc.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/57342f3c-6464-42d8-8942-daa7eca623ef
-        siret: "21260055500016"
-        source: dila
       - domain: ville-boulc.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/57342f3c-6464-42d8-8942-daa7eca623ef
         siret: "21260055500016"
@@ -574144,10 +574132,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
         siret: "21730082100014"
         source: candidate
-      - domain: mairiedelachavanne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
-        siret: "21730082100014"
-        source: dila
       - domain: ville-la-chavanne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7f5f768f-cfeb-4fd3-98b7-cc0d08f54231
         siret: "21730082100014"
@@ -791814,10 +791798,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/67fa3d64-9667-40a8-a2cd-6dfd6554776f
         siret: "21880347600017"
         source: dila
-      - domain: communedepierrefittedeux-sevres.com
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/61293917-626c-4b9b-a5bf-27dcfd45f3c0
-        siret: "21790209700013"
-        source: dila
       - domain: mairie-pierrefitte.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/9afa3f21-8390-4508-a230-13ab4f56af1c
         siret: "21191660600018"
@@ -882753,10 +882733,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
         source: candidate
-      - domain: mairiedesaintfrancoisdesales.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
-        siret: "21730234800016"
-        source: dila
       - domain: mairiesfds.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
@@ -1015110,10 +1015086,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/f4d953de-2dc5-4a88-9735-8a74ab9c6792
         siret: "21050168000016"
         source: candidate
-      - domain: s582979323.onlinehome.fr
-        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/f4d953de-2dc5-4a88-9735-8a74ab9c6792
-        siret: "21050168000016"
-        source: dila
       - domain: sigoyer.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/f4d953de-2dc5-4a88-9735-8a74ab9c6792
         siret: "21050168000016"
