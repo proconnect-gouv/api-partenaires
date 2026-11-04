@@ -1,0 +1,1 @@
+Retrait de l’allowlist de 7 lignes que l’annuaire DILA n’atteste plus : `mairiedelachavanne.fr` (fournisseurs `c268fac9` et `f5154035`), `mairiedesaintfrancoisdesales.fr` (fournisseurs `c268fac9` et `f5154035`), `mairiedeboulc.fr`, `communedepierrefittedeux-sevres.com` et `s582979323.onlinehome.fr` (fournisseur `f5154035`).
