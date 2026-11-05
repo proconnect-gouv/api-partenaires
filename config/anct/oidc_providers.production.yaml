@@ -228,11 +228,11 @@ oidc_providers:
       - domain: argol.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
-        source: candidate
+        source: dila
       - domain: argol.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
-        source: dila
+        source: candidate
       - domain: argol29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
@@ -1329,10 +1329,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
         siret: "21290010400010"
         source: candidate
-      - domain: bodilis.org
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
-        siret: "21290010400010"
-        source: dila
       - domain: bodilis29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
         siret: "21290010400010"
@@ -2820,7 +2816,7 @@ oidc_providers:
       - domain: caouennec-lanvezeac.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/00c21cd4-99eb-4592-bc0d-e65b19c45282
         siret: "21220030700016"
-        source: candidate
+        source: dila
       - domain: caouennec-lanvezeac.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/00c21cd4-99eb-4592-bc0d-e65b19c45282
         siret: "21220030700016"
@@ -5408,7 +5404,7 @@ oidc_providers:
       - domain: erquy.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
-        source: candidate
+        source: dila
       - domain: erquy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
@@ -5421,10 +5417,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
         source: candidate
-      - domain: ville-erquy.com
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
-        siret: "21220054700017"
-        source: dila
       - domain: ville-erquy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
@@ -8032,7 +8024,7 @@ oidc_providers:
       - domain: kerpert.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/69672729-6f97-497d-a015-d5e4448fb2ef
         siret: "21220092700011"
-        source: dila
+        source: candidate
       - domain: kerpert.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/69672729-6f97-497d-a015-d5e4448fb2ef
         siret: "21220092700011"
@@ -9216,7 +9208,7 @@ oidc_providers:
       - domain: mairie-lafeuillee.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/cfe22f87-76db-4128-a489-54ea38ea5e33
         siret: "21290054200011"
-        source: candidate
+        source: dila
       - domain: ville-la-feuillee.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/cfe22f87-76db-4128-a489-54ea38ea5e33
         siret: "21290054200011"
@@ -11797,6 +11789,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
         siret: "21220114900011"
         source: candidate
+      - domain: mairielanrelas.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
+        siret: "21220114900011"
+        source: dila
       - domain: ville-lanrelas.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
         siret: "21220114900011"
@@ -11828,7 +11824,7 @@ oidc_providers:
       - domain: lanrivain.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
-        source: dila
+        source: candidate
       - domain: lanrivain22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
@@ -18503,11 +18499,11 @@ oidc_providers:
       - domain: pencran.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
-        source: candidate
+        source: dila
       - domain: pencran.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
-        source: dila
+        source: candidate
       - domain: pencran29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
@@ -19211,6 +19207,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
         siret: "21220196600018"
         source: candidate
+      - domain: pleudaniel.com
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
+        siret: "21220196600018"
+        source: dila
       - domain: pleudaniel.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
         siret: "21220196600018"
@@ -19538,7 +19538,7 @@ oidc_providers:
       - domain: plobannalec-lesconil.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/5c45a61f-c6e5-487f-a07f-4cc806070822
         siret: "21290165600018"
-        source: dila
+        source: candidate
       - domain: plobannalec-lesconil29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/5c45a61f-c6e5-487f-a07f-4cc806070822
         siret: "21290165600018"
@@ -23230,7 +23230,7 @@ oidc_providers:
       - domain: poullan-sur-mer.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
-        source: dila
+        source: candidate
       - domain: poullan-sur-mer29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
@@ -23238,7 +23238,7 @@ oidc_providers:
       - domain: poullansurmer.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
-        source: candidate
+        source: dila
       - domain: poullansurmer.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
@@ -25186,7 +25186,7 @@ oidc_providers:
       - domain: saint-barnabe.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/6d1a840b-9a12-4281-a9ca-2d4140f18102
         siret: "21220275800018"
-        source: candidate
+        source: dila
       - domain: saint-barnabe.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/6d1a840b-9a12-4281-a9ca-2d4140f18102
         siret: "21220275800018"
@@ -25370,7 +25370,7 @@ oidc_providers:
       - domain: mairie-saint-brandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
-        source: dila
+        source: candidate
       - domain: mairie-saintbrandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
@@ -25403,6 +25403,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
         source: candidate
+      - domain: stbrandan.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
+        siret: "21220277400015"
+        source: dila
       - domain: stbrandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
@@ -27395,6 +27399,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
         siret: "21220295600018"
         source: candidate
+      - domain: sgvm.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
+        siret: "21220295600018"
+        source: dila
       - domain: st-gilles-vieux-marche.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
         siret: "21220295600018"
@@ -33642,7 +33650,7 @@ oidc_providers:
       - domain: sibiril.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/96b6a392-d7c3-4c6d-a8d0-b118d53f0cc1
         siret: "21290276100015"
-        source: candidate
+        source: dila
       - domain: sibiril.com
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/96b6a392-d7c3-4c6d-a8d0-b118d53f0cc1
         siret: "21290276100015"
@@ -34566,11 +34574,11 @@ oidc_providers:
       - domain: trebeurden.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
-        source: candidate
+        source: dila
       - domain: trebeurden.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
-        source: dila
+        source: candidate
       - domain: trebeurden22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
@@ -34606,7 +34614,7 @@ oidc_providers:
       - domain: trebry.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a116a2ed-471d-4dca-96ce-7a9110829029
         siret: "21220345900012"
-        source: candidate
+        source: dila
       - domain: trebry.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a116a2ed-471d-4dca-96ce-7a9110829029
         siret: "21220345900012"
@@ -34742,7 +34750,7 @@ oidc_providers:
       - domain: tredrezlocquemeau.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/169c25a5-b6cc-41c0-9beb-a18c88eeb096
         siret: "21220349100015"
-        source: candidate
+        source: dila
       - domain: tredrezlocquemeau.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/169c25a5-b6cc-41c0-9beb-a18c88eeb096
         siret: "21220349100015"
@@ -34810,7 +34818,7 @@ oidc_providers:
       - domain: treflez.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/490104cb-54b5-4b98-ae31-9671caad308a
         siret: "21290287800017"
-        source: candidate
+        source: dila
       - domain: treflez29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/490104cb-54b5-4b98-ae31-9671caad308a
         siret: "21290287800017"
@@ -34886,11 +34894,11 @@ oidc_providers:
       - domain: tregarvan.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
-        source: dila
+        source: candidate
       - domain: tregarvan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
-        source: candidate
+        source: dila
       - domain: tregarvan29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
@@ -34946,7 +34954,7 @@ oidc_providers:
       - domain: treglonou.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/31ec7d2e-3aaf-47b8-a5c7-83465d842a64
         siret: "21290290200015"
-        source: dila
+        source: candidate
       - domain: treglonou.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/31ec7d2e-3aaf-47b8-a5c7-83465d842a64
         siret: "21290290200015"
@@ -34970,7 +34978,7 @@ oidc_providers:
       - domain: tregomeur.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/528eb533-108c-4a4c-81cd-e3197160c834
         siret: "21220356600014"
-        source: candidate
+        source: dila
       - domain: tregomeur22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/528eb533-108c-4a4c-81cd-e3197160c834
         siret: "21220356600014"
@@ -35795,10 +35803,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
         siret: "93841706000010"
         source: candidate
-      - domain: pluduno.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
-        siret: "93841706000010"
-        source: dila
       - domain: val-darguenon.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
         siret: "93841706000010"
@@ -39940,7 +39944,7 @@ oidc_providers:
       - domain: floudes.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/307d546a-3536-447a-a72d-2edd4c3259bd
         siret: "21330169000011"
-        source: dila
+        source: candidate
       - domain: floudes33.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/307d546a-3536-447a-a72d-2edd4c3259bd
         siret: "21330169000011"
@@ -53584,7 +53588,7 @@ oidc_providers:
       - domain: cenacsaintjulien.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/32a03a33-cf0c-480f-a596-01719d7068e0
         siret: "21240091500014"
-        source: routed
+        source: dila
       - domain: mairie-cenac-et-saint-julien.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/32a03a33-cf0c-480f-a596-01719d7068e0
         siret: "21240091500014"
@@ -62164,7 +62168,7 @@ oidc_providers:
       - domain: st-pancrace.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/65b334c0-6a55-438f-99e8-e26d7a9e67a8
         siret: "21240474300016"
-        source: candidate
+        source: dila
       - domain: stpancrace.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/65b334c0-6a55-438f-99e8-e26d7a9e67a8
         siret: "21240474300016"
@@ -68070,7 +68074,7 @@ oidc_providers:
       - domain: chatenois39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/58668624-7078-44d8-9a61-8c94f76fcd16
         siret: "21390121800015"
-        source: candidate
+        source: dila
       - domain: ville-chatenois.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/58668624-7078-44d8-9a61-8c94f76fcd16
         siret: "21390121800015"
@@ -68210,7 +68214,7 @@ oidc_providers:
       - domain: clucy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
-        source: candidate
+        source: dila
       - domain: clucy39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
@@ -76326,7 +76330,7 @@ oidc_providers:
       - domain: villeneuvesouspymont.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
-        source: candidate
+        source: dila
       - domain: villeneuvesouspymont39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
@@ -76662,7 +76666,7 @@ oidc_providers:
       - domain: vulvoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
-        source: candidate
+        source: dila
       - domain: vulvoz39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
@@ -79911,19 +79915,19 @@ oidc_providers:
         source: candidate
       - domain: chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chaumercenne70.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: mairie-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: ville-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chauvirey-le-chatel.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9984b853-5b35-44da-a9d9-3c4d77a1162b
@@ -80473,10 +80477,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/58f8e12c-c8c2-4a79-947e-e5d1925a5e63
         siret: "21700163500051"
         source: candidate
-      - domain: choye.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
-        siret: "93861858400016"
-        source: dila
       - domain: colombine.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
         siret: "93861858400016"
@@ -92061,6 +92061,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e9c9c2c3-7177-4a83-89ec-3d20b9e6dd40
         siret: "21600024000012"
         source: candidate
+      - domain: asso-declic.fr
+        siret: "88171973600012"
+        source: routed
       - domain: attichy.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/92807dd2-acca-460c-92b2-e41b17330ba9
         siret: "21600025700016"
@@ -94244,7 +94247,7 @@ oidc_providers:
       - domain: agglo-compiegne.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/aa07aa46-9b6a-4d03-8493-0dee4f481374
         siret: "20006796500018"
-        source: dila
+        source: routed
       - domain: beauvaisis.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/556c0aac-f6fc-487c-96cd-e1bf24db6acc
         siret: "20006799900017"
@@ -94696,7 +94699,7 @@ oidc_providers:
       - domain: cc-sablons.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/1874b9dc-c3b6-4552-9926-54d9ee6c6db5
         siret: "24600058200014"
-        source: dila
+        source: routed
       - domain: pays-clermontois.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/b55df963-8412-458e-bc22-a47934ede6d0
         siret: "24600037600078"
@@ -94753,6 +94756,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/c2db65b0-ce21-46cc-a21d-8c2b903ac8d4
         siret: "20006797300012"
         source: dila
+      - domain: cdg60.com
+        siret: "28600002100027"
+        source: routed
       - domain: cempuis.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/32781a50-fa40-4a16-bfcb-69d4d9636785
         siret: "21600135400010"
@@ -95564,7 +95570,7 @@ oidc_providers:
       - domain: courcelleslesgisors.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/35c8a897-5283-4ed0-8de3-0b369aef28b4
         siret: "21600168500017"
-        source: candidate
+        source: dila
       - domain: courcelleslesgisors60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/35c8a897-5283-4ed0-8de3-0b369aef28b4
         siret: "21600168500017"
@@ -99640,7 +99646,7 @@ oidc_providers:
       - domain: coudraysaintgermer.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/16955d35-f782-4e7b-81b7-d7694d247a73
         siret: "21600163600010"
-        source: dila
+        source: routed
       - domain: le-coudray-saint-germer.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/16955d35-f782-4e7b-81b7-d7694d247a73
         siret: "21600163600010"
@@ -100400,7 +100406,7 @@ oidc_providers:
       - domain: mairieleplessisbelleville.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/9d04d454-01c7-4038-98d9-34c40237f0a8
         siret: "21600494500012"
-        source: dila
+        source: routed
       - domain: plessis-belleville.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/9d04d454-01c7-4038-98d9-34c40237f0a8
         siret: "21600494500012"
@@ -101541,6 +101547,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e7f9c6fd-b226-42ad-b61a-6db0bdead517
         siret: "21600380600017"
         source: candidate
+      - domain: mairie-marolles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e5ad727a-8618-47fd-a1b4-9d7a6986cea7
+        siret: "21600381400011"
+        source: candidate
       - domain: marolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/e5ad727a-8618-47fd-a1b4-9d7a6986cea7
         siret: "21600381400011"
@@ -101729,10 +101739,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
         source: candidate
-      - domain: milly-sur-therain.eu
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
-        siret: "21600399600016"
-        source: dila
       - domain: milly-sur-therain.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
@@ -101744,7 +101750,7 @@ oidc_providers:
       - domain: millysurtherain.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
-        source: candidate
+        source: dila
       - domain: millysurtherain60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
@@ -106997,6 +107003,9 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/86827e67-4731-4a4a-80f2-9264cccd563e
         siret: "21600611400013"
         source: candidate
+      - domain: sirscuvilly.fr
+        siret: "25600076100013"
+        source: routed
       - domain: commune-de-solente.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/f9afc0b9-ad59-43fc-ab91-1ccafeda1787
         siret: "21600612200016"
@@ -131994,6 +132003,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/690685d9-57f5-4a01-bff2-5f7a6a2cb156
         siret: "21180138600015"
         source: candidate
+      - domain: mairie-marolles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/4f95735a-6b08-4123-83f4-c4d1ee8b63f9
+        siret: "21410128900012"
+        source: candidate
       - domain: marolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/4f95735a-6b08-4123-83f4-c4d1ee8b63f9
         siret: "21410128900012"
@@ -138376,23 +138389,23 @@ oidc_providers:
         source: candidate
       - domain: mairie-presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: mairiedepresly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: dila
       - domain: presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: presly18.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: ville-presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: mairie-presnoy.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/ece52e8b-2506-4513-8f94-5cdafc7b0aae
@@ -147418,6 +147431,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/f37fc5ca-cc9b-4d62-827c-f0dc1175798d
         siret: "21360193300012"
         source: candidate
+      - domain: sainte-gemme-indre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/f37fc5ca-cc9b-4d62-827c-f0dc1175798d
+        siret: "21360193300012"
+        source: dila
       - domain: sainte-gemme.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/f37fc5ca-cc9b-4d62-827c-f0dc1175798d
         siret: "21360193300012"
@@ -152385,7 +152402,7 @@ oidc_providers:
       - domain: mairie-villavard.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/49a1a4c7-074f-4bcb-a575-c5186a7aa7e1
         siret: "21410274100011"
-        source: candidate
+        source: dila
       - domain: villavard.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/49a1a4c7-074f-4bcb-a575-c5186a7aa7e1
         siret: "21410274100011"
@@ -156087,7 +156104,7 @@ oidc_providers:
       - domain: bousbach.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b56fe303-7a45-4dc1-b40c-63b9523e9c49
         siret: "21570101200019"
-        source: candidate
+        source: dila
       - domain: bousbach57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b56fe303-7a45-4dc1-b40c-63b9523e9c49
         siret: "21570101200019"
@@ -159046,19 +159063,19 @@ oidc_providers:
         source: candidate
       - domain: gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: dila
       - domain: gosselming57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: mairie-gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: ville-gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: gravelotte.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/d89e8304-e0c7-4175-90a5-d5c895b86726
@@ -159519,7 +159536,7 @@ oidc_providers:
       - domain: mairie-hagen.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/a8c3e84b-ec2f-44c4-a824-ecab0900d09a
         siret: "21570282000014"
-        source: candidate
+        source: dila
       - domain: ville-hagen.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/a8c3e84b-ec2f-44c4-a824-ecab0900d09a
         siret: "21570282000014"
@@ -162089,10 +162106,6 @@ oidc_providers:
         siret: "21570412300011"
         source: candidate
       - domain: mairie-longeville-les-metz.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8130c596-3e5c-4724-b960-d4b6b00dd84b
-        siret: "21570412300011"
-        source: candidate
-      - domain: mairie-longeville-les-metz.org
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8130c596-3e5c-4724-b960-d4b6b00dd84b
         siret: "21570412300011"
         source: dila
@@ -164979,10 +164992,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
         source: candidate
+      - domain: raville.eu
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
+        siret: "21570563300018"
+        source: dila
       - domain: raville.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
-        source: candidate
+        source: dila
       - domain: raville57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
@@ -168470,7 +168487,7 @@ oidc_providers:
       - domain: vitry-sur-orne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/6f7308ce-401c-4979-a07c-929a3107c1af
         siret: "21570724100018"
-        source: candidate
+        source: dila
       - domain: vitry-sur-orne57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/6f7308ce-401c-4979-a07c-929a3107c1af
         siret: "21570724100018"
@@ -169256,7 +169273,7 @@ oidc_providers:
       - domain: agme47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/94880565-993f-4993-ab82-42456d2398cb
         siret: "21470002300010"
-        source: candidate
+        source: routed
       - domain: mairie-agme.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/94880565-993f-4993-ab82-42456d2398cb
         siret: "21470002300010"
@@ -169627,19 +169644,19 @@ oidc_providers:
         source: candidate
       - domain: bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: dila
       - domain: bazens47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: mairie-bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: ville-bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: beaugas.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/867c11e4-c976-4799-879e-8fb8b6a78fed
@@ -169764,7 +169781,7 @@ oidc_providers:
       - domain: blanquefort-sur-briolance.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/0d439f77-db4f-4a73-b8dc-c4953799a028
         siret: "21470029600012"
-        source: dila
+        source: routed
       - domain: blanquefort-sur-briolance47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/0d439f77-db4f-4a73-b8dc-c4953799a028
         siret: "21470029600012"
@@ -170564,7 +170581,7 @@ oidc_providers:
       - domain: ccpl47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/f7684e2d-4807-4116-bf23-7dc4f2002d7d
         siret: "24470046400039"
-        source: dila
+        source: routed
       - domain: cc-dufumelois.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/3516ebbf-7c32-4ff2-bd22-1c6ead929a0c
         siret: "20006893000094"
@@ -170831,7 +170848,7 @@ oidc_providers:
       - domain: mairiedecuq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/ea613644-742f-4569-b1ce-da019bd71b10
         siret: "21470076700012"
-        source: dila
+        source: routed
       - domain: ville-cuq.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/ea613644-742f-4569-b1ce-da019bd71b10
         siret: "21470076700012"
@@ -171183,7 +171200,7 @@ oidc_providers:
       - domain: ferrensac.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/4069edad-0ed2-4306-9dbc-86fdf29c01e0
         siret: "21470096500012"
-        source: dila
+        source: routed
       - domain: ferrensac47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/4069edad-0ed2-4306-9dbc-86fdf29c01e0
         siret: "21470096500012"
@@ -171199,7 +171216,7 @@ oidc_providers:
       - domain: feugarolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/180d66bd-cad5-4839-b731-6715ddabbb37
         siret: "21470097300016"
-        source: dila
+        source: routed
       - domain: feugarolles47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/180d66bd-cad5-4839-b731-6715ddabbb37
         siret: "21470097300016"
@@ -171907,7 +171924,7 @@ oidc_providers:
       - domain: labretonie.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/d605c53b-bd26-4c6d-9992-2c0707cb474b
         siret: "21470122900012"
-        source: candidate
+        source: dila
       - domain: labretonie47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/d605c53b-bd26-4c6d-9992-2c0707cb474b
         siret: "21470122900012"
@@ -173055,7 +173072,7 @@ oidc_providers:
       - domain: monheurt.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9a03328d-95e4-4eab-b188-aee2bec8aec9
         siret: "21470177300019"
-        source: candidate
+        source: dila
       - domain: monheurt47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9a03328d-95e4-4eab-b188-aee2bec8aec9
         siret: "21470177300019"
@@ -173655,7 +173672,7 @@ oidc_providers:
       - domain: pinel-hauterive.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/99d56fbf-1109-4255-9992-051b03eebb21
         siret: "21470206000010"
-        source: dila
+        source: routed
       - domain: pinel-hauterive47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/99d56fbf-1109-4255-9992-051b03eebb21
         siret: "21470206000010"
@@ -176331,7 +176348,7 @@ oidc_providers:
       - domain: sauveterrelalemance.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/df266b50-e7c6-4a9f-a7a1-e39f72a790c3
         siret: "21470292000015"
-        source: candidate
+        source: dila
       - domain: sauveterrelalemance47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/df266b50-e7c6-4a9f-a7a1-e39f72a790c3
         siret: "21470292000015"
@@ -176791,7 +176808,7 @@ oidc_providers:
       - domain: tournon-agenais.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/bcd1b7d1-8d31-42c6-9e30-fe502252071d
         siret: "21470312600018"
-        source: dila
+        source: routed
       - domain: tournon-dagenais.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/bcd1b7d1-8d31-42c6-9e30-fe502252071d
         siret: "21470312600018"
@@ -177047,7 +177064,7 @@ oidc_providers:
       - domain: mairie-villereal.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/96c7536b-bfd0-41f4-9a40-d0b1c9d02a9c
         siret: "21470324100015"
-        source: dila
+        source: routed
       - domain: ville-villereal.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/96c7536b-bfd0-41f4-9a40-d0b1c9d02a9c
         siret: "21470324100015"
@@ -177538,10 +177555,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
-      - domain: bazoches.net
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
-        siret: "21580023600014"
-        source: dila
       - domain: bazoches58.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -177550,6 +177563,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
+      - domain: mairiebazoches.com
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
+        siret: "21580023600014"
+        source: dila
       - domain: ville-bazoches.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -188846,6 +188863,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
         siret: "21090167400015"
         source: candidate
+      - domain: lezat.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
+        siret: "21090167400015"
+        source: dila
       - domain: lezatsurleze.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
         siret: "21090167400015"
@@ -192360,10 +192381,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
         source: candidate
-      - domain: aillonlejeune.fr
+      - domain: aillonlejeune.com
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
         source: dila
+      - domain: aillonlejeune.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
+        siret: "21730004500010"
+        source: candidate
       - domain: aillonlejeune73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
@@ -195015,7 +195040,7 @@ oidc_providers:
       - domain: cohennoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7d3d4801-afc2-4938-888a-6a44efb2c6a2
         siret: "21730088800013"
-        source: candidate
+        source: dila
       - domain: cohennoz73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7d3d4801-afc2-4938-888a-6a44efb2c6a2
         siret: "21730088800013"
@@ -196299,7 +196324,7 @@ oidc_providers:
       - domain: mairiedefourneaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/c34a79d4-c1f3-499c-be14-6103353288fd
         siret: "21730117500014"
-        source: dila
+        source: routed
       - domain: ville-fourneaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/c34a79d4-c1f3-499c-be14-6103353288fd
         siret: "21730117500014"
@@ -199235,11 +199260,11 @@ oidc_providers:
       - domain: lesdeserts.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
-        source: candidate
+        source: dila
       - domain: lesdeserts73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
-        source: dila
+        source: candidate
       - domain: mairie-les-deserts.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
@@ -201387,7 +201412,7 @@ oidc_providers:
       - domain: planaise.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/d66ce1eb-487b-4029-b87c-08856c08da4f
         siret: "21730200900014"
-        source: dila
+        source: routed
       - domain: planaise73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/d66ce1eb-487b-4029-b87c-08856c08da4f
         siret: "21730200900014"
@@ -201953,7 +201978,7 @@ oidc_providers:
       - domain: saint-alban-des-villards.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5e1d2122-f42b-4ebb-90ad-a3b2466746d5
         siret: "21730221500017"
-        source: dila
+        source: candidate
       - domain: saint-alban-des-villards73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5e1d2122-f42b-4ebb-90ad-a3b2466746d5
         siret: "21730221500017"
@@ -202117,11 +202142,15 @@ oidc_providers:
       - domain: saint-avre.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
-        source: candidate
+        source: dila
       - domain: saint-avre73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
         source: candidate
+      - domain: saint-avres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
+        siret: "21730224900016"
+        source: dila
       - domain: saintavre.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
@@ -202669,7 +202698,7 @@ oidc_providers:
       - domain: saint-francois-de-sales.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
-        source: candidate
+        source: dila
       - domain: saint-francois-de-sales73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
@@ -204051,10 +204080,6 @@ oidc_providers:
         siret: "21730267800016"
         source: candidate
       - domain: saintpancrace73.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0f0d2ad7-c70b-4e39-89a5-1931ecdb7e23
-        siret: "21730267800016"
-        source: candidate
-      - domain: st-pancrace.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0f0d2ad7-c70b-4e39-89a5-1931ecdb7e23
         siret: "21730267800016"
         source: candidate
@@ -205565,7 +205590,7 @@ oidc_providers:
       - domain: sonnaz.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5eb5692d-353a-4beb-8e56-f19b2d0bcd93
         siret: "21730288400010"
-        source: candidate
+        source: dila
       - domain: sonnaz73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5eb5692d-353a-4beb-8e56-f19b2d0bcd93
         siret: "21730288400010"
@@ -211663,7 +211688,7 @@ oidc_providers:
       - domain: lachapellevillars.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/29d18de7-b13a-461f-b865-91893b8d4413
         siret: "21420051100019"
-        source: candidate
+        source: dila
       - domain: lachapellevillars42.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/29d18de7-b13a-461f-b865-91893b8d4413
         siret: "21420051100019"
@@ -230745,9 +230770,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/4d2cc91b-2332-4422-a4f2-032e1697c188
         siret: "21120263500010"
         source: candidate
-      - domain: smica.fr
-        siret: "25120086100036"
-        source: routed
       - domain: mairie-sonnac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/165b1763-0372-4362-879a-f4498c450104
         siret: "21120272600017"
@@ -233077,7 +233099,7 @@ oidc_providers:
       - domain: beaulieusouslaroche.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/d3eba7d1-015c-4393-b43d-48f69a182122
         siret: "21850016300082"
-        source: dila
+        source: routed
       - domain: beaulieusouslaroche85.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/vendee/d3eba7d1-015c-4393-b43d-48f69a182122
         siret: "21850016300082"
@@ -241636,7 +241658,7 @@ oidc_providers:
       - domain: labrulatte.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/80cd907a-b98c-4787-a849-890c0560db3f
         siret: "21530045000016"
-        source: dila
+        source: routed
       - domain: labrulatte53.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/mayenne/80cd907a-b98c-4787-a849-890c0560db3f
         siret: "21530045000016"
@@ -256436,7 +256458,7 @@ oidc_providers:
       - domain: st-colomban.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/1708cb85-22f7-4243-979d-2842b8739e1b
         siret: "21440155600011"
-        source: dila
+        source: routed
       - domain: stcolomban.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/1708cb85-22f7-4243-979d-2842b8739e1b
         siret: "21440155600011"
@@ -265484,7 +265506,7 @@ oidc_providers:
       - domain: tennie.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/67d9c922-bb54-4582-a0c3-125f54977fa6
         siret: "21720351200082"
-        source: candidate
+        source: dila
       - domain: tennie72.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/67d9c922-bb54-4582-a0c3-125f54977fa6
         siret: "21720351200082"
@@ -266040,7 +266062,7 @@ oidc_providers:
       - domain: mairie-trans.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/7b8fa42a-6fcf-4db7-b228-6a7721d97757
         siret: "21440207500011"
-        source: dila
+        source: routed
       - domain: mairie-transsurerdre.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/loire-atlantique/7b8fa42a-6fcf-4db7-b228-6a7721d97757
         siret: "21440207500011"
@@ -270412,7 +270434,7 @@ oidc_providers:
       - domain: agme47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/94880565-993f-4993-ab82-42456d2398cb
         siret: "21470002300010"
-        source: candidate
+        source: dila
       - domain: mairie-agme.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/94880565-993f-4993-ab82-42456d2398cb
         siret: "21470002300010"
@@ -271092,7 +271114,7 @@ oidc_providers:
       - domain: aignan32.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/f610de42-7a75-4f4b-bd8e-d8b6dd430f60
         siret: "21320001700019"
-        source: dila
+        source: routed
       - domain: mairie-aignan.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/f610de42-7a75-4f4b-bd8e-d8b6dd430f60
         siret: "21320001700019"
@@ -271873,10 +271895,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
         source: candidate
-      - domain: aillonlejeune.fr
+      - domain: aillonlejeune.com
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
         source: dila
+      - domain: aillonlejeune.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
+        siret: "21730004500010"
+        source: candidate
       - domain: aillonlejeune73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/6b376a6a-5816-4e8b-b71f-d88fa7f74b1c
         siret: "21730004500010"
@@ -275969,6 +275995,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/3864978e-21c1-4384-b03d-823b62473385
         siret: "21760001400013"
         source: candidate
+      - domain: allouvillebellefosse.com
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/3864978e-21c1-4384-b03d-823b62473385
+        siret: "21760001400013"
+        source: dila
       - domain: allouvillebellefosse.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/3864978e-21c1-4384-b03d-823b62473385
         siret: "21760001400013"
@@ -284128,7 +284158,7 @@ oidc_providers:
       - domain: apchon.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/8f1fc1f0-9792-4657-b756-03d5aab534a1
         siret: "21150009500016"
-        source: candidate
+        source: dila
       - domain: apchon15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/8f1fc1f0-9792-4657-b756-03d5aab534a1
         siret: "21150009500016"
@@ -287672,11 +287702,11 @@ oidc_providers:
       - domain: argol.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
-        source: candidate
+        source: dila
       - domain: argol.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
-        source: dila
+        source: candidate
       - domain: argol29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/d75455d5-c609-42d6-8c7f-a041b8c3d2bf
         siret: "21290001300088"
@@ -306385,7 +306415,7 @@ oidc_providers:
       - domain: bachas.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/2fc08942-a670-42c5-a8a7-55415c0c07a6
         siret: "21310039900012"
-        source: candidate
+        source: dila
       - domain: bachas31.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/2fc08942-a670-42c5-a8a7-55415c0c07a6
         siret: "21310039900012"
@@ -310134,6 +310164,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/f8d28b7e-cfe8-42fd-97a8-8c1209a4574f
         siret: "21880536400013"
         source: candidate
+      - domain: bansurmeurthe-clefcy.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/f8d28b7e-cfe8-42fd-97a8-8c1209a4574f
+        siret: "21880536400013"
+        source: dila
       - domain: bansurmeurtheclefcy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/f8d28b7e-cfe8-42fd-97a8-8c1209a4574f
         siret: "21880536400013"
@@ -316932,19 +316966,19 @@ oidc_providers:
         source: candidate
       - domain: bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: dila
       - domain: bazens47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: mairie-bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: ville-bazens.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9e8786e4-6216-48fe-9be3-ddd1cdcfccdc
-        siret: "21470022100010"
+        siret: "21470022100036"
         source: candidate
       - domain: bazentin.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/befb0357-6638-4dcb-89f9-5f5870a61a0c
@@ -317174,10 +317208,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
-      - domain: bazoches.net
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
-        siret: "21580023600014"
-        source: dila
       - domain: bazoches58.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -317186,6 +317216,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
+      - domain: mairiebazoches.com
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
+        siret: "21580023600014"
+        source: dila
       - domain: ville-bazoches.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -320061,7 +320095,7 @@ oidc_providers:
       - domain: beaumontdulac.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/c7684649-785f-4dd2-a32d-12b25b771488
         siret: "21870090400012"
-        source: candidate
+        source: routed
       - domain: beaumontdulac87.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/c7684649-785f-4dd2-a32d-12b25b771488
         siret: "21870090400012"
@@ -324109,7 +324143,7 @@ oidc_providers:
       - domain: bellechassagne.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f5b41a10-2993-405c-8a6a-a5f44a8c172f
         siret: "21190210100016"
-        source: candidate
+        source: dila
       - domain: bellechassagne19.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f5b41a10-2993-405c-8a6a-a5f44a8c172f
         siret: "21190210100016"
@@ -339160,10 +339194,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/bb0d7fc8-f39f-4439-acb1-03729577add8
         siret: "21320057900018"
         source: candidate
-      - domain: bleigny-le-carreau.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/326aaefc-ebdf-4ffa-8e80-56686616e014
-        siret: "21890045400016"
-        source: candidate
       - domain: bleigny-le-carreau89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/326aaefc-ebdf-4ffa-8e80-56686616e014
         siret: "21890045400016"
@@ -340472,10 +340502,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
         siret: "21290010400010"
         source: candidate
-      - domain: bodilis.org
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
-        siret: "21290010400010"
-        source: dila
       - domain: bodilis29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/56625fb7-4f57-46db-9346-49a88048f292
         siret: "21290010400010"
@@ -353803,7 +353829,7 @@ oidc_providers:
       - domain: bousbach.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b56fe303-7a45-4dc1-b40c-63b9523e9c49
         siret: "21570101200019"
-        source: candidate
+        source: dila
       - domain: bousbach57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/b56fe303-7a45-4dc1-b40c-63b9523e9c49
         siret: "21570101200019"
@@ -355519,7 +355545,7 @@ oidc_providers:
       - domain: bouzin.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/9e6a741c-3074-48aa-b694-efc21ce3acf4
         siret: "21310086000013"
-        source: candidate
+        source: dila
       - domain: bouzin31.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/9e6a741c-3074-48aa-b694-efc21ce3acf4
         siret: "21310086000013"
@@ -357379,7 +357405,7 @@ oidc_providers:
       - domain: branscourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/d20c9571-904e-400c-8fe3-50c06f8caa6b
         siret: "21510075100019"
-        source: dila
+        source: routed
       - domain: branscourt51.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/d20c9571-904e-400c-8fe3-50c06f8caa6b
         siret: "21510075100019"
@@ -359308,6 +359334,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/2e25b89d-c473-49f2-bfb2-16ac256f7941
         siret: "21010062400019"
         source: candidate
+      - domain: mairiebressoles01.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/2e25b89d-c473-49f2-bfb2-16ac256f7941
+        siret: "21010062400019"
+        source: dila
       - domain: mairiebressolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/1850b8c5-0f78-473c-ac2a-45521626838e
         siret: "21030040600019"
@@ -360555,7 +360585,7 @@ oidc_providers:
       - domain: breuverysurcoole.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/ea6bfd0e-0127-442b-8e7a-60cf08f88837
         siret: "21510081900014"
-        source: candidate
+        source: routed
       - domain: breuverysurcoole51.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/ea6bfd0e-0127-442b-8e7a-60cf08f88837
         siret: "21510081900014"
@@ -374412,10 +374442,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/aisne/6838c422-6b33-4d95-9982-99d5fadf3cca
         siret: "20007203100129"
         source: dila
-      - domain: agglo-compiegne.fr
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/aa07aa46-9b6a-4d03-8493-0dee4f481374
-        siret: "20006796500018"
-        source: dila
       - domain: agglodieppe-maritime.com
         fiche: https://lannuaire.service-public.gouv.fr/normandie/seine-maritime/0a48d46c-64ee-4c14-a15d-0cdfce4cdfe6
         siret: "24760078600112"
@@ -374427,6 +374453,10 @@ oidc_providers:
       - domain: agglo-lenslievin.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/pas-de-calais/5544c465-ec24-4b32-a967-adbc5943fca6
         siret: "24620036400080"
+        source: dila
+      - domain: marneetgondoire.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/d6316e54-b310-4104-9e23-85e9d31b1593
+        siret: "24770059400010"
         source: dila
       - domain: agglo-nevers.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/18336d96-68cb-4ef1-baa8-ad9539e44501
@@ -374875,10 +374905,6 @@ oidc_providers:
       - domain: lunelagglo.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/4372dbbf-1f75-40ec-bc99-12f76045e9cf
         siret: "24340052000165"
-        source: dila
-      - domain: marneetgondoire.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/d6316e54-b310-4104-9e23-85e9d31b1593
-        siret: "24770059400010"
         source: dila
       - domain: agglo-maubeugevaldesambre.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/0a98fa2b-758f-4dcb-92a5-33b0191c81f9
@@ -381203,7 +381229,7 @@ oidc_providers:
       - domain: caouennec-lanvezeac.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/00c21cd4-99eb-4592-bc0d-e65b19c45282
         siret: "21220030700016"
-        source: candidate
+        source: dila
       - domain: caouennec-lanvezeac.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/00c21cd4-99eb-4592-bc0d-e65b19c45282
         siret: "21220030700016"
@@ -384036,6 +384062,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/c473ac4d-36a0-4331-9938-c3b64dfe7f9d
         siret: "21200074900011"
         source: candidate
+      - domain: mairie-casanova.corsica
+        fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/c473ac4d-36a0-4331-9938-c3b64dfe7f9d
+        siret: "21200074900011"
+        source: dila
       - domain: mairie-casanova.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/c473ac4d-36a0-4331-9938-c3b64dfe7f9d
         siret: "21200074900011"
@@ -389747,7 +389777,7 @@ oidc_providers:
       - domain: cayrols.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/1f98b26a-8655-4998-93e9-562955944137
         siret: "21150030100018"
-        source: dila
+        source: candidate
       - domain: cayrols15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/1f98b26a-8655-4998-93e9-562955944137
         siret: "21150030100018"
@@ -391478,7 +391508,7 @@ oidc_providers:
         source: dila
       - domain: argonne-ardennaise.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/8985942b-ac12-4984-8602-da95a5422777
-        siret: "24080092000045"
+        siret: "24080092000144"
         source: dila
       - domain: argonnechampenoise.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/4a02b8bf-46f9-43c0-8770-ca46e27072ed
@@ -391555,6 +391585,10 @@ oidc_providers:
       - domain: oriente.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/386a0331-ef71-42a2-a361-3dd3e6c1498e
         siret: "20001516200015"
+        source: dila
+      - domain: loreedelabrie.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/f33215d7-7b1f-4d8b-8819-ed68d6fa12fc
+        siret: "24770064400039"
         source: dila
       - domain: ouestguyane.fr
         fiche: https://lannuaire.service-public.gouv.fr/guyane/guyane/65254aa3-d0b2-40a7-a730-62896efa351e
@@ -393132,6 +393166,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/e5927e20-d264-497b-a162-09da08984453
         siret: "20003606900017"
         source: dila
+      - domain: paysdenemours.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/f29a5c35-b951-407b-91d9-52231c26d655
+        siret: "20002324000035"
+        source: dila
       - domain: ccpaysniederbronn.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/324e636a-9094-457e-88fb-036c812cfbd2
         siret: "24670109800062"
@@ -393656,6 +393694,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/68fdef02-b5c4-471a-802e-1c3fe5e89509
         siret: "20003065800013"
         source: dila
+      - domain: valbriard.fr
+        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/2fe015f7-a85d-497b-9888-e92d430e8602
+        siret: "20007287400072"
+        source: dila
       - domain: cc-valdamboise.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre-et-loire/06eced13-422f-4cd5-b815-3565870eefec
         siret: "20004306500016"
@@ -394083,10 +394125,6 @@ oidc_providers:
       - domain: jura-nord.com
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/05e2ff87-9b59-44ba-b7a5-6d5439dbcd5b
         siret: "24390056000034"
-        source: dila
-      - domain: loreedelabrie.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/f33215d7-7b1f-4d8b-8819-ed68d6fa12fc
-        siret: "24770064400039"
         source: dila
       - domain: ladomitienne.com
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/cf89ffe0-6d73-484c-b138-a25d11140991
@@ -394540,10 +394578,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/78b4775a-2dbe-4281-a0df-c7c2e191969b
         siret: "24640175600019"
         source: dila
-      - domain: paysdenemours.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/f29a5c35-b951-407b-91d9-52231c26d655
-        siret: "20002324000035"
-        source: dila
       - domain: paysdenexon-montsdechalus.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/4b178f0e-57c1-4a2f-9945-213ef921d9f6
         siret: "20007050600015"
@@ -394670,7 +394704,7 @@ oidc_providers:
         source: dila
       - domain: pyreneesaudoises.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/5ec4fde1-7eff-45a0-a36e-6174050f917a
-        siret: "20004377600125"
+        siret: "20004377600018"
         source: dila
       - domain: pyrenees-catalanes.com
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/pyrenees-orientales/21db85f0-9a54-4d7c-9ea5-788d11973520
@@ -395087,10 +395121,6 @@ oidc_providers:
       - domain: val81.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/e7306869-f4aa-42cf-b3eb-c4f9e629ef08
         siret: "24810049700044"
-        source: dila
-      - domain: valbriard.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/2fe015f7-a85d-497b-9888-e92d430e8602
-        siret: "20007287400072"
         source: dila
       - domain: valdille-aubigne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/da8f346b-34a1-45e8-8172-34596ba16f5c
@@ -411284,7 +411314,7 @@ oidc_providers:
       - domain: chaudon-norante.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/47878bf4-d145-4da1-8713-c1402d359afd
         siret: "21040055200019"
-        source: candidate
+        source: dila
       - domain: chaudon-norante04.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/47878bf4-d145-4da1-8713-c1402d359afd
         siret: "21040055200019"
@@ -411787,19 +411817,19 @@ oidc_providers:
         source: candidate
       - domain: chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chaumercenne70.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: mairie-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: ville-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chaumergy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/c860921b-dff2-4f1a-8663-4e711b750ae1
@@ -412340,7 +412370,7 @@ oidc_providers:
       - domain: chaumuzy.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/2f3590c7-f117-4400-bf28-e7a52752bcc8
         siret: "21510130400016"
-        source: dila
+        source: routed
       - domain: chaumuzy51.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/2f3590c7-f117-4400-bf28-e7a52752bcc8
         siret: "21510130400016"
@@ -419496,7 +419526,7 @@ oidc_providers:
       - domain: mairie-chouvigny.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/3ae99389-2482-4e37-9ca1-4fba56c6b822
         siret: "21030078600014"
-        source: candidate
+        source: dila
       - domain: ville-chouvigny.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/3ae99389-2482-4e37-9ca1-4fba56c6b822
         siret: "21030078600014"
@@ -423180,7 +423210,7 @@ oidc_providers:
       - domain: chatenois39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/58668624-7078-44d8-9a61-8c94f76fcd16
         siret: "21390121800015"
-        source: candidate
+        source: dila
       - domain: chatenois67.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/34efb891-3539-4591-b1d0-70e270f878ec
         siret: "21670073200011"
@@ -426936,7 +426966,7 @@ oidc_providers:
       - domain: cize01.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a5bc7372-fef9-48e5-a182-6024a765024e
         siret: "21010106900016"
-        source: candidate
+        source: dila
       - domain: cize39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/3829cfff-f3af-4836-b02c-b4129bc3d301
         siret: "21390153100011"
@@ -429264,7 +429294,7 @@ oidc_providers:
       - domain: clucy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
-        source: candidate
+        source: dila
       - domain: clucy39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
@@ -429312,7 +429342,7 @@ oidc_providers:
       - domain: clumanc.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/65b59081-e283-47a9-b5b8-677a0e9c877d
         siret: "21040059400011"
-        source: candidate
+        source: dila
       - domain: clumanc04.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/65b59081-e283-47a9-b5b8-677a0e9c877d
         siret: "21040059400011"
@@ -430844,7 +430874,7 @@ oidc_providers:
       - domain: cohennoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7d3d4801-afc2-4938-888a-6a44efb2c6a2
         siret: "21730088800013"
-        source: candidate
+        source: dila
       - domain: cohennoz73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/7d3d4801-afc2-4938-888a-6a44efb2c6a2
         siret: "21730088800013"
@@ -432632,7 +432662,7 @@ oidc_providers:
       - domain: colombier-le-cardinal.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/56e5401a-605e-4c3a-8d97-1f9dba7e787f
         siret: "21070067000016"
-        source: candidate
+        source: dila
       - domain: colombier-le-cardinal07.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/56e5401a-605e-4c3a-8d97-1f9dba7e787f
         siret: "21070067000016"
@@ -432853,10 +432883,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/79002209-1625-4afb-946a-14ae58d3c137
         siret: "21140169000014"
         source: candidate
-      - domain: choye.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
-        siret: "93861858400016"
-        source: dila
       - domain: colombine.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
         siret: "93861858400016"
@@ -433252,7 +433278,7 @@ oidc_providers:
       - domain: coltines.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/d737413d-a6d0-4329-b6da-1c4aaff0ef06
         siret: "21150053300016"
-        source: candidate
+        source: dila
       - domain: coltines15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/d737413d-a6d0-4329-b6da-1c4aaff0ef06
         siret: "21150053300016"
@@ -433716,7 +433742,7 @@ oidc_providers:
       - domain: combrand.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/b19ba12d-f22f-456e-be9c-fcb5623513c2
         siret: "21790096800017"
-        source: candidate
+        source: dila
       - domain: combrand79.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/b19ba12d-f22f-456e-be9c-fcb5623513c2
         siret: "21790096800017"
@@ -444340,7 +444366,7 @@ oidc_providers:
       - domain: courcelleslesgisors.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/35c8a897-5283-4ed0-8de3-0b369aef28b4
         siret: "21600168500017"
-        source: candidate
+        source: dila
       - domain: courcelleslesgisors60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/35c8a897-5283-4ed0-8de3-0b369aef28b4
         siret: "21600168500017"
@@ -454220,7 +454246,7 @@ oidc_providers:
       - domain: cubierettes.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/932e3ce9-ecb4-4a53-924d-00a2b7b9d343
         siret: "21480054200018"
-        source: candidate
+        source: dila
       - domain: cubierettes48.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/932e3ce9-ecb4-4a53-924d-00a2b7b9d343
         siret: "21480054200018"
@@ -463908,7 +463934,7 @@ oidc_providers:
       - domain: dieulefit.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/0eddfc46-d8ef-4337-a82f-b43f484d628d
         siret: "21260114000016"
-        source: candidate
+        source: dila
       - domain: dieulefit26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/0eddfc46-d8ef-4337-a82f-b43f484d628d
         siret: "21260114000016"
@@ -477771,7 +477797,7 @@ oidc_providers:
       - domain: erquy.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
-        source: candidate
+        source: dila
       - domain: erquy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
@@ -477784,10 +477810,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
         source: candidate
-      - domain: ville-erquy.com
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
-        siret: "21220054700017"
-        source: dila
       - domain: ville-erquy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a3531777-e2fb-4e2e-958b-927a31ffe50f
         siret: "21220054700017"
@@ -489299,7 +489321,7 @@ oidc_providers:
       - domain: fichous-riumayou.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/e27ce333-5e9b-43cf-b968-47f7aa949fda
         siret: "21640226300018"
-        source: candidate
+        source: dila
       - domain: fichous-riumayou64.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/e27ce333-5e9b-43cf-b968-47f7aa949fda
         siret: "21640226300018"
@@ -492199,7 +492221,7 @@ oidc_providers:
       - domain: flineslesmortagne.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/97c95383-d3a4-415b-83cd-3c8059c833d5
         siret: "21590238800010"
-        source: candidate
+        source: dila
       - domain: flineslesmortagne59.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/97c95383-d3a4-415b-83cd-3c8059c833d5
         siret: "21590238800010"
@@ -492735,7 +492757,7 @@ oidc_providers:
       - domain: floudes.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/307d546a-3536-447a-a72d-2edd4c3259bd
         siret: "21330169000011"
-        source: dila
+        source: candidate
       - domain: floudes33.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/gironde/307d546a-3536-447a-a72d-2edd4c3259bd
         siret: "21330169000011"
@@ -501904,6 +501926,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/151c6472-4e2e-49d0-a89d-2fef1638a218
         siret: "21360079400019"
         source: candidate
+      - domain: francillon-drome.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/971c7903-6435-4266-bbff-ee802cdb43a6
+        siret: "21260137100017"
+        source: dila
       - domain: francillon-sur-roubion.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/971c7903-6435-4266-bbff-ee802cdb43a6
         siret: "21260137100017"
@@ -514579,7 +514605,7 @@ oidc_providers:
       - domain: ghisoni.corsica
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/20d7ff5d-df1b-4a10-96b4-3020a7c19950
         siret: "21200124200016"
-        source: candidate
+        source: routed
       - domain: ghisoni.fr
         fiche: https://lannuaire.service-public.gouv.fr/corse/haute-corse/20d7ff5d-df1b-4a10-96b4-3020a7c19950
         siret: "21200124200016"
@@ -516330,10 +516356,6 @@ oidc_providers:
         siret: "21010174700017"
         source: candidate
       - domain: mairie-giron.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/5cdf52f8-06a9-414b-ba9f-b223fc31e08e
-        siret: "21010174700017"
-        source: candidate
-      - domain: mairiegiron.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/5cdf52f8-06a9-414b-ba9f-b223fc31e08e
         siret: "21010174700017"
         source: dila
@@ -519522,19 +519544,19 @@ oidc_providers:
         source: candidate
       - domain: gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: dila
       - domain: gosselming57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: mairie-gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: ville-gosselming.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/475b7c77-e50e-451f-9678-aeebe2b472cb
-        siret: "21570255600014"
+        siret: "21570255600055"
         source: candidate
       - domain: gotein-libarrenx.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/8bd872ae-4fb8-4ce1-af07-240b3a093def
@@ -527539,7 +527561,7 @@ oidc_providers:
       - domain: ville-greasque.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/bouches-du-rhone/ad123817-23c4-4835-9e5b-333d8c48302f
         siret: "21130046200010"
-        source: dila
+        source: candidate
       - domain: grebault-mesnil.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/59706076-6f0f-408b-a9c8-f07f95bed902
         siret: "21800372100014"
@@ -532855,7 +532877,7 @@ oidc_providers:
       - domain: mairie-hagen.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/a8c3e84b-ec2f-44c4-a824-ecab0900d09a
         siret: "21570282000014"
-        source: candidate
+        source: dila
       - domain: ville-hagen.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/a8c3e84b-ec2f-44c4-a824-ecab0900d09a
         siret: "21570282000014"
@@ -544216,6 +544238,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/64d7a8eb-d9aa-4878-b2e9-ae656eed7194
         siret: "21310238700015"
         source: candidate
+      - domain: mairiehuos.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/64d7a8eb-d9aa-4878-b2e9-ae656eed7194
+        siret: "21310238700015"
+        source: dila
       - domain: ville-huos.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/haute-garonne/64d7a8eb-d9aa-4878-b2e9-ae656eed7194
         siret: "21310238700015"
@@ -553519,7 +553545,7 @@ oidc_providers:
       - domain: jouy-en-argonne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/376bccc2-eda3-4de8-b681-79dc7b816525
         siret: "21550257600014"
-        source: candidate
+        source: dila
       - domain: jouy-en-argonne55.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/376bccc2-eda3-4de8-b681-79dc7b816525
         siret: "21550257600014"
@@ -555319,7 +555345,7 @@ oidc_providers:
       - domain: jussecourt-minecourt.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/6501f20e-1101-4b30-833c-9092bcfbacdc
         siret: "21510290600041"
-        source: candidate
+        source: dila
       - domain: jussecourt-minecourt51.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/marne/6501f20e-1101-4b30-833c-9092bcfbacdc
         siret: "21510290600041"
@@ -556927,7 +556953,7 @@ oidc_providers:
       - domain: kerpert.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/69672729-6f97-497d-a015-d5e4448fb2ef
         siret: "21220092700011"
-        source: dila
+        source: candidate
       - domain: kerpert.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/69672729-6f97-497d-a015-d5e4448fb2ef
         siret: "21220092700011"
@@ -557416,6 +557442,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/95404e39-56fb-49d3-adb7-e454f5a2bb7b
         siret: "21670244900010"
         source: candidate
+      - domain: kleingoeft.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/95404e39-56fb-49d3-adb7-e454f5a2bb7b
+        siret: "21670244900010"
+        source: dila
       - domain: mairie-kleingft.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/95404e39-56fb-49d3-adb7-e454f5a2bb7b
         siret: "21670244900010"
@@ -573287,7 +573317,7 @@ oidc_providers:
       - domain: lachapellevillars.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/29d18de7-b13a-461f-b865-91893b8d4413
         siret: "21420051100019"
-        source: candidate
+        source: dila
       - domain: lachapellevillars42.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/29d18de7-b13a-461f-b865-91893b8d4413
         siret: "21420051100019"
@@ -578011,7 +578041,7 @@ oidc_providers:
       - domain: laferrierebechet.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/efe922e5-a4dc-46ff-9aa3-84d7abc9badb
         siret: "21610164200017"
-        source: candidate
+        source: dila
       - domain: laferrierebechet61.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/efe922e5-a4dc-46ff-9aa3-84d7abc9badb
         siret: "21610164200017"
@@ -578987,7 +579017,7 @@ oidc_providers:
       - domain: mairie-lafeuillee.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/cfe22f87-76db-4128-a489-54ea38ea5e33
         siret: "21290054200011"
-        source: candidate
+        source: dila
       - domain: ville-la-feuillee.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/cfe22f87-76db-4128-a489-54ea38ea5e33
         siret: "21290054200011"
@@ -586601,7 +586631,7 @@ oidc_providers:
       - domain: lamonselie.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/4d1fd1bb-51a4-458a-a1df-377f94acc3d2
         siret: "21150128300017"
-        source: candidate
+        source: dila
       - domain: lamonselie15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/4d1fd1bb-51a4-458a-a1df-377f94acc3d2
         siret: "21150128300017"
@@ -590502,14 +590532,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/815bb84e-4af4-480b-bd6d-d940635ee579
         siret: "21140510500019"
         source: candidate
-      - domain: commune-la-porcherie.fr
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/67f112d9-5769-4156-be97-34768a144ac7
-        siret: "21871200800018"
-        source: dila
       - domain: la-porcherie.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/67f112d9-5769-4156-be97-34768a144ac7
         siret: "21871200800018"
-        source: candidate
+        source: dila
       - domain: la-porcherie87.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/67f112d9-5769-4156-be97-34768a144ac7
         siret: "21871200800018"
@@ -602517,7 +602543,7 @@ oidc_providers:
       - domain: labretonie.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/d605c53b-bd26-4c6d-9992-2c0707cb474b
         siret: "21470122900012"
-        source: candidate
+        source: dila
       - domain: labretonie47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/d605c53b-bd26-4c6d-9992-2c0707cb474b
         siret: "21470122900012"
@@ -603501,7 +603527,7 @@ oidc_providers:
       - domain: lachamp-ribennes.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/c632cd28-a958-434b-b252-46af10ad003c
         siret: "20008333500014"
-        source: candidate
+        source: dila
       - domain: lachamp-ribennes48.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lozere/c632cd28-a958-434b-b252-46af10ad003c
         siret: "20008333500014"
@@ -612594,6 +612620,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
         siret: "21220114900011"
         source: candidate
+      - domain: mairielanrelas.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
+        siret: "21220114900011"
+        source: dila
       - domain: ville-lanrelas.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a84546ab-d92d-4525-bef5-c2bdca67935e
         siret: "21220114900011"
@@ -612618,10 +612648,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/ille-et-vilaine/750ead9b-3268-4a0d-95a6-edc6cb07fa70
         siret: "21350148900016"
         source: candidate
-      - domain: lanrivain.fr
+      - domain: lanrivain.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
         source: dila
+      - domain: lanrivain.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
+        siret: "21220115600016"
+        source: candidate
       - domain: lanrivain22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/63cf1642-ae43-4d82-9299-2fe5a373fde3
         siret: "21220115600016"
@@ -615001,7 +615035,7 @@ oidc_providers:
       - domain: larrau.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/c8bd12b8-705e-4f70-b64f-37cdac819749
         siret: "21640316200011"
-        source: candidate
+        source: routed
       - domain: larrau.org
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/c8bd12b8-705e-4f70-b64f-37cdac819749
         siret: "21640316200011"
@@ -619909,6 +619943,10 @@ oidc_providers:
       - domain: mairie-lazer.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/ebcaaffe-0c64-4d01-9b2d-75739ee284a3
         siret: "21050073200016"
+        source: candidate
+      - domain: village-lazer.fr
+        fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/ebcaaffe-0c64-4d01-9b2d-75739ee284a3
+        siret: "21050073200016"
         source: dila
       - domain: ville-lazer.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/ebcaaffe-0c64-4d01-9b2d-75739ee284a3
@@ -624621,7 +624659,7 @@ oidc_providers:
       - domain: lechalon.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/8964a9c7-29fd-4bf9-959d-25860cc7293c
         siret: "21260068800015"
-        source: dila
+        source: candidate
       - domain: lechalon26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/8964a9c7-29fd-4bf9-959d-25860cc7293c
         siret: "21260068800015"
@@ -628834,6 +628872,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/01758324-2bdc-4aff-95e7-20da0e45f2d0
         siret: "21400100000014"
         source: candidate
+      - domain: mairielefreche.fr
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/01758324-2bdc-4aff-95e7-20da0e45f2d0
+        siret: "21400100000014"
+        source: dila
       - domain: ville-le-freche.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/landes/01758324-2bdc-4aff-95e7-20da0e45f2d0
         siret: "21400100000014"
@@ -640761,7 +640803,7 @@ oidc_providers:
       - domain: lepoetcelard.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/a42798a9-e6dd-4cb1-b425-d940d4262b00
         siret: "21260241100010"
-        source: candidate
+        source: dila
       - domain: lepoetcelard26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/a42798a9-e6dd-4cb1-b425-d940d4262b00
         siret: "21260241100010"
@@ -653901,11 +653943,11 @@ oidc_providers:
       - domain: lesdeserts.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
-        source: candidate
+        source: dila
       - domain: lesdeserts73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
-        source: dila
+        source: candidate
       - domain: mairie-les-deserts.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/10d4919f-67e5-4cdb-b5cd-9431ee5b1ef0
         siret: "21730098700013"
@@ -673229,10 +673271,6 @@ oidc_providers:
       - domain: mairie-longeville-les-metz.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8130c596-3e5c-4724-b960-d4b6b00dd84b
         siret: "21570412300011"
-        source: candidate
-      - domain: mairie-longeville-les-metz.org
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8130c596-3e5c-4724-b960-d4b6b00dd84b
-        siret: "21570412300011"
         source: dila
       - domain: mairie-longevillelesmetz.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/8130c596-3e5c-4724-b960-d4b6b00dd84b
@@ -677004,7 +677042,7 @@ oidc_providers:
       - domain: lourenties.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/77f75e0c-80ac-4fff-b23b-9b2d449deb52
         siret: "21640352700015"
-        source: dila
+        source: routed
       - domain: lourenties64.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/pyrenees-atlantiques/77f75e0c-80ac-4fff-b23b-9b2d449deb52
         siret: "21640352700015"
@@ -677108,7 +677146,7 @@ oidc_providers:
       - domain: lourmarin.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/965df8c6-bc74-449f-975b-0cc026ecff38
         siret: "21840068700016"
-        source: candidate
+        source: dila
       - domain: lourmarin84.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/vaucluse/965df8c6-bc74-449f-975b-0cc026ecff38
         siret: "21840068700016"
@@ -680553,6 +680591,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/04e337f1-fa16-4e44-92d9-4ff63b3f9e10
         siret: "21320220300013"
         source: candidate
+      - domain: lupsault.byethost3.com
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/c865023b-36c7-4912-8018-71bebb18f196
+        siret: "21160194300015"
+        source: dila
       - domain: lupsault.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente/c865023b-36c7-4912-8018-71bebb18f196
         siret: "21160194300015"
@@ -682221,6 +682263,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/588669ef-f83e-4484-8970-027a4ffe85c7
         siret: "21520411600010"
         source: candidate
+      - domain: mairie-luzy52.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/588669ef-f83e-4484-8970-027a4ffe85c7
+        siret: "21520411600010"
+        source: dila
       - domain: mairie-luzysurmarne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haute-marne/588669ef-f83e-4484-8970-027a4ffe85c7
         siret: "21520411600010"
@@ -684157,6 +684203,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
         siret: "21090167400015"
         source: candidate
+      - domain: lezat.fr
+        fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
+        siret: "21090167400015"
+        source: dila
       - domain: lezatsurleze.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/ariege/4f7af813-1910-48e1-9870-bd3fd45ed63a
         siret: "21090167400015"
@@ -689717,6 +689767,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/6ee8024f-6e4c-49be-93c6-c25dcf8800cd
         siret: "21030159400011"
         source: candidate
+      - domain: malicorne-allier.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/6ee8024f-6e4c-49be-93c6-c25dcf8800cd
+        siret: "21030159400011"
+        source: dila
       - domain: malicorne.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/6ee8024f-6e4c-49be-93c6-c25dcf8800cd
         siret: "21030159400011"
@@ -693811,7 +693865,7 @@ oidc_providers:
       - domain: marcillaclacroze.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/223cbb36-6c97-4d0e-9f9a-93a2181bf041
         siret: "21191260500014"
-        source: candidate
+        source: dila
       - domain: marcillaclacroze19.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/223cbb36-6c97-4d0e-9f9a-93a2181bf041
         siret: "21191260500014"
@@ -696879,7 +696933,7 @@ oidc_providers:
       - domain: marignacendiois.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/0d4781f5-00db-4982-8416-8f29d6ab2225
         siret: "21260175100010"
-        source: candidate
+        source: dila
       - domain: marignacendiois26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/0d4781f5-00db-4982-8416-8f29d6ab2225
         siret: "21260175100010"
@@ -698672,6 +698726,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/11002b46-8dc8-438f-8e4e-5f407cdea760
         siret: "21590384000019"
         source: candidate
+      - domain: mairie-marolles.fr
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/74fdafc9-1b94-4cd4-a42d-feb0a162d267
+        siret: "21140403300014"
+        source: candidate
       - domain: marolles.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/74fdafc9-1b94-4cd4-a42d-feb0a162d267
         siret: "21140403300014"
@@ -698732,10 +698790,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/94d2822a-9919-41af-ac99-53db26db5e27
         siret: "21770278600013"
         source: candidate
-      - domain: mairie-marolles.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/val-de-marne/3aa6feab-9740-4259-9911-f973f2fee22f
-        siret: "21940048800017"
-        source: dila
       - domain: mairie-marollesenbrie.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/94d2822a-9919-41af-ac99-53db26db5e27
         siret: "21770278600013"
@@ -700928,10 +700982,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/9210d54b-cf57-4b92-9870-ff317fbcdeac
         siret: "21010237200013"
         source: candidate
-      - domain: martignat.fr
+      - domain: martignat.com
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/9210d54b-cf57-4b92-9870-ff317fbcdeac
         siret: "21010237200013"
         source: dila
+      - domain: martignat.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/9210d54b-cf57-4b92-9870-ff317fbcdeac
+        siret: "21010237200013"
+        source: candidate
       - domain: martignat01.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/9210d54b-cf57-4b92-9870-ff317fbcdeac
         siret: "21010237200013"
@@ -704912,6 +704970,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/893fb242-c8dd-413b-8698-a367ab61ee91
         siret: "21070152000012"
         source: candidate
+      - domain: villedemauves.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/893fb242-c8dd-413b-8698-a367ab61ee91
+        siret: "21070152000012"
+        source: dila
       - domain: mairie-mauves-sur-huisne.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/orne/b74e079a-7270-4810-a51f-62c109027381
         siret: "21610255800014"
@@ -707435,7 +707497,7 @@ oidc_providers:
       - domain: meillonnas.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a00db6bf-13b1-4b2d-8d38-a9de86ab6404
         siret: "21010241400013"
-        source: candidate
+        source: dila
       - domain: meillonnas01.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/a00db6bf-13b1-4b2d-8d38-a9de86ab6404
         siret: "21010241400013"
@@ -709295,7 +709357,7 @@ oidc_providers:
       - domain: mercy03.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/allier/2049fec8-3424-4bb3-96af-269c6d5a1c99
         siret: "21030171900014"
-        source: candidate
+        source: dila
       - domain: mercy89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/08ba352e-e9a2-497b-802c-c9410d15c9ca
         siret: "21890249200014"
@@ -714288,10 +714350,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
         source: candidate
-      - domain: milly-sur-therain.eu
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
-        siret: "21600399600016"
-        source: dila
       - domain: milly-sur-therain.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
@@ -714303,7 +714361,7 @@ oidc_providers:
       - domain: millysurtherain.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
-        source: candidate
+        source: dila
       - domain: millysurtherain60.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/oise/7ebe7448-f78a-4346-8c6f-28b0b3d95705
         siret: "21600399600016"
@@ -720783,7 +720841,7 @@ oidc_providers:
       - domain: monheurt.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9a03328d-95e4-4eab-b188-aee2bec8aec9
         siret: "21470177300019"
-        source: candidate
+        source: dila
       - domain: monheurt47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/9a03328d-95e4-4eab-b188-aee2bec8aec9
         siret: "21470177300019"
@@ -726160,6 +726218,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/64f35fbd-dee8-467c-ae34-d1d6f3462630
         siret: "21260191800015"
         source: candidate
+      - domain: commune-montboudif.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/74da15e9-c42d-4145-9f67-02f7623b0b80
+        siret: "21150129100010"
+        source: dila
       - domain: mairie-montboudif.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/74da15e9-c42d-4145-9f67-02f7623b0b80
         siret: "21150129100010"
@@ -726511,7 +726573,7 @@ oidc_providers:
       - domain: montbrun-les-bains.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/8be49b35-b1d7-43c7-9712-0e9c1f2d9500
         siret: "21260193400012"
-        source: candidate
+        source: dila
       - domain: montbrun-les-bains26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/8be49b35-b1d7-43c7-9712-0e9c1f2d9500
         siret: "21260193400012"
@@ -726848,6 +726910,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/d56fc669-a073-4f78-8814-7e3ed0f7debe
         siret: "21100238100013"
         source: candidate
+      - domain: mairiemontceauxlesvaudes.fr
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/d56fc669-a073-4f78-8814-7e3ed0f7debe
+        siret: "21100238100013"
+        source: dila
       - domain: montceaux-les-vaudes.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/d56fc669-a073-4f78-8814-7e3ed0f7debe
         siret: "21100238100013"
@@ -726944,10 +727010,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/7e97f0ea-52ea-42b4-8d00-d5016eae8d91
         siret: "21710309200011"
         source: candidate
-      - domain: commune-montcet.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/47e9a01c-1c82-427c-998f-f39c63e0606c
-        siret: "21010259600017"
-        source: dila
       - domain: mairie-montcet.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/47e9a01c-1c82-427c-998f-f39c63e0606c
         siret: "21010259600017"
@@ -759789,7 +759851,7 @@ oidc_providers:
       - domain: niceysuraire.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/85c2e895-a623-4a6e-a7c5-9cc7eb8381c1
         siret: "21550384800016"
-        source: candidate
+        source: routed
       - domain: niceysuraire55.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/85c2e895-a623-4a6e-a7c5-9cc7eb8381c1
         siret: "21550384800016"
@@ -773257,7 +773319,7 @@ oidc_providers:
       - domain: ordan-larroque.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/e8885f73-4cad-4a66-bd0c-f8243e26beb7
         siret: "21320301100019"
-        source: dila
+        source: routed
       - domain: ordan-larroque32.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gers/e8885f73-4cad-4a66-bd0c-f8243e26beb7
         siret: "21320301100019"
@@ -786237,11 +786299,11 @@ oidc_providers:
       - domain: pencran.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
-        source: candidate
+        source: dila
       - domain: pencran.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
-        source: dila
+        source: candidate
       - domain: pencran29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/3763be06-d217-4c94-9071-74d098233b39
         siret: "21290156500011"
@@ -789973,7 +790035,7 @@ oidc_providers:
       - domain: mairie-peyriac-minervois.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/f4769b98-fd8f-4c58-a0b2-9e3e77e4831d
         siret: "21110286800018"
-        source: candidate
+        source: dila
       - domain: mairie-peyriacminervois.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aude/f4769b98-fd8f-4c58-a0b2-9e3e77e4831d
         siret: "21110286800018"
@@ -796226,6 +796288,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
         siret: "21220196600018"
         source: candidate
+      - domain: pleudaniel.com
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
+        siret: "21220196600018"
+        source: dila
       - domain: pleudaniel.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/5f5a658f-5217-4264-8424-00652a471134
         siret: "21220196600018"
@@ -796681,7 +796747,7 @@ oidc_providers:
       - domain: plobannalec-lesconil.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/5c45a61f-c6e5-487f-a07f-4cc806070822
         siret: "21290165600018"
-        source: dila
+        source: candidate
       - domain: plobannalec-lesconil29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/5c45a61f-c6e5-487f-a07f-4cc806070822
         siret: "21290165600018"
@@ -796908,39 +796974,39 @@ oidc_providers:
         source: candidate
       - domain: mairie-plombieres-les-bains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: mairie-plombiereslesbains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: plombieres-les-bains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: dila
       - domain: plombieres-les-bains88.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: plombieres.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: dila
       - domain: plombiereslesbains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: plombiereslesbains88.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: ville-plombieres-les-bains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: ville-plombiereslesbains.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/9c179630-92ef-4a20-b6d3-066c908def3c
-        siret: "21880351800016"
+        siret: "21880351800156"
         source: candidate
       - domain: mairie-plombieres-les-dijon.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/7ecbc163-df96-4984-b554-1819e902db95
@@ -805233,7 +805299,7 @@ oidc_providers:
       - domain: mairie-pontaix.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/aa04a0bf-6d25-441a-81d2-3eb088a2cf36
         siret: "21260248600012"
-        source: candidate
+        source: dila
       - domain: pontaix.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/aa04a0bf-6d25-441a-81d2-3eb088a2cf36
         siret: "21260248600012"
@@ -809317,7 +809383,7 @@ oidc_providers:
       - domain: poullan-sur-mer.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
-        source: dila
+        source: candidate
       - domain: poullan-sur-mer29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
@@ -809325,7 +809391,7 @@ oidc_providers:
       - domain: poullansurmer.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
-        source: candidate
+        source: dila
       - domain: poullansurmer.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/544b9148-d13a-46a1-b2c5-a74d6afd9c66
         siret: "21290226600015"
@@ -810833,7 +810899,7 @@ oidc_providers:
       - domain: prads-haute-bleone.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/57559416-07b3-4a68-825d-f73c736b1f9d
         siret: "21040155000012"
-        source: candidate
+        source: dila
       - domain: prads-haute-bleone04.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/alpes-de-haute-provence/57559416-07b3-4a68-825d-f73c736b1f9d
         siret: "21040155000012"
@@ -811680,23 +811746,23 @@ oidc_providers:
         source: candidate
       - domain: mairie-presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: mairiedepresly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: dila
       - domain: presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: presly18.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: ville-presly.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/cher/a0333064-87ed-4484-a72c-9ed014764ed0
-        siret: "21180185700015"
+        siret: "21180185700031"
         source: candidate
       - domain: mairie-presnoy.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loiret/ece52e8b-2506-4513-8f94-5cdafc7b0aae
@@ -812973,7 +813039,7 @@ oidc_providers:
       - domain: propiac.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/df3a3acf-50ee-4848-a4d6-c3481f258f8b
         siret: "21260256900015"
-        source: candidate
+        source: dila
       - domain: propiac26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/df3a3acf-50ee-4848-a4d6-c3481f258f8b
         siret: "21260256900015"
@@ -813290,10 +813356,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/52d37875-b1aa-46e5-b823-0c3c01706883
         siret: "21590476400010"
         source: candidate
-      - domain: mairie-provin.com
-        fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/d30120cb-525c-40e4-8970-99f81e892b99
-        siret: "21590477200013"
-        source: dila
       - domain: mairie-provin.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/d30120cb-525c-40e4-8970-99f81e892b99
         siret: "21590477200013"
@@ -823241,7 +823303,7 @@ oidc_providers:
       - domain: ramburelles.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/b0ca866c-3d15-4a5b-a9b5-030b6ad2f92b
         siret: "21800622900015"
-        source: candidate
+        source: dila
       - domain: ramburelles80.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/b0ca866c-3d15-4a5b-a9b5-030b6ad2f92b
         siret: "21800622900015"
@@ -824910,10 +824972,14 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
         source: candidate
+      - domain: raville.eu
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
+        siret: "21570563300018"
+        source: dila
       - domain: raville.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
-        source: candidate
+        source: dila
       - domain: raville57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/eeac7181-0a77-4aaa-8107-a3d807885b5e
         siret: "21570563300018"
@@ -828133,7 +828199,7 @@ oidc_providers:
       - domain: resson.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/5f427d79-87f0-4a2e-af63-935744a03f44
         siret: "21550426700018"
-        source: candidate
+        source: dila
       - domain: resson55.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/5f427d79-87f0-4a2e-af63-935744a03f44
         siret: "21550426700018"
@@ -834044,7 +834110,7 @@ oidc_providers:
       - domain: rochechinard.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/3ab6c23f-2a2a-4c52-b032-be6a8a6305c2
         siret: "21260270000016"
-        source: candidate
+        source: dila
       - domain: rochechinard26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/3ab6c23f-2a2a-4c52-b032-be6a8a6305c2
         siret: "21260270000016"
@@ -836476,7 +836542,7 @@ oidc_providers:
       - domain: romans01.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/31a146a0-29fe-437d-8196-744af8f534ea
         siret: "21010328900018"
-        source: dila
+        source: candidate
       - domain: romans79.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/deux-sevres/71faa7d4-e433-4fd5-a3dd-bb7250c1196f
         siret: "21790231100018"
@@ -850972,7 +851038,7 @@ oidc_providers:
       - domain: saint-alban-des-villards.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5e1d2122-f42b-4ebb-90ad-a3b2466746d5
         siret: "21730221500017"
-        source: dila
+        source: candidate
       - domain: saint-alban-des-villards73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5e1d2122-f42b-4ebb-90ad-a3b2466746d5
         siret: "21730221500017"
@@ -851716,7 +851782,7 @@ oidc_providers:
       - domain: saintamandjartoudeix.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/86067c83-d202-433b-abd8-6b658de2d32a
         siret: "21231810900015"
-        source: candidate
+        source: dila
       - domain: saintamandjartoudeix23.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/86067c83-d202-433b-abd8-6b658de2d32a
         siret: "21231810900015"
@@ -851725,10 +851791,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/86067c83-d202-433b-abd8-6b658de2d32a
         siret: "21231810900015"
         source: candidate
-      - domain: stamandjartoudeix.com
-        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/86067c83-d202-433b-abd8-6b658de2d32a
-        siret: "21231810900015"
-        source: dila
       - domain: stamandjartoudeix.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/creuse/86067c83-d202-433b-abd8-6b658de2d32a
         siret: "21231810900015"
@@ -855461,6 +855523,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/57681b37-e6dd-43bf-a1c3-ef127ed7c100
         siret: "21380355400012"
         source: candidate
+      - domain: st-andeol26.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/c323c1e0-a9af-4b53-b954-5fb20c742468
+        siret: "21260291600018"
+        source: dila
       - domain: standeol.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/isere/57681b37-e6dd-43bf-a1c3-ef127ed7c100
         siret: "21380355400012"
@@ -855572,7 +855638,7 @@ oidc_providers:
       - domain: saintandeoldevals.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/06f8555d-3c4c-4981-91a2-991263f8b45e
         siret: "21070210600019"
-        source: candidate
+        source: dila
       - domain: saintandeoldevals07.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/06f8555d-3c4c-4981-91a2-991263f8b45e
         siret: "21070210600019"
@@ -860616,11 +860682,15 @@ oidc_providers:
       - domain: saint-avre.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
-        source: candidate
+        source: dila
       - domain: saint-avre73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
         source: candidate
+      - domain: saint-avres.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
+        siret: "21730224900016"
+        source: dila
       - domain: saintavre.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/09c90c5f-3a3a-4127-b4fe-c03d7dce3ac3
         siret: "21730224900016"
@@ -861024,7 +861094,7 @@ oidc_providers:
       - domain: saint-barnabe.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/6d1a840b-9a12-4281-a9ca-2d4140f18102
         siret: "21220275800018"
-        source: candidate
+        source: dila
       - domain: saint-barnabe.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/6d1a840b-9a12-4281-a9ca-2d4140f18102
         siret: "21220275800018"
@@ -865512,7 +865582,7 @@ oidc_providers:
       - domain: mairie-saint-brandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
-        source: dila
+        source: candidate
       - domain: mairie-saintbrandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
@@ -865545,6 +865615,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
         source: candidate
+      - domain: stbrandan.bzh
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
+        siret: "21220277400015"
+        source: dila
       - domain: stbrandan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/843e0c15-0d5b-435f-a69a-632d321bfbd7
         siret: "21220277400015"
@@ -865581,10 +865655,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/b822c122-edd2-483d-ae23-e746f610df49
         siret: "21300238900012"
         source: routed
-      - domain: saintbresson.net
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/b822c122-edd2-483d-ae23-e746f610df49
-        siret: "21300238900012"
-        source: dila
       - domain: saintbresson30.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/gard/b822c122-edd2-483d-ae23-e746f610df49
         siret: "21300238900012"
@@ -871177,6 +871247,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/e4f26f1d-df90-478a-9991-09946331558b
         siret: "21070225400017"
         source: candidate
+      - domain: saintclair07430.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/e4f26f1d-df90-478a-9991-09946331558b
+        siret: "21070225400017"
+        source: dila
       - domain: saintclair46.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/lot/ab573dde-efef-4181-bbc9-3045dc5a375d
         siret: "21460259100015"
@@ -875094,10 +875168,6 @@ oidc_providers:
         siret: "21770405500011"
         source: candidate
       - domain: saint-cyr-sur-morin.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/803d9313-4184-4bc6-8622-d4dfd2ef6d28
-        siret: "21770405500011"
-        source: candidate
-      - domain: saint-cyr-sur-morin.org
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/seine-et-marne/803d9313-4184-4bc6-8622-d4dfd2ef6d28
         siret: "21770405500011"
         source: dila
@@ -882740,7 +882810,7 @@ oidc_providers:
       - domain: saint-francois-de-sales.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
-        source: candidate
+        source: dila
       - domain: saint-francois-de-sales73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/a1e0a971-4d95-4b60-bbb3-a8ee8b304fe1
         siret: "21730234800016"
@@ -886620,7 +886690,7 @@ oidc_providers:
       - domain: saint-georges-armont.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/5a6f0885-a110-4c97-abc2-d684ae7a70d1
         siret: "21250516800014"
-        source: candidate
+        source: dila
       - domain: saint-georges-armont25.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/5a6f0885-a110-4c97-abc2-d684ae7a70d1
         siret: "21250516800014"
@@ -894793,6 +894863,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
         siret: "21220295600018"
         source: candidate
+      - domain: sgvm.fr
+        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
+        siret: "21220295600018"
+        source: dila
       - domain: st-gilles-vieux-marche.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/52b6ba6c-c82f-465a-b8bf-f77bf18f2f6b
         siret: "21220295600018"
@@ -896240,7 +896314,7 @@ oidc_providers:
       - domain: saintguiraud.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/942b2e81-c116-401a-9e40-f861eebc13f7
         siret: "21340262100014"
-        source: candidate
+        source: routed
       - domain: saintguiraud34.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/942b2e81-c116-401a-9e40-f861eebc13f7
         siret: "21340262100014"
@@ -899752,7 +899826,7 @@ oidc_providers:
       - domain: sainthippolyte15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/9a15a401-69fb-4bb2-b1da-22cda5059e43
         siret: "21150190300010"
-        source: candidate
+        source: dila
       - domain: sainthippolyte17.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/charente-maritime/c74d6db2-42a4-4ea3-9ca0-863e180f0cca
         siret: "21170346700012"
@@ -911044,7 +911118,7 @@ oidc_providers:
       - domain: saint-julien-en-quint.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/c0f6049e-65d5-4519-8b0f-b3cd0a0921cc
         siret: "21260308800015"
-        source: candidate
+        source: dila
       - domain: saint-julien-en-quint26.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/c0f6049e-65d5-4519-8b0f-b3cd0a0921cc
         siret: "21260308800015"
@@ -911824,7 +911898,7 @@ oidc_providers:
       - domain: st-julien-maumont.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f59a339d-5952-4716-9041-8f348b1e2572
         siret: "21192170500011"
-        source: candidate
+        source: dila
       - domain: stjulienmaumont.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/correze/f59a339d-5952-4716-9041-8f348b1e2572
         siret: "21192170500011"
@@ -926992,7 +927066,7 @@ oidc_providers:
       - domain: saint-martin67.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/590fe05a-59b2-40b5-92c8-8ad6a5344075
         siret: "21670426200015"
-        source: candidate
+        source: dila
       - domain: saintmartin.alsace
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/bas-rhin/590fe05a-59b2-40b5-92c8-8ad6a5344075
         siret: "21670426200015"
@@ -946510,9 +946584,9 @@ oidc_providers:
         siret: "21730267800016"
         source: candidate
       - domain: st-pancrace.fr
-        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0f0d2ad7-c70b-4e39-89a5-1931ecdb7e23
-        siret: "21730267800016"
-        source: candidate
+        fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/dordogne/65b334c0-6a55-438f-99e8-e26d7a9e67a8
+        siret: "21240474300016"
+        source: dila
       - domain: stpancrace.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/0f0d2ad7-c70b-4e39-89a5-1931ecdb7e23
         siret: "21730267800016"
@@ -971833,6 +971907,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/719815c4-cde5-40d5-a9c6-4b898e6b6963
         siret: "21740254400019"
         source: candidate
+      - domain: mairie.st-sylvestre07.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ardeche/a5b683f8-a4f4-4114-9a7f-18bd3615258c
+        siret: "21070297300012"
+        source: dila
       - domain: saint-sylvestre-limousin.com
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/haute-vienne/0d83bc99-1953-4bbb-9afc-e4b4864864a9
         siret: "21871830200019"
@@ -973228,7 +973306,7 @@ oidc_providers:
       - domain: saint-thibault10.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/f7555044-ed01-4ad2-8037-ebcd8ebdf50a
         siret: "21100352000015"
-        source: candidate
+        source: dila
       - domain: saint-thibault21.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/2a21d994-95ea-41f9-9fff-9d092457855c
         siret: "21210576100010"
@@ -975832,7 +975910,7 @@ oidc_providers:
       - domain: saintvallier88.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/vosges/8932d839-090f-44c6-a550-c2067a516140
         siret: "21880437500010"
-        source: candidate
+        source: dila
       - domain: st-vallier.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/saone-et-loire/cc06b53f-f14f-479b-bd6a-a1d9cd6bc3e0
         siret: "21710486800013"
@@ -988576,6 +988654,10 @@ oidc_providers:
       - domain: sainte-gemme-81.com
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/tarn/b76ccbef-dfe2-452e-a617-1e6463fed729
         siret: "21810249900017"
+        source: dila
+      - domain: sainte-gemme-indre.fr
+        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/f37fc5ca-cc9b-4d62-827c-f0dc1175798d
+        siret: "21360193300012"
         source: dila
       - domain: sainte-gemme.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/indre/f37fc5ca-cc9b-4d62-827c-f0dc1175798d
@@ -1003468,7 +1003550,7 @@ oidc_providers:
       - domain: mairie-saurier.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/8f83bad8-d06c-4737-827e-600cc4dc521d
         siret: "21630409700019"
-        source: candidate
+        source: dila
       - domain: saurier.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/puy-de-dome/8f83bad8-d06c-4737-827e-600cc4dc521d
         siret: "21630409700019"
@@ -1003512,7 +1003594,7 @@ oidc_providers:
       - domain: saussan.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/77b693f4-e888-48df-9059-8f2ae1a6d256
         siret: "21340295100015"
-        source: dila
+        source: routed
       - domain: saussan34.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/herault/77b693f4-e888-48df-9059-8f2ae1a6d256
         siret: "21340295100015"
@@ -1004288,7 +1004370,7 @@ oidc_providers:
       - domain: sauveterrelalemance.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/df266b50-e7c6-4a9f-a7a1-e39f72a790c3
         siret: "21470292000015"
-        source: candidate
+        source: dila
       - domain: sauveterrelalemance47.fr
         fiche: https://lannuaire.service-public.gouv.fr/nouvelle-aquitaine/lot-et-garonne/df266b50-e7c6-4a9f-a7a1-e39f72a790c3
         siret: "21470292000015"
@@ -1014392,7 +1014474,7 @@ oidc_providers:
       - domain: sibiril.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/96b6a392-d7c3-4c6d-a8d0-b118d53f0cc1
         siret: "21290276100015"
-        source: candidate
+        source: dila
       - domain: sibiril.com
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/96b6a392-d7c3-4c6d-a8d0-b118d53f0cc1
         siret: "21290276100015"
@@ -1019236,7 +1019318,7 @@ oidc_providers:
       - domain: sonnaz.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5eb5692d-353a-4beb-8e56-f19b2d0bcd93
         siret: "21730288400010"
-        source: candidate
+        source: dila
       - domain: sonnaz73.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/savoie/5eb5692d-353a-4beb-8e56-f19b2d0bcd93
         siret: "21730288400010"
@@ -1024812,7 +1024894,7 @@ oidc_providers:
       - domain: sulignat.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/d4527af5-3c96-4359-9027-37a27d2fe0c1
         siret: "21010412100012"
-        source: dila
+        source: candidate
       - domain: sulignat01.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/ain/d4527af5-3c96-4359-9027-37a27d2fe0c1
         siret: "21010412100012"
@@ -1031767,7 +1031849,7 @@ oidc_providers:
       - domain: templeuxlafosse.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/27d69c0a-1c2a-453a-99c9-5a23f37a5987
         siret: "21800699700017"
-        source: candidate
+        source: dila
       - domain: templeuxlafosse80.fr
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/27d69c0a-1c2a-453a-99c9-5a23f37a5987
         siret: "21800699700017"
@@ -1031947,7 +1032029,7 @@ oidc_providers:
       - domain: tennie.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/67d9c922-bb54-4582-a0c3-125f54977fa6
         siret: "21720351200082"
-        source: candidate
+        source: dila
       - domain: tennie72.fr
         fiche: https://lannuaire.service-public.gouv.fr/pays-de-la-loire/sarthe/67d9c922-bb54-4582-a0c3-125f54977fa6
         siret: "21720351200082"
@@ -1048146,11 +1048228,11 @@ oidc_providers:
       - domain: trebeurden.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
-        source: candidate
+        source: dila
       - domain: trebeurden.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
-        source: dila
+        source: candidate
       - domain: trebeurden22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/436b193d-7f32-4b94-8dba-873fe2ecb870
         siret: "21220343400015"
@@ -1048270,7 +1048352,7 @@ oidc_providers:
       - domain: trebry.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a116a2ed-471d-4dca-96ce-7a9110829029
         siret: "21220345900012"
-        source: candidate
+        source: dila
       - domain: trebry.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/a116a2ed-471d-4dca-96ce-7a9110829029
         siret: "21220345900012"
@@ -1048442,7 +1048524,7 @@ oidc_providers:
       - domain: tredrezlocquemeau.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/169c25a5-b6cc-41c0-9beb-a18c88eeb096
         siret: "21220349100015"
-        source: candidate
+        source: dila
       - domain: tredrezlocquemeau.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/169c25a5-b6cc-41c0-9beb-a18c88eeb096
         siret: "21220349100015"
@@ -1048510,7 +1048592,7 @@ oidc_providers:
       - domain: treflez.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/490104cb-54b5-4b98-ae31-9671caad308a
         siret: "21290287800017"
-        source: candidate
+        source: dila
       - domain: treflez29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/490104cb-54b5-4b98-ae31-9671caad308a
         siret: "21290287800017"
@@ -1048602,11 +1048684,11 @@ oidc_providers:
       - domain: tregarvan.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
-        source: dila
+        source: candidate
       - domain: tregarvan.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
-        source: candidate
+        source: dila
       - domain: tregarvan29.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/87ccb7fb-9950-4511-9784-8e8c6f6ebf03
         siret: "21290289400014"
@@ -1048662,7 +1048744,7 @@ oidc_providers:
       - domain: treglonou.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/31ec7d2e-3aaf-47b8-a5c7-83465d842a64
         siret: "21290290200015"
-        source: dila
+        source: candidate
       - domain: treglonou.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/finistere/31ec7d2e-3aaf-47b8-a5c7-83465d842a64
         siret: "21290290200015"
@@ -1048686,7 +1048768,7 @@ oidc_providers:
       - domain: tregomeur.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/528eb533-108c-4a4c-81cd-e3197160c834
         siret: "21220356600014"
-        source: candidate
+        source: dila
       - domain: tregomeur22.fr
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/528eb533-108c-4a4c-81cd-e3197160c834
         siret: "21220356600014"
@@ -1054867,10 +1054949,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
         siret: "93841706000010"
         source: candidate
-      - domain: pluduno.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
-        siret: "93841706000010"
-        source: dila
       - domain: val-darguenon.bzh
         fiche: https://lannuaire.service-public.gouv.fr/bretagne/cotes-d-armor/34138ec4-25d3-4841-9459-32d2225d3e20
         siret: "93841706000010"
@@ -1056487,6 +1056565,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/afae2d9b-5a19-480c-ab2f-6b5c0e908b14
         siret: "21550530600013"
         source: candidate
+      - domain: valbois.net
+        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/afae2d9b-5a19-480c-ab2f-6b5c0e908b14
+        siret: "21550530600013"
+        source: dila
       - domain: valbois55.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meuse/afae2d9b-5a19-480c-ab2f-6b5c0e908b14
         siret: "21550530600013"
@@ -1059510,7 +1059592,7 @@ oidc_providers:
       - domain: mairie-valserres.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/a34c536d-7f4a-45b9-b70b-b8eacd799068
         siret: "21050176300010"
-        source: candidate
+        source: dila
       - domain: mairies05.fr
         fiche: https://lannuaire.service-public.gouv.fr/provence-alpes-cote-d-azur/hautes-alpes/a34c536d-7f4a-45b9-b70b-b8eacd799068
         siret: "21050176300010"
@@ -1063659,6 +1063741,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/e45d0bad-e223-431d-906d-de5f13bba047
         siret: "21260365800015"
         source: candidate
+      - domain: vaunaveyslarochette.com
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/e45d0bad-e223-431d-906d-de5f13bba047
+        siret: "21260365800015"
+        source: dila
       - domain: vaunaveyslarochette.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/e45d0bad-e223-431d-906d-de5f13bba047
         siret: "21260365800015"
@@ -1072591,6 +1072677,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/67b34549-7600-4113-8c4c-690dc5b6c34d
         siret: "21260373200018"
         source: candidate
+      - domain: mairiedevesc.fr
+        fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/67b34549-7600-4113-8c4c-690dc5b6c34d
+        siret: "21260373200018"
+        source: dila
       - domain: vesc.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/drome/67b34549-7600-4113-8c4c-690dc5b6c34d
         siret: "21260373200018"
@@ -1074606,7 +1074696,7 @@ oidc_providers:
       - domain: vicques.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/64a0a08e-d847-47a5-b308-59d6c2549f1b
         siret: "21140742400012"
-        source: candidate
+        source: dila
       - domain: vicques14.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/calvados/64a0a08e-d847-47a5-b308-59d6c2549f1b
         siret: "21140742400012"
@@ -1075098,7 +1075188,7 @@ oidc_providers:
       - domain: vieillevie.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/f90d5886-f201-4b98-8f16-84c02f21a3fe
         siret: "21150260400013"
-        source: candidate
+        source: routed
       - domain: vieillevie15.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/cantal/f90d5886-f201-4b98-8f16-84c02f21a3fe
         siret: "21150260400013"
@@ -1080098,7 +1080188,7 @@ oidc_providers:
       - domain: mairie-villavard.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/49a1a4c7-074f-4bcb-a575-c5186a7aa7e1
         siret: "21410274100011"
-        source: candidate
+        source: dila
       - domain: villavard.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/loir-et-cher/49a1a4c7-074f-4bcb-a575-c5186a7aa7e1
         siret: "21410274100011"
@@ -1085822,7 +1085912,7 @@ oidc_providers:
       - domain: villeneuvesouspymont.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
-        source: candidate
+        source: routed
       - domain: villeneuvesouspymont39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
@@ -1096314,7 +1096404,7 @@ oidc_providers:
       - domain: vitry-sur-orne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/6f7308ce-401c-4979-a07c-929a3107c1af
         siret: "21570724100018"
-        source: candidate
+        source: dila
       - domain: vitry-sur-orne57.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/moselle/6f7308ce-401c-4979-a07c-929a3107c1af
         siret: "21570724100018"
@@ -1099710,7 +1099800,7 @@ oidc_providers:
       - domain: vrigne-meuse.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/7bcca377-433f-467f-9e3b-ba69719622ea
         siret: "21080450600017"
-        source: candidate
+        source: dila
       - domain: vrigne-meuse08.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/ardennes/7bcca377-433f-467f-9e3b-ba69719622ea
         siret: "21080450600017"
@@ -1100106,7 +1100196,7 @@ oidc_providers:
       - domain: vulvoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
-        source: candidate
+        source: dila
       - domain: vulvoz39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
@@ -1114394,7 +1114484,7 @@ oidc_providers:
       - domain: eturqueraye.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/43d82e8c-898c-4526-b80b-96a3e2d0af02
         siret: "21270228600015"
-        source: candidate
+        source: dila
       - domain: eturqueraye27.fr
         fiche: https://lannuaire.service-public.gouv.fr/normandie/eure/43d82e8c-898c-4526-b80b-96a3e2d0af02
         siret: "21270228600015"
@@ -1120952,10 +1121042,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
-      - domain: bazoches.net
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
-        siret: "21580023600014"
-        source: dila
       - domain: bazoches58.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -1120964,6 +1121050,10 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
         source: candidate
+      - domain: mairiebazoches.com
+        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
+        siret: "21580023600014"
+        source: dila
       - domain: ville-bazoches.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/nievre/67b308b8-2728-44cb-9093-76c36aef5a26
         siret: "21580023600014"
@@ -1123351,7 +1123441,7 @@ oidc_providers:
       - domain: bleigny-le-carreau.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/326aaefc-ebdf-4ffa-8e80-56686616e014
         siret: "21890045400016"
-        source: candidate
+        source: routed
       - domain: bleigny-le-carreau89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/326aaefc-ebdf-4ffa-8e80-56686616e014
         siret: "21890045400016"
@@ -1130954,19 +1131044,19 @@ oidc_providers:
         source: candidate
       - domain: chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chaumercenne70.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: mairie-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: ville-chaumercenne.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/f1d6b441-3bba-44ad-ae9b-1047a0d8ced6
-        siret: "21700142900018"
+        siret: "21700142900042"
         source: candidate
       - domain: chaumergy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/c860921b-dff2-4f1a-8663-4e711b750ae1
@@ -1133187,7 +1133277,7 @@ oidc_providers:
       - domain: chatenois39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/58668624-7078-44d8-9a61-8c94f76fcd16
         siret: "21390121800015"
-        source: candidate
+        source: dila
       - domain: chatenois70.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/23566690-7e20-402b-873a-5446b2a89893
         siret: "21700141100016"
@@ -1133939,7 +1134029,7 @@ oidc_providers:
       - domain: clucy.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
-        source: candidate
+        source: dila
       - domain: clucy39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/b93fa0f4-b812-4572-bc46-f418dfdfdbad
         siret: "21390155600018"
@@ -1134400,10 +1134490,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/675de89b-2d4e-42db-9248-98456e613e70
         siret: "21250159700018"
         source: candidate
-      - domain: choye.fr
-        fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
-        siret: "93861858400016"
-        source: dila
       - domain: colombine.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/haute-saone/9efadc6e-4897-43ee-af03-723a9a3111a4
         siret: "93861858400016"
@@ -1180556,7 +1180642,7 @@ oidc_providers:
       - domain: saint-georges-armont.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/5a6f0885-a110-4c97-abc2-d684ae7a70d1
         siret: "21250516800014"
-        source: candidate
+        source: dila
       - domain: saint-georges-armont25.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/doubs/5a6f0885-a110-4c97-abc2-d684ae7a70d1
         siret: "21250516800014"
@@ -1188076,7 +1188162,7 @@ oidc_providers:
       - domain: saints-en-puisaye.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/cc72227b-5b97-4816-b07e-5bef62e1d583
         siret: "21890367200010"
-        source: dila
+        source: routed
       - domain: saints-en-puisaye89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/cc72227b-5b97-4816-b07e-5bef62e1d583
         siret: "21890367200010"
@@ -1193150,7 +1193236,7 @@ oidc_providers:
       - domain: thury89.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/yonne/6b9621e2-d16a-41c0-9d7a-db102b8a5ed3
         siret: "21890416700010"
-        source: dila
+        source: routed
       - domain: ville-thury.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/cote-d-or/683a6c95-70c5-49e6-8572-a1a71580c96c
         siret: "21210636300014"
@@ -1199098,7 +1199184,7 @@ oidc_providers:
       - domain: villeneuvesouspymont.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
-        source: candidate
+        source: dila
       - domain: villeneuvesouspymont39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/9079e528-5eac-4a3f-8f90-d5d24deed417
         siret: "21390567200019"
@@ -1201530,7 +1201616,7 @@ oidc_providers:
       - domain: vulvoz.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
-        source: candidate
+        source: dila
       - domain: vulvoz39.fr
         fiche: https://lannuaire.service-public.gouv.fr/bourgogne-franche-comte/jura/2c78d112-a76f-4e44-870b-252f670b4ee7
         siret: "21390585400013"
