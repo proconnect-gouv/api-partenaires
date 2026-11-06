@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { log_levels } from "#src/api/log";
+
 import { oidc_providers_config_schema } from "#src/allowlist";
+import { log_levels } from "#src/api/log";
 
 export const config_schema = z.object({
   CLIENT_SECRET_CIPHER_PASS: z.string().length(32, {

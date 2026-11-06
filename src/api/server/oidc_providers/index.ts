@@ -1,9 +1,10 @@
 import { Hono } from "hono";
-import type { OidcProviderStore } from "#src/api/server";
+
+import type { OidcProvidersConfig } from "#src/allowlist";
 import type { FindUnreachableDomains } from "#src/api/domain_reachable";
+import type { OidcProviderStore } from "#src/api/server";
 import { create_attached_email_domains_router } from "#src/api/server/oidc_providers/attached_email_domains";
 import { create_configuration_router } from "#src/api/server/oidc_providers/configuration";
-import type { OidcProvidersConfig } from "#src/allowlist";
 
 export function create_oidc_providers_router({
   find_unreachable_domains,

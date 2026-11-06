@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import {
   create_find_unreachable_domains,
   decide_from_a,

@@ -1,5 +1,4 @@
-import { digest_schema, render_digest } from "#src/validation";
-import { zod_issues } from "#src/validation";
+import { digest_schema, render_digest, zod_issues } from "#src/validation";
 
 const MARKER = "<!-- apotropaic-digest -->";
 const MAX_BYTES = 1024 * 1024;

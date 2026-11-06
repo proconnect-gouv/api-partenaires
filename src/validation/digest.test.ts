@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
+
 import type { AllowedDomain, OidcProvidersConfig } from "#src/allowlist";
+
 import { build_dila_index } from "./declared_by";
 import { build_digest, type Digest, digest_schema } from "./digest";
 import { check_sources } from "./source";

@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import { config_schema } from "./schema";
 
 const REQUIRED_ENV = {

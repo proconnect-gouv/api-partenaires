@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "bun run --hot src/api/bin/index.ts",
     "explain:domain": "bun run src/validation/bin/explain_domain.ts",
-    "format": "NODE_OPTIONS=--max-old-space-size=8192 prettier --write .",
-    "format:check": "NODE_OPTIONS=--max-old-space-size=8192 prettier --check .",
+    "format": "bun fmt",
+    "format:check": "bun fmt --check",
     "lint": "bun run format:check && bun run typecheck",
     "lint:apotropaic": "bun run src/validation/bin/apotropaic.ts",
     "lint:config": "bun run src/validation/bin/lint_config.ts",
@@ -29,11 +29,6 @@
       }
     }
   },
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-organize-imports"
-    ]
-  },
   "dependencies": {
     "@proconnect-gouv/proconnect.core": "^1.1.1",
     "hono": "4.13.16",
@@ -43,8 +38,6 @@
   "devDependencies": {
     "@tsconfig/bun": "1.0.11",
     "@types/bun": "1.4.4",
-    "prettier": "3.9.10",
-    "prettier-plugin-organize-imports": "4.3.0",
     "typescript": "7.0.2"
   },
   "version": "2026.11.0"

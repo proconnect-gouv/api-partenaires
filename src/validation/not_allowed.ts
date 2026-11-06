@@ -1,4 +1,5 @@
 import { isAFreeDomain } from "@proconnect-gouv/proconnect.core/services/email";
+
 import { err, ok, type Result } from "#src/utils";
 
 const COLLIDING_BRANDS = [

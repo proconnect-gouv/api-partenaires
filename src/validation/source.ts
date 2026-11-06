@@ -1,11 +1,3 @@
-import type { DilaIndex, Fiche } from "./declared_by";
-import { check_sovereign, type DilaRefusal, dila_owner } from "./dila_ok";
-import { carries_name, carries_saint_head, reconstructs } from "./names";
-import {
-  check_not_allowed,
-  type DenyListName,
-  type NotAllowed,
-} from "./not_allowed";
 import {
   type AllowedDomain,
   fiche_id,
@@ -13,6 +5,15 @@ import {
   type Source,
 } from "#src/allowlist";
 import { err, ok, type Result } from "#src/utils";
+
+import type { DilaIndex, Fiche } from "./declared_by";
+import { check_sovereign, dila_owner, type DilaRefusal } from "./dila_ok";
+import { carries_name, carries_saint_head, reconstructs } from "./names";
+import {
+  check_not_allowed,
+  type DenyListName,
+  type NotAllowed,
+} from "./not_allowed";
 
 type FicheRefusal =
   | { code: "declared_by_other"; declaring: Fiche[]; fiche: Fiche }

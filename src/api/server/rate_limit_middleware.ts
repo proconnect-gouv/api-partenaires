@@ -1,4 +1,5 @@
 import type { Context, Env, MiddlewareHandler } from "hono";
+
 import { log } from "#src/api/log";
 
 const WINDOW_MS = 60_000;

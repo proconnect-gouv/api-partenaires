@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { err, ok, type Result } from "#src/utils";
+
 import { log } from "#src/api/log";
+import { err, ok, type Result } from "#src/utils";
 
 const A = 1;
 const CONCURRENCY = 10;

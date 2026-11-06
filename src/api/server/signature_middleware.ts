@@ -1,5 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+
 import type { MiddlewareHandler } from "hono";
+
 import { log } from "#src/api/log";
 
 function compute_signature(api_secret: string, message: string): string {

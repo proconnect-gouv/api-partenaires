@@ -1,13 +1,14 @@
 import { MongoClient } from "mongodb";
-import { create_app } from "#src/api/server";
+
 import { config_schema } from "#src/api/config";
 import { create_find_unreachable_domains } from "#src/api/domain_reachable";
 import { set_log_level } from "#src/api/log";
-import type { OidcClientDoc } from "#src/api/server/oidc_clients";
 import {
   create_oidc_provider_store,
   type OidcProviderDocument,
 } from "#src/api/oidc_providers";
+import { create_app } from "#src/api/server";
+import type { OidcClientDoc } from "#src/api/server/oidc_clients";
 
 const config = await config_schema.parseAsync(process.env);
 set_log_level(config.LOG_LEVEL);

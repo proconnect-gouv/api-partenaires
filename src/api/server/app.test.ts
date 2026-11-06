@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { create_app, type OidcProviderStore } from "./app";
+
 import type { OidcClientStore } from "#src/api/server/oidc_clients";
 import { ok } from "#src/utils";
+
+import { create_app, type OidcProviderStore } from "./app";
 
 function create_test_app({
   check_ready = async () => {},

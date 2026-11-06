@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
+
 import { err, ok } from "#src/utils";
+
 import { drop_rows, oidc_providers_config_schema } from "./index";
 
 describe("validation de la configuration fournisseurs OIDC", () => {

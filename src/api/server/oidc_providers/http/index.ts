@@ -2,12 +2,13 @@ import type { Context } from "hono";
 import { createMiddleware } from "hono/factory";
 import { validator } from "hono/validator";
 import { z } from "zod";
-import type { DnsFailure } from "#src/api/domain_reachable";
+
 import {
   domain_schema,
   type EditableOidcProvider,
   type OidcProvidersConfig,
 } from "#src/allowlist";
+import type { DnsFailure } from "#src/api/domain_reachable";
 
 const domain_param_schema = z.object({
   domain: domain_schema,

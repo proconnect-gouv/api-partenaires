@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { RECONSTRUCTIBLE_EXTENSIONS } from "./extensions";
 
 const ARTICLES = ["l'", "la ", "le ", "les ", "l’"] as const;

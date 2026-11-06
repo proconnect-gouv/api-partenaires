@@ -1,6 +1,7 @@
+import { err, ok, type Result } from "#src/utils";
+
 import { type Fiche, sole_owner } from "./declared_by";
 import { SOVEREIGN_EXTENSIONS } from "./extensions";
-import { err, ok, type Result } from "#src/utils";
 
 export type DilaRefusal =
   | { code: "not_sovereign"; extension: string; internationalized: boolean }

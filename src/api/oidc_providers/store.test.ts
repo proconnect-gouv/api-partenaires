@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
+
 import type { Collection } from "mongodb";
+
 import { create_oidc_provider_store, type OidcProviderDocument } from "./store";
 
 function store_returning(document: unknown) {

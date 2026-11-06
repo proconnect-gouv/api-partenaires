@@ -1,6 +1,7 @@
-import { createHmac } from "node:crypto";
-import { $ } from "bun";
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { createHmac } from "node:crypto";
+
+import { $ } from "bun";
 
 const base_url = "http://127.0.0.1:3000";
 const API_SECRET = "test-oidc-clients-secret";

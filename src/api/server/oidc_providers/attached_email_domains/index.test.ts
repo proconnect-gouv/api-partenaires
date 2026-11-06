@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import type { DnsFailure } from "#src/api/domain_reachable";
 import {
   api_call,

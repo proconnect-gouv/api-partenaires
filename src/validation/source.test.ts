@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
+
 import type { AllowedDomain } from "#src/allowlist";
 import { ok } from "#src/utils";
+
 import { build_dila_index } from "./declared_by";
 import {
   check_row,

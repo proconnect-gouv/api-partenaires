@@ -1,5 +1,7 @@
 import { describe, expect, test } from "bun:test";
+
 import type { AllowedDomain } from "#src/allowlist";
+
 import { decide_admission } from "./admission";
 
 const allowed: AllowedDomain[] = [
