@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import { check_not_allowed, parent_domains } from "./not_allowed";
 
 describe("parent_domains", () => {

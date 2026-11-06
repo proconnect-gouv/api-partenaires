@@ -1,22 +1,29 @@
 import { parseArgs } from "node:util";
-import { build_cog_names, load_cog_export } from "#src/validation";
-import { build_dila_index, type Fiche, sole_owner } from "#src/validation";
-import { load_dila_export } from "#src/validation";
-import { code, md, table } from "#src/validation";
-import { check_sovereign } from "#src/validation";
-import { check_not_allowed, type DenyListName } from "#src/validation";
+
+import { fiche_id, oidc_providers_config_schema } from "#src/allowlist";
 import {
   type Approval,
+  build_cog_names,
+  build_dila_index,
   check_dila_name,
   check_fiche,
+  check_not_allowed,
   check_row,
+  check_sovereign,
+  code,
+  type DenyListName,
   describe_approval,
   describe_refusal,
+  type Fiche,
+  load_cog_export,
+  load_dila_export,
+  md,
   name_rule_verb,
   type Refusal,
   type RowVerdict,
+  sole_owner,
+  table,
 } from "#src/validation";
-import { fiche_id, oidc_providers_config_schema } from "#src/allowlist";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,

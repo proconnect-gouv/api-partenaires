@@ -1,5 +1,6 @@
 import type { Collection } from "mongodb";
 import { z } from "zod";
+
 import type { OidcProviderStore } from "#src/api/server";
 
 export const oidc_provider_schema = z.object({

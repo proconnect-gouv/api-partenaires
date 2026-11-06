@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+
 import { build_dila_index, sole_owner } from "./declared_by";
 
 const mairie = {

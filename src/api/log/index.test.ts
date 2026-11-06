@@ -1,4 +1,5 @@
 import { afterAll, afterEach, describe, expect, spyOn, test } from "bun:test";
+
 import { log, set_log_level } from "./index";
 
 describe("log", () => {

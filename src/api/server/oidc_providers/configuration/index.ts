@@ -1,7 +1,8 @@
 import { type Context, Hono } from "hono";
 import { createMiddleware } from "hono/factory";
 import { z } from "zod";
-import type { OidcProviderStore } from "#src/api/server";
+
+import type { OidcProvidersConfig } from "#src/allowlist";
 import type { FindUnreachableDomains } from "#src/api/domain_reachable";
 import { log } from "#src/api/log";
 import {
@@ -9,12 +10,12 @@ import {
   type Refusal,
   type RefusalByKind,
 } from "#src/api/oidc_providers";
+import type { OidcProviderStore } from "#src/api/server";
 import {
   create_editable_middleware,
   dns_lookup_failed_response,
   method_not_allowed,
 } from "#src/api/server/oidc_providers/http";
-import type { OidcProvidersConfig } from "#src/allowlist";
 
 const DEPRECATION = "@1792368000";
 const MAX_ADDED_DOMAINS = 1_000;

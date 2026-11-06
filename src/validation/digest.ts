@@ -1,5 +1,14 @@
 import { z } from "zod";
+
+import {
+  type AllowedDomain,
+  domain_schema,
+  fiche_id,
+  type OidcProvidersConfig,
+} from "#src/allowlist";
+
 import type { DilaIndex, Fiche } from "./declared_by";
+import { table } from "./markdown";
 import { reconstructs } from "./names";
 import {
   type RowReport,
@@ -7,13 +16,6 @@ import {
   type Severity,
   verdict_severity,
 } from "./source";
-import { table } from "./markdown";
-import {
-  type AllowedDomain,
-  domain_schema,
-  fiche_id,
-  type OidcProvidersConfig,
-} from "#src/allowlist";
 
 const CHANGES = [
   "added",

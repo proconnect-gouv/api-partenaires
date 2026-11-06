@@ -1,9 +1,12 @@
-import { createHmac } from "node:crypto";
 import { describe, expect, test } from "bun:test";
+import { createHmac } from "node:crypto";
+
 import { ObjectId } from "mongodb";
+
 import { create_app, type OidcProviderStore } from "#src/api/server";
-import type { OidcClientDoc, OidcClientStore } from "./index";
 import { ok } from "#src/utils";
+
+import type { OidcClientDoc, OidcClientStore } from "./index";
 
 const CALLER = "test@example.com";
 const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";

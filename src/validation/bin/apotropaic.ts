@@ -1,26 +1,33 @@
 import { parseArgs } from "node:util";
-import { build_cog_names, load_cog_export } from "#src/validation";
-import { build_dila_index } from "#src/validation";
-import { load_dila_export } from "#src/validation";
-import { type DilaRefusal, dila_ok } from "#src/validation";
-import { build_digest, render_digest } from "#src/validation";
-import { carries_name, reconstructs } from "#src/validation";
-import { check_not_allowed } from "#src/validation";
-import {
-  check_sources,
-  describe_refusal,
-  partition_reports,
-  type RowReport,
-  type RpntGap,
-} from "#src/validation";
-import { code, md, table } from "#src/validation";
+
 import {
   fiche_id,
-  type OidcProvidersConfig,
   oidc_providers_config_schema,
+  type OidcProvidersConfig,
   type Source,
 } from "#src/allowlist";
-import { zod_issues } from "#src/validation";
+import {
+  build_cog_names,
+  build_digest,
+  build_dila_index,
+  carries_name,
+  check_not_allowed,
+  check_sources,
+  code,
+  describe_refusal,
+  dila_ok,
+  type DilaRefusal,
+  load_cog_export,
+  load_dila_export,
+  md,
+  partition_reports,
+  reconstructs,
+  render_digest,
+  type RowReport,
+  type RpntGap,
+  table,
+  zod_issues,
+} from "#src/validation";
 
 const { values: options } = parseArgs({
   options: {

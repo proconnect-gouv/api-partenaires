@@ -1,5 +1,7 @@
 import { parseArgs } from "node:util";
+
 import { z } from "zod";
+
 import { allowlist_row_schema, drop_rows } from "#src/allowlist";
 
 const { positionals, values } = parseArgs({

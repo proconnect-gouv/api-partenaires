@@ -1,10 +1,11 @@
-import type { OidcProviderStore } from "#src/api/server";
+import type { AllowedDomain } from "#src/allowlist";
 import type {
   DnsFailure,
   FindUnreachableDomains,
 } from "#src/api/domain_reachable";
+import type { OidcProviderStore } from "#src/api/server";
+
 import { type Admission, decide_admission } from "./admission";
-import type { AllowedDomain } from "#src/allowlist";
 
 export type AdmissionOutcome =
   | Admission

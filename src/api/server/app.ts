@@ -1,13 +1,15 @@
 import { Hono } from "hono";
+
+import type { OidcProvidersConfig } from "#src/allowlist";
 import type { FindUnreachableDomains } from "#src/api/domain_reachable";
 import { log, log_enabled } from "#src/api/log";
+import type { OidcProvider } from "#src/api/oidc_providers";
 import {
   create_oidc_clients_router,
   type OidcClientStore,
 } from "#src/api/server/oidc_clients";
-import type { OidcProvider } from "#src/api/oidc_providers";
 import { create_oidc_providers_router } from "#src/api/server/oidc_providers";
-import type { OidcProvidersConfig } from "#src/allowlist";
+
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
 

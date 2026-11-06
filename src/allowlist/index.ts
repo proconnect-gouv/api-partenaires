@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { err, ok, type Result } from "#src/utils";
 
 const FICHE_URL =
