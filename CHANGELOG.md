@@ -1,5 +1,32 @@
 # Changelog
 
+## [2026.11.1](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.0...2026.11.1) (2026-11-06)
+
+### Changements
+
+- Retrait de l’allowlist de 7 lignes que l’annuaire DILA n’atteste plus : `mairiedelachavanne.fr` (fournisseurs `c268fac9` et `f5154035`), `mairiedesaintfrancoisdesales.fr` (fournisseurs `c268fac9` et `f5154035`), `mairiedeboulc.fr`, `communedepierrefittedeux-sevres.com` et `s582979323.onlinehome.fr` (fournisseur `f5154035`).
+- Re-clé le fournisseur ANCT d’Auvergne-Rhône-Alpes sur son nouvel identifiant (`4d6fb724`) ; les communes rattachées conservent exactement les mêmes domaines.
+
+### Modifié
+
+- 🔧(anct) re-key Auvergne-Rhône-Alpes provider to its new uid ([#246](https://github.com/proconnect-gouv/api-partenaires/issues/246)) ([7814ceb](https://github.com/proconnect-gouv/api-partenaires/commit/7814ceb594a83499166bea9f4fbcc4d088424f95))
+- 🔧 format with bun fmt instead of prettier ([#245](https://github.com/proconnect-gouv/api-partenaires/issues/245)) ([14bcc5f](https://github.com/proconnect-gouv/api-partenaires/commit/14bcc5fd47c6df3deafc191a0b6e469ba192a0c0))
+- 🔧(anct) regenerate the proconnect allowlist ([#234](https://github.com/proconnect-gouv/api-partenaires/issues/234)) ([7efecde](https://github.com/proconnect-gouv/api-partenaires/commit/7efecde6184f3e0d27bf0e6ebfbecabd0190560b))
+
+### Dépendances
+
+- ⬆️ Lock file maintenance ([#244](https://github.com/proconnect-gouv/api-partenaires/issues/244)) ([563741e](https://github.com/proconnect-gouv/api-partenaires/commit/563741e26efec16d0adb3b3177cafa22e8f28780))
+- ⬆️ Bump docker/login-action from v4.7.0 to v4.8.0 ([#243](https://github.com/proconnect-gouv/api-partenaires/issues/243)) ([4d68c21](https://github.com/proconnect-gouv/api-partenaires/commit/4d68c21ee88cbcf77537ef332eb7e7c8044db209))
+- ⬆️ Bump hono from 4.13.14 to 4.13.16 ([#242](https://github.com/proconnect-gouv/api-partenaires/issues/242)) ([526f1e5](https://github.com/proconnect-gouv/api-partenaires/commit/526f1e554d78d2620a82381ff32e4de706e92e98))
+- ⬆️ Bump alpine to v3.24.4 ([#241](https://github.com/proconnect-gouv/api-partenaires/issues/241)) ([4d4cd25](https://github.com/proconnect-gouv/api-partenaires/commit/4d4cd256098ef30d11592b720662c87cf53d7c67))
+- ⬆️ Lock file maintenance ([#240](https://github.com/proconnect-gouv/api-partenaires/issues/240)) ([986c699](https://github.com/proconnect-gouv/api-partenaires/commit/986c699a95853c09065b5a21ff784c65f5a008fc))
+- ⬆️ Bump bun from 1.4.2 to 1.4.4 ([#238](https://github.com/proconnect-gouv/api-partenaires/issues/238)) ([c22e49d](https://github.com/proconnect-gouv/api-partenaires/commit/c22e49d480ee581f4d9ca758efa086913676b770))
+- ⬆️ Bump ubuntu from 22.04 to 26.04 ([#239](https://github.com/proconnect-gouv/api-partenaires/issues/239)) ([e01a9be](https://github.com/proconnect-gouv/api-partenaires/commit/e01a9be668a6c2835457b1530a2cf4851e2c62fc))
+
+### CI/CD
+
+- 👷 Configure Renovate ([#236](https://github.com/proconnect-gouv/api-partenaires/issues/236)) ([b191658](https://github.com/proconnect-gouv/api-partenaires/commit/b191658f258ed02a1074ff2585071413fd25c0bb))
+
 ## [2026.11.0](https://github.com/proconnect-gouv/api-partenaires/compare/2026.10.8...2026.11.0) (2026-11-04)
 
 ### Modifié
