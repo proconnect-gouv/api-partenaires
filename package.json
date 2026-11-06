@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@proconnect-gouv/proconnect.core": "^1.1.1",
-    "hono": "4.13.14",
+    "hono": "4.13.16",
     "mongodb": "7.8.0",
     "zod": "4.6.7"
   },
