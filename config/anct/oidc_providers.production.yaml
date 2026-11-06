@@ -207387,7 +207387,7 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/haute-savoie/41b9277b-09da-488c-9ddd-590b81c5bf65
         siret: "21740119900013"
         source: candidate
-  - uid: "cfdbd59a-7c9d-48f2-ab9f-32f137c64247"
+  - uid: "4d6fb724-20c8-467d-8d06-6de127624fc0"
     allowed_attached_email_domains:
       - domain: aboen.fr
         fiche: https://lannuaire.service-public.gouv.fr/auvergne-rhone-alpes/loire/934aa006-df2b-48c7-b6ba-8b7f4ccc45cd
