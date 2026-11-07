@@ -831707,10 +831707,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/828548d7-3298-426b-b88b-a7c4e60caf4e
         siret: "21680274400013"
         source: candidate
-      - domain: 68290-rimbach-pres-masevaux.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/2af2e346-8de1-43ad-9a67-f741c6a45e28
-        siret: "21680275100018"
-        source: dila
       - domain: mairie-rimbach-pres-masevaux.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/haut-rhin/2af2e346-8de1-43ad-9a67-f741c6a45e28
         siret: "21680275100018"
