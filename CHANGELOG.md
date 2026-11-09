@@ -1,5 +1,15 @@
 # Changelog
 
+## [2026.11.2](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.1...2026.11.2) (2026-11-09)
+
+### Changements
+
+- Retrait de l’allowlist de 1 lignes que l’annuaire DILA n’atteste plus : `68290-rimbach-pres-masevaux.fr` (fournisseur `f5154035`).
+
+### Modifié
+
+- 🔧 drop 1 rows DILA no longer attests ([#247](https://github.com/proconnect-gouv/api-partenaires/issues/247)) ([caee4b5](https://github.com/proconnect-gouv/api-partenaires/commit/caee4b5ed3e18eb84c8fa511807955442b486696))
+
 ## [2026.11.1](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.0...2026.11.1) (2026-11-06)
 
 ### Changements
