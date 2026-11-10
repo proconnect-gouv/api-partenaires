@@ -74,7 +74,7 @@ export function create_configuration_router({
 }) {
   const editable = create_editable_middleware({ oidc_providers_config });
 
-  return new Hono<{ Variables: { body_text: string } }>()
+  return new Hono()
     .get("/:uid/configuration", editable, async (c) => {
       const uid = c.req.param("uid");
       const provider = await providers.findOne({ uid });

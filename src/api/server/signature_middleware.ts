@@ -50,9 +50,8 @@ export function create_signature_middleware({
     const query = url.search ? url.search.slice(1) : "";
     let message = `${timestamp}:${c.req.method}:${url.pathname}?${query}`;
 
-    let body_text = "";
     if (["POST", "PATCH", "PUT"].includes(c.req.method)) {
-      body_text = await c.req.text();
+      const body_text = await c.req.text();
       if (body_text) message += `:${body_text}`;
     }
 
@@ -62,7 +61,6 @@ export function create_signature_middleware({
       return c.json({ detail: "Invalid signature" }, 401);
     }
 
-    c.set("body_text", body_text);
     await next();
   };
 }

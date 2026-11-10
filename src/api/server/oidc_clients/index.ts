@@ -7,6 +7,8 @@ import { z } from "zod";
 import { decrypt_symetric, encrypt_symetric } from "#src/api/crypt";
 import { log } from "#src/api/log";
 
+import type { TokenActingUser } from "../access_token_middleware";
+
 const SIGNED_RESPONSE_ALGS = ["RS256", "ES256", "HS256"] as const;
 
 const FIXED_SCOPES = [
@@ -111,9 +113,15 @@ function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   };
 }
 
-const email_middleware: MiddlewareHandler<{
-  Variables: { email: string; body_text: string };
-}> = async (c, next) => {
+type ActingUser =
+  { readonly auth: "hmac"; readonly email: string } | TokenActingUser;
+
+export type ActingUserEnv = { Variables: { acting_user: ActingUser } };
+
+export const email_query_middleware: MiddlewareHandler<ActingUserEnv> = async (
+  c,
+  next,
+) => {
   const email = c.req.query("email");
   if (!email) {
     return c.json({ detail: "Missing authentication headers" }, 401);
@@ -122,9 +130,23 @@ const email_middleware: MiddlewareHandler<{
   if (!parsed.success) {
     return c.json({ detail: "Invalid email" }, 422);
   }
-  c.set("email", email);
+  c.set("acting_user", { auth: "hmac", email });
   await next();
 };
+
+function acting_user_log_fields(acting_user: ActingUser) {
+  switch (acting_user.auth) {
+    case "hmac":
+      return { auth: acting_user.auth, by: acting_user.email };
+    case "token":
+      return {
+        auth: acting_user.auth,
+        by: acting_user.email,
+        client_id: acting_user.client_id,
+        sub: acting_user.sub,
+      };
+  }
+}
 
 export function create_oidc_clients_router({
   oidc_clients,
@@ -133,18 +155,18 @@ export function create_oidc_clients_router({
   oidc_clients: OidcClientStore;
   client_secret_cipher_pass: string;
 }) {
-  return new Hono<{ Variables: { email: string; body_text: string } }>()
-    .use("*", email_middleware)
+  return new Hono<ActingUserEnv>()
     .get("/", async (c) => {
-      const email = c.get("email");
+      const { email } = c.get("acting_user");
       const docs = await oidc_clients.find({ collaborators: email }).toArray();
       return c.json(
         docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
       );
     })
     .post("/", async (c) => {
-      const email = c.get("email");
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
+      const parsed = oidc_client_schema.safeParse((await c.req.text()) || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
       const now_date = new Date();
@@ -173,7 +195,7 @@ export function create_oidc_clients_router({
 
       const result = await oidc_clients.insertOne(doc);
       log("info", {
-        by: email,
+        ...acting_user_log_fields(acting_user),
         event: "oidc_client.created",
         id: result.insertedId.toHexString(),
       });
@@ -185,7 +207,7 @@ export function create_oidc_clients_router({
       );
     })
     .get("/:id", async (c) => {
-      const email = c.get("email");
+      const { email } = c.get("acting_user");
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
@@ -197,11 +219,12 @@ export function create_oidc_clients_router({
       return c.json(format_oidc_client(client_secret_cipher_pass, doc));
     })
     .patch("/:id", async (c) => {
-      const email = c.get("email");
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
+      const parsed = oidc_client_schema.safeParse((await c.req.text()) || "{}");
       if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
 
       if (
@@ -226,7 +249,7 @@ export function create_oidc_clients_router({
       );
       if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
       log("info", {
-        by: email,
+        ...acting_user_log_fields(acting_user),
         event: "oidc_client.updated",
         fields: Object.keys(parsed.data),
         id: oid.toHexString(),
@@ -240,7 +263,8 @@ export function create_oidc_clients_router({
       return c.json(format_oidc_client(client_secret_cipher_pass, updated));
     })
     .delete("/:id", async (c) => {
-      const email = c.get("email");
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
@@ -250,7 +274,7 @@ export function create_oidc_clients_router({
       });
       if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
       log("info", {
-        by: email,
+        ...acting_user_log_fields(acting_user),
         event: "oidc_client.deleted",
         id: oid.toHexString(),
       });

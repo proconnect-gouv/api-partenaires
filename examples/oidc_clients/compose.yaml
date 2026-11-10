@@ -6,9 +6,21 @@ services:
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d:ro
 
+  proconnect:
+    extends:
+      file: ../compose.yaml
+      service: proconnect
+
   partners:
     extends:
       file: ../compose.yaml
       service: partners
     environment:
       FEATURE_ENABLE_SANDBOX_ENDPOINT: true
+      PROCONNECT_ALLOWED_CLIENT_ID: espace-partenaires
+      PROCONNECT_CLIENT_ID: api-partenaires
+      PROCONNECT_CLIENT_SECRET: api-partenaires-secret
+      PROCONNECT_ISSUER: http://proconnect:4000/api/v2
+    depends_on:
+      proconnect:
+        condition: service_healthy

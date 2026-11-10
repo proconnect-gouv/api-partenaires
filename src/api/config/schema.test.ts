@@ -8,6 +8,13 @@ const REQUIRED_ENV = {
   OIDC_PROVIDERS_API_SECRET: "oidc-providers-api-secret",
 };
 
+const PROCONNECT_ENV = {
+  PROCONNECT_ALLOWED_CLIENT_ID: "espace-client-id",
+  PROCONNECT_CLIENT_ID: "api-partenaires-client-id",
+  PROCONNECT_CLIENT_SECRET: "api-partenaires-client-secret",
+  PROCONNECT_ISSUER: "https://fca.example/api/v2/",
+};
+
 async function write_fixture(content: string) {
   const path = `${process.env.TMPDIR ?? "/tmp"}/config_fixture_${Math.random().toString(36).slice(2)}.yaml`;
   await Bun.write(path, content);
@@ -26,8 +33,10 @@ describe("environment parsing", () => {
       OIDC_PROVIDERS_API_SECRET: REQUIRED_ENV.OIDC_PROVIDERS_API_SECRET,
       OIDC_PROVIDERS_CONFIG: { oidc_providers: [] },
       PORT: 3000,
+      PROCONNECT: undefined,
       RATE_LIMIT_PER_MINUTE: 60,
       RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER: 10,
+      RATE_LIMIT_PER_MINUTE_PER_USER: 10,
     });
   });
 
@@ -109,5 +118,25 @@ describe("environment parsing", () => {
       await expect(
         config_schema.parseAsync({ ...REQUIRED_ENV, MAX_TIMESTAMP_DIFF }),
       ).rejects.toThrow();
+  });
+
+  test("groups the four PROCONNECT_* variables and trims the issuer's trailing slash", async () => {
+    await expect(
+      config_schema.parseAsync({ ...REQUIRED_ENV, ...PROCONNECT_ENV }),
+    ).resolves.toMatchObject({
+      PROCONNECT: {
+        allowed_client_id: "espace-client-id",
+        client_id: "api-partenaires-client-id",
+        client_secret: "api-partenaires-client-secret",
+        issuer: "https://fca.example/api/v2",
+      },
+    });
+  });
+
+  test("rejects a partial PROCONNECT_* set at boot", async () => {
+    const { PROCONNECT_CLIENT_SECRET: _, ...partial } = PROCONNECT_ENV;
+    await expect(
+      config_schema.parseAsync({ ...REQUIRED_ENV, ...partial }),
+    ).rejects.toThrow("missing PROCONNECT_CLIENT_SECRET");
   });
 });

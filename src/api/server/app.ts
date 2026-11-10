@@ -1,15 +1,23 @@
-import { Hono } from "hono";
+import { Hono, type MiddlewareHandler } from "hono";
+import { every } from "hono/combine";
 
 import type { OidcProvidersConfig } from "#src/allowlist";
 import type { FindUnreachableDomains } from "#src/api/domain_reachable";
 import { log, log_enabled } from "#src/api/log";
 import type { OidcProvider } from "#src/api/oidc_providers";
+import type { VerifyAccessToken } from "#src/api/proconnect";
 import {
+  type ActingUserEnv,
   create_oidc_clients_router,
+  email_query_middleware,
   type OidcClientStore,
 } from "#src/api/server/oidc_clients";
 import { create_oidc_providers_router } from "#src/api/server/oidc_providers";
 
+import {
+  create_access_token_middleware,
+  type TokenActingUserEnv,
+} from "./access_token_middleware";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
 
@@ -47,6 +55,8 @@ export function create_app({
   providers,
   rate_limit_per_minute,
   rate_limit_per_minute_per_oidc_provider,
+  rate_limit_per_minute_per_user,
+  verify_access_token,
 }: {
   check_ready: () => Promise<unknown>;
   client_secret_cipher_pass: string;
@@ -60,6 +70,8 @@ export function create_app({
   providers: OidcProviderStore;
   rate_limit_per_minute: number;
   rate_limit_per_minute_per_oidc_provider: number;
+  rate_limit_per_minute_per_user: number;
+  verify_access_token?: VerifyAccessToken;
 }) {
   const oidc_providers_middleware = create_signature_middleware({
     api_secret: oidc_providers_api_secret,
@@ -82,6 +94,30 @@ export function create_app({
     key: () => "oidc_clients",
     limit_per_minute: rate_limit_per_minute,
   });
+  const oidc_clients_hmac_auth = every(
+    oidc_clients_middleware,
+    oidc_clients_rate_limit,
+    email_query_middleware,
+  );
+  const oidc_clients_token_auth =
+    verify_access_token &&
+    every(
+      create_rate_limit_middleware({
+        key: () => "oidc_clients_token",
+        limit_per_minute: rate_limit_per_minute,
+      }),
+      create_access_token_middleware({ verify_access_token }),
+      create_rate_limit_middleware<string, TokenActingUserEnv>({
+        key: (c) => c.get("acting_user").sub,
+        limit_per_minute: rate_limit_per_minute_per_user,
+      }),
+    );
+  const oidc_clients_auth: MiddlewareHandler = enable_sandbox_endpoint
+    ? (c, next) =>
+        oidc_clients_token_auth && c.req.header("Authorization") !== undefined
+          ? oidc_clients_token_auth(c, next)
+          : oidc_clients_hmac_auth(c, next)
+    : every(oidc_clients_middleware, oidc_clients_rate_limit);
 
   return new Hono()
     .use(async (c, next) => {
@@ -127,12 +163,7 @@ export function create_app({
         providers,
       }),
     )
-    .use("/api/oidc_clients", oidc_clients_middleware, oidc_clients_rate_limit)
-    .use(
-      "/api/oidc_clients/*",
-      oidc_clients_middleware,
-      oidc_clients_rate_limit,
-    )
+    .use("/api/oidc_clients/*", oidc_clients_auth)
     .route(
       "/api/oidc_clients",
       enable_sandbox_endpoint
@@ -149,8 +180,7 @@ export function create_app({
 }
 
 function create_unauthorized_router() {
-  return new Hono<{ Variables: { email: string; body_text: string } }>().all(
-    "*",
-    (c) => c.json({ error: "sandbox_disabled" }, 403),
+  return new Hono<ActingUserEnv>().all("*", (c) =>
+    c.json({ error: "sandbox_disabled" }, 403),
   );
 }
