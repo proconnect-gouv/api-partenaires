@@ -13,6 +13,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile
+    image: ghcr.io/proconnect-gouv/api-partenaires:2026.11.2
     environment:
       CLIENT_SECRET_CIPHER_PASS: JZBlwxfKnbn/RV025aw+dQxk+xoQT+Yr
       LOG_LEVEL: debug

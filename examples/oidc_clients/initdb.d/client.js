@@ -1,7 +1,7 @@
 db = db.getSiblingDB("partners");
 db.client.insertOne({
   _id: ObjectId("64b64b64b64b64b64b64b64b"),
-  name: "Legacy pcdbapi client",
+  name: "Legacy client",
   collaborators: ["test@example.com"],
   key: "b".repeat(64),
   // ciphertext produced by pcdbapi itself (federation/pcdbapi/test_crypt.py fixture) —
@@ -16,5 +16,5 @@ db.client.insertOne({
   createdAt: new Date(),
   updatedAt: new Date(),
   secretUpdatedAt: new Date(),
-  updatedBy: "pcdbapi",
+  updatedBy: "espace-partenaires",
 });
