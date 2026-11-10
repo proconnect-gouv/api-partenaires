@@ -48,13 +48,16 @@ export function decide_rate_limit({
   };
 }
 
-export function create_rate_limit_middleware<P extends string>({
+export function create_rate_limit_middleware<
+  P extends string = string,
+  E extends Env = Env,
+>({
   key,
   limit_per_minute,
 }: {
-  key: (c: Context<Env, P>) => string;
+  key: (c: Context<E, P>) => string;
   limit_per_minute: number;
-}): MiddlewareHandler<Env, P> {
+}): MiddlewareHandler<E, P> {
   let state: RateLimitState = { counts: new Map(), window_start: Date.now() };
   return async (c, next) => {
     const rate_key = key(c);

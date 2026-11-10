@@ -31,3 +31,22 @@ services:
       interval: 1s
       timeout: 1s
       retries: 10
+
+  proconnect:
+    image: oven/bun:1.4.4-alpine
+    command: ["bun", "/mock/mock_proconnect.ts"]
+    environment:
+      MOCK_PROCONNECT_ISSUER: http://proconnect:4000/api/v2
+      MOCK_PROCONNECT_RESOURCE_SERVER_CLIENT_ID: api-partenaires
+      MOCK_PROCONNECT_RESOURCE_SERVER_CLIENT_SECRET: api-partenaires-secret
+    ports:
+      - "127.0.0.1:4000:4000"
+    volumes:
+      - ./mock_proconnect.ts:/mock/mock_proconnect.ts:ro
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "wget --no-verbose --tries=1 --spider http://127.0.0.1:4000/api/v2/.well-known/openid-configuration || exit 1"
+      interval: 1s
+      timeout: 1s
+      retries: 10

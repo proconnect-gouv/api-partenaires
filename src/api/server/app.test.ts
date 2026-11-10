@@ -45,6 +45,7 @@ function create_test_app({
     providers,
     rate_limit_per_minute,
     rate_limit_per_minute_per_oidc_provider: Infinity,
+    rate_limit_per_minute_per_user: Infinity,
   });
 }
 

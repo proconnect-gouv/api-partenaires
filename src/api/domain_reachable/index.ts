@@ -1,7 +1,14 @@
 import { z } from "zod";
 
+import {
+  type Fetch,
+  http_failure_fields,
+  type HttpFailure,
+  read_response_body,
+  safe_fetch,
+} from "#src/api/http";
 import { log } from "#src/api/log";
-import { err, ok, type Result } from "#src/utils";
+import { assert_never, err, ok, type Result } from "#src/utils";
 
 const A = 1;
 const CONCURRENCY = 10;
@@ -46,42 +53,11 @@ type RecordType = "A" | "MX";
 export type DnsFailure = {
   readonly domain: string;
   readonly record_type: RecordType;
-} & (
-  | {
-      readonly kind: "bad_response";
-      readonly issues: readonly z.core.$ZodIssue[];
-    }
-  | { readonly kind: "http_error"; readonly http_status: number }
-  | { readonly kind: "request_failed"; readonly cause: unknown }
-  | { readonly kind: "timeout" }
-);
-
-function dns_lookup_failed_fields(failure: DnsFailure): {
-  readonly event: "dns.lookup.failed";
-} & Record<string, unknown> {
-  const fields = {
-    domain: failure.domain,
-    error_type: failure.kind,
-    event: "dns.lookup.failed",
-    record_type: failure.record_type,
-  } as const;
-  switch (failure.kind) {
-    case "bad_response":
-      return { ...fields, issues: failure.issues };
-    case "http_error":
-      return { ...fields, http_status: failure.http_status };
-    case "request_failed":
-      return { ...fields, cause: failure.cause };
-    case "timeout":
-      return fields;
-  }
-}
+} & HttpFailure;
 
 export type FindUnreachableDomains = (
   domains: readonly string[],
 ) => Promise<Result<readonly string[], DnsFailure>>;
-
-type Fetch = (url: string, init: { signal: AbortSignal }) => Promise<Response>;
 
 export function create_find_unreachable_domains({
   fetch,
@@ -102,29 +78,26 @@ export function create_find_unreachable_domains({
       type: record_type,
     }).toString();
     const url = `https://dns.google/resolve?${query}`;
-    let body: unknown;
-    try {
-      const res = await fetch(url, { signal });
-      if (!res.ok)
-        return err({
-          domain,
-          http_status: res.status,
-          kind: "http_error",
-          record_type,
-        });
-      body = await res.json();
-    } catch (cause) {
-      if (cause instanceof DOMException && cause.name === "TimeoutError")
-        return err({ domain, kind: "timeout", record_type });
-      return err({ cause, domain, kind: "request_failed", record_type });
-    }
-    const parsed = dns_response_schema.safeParse(body);
+    const response = await safe_fetch({
+      fetch,
+      init: { redirect: "error", signal },
+      url,
+    });
+    if (!response.ok) return err({ ...response.error, domain, record_type });
+    const body = await read_response_body({
+      parse: JSON.parse,
+      response: response.value,
+      url,
+    });
+    if (!body.ok) return err({ ...body.error, domain, record_type });
+    const parsed = dns_response_schema.safeParse(body.value);
     if (!parsed.success)
       return err({
+        cause: parsed.error,
         domain,
-        issues: parsed.error.issues,
         kind: "bad_response",
         record_type,
+        url,
       });
     return ok(parsed.data);
   }
@@ -191,12 +164,19 @@ export function create_find_unreachable_domains({
               });
               unreachable.add(domain);
               break;
+            default:
+              assert_never(reachability);
           }
         }
       }),
     );
     if (failure !== undefined) {
-      log("error", dns_lookup_failed_fields(failure));
+      log("error", {
+        domain: failure.domain,
+        event: "dns.lookup.failed",
+        record_type: failure.record_type,
+        ...http_failure_fields(failure),
+      });
       return err(failure);
     }
     return ok(domains.filter((domain) => unreachable.has(domain)));

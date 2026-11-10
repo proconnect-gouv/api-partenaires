@@ -5,7 +5,13 @@ import { ObjectId } from "mongodb";
 import { z } from "zod";
 
 import { decrypt_symetric, encrypt_symetric } from "#src/api/crypt";
-import { log } from "#src/api/log";
+import { email_schema } from "#src/api/email";
+
+import type {
+  ActingUserEnv,
+  ActingUserMiddleware,
+} from "../acting_user_middleware";
+import { track_as } from "../track";
 
 const SIGNED_RESPONSE_ALGS = ["RS256", "ES256", "HS256"] as const;
 
@@ -84,15 +90,29 @@ const oidc_client_schema = z
         .enum(SIGNED_RESPONSE_ALGS)
         .nullable()
         .optional(),
-      collaborators: z.array(z.string()).optional(),
+      collaborators: z.array(email_schema).optional(),
       active: z.boolean().optional(),
     }),
   );
+
+type OidcClientBody = z.infer<typeof oidc_client_schema>;
 
 function parse_object_id(id: string): ObjectId | null {
   if (!ObjectId.isValid(id)) return null;
   return new ObjectId(id);
 }
+
+const client_body_validator: MiddlewareHandler<
+  ActingUserEnv,
+  string,
+  { in: { json: OidcClientBody }; out: { json: OidcClientBody } }
+> = async (c, next) => {
+  const body_text = await c.req.text();
+  const parsed = oidc_client_schema.safeParse(body_text || "{}");
+  if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
+  c.req.addValidatedData("json", parsed.data);
+  await next();
+};
 
 function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   return {
@@ -111,49 +131,36 @@ function format_oidc_client(cipher_pass: string, doc: OidcClientDoc) {
   };
 }
 
-const email_middleware: MiddlewareHandler<{
-  Variables: { email: string; body_text: string };
-}> = async (c, next) => {
-  const email = c.req.query("email");
-  if (!email) {
-    return c.json({ detail: "Missing authentication headers" }, 401);
-  }
-  const parsed = z.email().safeParse(email);
-  if (!parsed.success) {
-    return c.json({ detail: "Invalid email" }, 422);
-  }
-  c.set("email", email);
-  await next();
-};
-
 export function create_oidc_clients_router({
-  oidc_clients,
+  authenticate,
   client_secret_cipher_pass,
+  oidc_clients,
 }: {
-  oidc_clients: OidcClientStore;
+  authenticate: ActingUserMiddleware;
   client_secret_cipher_pass: string;
+  oidc_clients: OidcClientStore;
 }) {
-  return new Hono<{ Variables: { email: string; body_text: string } }>()
-    .use("*", email_middleware)
+  return new Hono()
+    .use(authenticate)
     .get("/", async (c) => {
-      const email = c.get("email");
+      const { email } = c.get("acting_user");
       const docs = await oidc_clients.find({ collaborators: email }).toArray();
       return c.json(
         docs.map((doc) => format_oidc_client(client_secret_cipher_pass, doc)),
       );
     })
-    .post("/", async (c) => {
-      const email = c.get("email");
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
-      if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
+    .post("/", client_body_validator, async (c) => {
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
+      const input = c.req.valid("json");
 
       const now_date = new Date();
       const collaborators = Array.from(
-        new Set([...(parsed.data.collaborators ?? []), email]),
+        new Set([...(input.collaborators ?? []), email]),
       );
 
       const doc: Omit<OidcClientDoc, "_id"> = {
-        ...parsed.data,
+        ...input,
         collaborators,
         createdAt: now_date,
         updatedAt: now_date,
@@ -172,8 +179,7 @@ export function create_oidc_clients_router({
       };
 
       const result = await oidc_clients.insertOne(doc);
-      log("info", {
-        by: email,
+      track_as(acting_user, {
         event: "oidc_client.created",
         id: result.insertedId.toHexString(),
       });
@@ -185,7 +191,7 @@ export function create_oidc_clients_router({
       );
     })
     .get("/:id", async (c) => {
-      const email = c.get("email");
+      const { email } = c.get("acting_user");
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
@@ -196,18 +202,14 @@ export function create_oidc_clients_router({
       if (!doc) return c.json({ detail: "Not Found" }, 404);
       return c.json(format_oidc_client(client_secret_cipher_pass, doc));
     })
-    .patch("/:id", async (c) => {
-      const email = c.get("email");
+    .patch("/:id", client_body_validator, async (c) => {
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
-      const parsed = oidc_client_schema.safeParse(c.get("body_text") || "{}");
-      if (!parsed.success) return c.json({ detail: parsed.error.issues }, 422);
-
-      if (
-        parsed.data.collaborators &&
-        !parsed.data.collaborators.includes(email)
-      ) {
+      const input = c.req.valid("json");
+      if (input.collaborators && !input.collaborators.includes(email)) {
         return c.json(
           { detail: "Cannot remove yourself from collaborators" },
           422,
@@ -215,7 +217,7 @@ export function create_oidc_clients_router({
       }
 
       const update = {
-        ...parsed.data,
+        ...input,
         updatedAt: new Date(),
         updatedBy: "espace-partenaires",
       };
@@ -225,10 +227,9 @@ export function create_oidc_clients_router({
         { $set: update },
       );
       if (!result.matchedCount) return c.json({ detail: "Not Found" }, 404);
-      log("info", {
-        by: email,
+      track_as(acting_user, {
         event: "oidc_client.updated",
-        fields: Object.keys(parsed.data),
+        fields: Object.keys(input),
         id: oid.toHexString(),
       });
 
@@ -240,7 +241,8 @@ export function create_oidc_clients_router({
       return c.json(format_oidc_client(client_secret_cipher_pass, updated));
     })
     .delete("/:id", async (c) => {
-      const email = c.get("email");
+      const acting_user = c.get("acting_user");
+      const { email } = acting_user;
       const oid = parse_object_id(c.req.param("id"));
       if (!oid) return c.json({ detail: "Invalid ObjectId" }, 422);
 
@@ -249,8 +251,7 @@ export function create_oidc_clients_router({
         collaborators: email,
       });
       if (!result.deletedCount) return c.json({ detail: "Not Found" }, 404);
-      log("info", {
-        by: email,
+      track_as(acting_user, {
         event: "oidc_client.deleted",
         id: oid.toHexString(),
       });

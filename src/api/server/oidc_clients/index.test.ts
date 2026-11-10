@@ -1,8 +1,13 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import { createHmac } from "node:crypto";
 
 import { ObjectId } from "mongodb";
 
+import type { Fetch } from "#src/api/http";
+import {
+  create_verify_access_token,
+  https_issuer_schema,
+} from "#src/api/proconnect";
 import { create_app, type OidcProviderStore } from "#src/api/server";
 import { ok } from "#src/utils";
 
@@ -10,8 +15,60 @@ import type { OidcClientDoc, OidcClientStore } from "./index";
 
 const CALLER = "test@example.com";
 const CIPHER_PASS = "test-cipher-pass-32-bytes-long!!";
+const ESPACE_PARTENAIRES = "espace-partenaires";
 const OIDC_CLIENTS_SECRET = "test-oidc-clients-secret";
 const OIDC_PROVIDERS_SECRET = "test-oidc-providers-secret";
+const PROCONNECT_ISSUER = "https://proconnect.example/api/v2";
+
+type Person = { access_token: string; email: string; sub: string };
+
+function proconnect_vouching_for({
+  introspection = (person) =>
+    Response.json({
+      active: true,
+      client_id: ESPACE_PARTENAIRES,
+      sub: person.sub,
+      token_type: "Bearer",
+    }),
+  people,
+  userinfo = (person) =>
+    Response.json({ email: person.email, sub: person.sub }),
+}: {
+  introspection?: (person: Person) => Response;
+  people: Person[];
+  userinfo?: (person: Person) => Response;
+}) {
+  const introspected: string[] = [];
+  const fetch: Fetch = async (url, { body, headers }) => {
+    switch (url) {
+      case `${PROCONNECT_ISSUER}/token/introspection`: {
+        const form = new URLSearchParams(String(body));
+        if (
+          form.get("client_id") !== "api-partenaires" ||
+          form.get("client_secret") !== "api-partenaires-secret"
+        )
+          return Response.json({ error: "invalid_client" }, { status: 401 });
+        const token = form.get("token") ?? "";
+        introspected.push(token);
+        const person = people.find((p) => p.access_token === token);
+        return person
+          ? introspection(person)
+          : Response.json({ active: false });
+      }
+      case `${PROCONNECT_ISSUER}/userinfo`: {
+        const authorization = new Headers(headers).get("authorization");
+        const person = people.find(
+          (p) => `Bearer ${p.access_token}` === authorization,
+        );
+        return person
+          ? userinfo(person)
+          : Response.json({ error: "invalid_token" }, { status: 401 });
+      }
+    }
+    return new Response(null, { status: 404 });
+  };
+  return { fetch, introspected };
+}
 
 function sign(
   method: string,
@@ -32,12 +89,14 @@ function api_call(
   method: string,
   path: string,
   {
+    authorization,
     json_data,
     override_signature,
     override_timestamp,
     secret,
     email,
   }: {
+    authorization?: string;
     json_data?: unknown;
     override_signature?: string;
     override_timestamp?: string;
@@ -59,8 +118,34 @@ function api_call(
       "X-Signature": signature,
       "X-Timestamp": timestamp,
       ...(body !== undefined ? { "content-type": "application/json" } : {}),
+      ...(authorization !== undefined ? { authorization } : {}),
     },
     body,
+  });
+}
+
+function token_call(
+  app: ReturnType<typeof create_app>,
+  method: string,
+  path: string,
+  {
+    as,
+    authorization = `Bearer ${as?.access_token}`,
+    json_data,
+  }: {
+    as?: { access_token: string };
+    authorization?: string;
+    json_data?: unknown;
+  },
+) {
+  const body = json_data !== undefined ? JSON.stringify(json_data) : undefined;
+  return app.request(path, {
+    body,
+    headers: {
+      authorization,
+      ...(body !== undefined ? { "content-type": "application/json" } : {}),
+    },
+    method,
   });
 }
 
@@ -68,10 +153,16 @@ function create_test_app({
   enable_sandbox = true,
   oidc_clients_secret = OIDC_CLIENTS_SECRET,
   oidc_providers_secret = OIDC_PROVIDERS_SECRET,
+  proconnect,
+  rate_limit_per_minute = Infinity,
+  rate_limit_per_minute_per_user = Infinity,
 }: {
   enable_sandbox?: boolean;
   oidc_clients_secret?: string;
   oidc_providers_secret?: string;
+  proconnect?: Fetch;
+  rate_limit_per_minute?: number;
+  rate_limit_per_minute_per_user?: number;
 } = {}) {
   const providers: OidcProviderStore = {
     async distinct() {
@@ -126,8 +217,9 @@ function create_test_app({
   };
   return create_app({
     providers,
-    rate_limit_per_minute: Infinity,
+    rate_limit_per_minute,
     rate_limit_per_minute_per_oidc_provider: Infinity,
+    rate_limit_per_minute_per_user,
     oidc_providers_config: {
       oidc_providers: [
         {
@@ -144,6 +236,15 @@ function create_test_app({
     client_secret_cipher_pass: CIPHER_PASS,
     enable_sandbox_endpoint: enable_sandbox,
     find_unreachable_domains: async () => ok([]),
+    verify_access_token:
+      proconnect &&
+      create_verify_access_token({
+        allowed_client_id: ESPACE_PARTENAIRES,
+        client_id: "api-partenaires",
+        client_secret: "api-partenaires-secret",
+        fetch: proconnect,
+        issuer: https_issuer_schema.parse(PROCONNECT_ISSUER),
+      }),
   });
 }
 
@@ -211,6 +312,456 @@ describe("email middleware", () => {
     });
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({ detail: "Invalid email" });
+  });
+
+  test("acts for ?email= in lower case", async () => {
+    const app = create_test_app();
+    const res = await api_call(app, "POST", "/api/oidc_clients", {
+      email: "Test@Example.com",
+      json_data: { name: "Créé en majuscules" },
+    });
+    expect(await res.json()).toMatchObject({
+      collaborators: ["test@example.com"],
+    });
+  });
+});
+
+describe("ProConnect access token", () => {
+  const JEANNE = {
+    access_token: "jeanne-access-token",
+    email: "jeanne.dupont@example.gouv.fr",
+    sub: "jeanne-sub",
+  };
+  const MARCEL = {
+    access_token: "marcel-access-token",
+    email: "marcel.martin@example.gouv.fr",
+    sub: "marcel-sub",
+  };
+
+  function signed_jwt(claims: Record<string, unknown>) {
+    const encode = (value: unknown) =>
+      Buffer.from(JSON.stringify(value)).toString("base64url");
+    return `${encode({ alg: "ES256" })}.${encode(claims)}.unchecked-signature`;
+  }
+
+  test("acts as the token's person, ignoring ?email= and the signature headers", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    const created = await token_call(
+      app,
+      "POST",
+      "/api/oidc_clients?email=usurpateur@example.com",
+      { as: JEANNE, json_data: { name: "Service de Jeanne" } },
+    );
+
+    expect(created.status).toBe(200);
+    expect(await created.json()).toMatchObject({
+      collaborators: [JEANNE.email],
+      name: "Service de Jeanne",
+    });
+  });
+
+  test.each([
+    {
+      title: "a JSON userinfo in capitals",
+      userinfo: () =>
+        Response.json({
+          email: "Jeanne.Dupont@Example.gouv.fr",
+          sub: JEANNE.sub,
+        }),
+    },
+    {
+      title: "a signed userinfo served as application/jwt",
+      userinfo: () =>
+        new Response(signed_jwt({ email: JEANNE.email, sub: JEANNE.sub }), {
+          headers: { "content-type": "application/jwt" },
+        }),
+    },
+    {
+      title: "a signed userinfo served as application/octet-stream",
+      userinfo: () =>
+        new Response(signed_jwt({ email: JEANNE.email, sub: JEANNE.sub }), {
+          headers: { "content-type": "application/octet-stream" },
+        }),
+    },
+  ])("reads the person's email from $title", async ({ userinfo }) => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE], userinfo }).fetch,
+    });
+
+    const created = await token_call(app, "POST", "/api/oidc_clients", {
+      as: JEANNE,
+      json_data: { name: "Service de Jeanne" },
+    });
+
+    expect(await created.json()).toMatchObject({
+      collaborators: [JEANNE.email],
+    });
+  });
+
+  test("asks the federation once per request", async () => {
+    const proconnect = proconnect_vouching_for({ people: [JEANNE] });
+    const app = create_test_app({ proconnect: proconnect.fetch });
+
+    await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+
+    expect(proconnect.introspected).toEqual([JEANNE.access_token]);
+  });
+
+  test("accepts the Bearer scheme in any letter case", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    const res = await token_call(app, "GET", "/api/oidc_clients", {
+      authorization: `bearer ${JEANNE.access_token}`,
+    });
+
+    expect(res.status).toBe(200);
+  });
+
+  test.each<{
+    introspection?: (person: Person) => Response;
+    title: string;
+    userinfo?: (person: Person) => Response;
+  }>([
+    {
+      introspection: ({ sub }) =>
+        Response.json({
+          active: false,
+          client_id: ESPACE_PARTENAIRES,
+          sub,
+          token_type: "Bearer",
+        }),
+      title: "a token marked inactive",
+    },
+    {
+      introspection: ({ sub }) =>
+        Response.json({
+          active: true,
+          client_id: "service-voisin",
+          sub,
+          token_type: "Bearer",
+        }),
+      title: "a token issued to another service",
+    },
+    {
+      introspection: ({ sub }) =>
+        Response.json({ active: true, sub, token_type: "Bearer" }),
+      title: "a token without a client id",
+    },
+    {
+      introspection: ({ sub }) =>
+        Response.json({ active: true, client_id: ESPACE_PARTENAIRES, sub }),
+      title: "a refresh token",
+    },
+    {
+      introspection: () =>
+        Response.json({
+          active: true,
+          client_id: ESPACE_PARTENAIRES,
+          sub: "",
+          token_type: "Bearer",
+        }),
+      title: "a token with an empty subject",
+    },
+    {
+      title: "a token whose federation session ended before userinfo",
+      userinfo: () =>
+        Response.json({ error: "invalid_token" }, { status: 401 }),
+    },
+    {
+      title: "a token without the openid scope",
+      userinfo: () =>
+        Response.json({ error: "insufficient_scope" }, { status: 403 }),
+    },
+    {
+      title: "a token whose userinfo has no email",
+      userinfo: ({ sub }) => Response.json({ sub }),
+    },
+    {
+      title: "a token whose userinfo has a malformed email",
+      userinfo: ({ sub }) => new Response(signed_jwt({ email: "jeanne", sub })),
+    },
+    {
+      title: "a token whose userinfo names another subject",
+      userinfo: ({ email }) =>
+        Response.json({ email, sub: "sub-de-quelqu-un-d-autre" }),
+    },
+  ])("refuses $title", async ({ introspection, userinfo }) => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({
+        introspection,
+        people: [JEANNE],
+        userinfo,
+      }).fetch,
+    });
+
+    const res = await token_call(app, "GET", "/api/oidc_clients", {
+      as: JEANNE,
+    });
+
+    expect(res.status).toBe(401);
+    expect(res.headers.get("WWW-Authenticate")).toBe(
+      'Bearer error="invalid_token"',
+    );
+    expect(await res.json()).toEqual({ detail: "Invalid token" });
+  });
+
+  test("refuses a token the federation does not vouch for, even on a valid signed request", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      authorization: `Bearer ${MARCEL.access_token}`,
+      email: JEANNE.email,
+    });
+
+    expect(res.status).toBe(401);
+    expect(await res.json()).toEqual({ detail: "Invalid token" });
+  });
+
+  test.each([
+    { authorization: "jeanne-access-token", title: "a token without scheme" },
+    { authorization: "Basic amVhbm5lOnNlY3JldA==", title: "Basic credentials" },
+    { authorization: "Bearer ", title: "an empty Bearer token" },
+    { authorization: "Bearer two tokens", title: "two Bearer tokens" },
+  ])(
+    "refuses $title in Authorization, even on a valid signed request",
+    async ({ authorization }) => {
+      const app = create_test_app({
+        proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+      });
+
+      const res = await api_call(app, "GET", "/api/oidc_clients", {
+        authorization,
+        email: JEANNE.email,
+      });
+
+      expect(res.status).toBe(401);
+      expect(res.headers.get("WWW-Authenticate")).toBe(
+        'Bearer error="invalid_request"',
+      );
+      expect(await res.json()).toEqual({
+        detail: "Invalid authorization header",
+      });
+    },
+  );
+
+  test("ignores Authorization and checks the signature when token authentication is not configured", async () => {
+    const app = create_test_app();
+
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      authorization: `Bearer ${JEANNE.access_token}`,
+      email: JEANNE.email,
+    });
+
+    expect(res.status).toBe(200);
+  });
+
+  test("limits each person separately", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE, MARCEL] }).fetch,
+      rate_limit_per_minute_per_user: 1,
+    });
+    const list_as = (person: Person) =>
+      token_call(app, "GET", "/api/oidc_clients", { as: person });
+
+    expect((await list_as(JEANNE)).status).toBe(200);
+    expect((await list_as(JEANNE)).status).toBe(429);
+    expect((await list_as(MARCEL)).status).toBe(200);
+  });
+
+  test("stops asking the federation once unknown tokens use up the global limit", async () => {
+    const proconnect = proconnect_vouching_for({ people: [] });
+    const app = create_test_app({
+      proconnect: proconnect.fetch,
+      rate_limit_per_minute: 2,
+    });
+
+    const statuses = [];
+    for (const access_token of ["inconnu-1", "inconnu-2", "inconnu-3"])
+      statuses.push(
+        (
+          await token_call(app, "GET", "/api/oidc_clients", {
+            as: { access_token },
+          })
+        ).status,
+      );
+
+    expect(statuses).toEqual([401, 401, 429]);
+    expect(proconnect.introspected).toEqual(["inconnu-1", "inconnu-2"]);
+  });
+
+  test("counts signed and token requests against separate global limits", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+      rate_limit_per_minute: 1,
+    });
+
+    const signed = await api_call(app, "GET", "/api/oidc_clients", {
+      email: JEANNE.email,
+    });
+    const by_token = await token_call(app, "GET", "/api/oidc_clients", {
+      as: JEANNE,
+    });
+
+    expect([signed.status, by_token.status]).toEqual([200, 200]);
+  });
+
+  test("lets a collaborator added in capitals open the client with her own token", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE, MARCEL] }).fetch,
+    });
+    await token_call(app, "POST", "/api/oidc_clients", {
+      as: JEANNE,
+      json_data: {
+        collaborators: ["Marcel.Martin@Example.gouv.fr"],
+        name: "Service partagé",
+      },
+    });
+
+    const listed = await token_call(app, "GET", "/api/oidc_clients", {
+      as: MARCEL,
+    });
+
+    expect(await listed.json()).toMatchObject([
+      {
+        collaborators: [MARCEL.email, JEANNE.email],
+        name: "Service partagé",
+      },
+    ]);
+  });
+
+  test("logs how each change was authenticated", async () => {
+    const info = spyOn(console, "info").mockImplementation(() => {});
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    await token_call(app, "POST", "/api/oidc_clients", {
+      as: JEANNE,
+      json_data: { name: "Created with a token" },
+    });
+    await api_call(app, "POST", "/api/oidc_clients", {
+      email: JEANNE.email,
+      json_data: { name: "Created with a signature" },
+    });
+
+    const [by_token, by_signature] = info.mock.calls
+      .map(([line]) => JSON.parse(line))
+      .filter((line) => line.event === "oidc_client.created");
+    expect(by_token).toMatchObject({
+      auth: "token",
+      by: JEANNE.email,
+      client_id: ESPACE_PARTENAIRES,
+      sub: JEANNE.sub,
+    });
+    expect(by_signature).toMatchObject({ auth: "hmac", by: JEANNE.email });
+    expect(by_signature).not.toHaveProperty("sub");
+    info.mockRestore();
+  });
+
+  test.each<{ proconnect: Fetch; title: string }>([
+    {
+      proconnect: proconnect_vouching_for({
+        introspection: () => new Response("<html>maintenance</html>"),
+        people: [JEANNE],
+      }).fetch,
+      title: "introspection answers an HTML page",
+    },
+    {
+      proconnect: proconnect_vouching_for({
+        people: [JEANNE],
+        userinfo: () => new Response("", { status: 500 }),
+      }).fetch,
+      title: "userinfo answers 500",
+    },
+    {
+      proconnect: proconnect_vouching_for({
+        people: [JEANNE],
+        userinfo: () =>
+          new Response("header.encrypted-key.iv.ciphertext.tag", {
+            headers: { "content-type": "application/jwt" },
+          }),
+      }).fetch,
+      title: "userinfo is encrypted",
+    },
+    {
+      proconnect: async () => {
+        throw new DOMException("timed out", "TimeoutError");
+      },
+      title: "the federation times out",
+    },
+    {
+      proconnect: async () => {
+        throw new TypeError("fetch failed");
+      },
+      title: "the federation is unreachable",
+    },
+  ])("answers 503 when $title", async ({ proconnect }) => {
+    const error = spyOn(console, "error").mockImplementation(() => {});
+    const app = create_test_app({ proconnect });
+
+    const res = await token_call(app, "GET", "/api/oidc_clients", {
+      as: JEANNE,
+    });
+
+    expect(res.status).toBe(503);
+    expect(await res.json()).toEqual({
+      detail: "Identity provider unavailable",
+    });
+    error.mockRestore();
+  });
+
+  test("logs a federation failure without the token", async () => {
+    const error = spyOn(console, "error").mockImplementation(() => {});
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({
+        introspection: () => new Response("down", { status: 502 }),
+        people: [JEANNE],
+      }).fetch,
+    });
+
+    await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+
+    const lines = error.mock.calls.map(([line]) => String(line));
+    expect(lines.map((line) => JSON.parse(line))).toContainEqual({
+      "error.type": "http_error",
+      event: "proconnect.request.failed",
+      "http.response.status_code": 502,
+      level: "error",
+      "url.full": `${PROCONNECT_ISSUER}/token/introspection`,
+    });
+    expect(lines.join("\n")).not.toContain(JEANNE.access_token);
+    error.mockRestore();
+  });
+
+  test("logs a network error as exception fields, without the raw cause or token", async () => {
+    const error = spyOn(console, "error").mockImplementation(() => {});
+    const app = create_test_app({
+      proconnect: async () => {
+        throw new TypeError("fetch failed");
+      },
+    });
+
+    await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+
+    const lines = error.mock.calls.map(([line]) => String(line));
+    expect(lines.map((line) => JSON.parse(line))).toContainEqual({
+      "error.type": "request_failed",
+      "exception.message": "fetch failed",
+      "exception.type": "TypeError",
+      event: "proconnect.request.failed",
+      level: "error",
+      "url.full": `${PROCONNECT_ISSUER}/token/introspection`,
+    });
+    expect(lines.join("\n")).not.toContain("stack");
+    expect(lines.join("\n")).not.toContain(JEANNE.access_token);
+    error.mockRestore();
   });
 });
 
@@ -542,6 +1093,7 @@ describe("PATCH TOCTOU between updateOne and response findOne", () => {
     const app = create_app({
       rate_limit_per_minute: Infinity,
       rate_limit_per_minute_per_oidc_provider: Infinity,
+      rate_limit_per_minute_per_user: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,
@@ -628,6 +1180,7 @@ describe("unhandled exception in a route returns shaped 500", () => {
     const app = create_app({
       rate_limit_per_minute: Infinity,
       rate_limit_per_minute_per_oidc_provider: Infinity,
+      rate_limit_per_minute_per_user: Infinity,
       providers: {
         distinct: async () => [],
         findOne: async () => null,
@@ -691,6 +1244,29 @@ describe("sandbox endpoint disabled", () => {
     });
     expect(res.status).toBe(403);
     expect(await res.json()).toEqual({ error: "sandbox_disabled" });
+  });
+
+  test("still checks the signature when the sandbox is off", async () => {
+    const app = create_test_app({ enable_sandbox: false });
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      email: CALLER,
+      override_signature: "invalid",
+    });
+    expect(res.status).toBe(401);
+    expect(await res.json()).toEqual({ detail: "Invalid signature" });
+  });
+
+  test("does not verify a token when the sandbox is off", async () => {
+    const proconnect = proconnect_vouching_for({ people: [] });
+    const app = create_test_app({
+      enable_sandbox: false,
+      proconnect: proconnect.fetch,
+    });
+    const res = await api_call(app, "GET", "/api/oidc_clients", {
+      authorization: "Bearer jeton-quelconque",
+      email: CALLER,
+    });
+    expect([res.status, proconnect.introspected]).toEqual([403, []]);
   });
 });
 

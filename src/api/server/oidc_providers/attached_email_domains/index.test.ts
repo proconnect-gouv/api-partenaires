@@ -196,10 +196,11 @@ describe("OIDC provider attached email domains API", () => {
   test.each<[DnsFailure, number, string]>([
     [
       {
+        cause: new SyntaxError(),
         domain: "fifi.fr",
-        issues: [],
         kind: "bad_response",
         record_type: "MX",
+        url: "https://dns.google/resolve?name=fifi.fr&type=MX",
       },
       502,
       "dns_bad_response",
@@ -210,6 +211,7 @@ describe("OIDC provider attached email domains API", () => {
         http_status: 503,
         kind: "http_error",
         record_type: "MX",
+        url: "https://dns.google/resolve?name=fifi.fr&type=MX",
       },
       502,
       "dns_http_error",
@@ -220,12 +222,18 @@ describe("OIDC provider attached email domains API", () => {
         domain: "fifi.fr",
         kind: "request_failed",
         record_type: "A",
+        url: "https://dns.google/resolve?name=fifi.fr&type=A",
       },
       502,
       "dns_request_failed",
     ],
     [
-      { domain: "fifi.fr", kind: "timeout", record_type: "MX" },
+      {
+        domain: "fifi.fr",
+        kind: "timeout",
+        record_type: "MX",
+        url: "https://dns.google/resolve?name=fifi.fr&type=MX",
+      },
       504,
       "dns_timeout",
     ],

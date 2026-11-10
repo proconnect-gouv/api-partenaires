@@ -1,0 +1,14 @@
+services:
+  mongo:
+    extends:
+      file: ../compose.yaml
+      service: mongo
+    volumes:
+      - ./initdb.d:/docker-entrypoint-initdb.d:ro
+
+  partners:
+    extends:
+      file: ../compose.yaml
+      service: partners
+    environment:
+      FEATURE_ENABLE_SANDBOX_ENDPOINT: true

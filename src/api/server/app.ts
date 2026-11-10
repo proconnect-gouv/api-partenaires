@@ -4,12 +4,14 @@ import type { OidcProvidersConfig } from "#src/allowlist";
 import type { FindUnreachableDomains } from "#src/api/domain_reachable";
 import { log, log_enabled } from "#src/api/log";
 import type { OidcProvider } from "#src/api/oidc_providers";
+import type { VerifyAccessToken } from "#src/api/proconnect";
 import {
   create_oidc_clients_router,
   type OidcClientStore,
 } from "#src/api/server/oidc_clients";
 import { create_oidc_providers_router } from "#src/api/server/oidc_providers";
 
+import { create_acting_user_middleware } from "./acting_user_middleware";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
 
@@ -47,6 +49,8 @@ export function create_app({
   providers,
   rate_limit_per_minute,
   rate_limit_per_minute_per_oidc_provider,
+  rate_limit_per_minute_per_user,
+  verify_access_token,
 }: {
   check_ready: () => Promise<unknown>;
   client_secret_cipher_pass: string;
@@ -60,13 +64,11 @@ export function create_app({
   providers: OidcProviderStore;
   rate_limit_per_minute: number;
   rate_limit_per_minute_per_oidc_provider: number;
+  rate_limit_per_minute_per_user: number;
+  verify_access_token?: VerifyAccessToken;
 }) {
   const oidc_providers_middleware = create_signature_middleware({
     api_secret: oidc_providers_api_secret,
-    max_timestamp_diff,
-  });
-  const oidc_clients_middleware = create_signature_middleware({
-    api_secret: oidc_clients_api_secret,
     max_timestamp_diff,
   });
   const oidc_providers_rate_limit = create_rate_limit_middleware({
@@ -78,12 +80,8 @@ export function create_app({
       key: (c) => c.req.param("uid"),
       limit_per_minute: rate_limit_per_minute_per_oidc_provider,
     });
-  const oidc_clients_rate_limit = create_rate_limit_middleware({
-    key: () => "oidc_clients",
-    limit_per_minute: rate_limit_per_minute,
-  });
 
-  return new Hono()
+  const app = new Hono()
     .use(async (c, next) => {
       const start = performance.now();
       await next();
@@ -126,31 +124,42 @@ export function create_app({
         oidc_providers_config,
         providers,
       }),
-    )
-    .use("/api/oidc_clients", oidc_clients_middleware, oidc_clients_rate_limit)
-    .use(
-      "/api/oidc_clients/*",
-      oidc_clients_middleware,
-      oidc_clients_rate_limit,
-    )
-    .route(
-      "/api/oidc_clients",
-      enable_sandbox_endpoint
-        ? create_oidc_clients_router({
-            oidc_clients,
-            client_secret_cipher_pass,
-          })
-        : create_unauthorized_router(),
-    )
-    .onError((err, c) => {
-      log("error", { error: err, event: "http.error", path: c.req.path });
-      return c.json({ detail: "Internal Server Error" }, 500);
-    });
-}
+    );
 
-function create_unauthorized_router() {
-  return new Hono<{ Variables: { email: string; body_text: string } }>().all(
-    "*",
-    (c) => c.json({ error: "sandbox_disabled" }, 403),
-  );
+  if (enable_sandbox_endpoint)
+    app.route(
+      "/api/oidc_clients",
+      create_oidc_clients_router({
+        authenticate: create_acting_user_middleware({
+          api_secret: oidc_clients_api_secret,
+          max_timestamp_diff,
+          rate_limit_per_minute,
+          rate_limit_per_minute_per_user,
+          verify_access_token,
+        }),
+        client_secret_cipher_pass,
+        oidc_clients,
+      }),
+    );
+  else
+    app.route(
+      "/api/oidc_clients",
+      new Hono()
+        .use(
+          create_signature_middleware({
+            api_secret: oidc_clients_api_secret,
+            max_timestamp_diff,
+          }),
+          create_rate_limit_middleware({
+            key: () => "oidc_clients",
+            limit_per_minute: rate_limit_per_minute,
+          }),
+        )
+        .all("*", (c) => c.json({ error: "sandbox_disabled" }, 403)),
+    );
+
+  return app.onError((err, c) => {
+    log("error", { error: err, event: "http.error", path: c.req.path });
+    return c.json({ detail: "Internal Server Error" }, 500);
+  });
 }
