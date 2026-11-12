@@ -7,6 +7,7 @@ import {
   create_oidc_provider_store,
   type OidcProviderDocument,
 } from "#src/api/oidc_providers";
+import { create_verify_access_token } from "#src/api/proconnect";
 import { create_app } from "#src/api/server";
 import type { OidcClientDoc } from "#src/api/server/oidc_clients";
 
@@ -31,6 +32,10 @@ const app = create_app({
   rate_limit_per_minute: config.RATE_LIMIT_PER_MINUTE,
   rate_limit_per_minute_per_oidc_provider:
     config.RATE_LIMIT_PER_MINUTE_PER_OIDC_PROVIDER,
+  rate_limit_per_minute_per_user: config.RATE_LIMIT_PER_MINUTE_PER_USER,
+  verify_access_token:
+    config.PROCONNECT &&
+    create_verify_access_token({ ...config.PROCONNECT, fetch }),
 });
 
 export default {
