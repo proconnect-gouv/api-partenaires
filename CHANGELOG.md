@@ -1,5 +1,15 @@
 # Changelog
 
+## [2026.11.3](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.2...2026.11.3) (2026-11-12)
+
+### Changements
+
+- Retrait de l’allowlist de 1 lignes que l’annuaire DILA n’atteste plus : `mairiedechaudeney.com` (fournisseur `f5154035`).
+
+### Modifié
+
+- 🔧 drop 1 rows DILA no longer attests ([#250](https://github.com/proconnect-gouv/api-partenaires/issues/250)) ([51c7de5](https://github.com/proconnect-gouv/api-partenaires/commit/51c7de595a7255143a7aa1bb4407b78fe7274673))
+
 ## [2026.11.2](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.1...2026.11.2) (2026-11-09)
 
 ### Changements
