@@ -411215,10 +411215,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/7374ebdc-bb22-41db-80bf-4d239e98660d
         siret: "21540122500010"
         source: candidate
-      - domain: mairiedechaudeney.com
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/7374ebdc-bb22-41db-80bf-4d239e98660d
-        siret: "21540122500010"
-        source: dila
       - domain: ville-chaudeney-sur-moselle.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/meurthe-et-moselle/7374ebdc-bb22-41db-80bf-4d239e98660d
         siret: "21540122500010"
