@@ -1,5 +1,22 @@
 # Changelog
 
+## [2026.11.3](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.2...2026.11.3) (2026-11-16)
+
+### Changements
+
+- Retrait de l’allowlist de 1 lignes que l’annuaire DILA n’atteste plus : `mairiedechaudeney.com` (fournisseur `f5154035`).
+
+### Modifié
+
+- 🔧 drop 1 rows DILA no longer attests ([#250](https://github.com/proconnect-gouv/api-partenaires/issues/250)) ([51c7de5](https://github.com/proconnect-gouv/api-partenaires/commit/51c7de595a7255143a7aa1bb4407b78fe7274673))
+
+### Dépendances
+
+- ⬆️ Bump hono from 4.13.17 to 4.13.18 ([#257](https://github.com/proconnect-gouv/api-partenaires/issues/257)) ([f360333](https://github.com/proconnect-gouv/api-partenaires/commit/f360333524a6ce2b9057189c5dea6d86d86f155c))
+- ⬆️ Bump @tsconfig/bun from 1.0.11 to 1.0.12 ([#256](https://github.com/proconnect-gouv/api-partenaires/issues/256)) ([dcca403](https://github.com/proconnect-gouv/api-partenaires/commit/dcca403b58cf28f72f420850d46eff65ba7dc4c2))
+- ⬆️ Bump proconnect-gouv/release-action from v1.3.0 to v1.3.1 ([#258](https://github.com/proconnect-gouv/api-partenaires/issues/258)) ([0e2f3ae](https://github.com/proconnect-gouv/api-partenaires/commit/0e2f3ae4c94bfcb44452028737287f268bcf7ab1))
+- ⬆️ Bump hono from 4.13.16 to 4.13.17 ([#255](https://github.com/proconnect-gouv/api-partenaires/issues/255)) ([b68cef7](https://github.com/proconnect-gouv/api-partenaires/commit/b68cef7d64b047baba54a9e638fae1a4c5e84c70))
+
 ## [2026.11.2](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.1...2026.11.2) (2026-11-09)
 
 ### Changements
