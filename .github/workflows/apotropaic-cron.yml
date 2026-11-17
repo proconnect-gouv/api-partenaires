@@ -6,6 +6,12 @@ on:
       - .github/workflows/apotropaic-cron.yml
       - src/allowlist/**
       - src/validation/**
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apotropaic-cron.yml
+      - src/allowlist/**
+      - src/validation/**
   schedule:
     - cron: "17 3 * * *" # 03:17 UTC daily
   workflow_dispatch:
