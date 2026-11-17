@@ -15,6 +15,7 @@ import {
   describe_approval,
   describe_refusal,
   type Fiche,
+  find_moved_fiche,
   load_cog_export,
   load_dila_export,
   md,
@@ -84,6 +85,7 @@ type Check = {
 
 type Scene = {
   domain: string;
+  moved: Fiche | null;
   owner: Fiche | null;
   row_fiche: Fiche | undefined;
 };
@@ -130,10 +132,12 @@ const refusal_context: {
       `DILA gives it to ${all_of.format(declaring.map(fiche_brief))}, not to the row's collectivité`,
     ],
   }),
-  fiche_not_found: (_, { owner }) => ({
-    fix: owner
-      ? `cite ${fiche_link({ fiche: owner, text: "the owner's fiche" })}`
-      : "cite the declaring collectivité's fiche",
+  fiche_not_found: (_, { moved, owner }) => ({
+    fix: moved
+      ? `cite ${fiche_link({ fiche: moved, text: "the collectivité's new fiche" })}, same SIREN`
+      : owner
+        ? `cite ${fiche_link({ fiche: owner, text: "the owner's fiche" })}`
+        : "cite the declaring collectivité's fiche",
     why: [
       "the cited fiche is missing from DILA, or is not a mairie, EPCI, département or région",
     ],
@@ -362,7 +366,15 @@ function explain(domain: string): Explanation {
           ),
     checks,
     context: refusal
-      ? describe_context(refusal, { domain, owner, row_fiche })
+      ? describe_context(refusal, {
+          domain,
+          moved:
+            listed
+              .map(({ row }) => find_moved_fiche(row, dila_index))
+              .find((fiche) => fiche !== null) ?? null,
+          owner,
+          row_fiche,
+        })
       : null,
     declaring,
     domain,

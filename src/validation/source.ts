@@ -297,6 +297,23 @@ export function check_row(row: AllowedDomain, index: DilaIndex): RowVerdict {
   return rebuilt.ok ? rebuilt : rpnt_gap_by_source[row.source](rebuilt.error);
 }
 
+export function find_moved_fiche(
+  row: AllowedDomain,
+  index: DilaIndex,
+): Fiche | null {
+  const verdict = check_row(row, index);
+  const siren = row.siret?.slice(0, 9);
+  if (verdict.ok || verdict.error.code !== "fiche_not_found" || !siren)
+    return null;
+  const moved = [...index.fiches.values()].filter((fiche) => {
+    if (fiche.siren !== siren || fiche.url === null) return false;
+    if (!check_name(row.domain, fiche, fiche).ok) return false;
+    const repointed = check_row({ ...row, fiche: fiche.url }, index);
+    return repointed.ok && repointed.value.code !== "rpnt_gap";
+  });
+  return moved.length === 1 ? (moved[0] ?? null) : null;
+}
+
 export type RowReport = {
   domain: string;
   uid: string;
