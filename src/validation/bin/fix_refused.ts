@@ -2,13 +2,9 @@ import { parseArgs } from "node:util";
 
 import { z } from "zod";
 
-import {
-  allowlist_row_schema,
-  drop_rows,
-  repoint_rows,
-  repointed_row_schema,
-} from "#src/allowlist";
+import { drop_rows, repoint_rows } from "#src/allowlist";
 import type { Result } from "#src/utils";
+import { refused_row_schema } from "#src/validation";
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -27,11 +23,7 @@ if (refused_path === undefined) {
 }
 
 const refused = z
-  .array(
-    allowlist_row_schema.extend({
-      moved_to: repointed_row_schema.shape.fiche.nullable(),
-    }),
-  )
+  .array(refused_row_schema)
   .parse(await Bun.file(refused_path).json());
 const repointed = refused.flatMap(({ domain, moved_to, uid }) =>
   moved_to === null ? [] : [{ domain, fiche: moved_to, uid }],
