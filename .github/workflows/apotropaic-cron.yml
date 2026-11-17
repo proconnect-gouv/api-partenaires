@@ -1,6 +1,11 @@
 name: 🛡️ Apotropaic Cron
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/apotropaic-cron.yml
+      - src/allowlist/**
+      - src/validation/**
   schedule:
     - cron: "17 3 * * *" # 03:17 UTC daily
   workflow_dispatch:
@@ -11,10 +16,12 @@ permissions:
   pull-requests: write
 
 env:
-  FIX_BRANCH: apotropaic/drop-refused-${{ github.ref_name }}
+  FIX_BRANCH: apotropaic/drop-refused-${{ github.head_ref || github.ref_name }}
   GH_TOKEN: ${{ github.token }}
   LABEL: 🛡️ cron
+  REF: ${{ github.head_ref || github.ref_name }}
   RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   TEAM: "@proconnect-gouv/developers"
 
 jobs:
@@ -25,17 +32,19 @@ jobs:
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.SHA }}
 
       - name: 🧾 Provenance
         run: |
           repo="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
-          workflow="$repo/blob/$GITHUB_SHA/.github/workflows/apotropaic-cron.yml"
+          workflow="$repo/blob/$SHA/.github/workflows/apotropaic-cron.yml"
           printf 'Workflow: %s\nRun: %s (attempt %s)\nEvent: %s by %s\nRef: %s at %s\n' \
             "$workflow" "$RUN_URL" "$GITHUB_RUN_ATTEMPT" "$GITHUB_EVENT_NAME" "$GITHUB_TRIGGERING_ACTOR" \
-            "$GITHUB_REF_NAME" "$GITHUB_SHA" > "$RUNNER_TEMP/provenance.txt"
+            "$REF" "$SHA" > "$RUNNER_TEMP/provenance.txt"
           printf '\n\n---\n<sub>🧾 Provenance: [`apotropaic-cron.yml`](%s) · run [#%s](%s) attempt %s · `%s` by `%s` · `%s` at [`%s`](%s/commit/%s)</sub>\n' \
             "$workflow" "$GITHUB_RUN_NUMBER" "$RUN_URL" "$GITHUB_RUN_ATTEMPT" "$GITHUB_EVENT_NAME" "$GITHUB_TRIGGERING_ACTOR" \
-            "$GITHUB_REF_NAME" "${GITHUB_SHA:0:7}" "$repo" "$GITHUB_SHA" > "$RUNNER_TEMP/provenance.md"
+            "$REF" "${SHA:0:7}" "$repo" "$SHA" > "$RUNNER_TEMP/provenance.md"
 
       - name: 🔧 Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
@@ -56,37 +65,41 @@ jobs:
           bun run lint:apotropaic --refused "$RUNNER_TEMP/refused.json" 2>&1 \
             | tee "$RUNNER_TEMP/lint.log"
 
-      - name: 🔧 Drop refused rows
-        id: drop
+      - name: 🔧 Repoint or drop refused rows
+        id: fix
         if: steps.lint.outcome == 'failure'
         continue-on-error: true
         run: |
           [ -s "$RUNNER_TEMP/refused.json" ] && [ "$(jq length "$RUNNER_TEMP/refused.json")" -gt 0 ] || exit 1
           records="https://api-lannuaire.service-public.gouv.fr/api/explore/v2.1/catalog/datasets/api-lannuaire-administration/records?select=id%2Cnom%2Csite_internet%2Cadresse_courriel&where="
           {
-            echo "| domain | provider | refusal | DILA |"
-            echo "|---|---|---|---|"
-            jq -r '.[] | [.domain, .uid, .refusal, (.fiche // "")] | @tsv' "$RUNNER_TEMP/refused.json" \
-              | while IFS=$'\t' read -r domain uid refusal fiche; do
+            echo "| domain | provider | refusal | DILA | fix |"
+            echo "|---|---|---|---|---|"
+            jq -r '.[] | [.domain, .uid, .refusal, (.fiche // ""), (.moved_to // "")] | @tsv' "$RUNNER_TEMP/refused.json" \
+              | while IFS=$'\t' read -r domain uid refusal fiche moved_to; do
                   dila="[who declares it](${records}search(%22${domain}%22))"
                   [ -n "$fiche" ] && dila="[fiche]($fiche) · [record](${records}id%3D%22${fiche##*/}%22) · $dila"
-                  echo "| [\`$domain\`](https://$domain) | \`${uid:0:8}\` | $refusal | $dila |"
+                  fix="drop"
+                  [ -n "$moved_to" ] && fix="repoint to [new fiche]($moved_to)"
+                  echo "| [\`$domain\`](https://$domain) | \`${uid:0:8}\` | $refusal | $dila | $fix |"
                 done
           } > "$RUNNER_TEMP/rows.md"
           jq -r 'map(.domain) | unique | .[]' "$RUNNER_TEMP/refused.json" \
             | xargs bun run explain:domain > "$RUNNER_TEMP/explain.log" 2>&1 || true
-          bun run src/validation/bin/drop_refused.ts "$RUNNER_TEMP/refused.json"
+          bun run src/validation/bin/fix_refused.ts "$RUNNER_TEMP/refused.json"
           bun run lint:apotropaic > "$RUNNER_TEMP/relint.log" 2>&1
 
       - name: 📝 Write fix pull request
         id: body
-        if: steps.drop.outcome == 'success'
+        if: steps.fix.outcome == 'success'
         run: |
-          count=$(jq length "$RUNNER_TEMP/refused.json")
+          summary=$(jq -r '[(map(select(.moved_to != null)) | length | select(. > 0) | "repoint \(.) \(if . == 1 then "row" else "rows" end)"),
+              (map(select(.moved_to == null)) | length | select(. > 0) | "drop \(.) \(if . == 1 then "row" else "rows" end)")]
+            | join(" and ")' "$RUNNER_TEMP/refused.json")
           {
-            echo "$TEAM: today's DILA export no longer attests $count allowlisted rows, so the apotropaic cron failed ([run]($RUN_URL))."
+            echo "$TEAM: today's DILA export refuses $(jq length "$RUNNER_TEMP/refused.json") allowlisted rows, so the apotropaic cron failed ([run]($RUN_URL))."
             echo
-            echo "This pull request drops them. The allowlist lints clean without them. A domain can come back once its collectivité's fiche lists it again."
+            echo "This pull request fixes them: a row whose fiche DILA re-filed under a new id, same SIREN, is repointed to that fiche; any other row is dropped. The allowlist lints clean afterwards. A dropped domain can come back once its collectivité's fiche lists it again."
             echo
             cat "$RUNNER_TEMP/rows.md"
             echo
@@ -99,16 +112,16 @@ jobs:
             cat "$RUNNER_TEMP/provenance.md"
           } > "$RUNNER_TEMP/pr.md"
           {
-            echo "title=🔧 drop $count rows DILA no longer attests"
+            echo "title=🔧 $summary DILA refuses"
             echo "message<<EOF_MESSAGE"
-            printf '🔧 drop %s rows DILA no longer attests\n\n' "$count"
+            printf '🔧 %s DILA refuses\n\n' "$summary"
             cat "$RUNNER_TEMP/provenance.txt"
             echo "EOF_MESSAGE"
           } >> "$GITHUB_OUTPUT"
 
       - name: 📬 Open or update fix pull request
         id: pr
-        if: steps.drop.outcome == 'success'
+        if: steps.fix.outcome == 'success'
         continue-on-error: true
         env:
           MESSAGE: ${{ steps.body.outputs.message }}
@@ -118,8 +131,8 @@ jobs:
           changeset=".release-it-changeset/$(date -u +%F)-drop-refused.md"
           scratch="apotropaic/blob-$GITHUB_RUN_ID"
           mkdir -p .release-it-changeset
-          jq -r '"Retrait de l’allowlist de \(length) lignes que l’annuaire DILA n’atteste plus : "
-              + (map("`\(.domain)` (fournisseur `\(.uid[0:8])`)") | join(", ")) + "."' \
+          jq -r '"Correction de l’allowlist d’après l’annuaire DILA : "
+              + (map("`\(.domain)` (fournisseur `\(.uid[0:8])`) \(if .moved_to then "pointe vers sa nouvelle fiche" else "retiré" end)") | join(", ")) + "."' \
             "$RUNNER_TEMP/refused.json" > "$changeset"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -127,7 +140,7 @@ jobs:
           git commit -q -m "$TITLE" -- "$config" "$changeset"
           git push -q origin "HEAD:refs/heads/$scratch"
           trap 'gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/heads/$scratch" || true' EXIT
-          commit=$(jq -n --arg message "$MESSAGE" --arg parent "$GITHUB_SHA" --arg tree "$(git rev-parse 'HEAD^{tree}')" \
+          commit=$(jq -n --arg message "$MESSAGE" --arg parent "$SHA" --arg tree "$(git rev-parse 'HEAD^{tree}')" \
               '{message: $message, parents: [$parent], tree: $tree}' \
             | gh api "repos/$GITHUB_REPOSITORY/git/commits" --input - --jq .sha)
           gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/heads/$FIX_BRANCH" -f sha="$commit" -F force=true \
@@ -137,14 +150,14 @@ jobs:
             gh pr edit "$number" --title "$TITLE" --body-file "$RUNNER_TEMP/pr.md"
           else
             gh label create "$LABEL" --color B60205 --force
-            gh pr create --base "$GITHUB_REF_NAME" --head "$FIX_BRANCH" --label "$LABEL" \
+            gh pr create --base "$REF" --head "$FIX_BRANCH" --label "$LABEL" \
               --title "$TITLE" --body-file "$RUNNER_TEMP/pr.md"
             number=$(gh pr list --head "$FIX_BRANCH" --state open --json number --jq '.[0].number')
           fi
           echo "pull-request-url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/$number" >> "$GITHUB_OUTPUT"
 
       - name: 🚨 Open or update alert issue
-        if: steps.lint.outcome == 'failure'
+        if: steps.lint.outcome == 'failure' && github.event_name != 'pull_request'
         env:
           PR_URL: ${{ steps.pr.outputs.pull-request-url }}
         run: |
@@ -154,7 +167,7 @@ jobs:
             echo "$TEAM: the apotropaic cron failed on \`$GITHUB_REF_NAME\` ([run]($RUN_URL))."
             echo
             if [ -n "$PR_URL" ]; then
-              echo "Fix proposed in $PR_URL: drop the rows DILA no longer attests."
+              echo "Fix proposed in $PR_URL: repoint or drop the rows DILA refuses."
             else
               echo "No automatic fix: read the log below, then \`bun run explain:domain <domain>\` for refused rows."
             fi
@@ -185,7 +198,7 @@ jobs:
           fi
 
       - name: ✅ Close alert issue
-        if: steps.lint.outcome == 'success'
+        if: steps.lint.outcome == 'success' && github.event_name != 'pull_request'
         run: |
           for number in $(gh issue list --label "$LABEL" --state open --json number --jq '.[].number'); do
             gh issue close "$number" --comment "✅ The apotropaic cron is green again ([run]($RUN_URL)).$(cat "$RUNNER_TEMP/provenance.md")"

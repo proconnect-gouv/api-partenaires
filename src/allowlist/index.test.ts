@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 
 import { err, ok } from "#src/utils";
 
-import { drop_rows, oidc_providers_config_schema } from "./index";
+import { drop_rows, oidc_providers_config_schema, repoint_rows } from "./index";
 
 describe("validation de la configuration fournisseurs OIDC", () => {
   test("accepte une configuration valide", () => {
@@ -229,6 +229,52 @@ describe("retrait de lignes refusées", () => {
       err({
         code: "rows_not_found",
         missing: [{ domain: "coise.fr", uid: "b" }],
+      }),
+    );
+  });
+});
+
+describe("changement de fiche de lignes refusées", () => {
+  const old_fiche =
+    "https://lannuaire.service-public.gouv.fr/normandie/manche/8d9c336e-19dc-4e33-ad4f-ca4efccd5d55";
+  const new_fiche =
+    "https://lannuaire.service-public.gouv.fr/normandie/manche/8bb65ac2-f71f-4ddf-942d-1a363cb32983";
+  const yaml = [
+    "oidc_providers:",
+    '  - uid: "a"',
+    "    allowed_attached_email_domains:",
+    "      - domain: la-haye.fr",
+    `        fiche: ${old_fiche}`,
+    "        source: dila",
+    "      - domain: coise.fr",
+    "        source: routed",
+    '  - uid: "b"',
+    "    allowed_attached_email_domains:",
+    "      - domain: la-haye.fr",
+    `        fiche: ${old_fiche}`,
+    "        source: dila",
+    "",
+  ].join("\n");
+
+  test("remplace la fiche de la ligne de ce fournisseur seulement", () => {
+    expect(
+      repoint_rows({
+        rows: [{ domain: "la-haye.fr", fiche: new_fiche, uid: "a" }],
+        yaml,
+      }),
+    ).toEqual(ok(yaml.replace(old_fiche, new_fiche)));
+  });
+
+  test("échoue si la ligne n'a pas de fiche à remplacer", () => {
+    expect(
+      repoint_rows({
+        rows: [{ domain: "coise.fr", fiche: new_fiche, uid: "a" }],
+        yaml,
+      }),
+    ).toEqual(
+      err({
+        code: "rows_not_found",
+        missing: [{ domain: "coise.fr", fiche: new_fiche, uid: "a" }],
       }),
     );
   });

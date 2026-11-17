@@ -7,6 +7,7 @@ import { build_dila_index } from "./declared_by";
 import {
   check_row,
   describe_approval,
+  find_moved_fiche,
   partition_reports,
   type RowVerdict,
 } from "./source";
@@ -374,5 +375,41 @@ describe("partition_reports", () => {
       infos: [gap],
       warnings: [routed],
     });
+  });
+});
+
+describe("find_moved_fiche", () => {
+  const haye_id = "8bb65ac2-f71f-4ddf-942d-1a363cb32983";
+  const remy_id = "e97eb967-d7bb-4204-b895-44263065d328";
+  const moved_index = build_dila_index(
+    [
+      { id: haye_id, name: "La Haye" },
+      { id: remy_id, name: "Saint-Rémy-des-Landes" },
+    ].map(({ id, name }) => ({
+      ...mairie({ id, name, site: "la-haye.fr", siren: "200055986" }),
+      url_service_public: fiche_url(id),
+    })),
+  );
+  const gone = {
+    domain: "la-haye.fr",
+    fiche: fiche_url("8d9c336e-19dc-4e33-ad4f-ca4efccd5d55"),
+    siret: "20005598600018",
+  };
+
+  test("finds the one fiche of the row's SIREN under which the row passes", () => {
+    for (const source of ["candidate", "dila"] as const) {
+      expect(find_moved_fiche({ ...gone, source }, moved_index)?.id).toBe(
+        haye_id,
+      );
+    }
+  });
+
+  test("finds none without a siret to search by", () => {
+    expect(
+      find_moved_fiche(
+        { ...gone, siret: undefined, source: "dila" },
+        moved_index,
+      ),
+    ).toBeNull();
   });
 });

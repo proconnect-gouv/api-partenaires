@@ -17,6 +17,7 @@ import {
   describe_refusal,
   dila_ok,
   type DilaRefusal,
+  find_moved_fiche,
   load_cog_export,
   load_dila_export,
   md,
@@ -371,15 +372,20 @@ if (options.refused !== undefined) {
   await Bun.write(
     options.refused,
     JSON.stringify(
-      errors.map(({ domain, uid, verdict }) => ({
-        domain,
-        fiche: config.oidc_providers
+      errors.map(({ domain, uid, verdict }) => {
+        const row = config.oidc_providers
           .find((provider) => provider.uid === uid)
-          ?.allowed_attached_email_domains.find((row) => row.domain === domain)
-          ?.fiche,
-        refusal: verdict.ok ? "" : describe_refusal(verdict.error),
-        uid,
-      })),
+          ?.allowed_attached_email_domains.find((row) => row.domain === domain);
+        return {
+          domain,
+          fiche: row?.fiche,
+          moved_to: row
+            ? (find_moved_fiche(row, dila_index)?.url ?? null)
+            : null,
+          refusal: verdict.ok ? "" : describe_refusal(verdict.error),
+          uid,
+        };
+      }),
     ),
   );
 }

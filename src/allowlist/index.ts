@@ -85,6 +85,45 @@ export function drop_rows({
     : ok(kept.join("\n"));
 }
 
+export const repointed_row_schema = allowlist_row_schema.extend({
+  fiche: fiche_url_schema,
+});
+
+export type RepointedRow = z.infer<typeof repointed_row_schema>;
+
+const FICHE_LINE = /^        fiche: \S+$/;
+
+export function repoint_rows({
+  rows,
+  yaml,
+}: {
+  rows: readonly RepointedRow[];
+  yaml: string;
+}): Result<string, { code: "rows_not_found"; missing: RepointedRow[] }> {
+  const fiche_by_row = new Map(
+    rows.map(({ domain, fiche, uid }) => [`${uid} ${domain}`, fiche]),
+  );
+  const pending = new Set(fiche_by_row.keys());
+  let uid = "";
+  let row = "";
+  const lines = yaml.split("\n").map((line) => {
+    uid = line.match(UID_LINE)?.groups?.uid ?? uid;
+    const domain = line.match(DOMAIN_LINE)?.groups?.domain;
+    if (domain !== undefined) row = `${uid} ${domain}`;
+    else if (!ROW_FIELD_LINE.test(line)) row = "";
+    const fiche = fiche_by_row.get(row);
+    if (fiche === undefined || !FICHE_LINE.test(line)) return line;
+    pending.delete(row);
+    return `        fiche: ${fiche}`;
+  });
+  const missing = rows.filter(({ domain, uid }) =>
+    pending.has(`${uid} ${domain}`),
+  );
+  return missing.length > 0
+    ? err({ code: "rows_not_found", missing })
+    : ok(lines.join("\n"));
+}
+
 export type AllowedDomain = z.infer<typeof allowed_domain_schema>;
 
 export type OidcProvidersConfig = z.infer<typeof oidc_providers_config_schema>;
