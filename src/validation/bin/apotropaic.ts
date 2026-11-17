@@ -23,6 +23,7 @@ import {
   md,
   partition_reports,
   reconstructs,
+  type RefusedRow,
   render_digest,
   type RowReport,
   type RpntGap,
@@ -372,7 +373,7 @@ if (options.refused !== undefined) {
   await Bun.write(
     options.refused,
     JSON.stringify(
-      errors.map(({ domain, uid, verdict }) => {
+      errors.map(({ domain, uid, verdict }): RefusedRow => {
         const row = config.oidc_providers
           .find((provider) => provider.uid === uid)
           ?.allowed_attached_email_domains.find((row) => row.domain === domain);
