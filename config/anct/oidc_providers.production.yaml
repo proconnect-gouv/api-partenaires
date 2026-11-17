@@ -582845,11 +582845,11 @@ oidc_providers:
         siret: "21760352100014"
         source: candidate
       - domain: la-haye.fr
-        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8d9c336e-19dc-4e33-ad4f-ca4efccd5d55
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8bb65ac2-f71f-4ddf-942d-1a363cb32983
         siret: "20005598600018"
         source: dila
       - domain: la-haye50.fr
-        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8d9c336e-19dc-4e33-ad4f-ca4efccd5d55
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8bb65ac2-f71f-4ddf-942d-1a363cb32983
         siret: "20005598600018"
         source: candidate
       - domain: la-haye76.fr
@@ -582865,7 +582865,7 @@ oidc_providers:
         siret: "21760352100014"
         source: candidate
       - domain: lahaye50.fr
-        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8d9c336e-19dc-4e33-ad4f-ca4efccd5d55
+        fiche: https://lannuaire.service-public.gouv.fr/normandie/manche/8bb65ac2-f71f-4ddf-942d-1a363cb32983
         siret: "20005598600018"
         source: candidate
       - domain: lahaye76.fr
