@@ -1,5 +1,28 @@
 # Changelog
 
+## [2026.11.4](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.3...2026.11.4) (2026-11-20)
+
+### Changements
+
+- Correction de l’allowlist d’après l’annuaire DILA : `la-haye.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `la-haye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `lahaye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche.
+
+### Modifié
+
+- 🔧 repoint 3 rows DILA refuses ([#260](https://github.com/proconnect-gouv/api-partenaires/issues/260)) ([96b8d45](https://github.com/proconnect-gouv/api-partenaires/commit/96b8d459acd83411277c099e7bb12980453c63ba))
+- ♻️ render the apotropaic cron's text in TypeScript ([#265](https://github.com/proconnect-gouv/api-partenaires/issues/265)) ([07d09fa](https://github.com/proconnect-gouv/api-partenaires/commit/07d09fa1469e21677901cc852f6cc5d64c20e532))
+
+### Corrigé
+
+- 🐛 repoint allowlist rows whose DILA fiche moved instead of dropping them ([#262](https://github.com/proconnect-gouv/api-partenaires/issues/262)) ([85c6f0f](https://github.com/proconnect-gouv/api-partenaires/commit/85c6f0fb462489f76c3a5157d2fb69a807c4c961))
+
+### Dépendances
+
+- ⬆️ Bump mongodb from 7.8.0 to 7.9.0 ([#259](https://github.com/proconnect-gouv/api-partenaires/issues/259)) ([238cd94](https://github.com/proconnect-gouv/api-partenaires/commit/238cd94b52bcd0f21146d78e9d06a04e40393949))
+
+### CI/CD
+
+- 👷 run the apotropaic cron when the gate changes on main ([#266](https://github.com/proconnect-gouv/api-partenaires/issues/266)) ([75235db](https://github.com/proconnect-gouv/api-partenaires/commit/75235dbd5c82610107f943fd74d1533b1b6f6b8a))
+
 ## [2026.11.3](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.2...2026.11.3) (2026-11-16)
 
 ### Changements
