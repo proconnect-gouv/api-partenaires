@@ -1,1 +1,0 @@
-Correction de l’allowlist d’après l’annuaire DILA : `la-haye.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `la-haye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `lahaye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche.
