@@ -1,0 +1,1 @@
+Correction de l’allowlist d’après l’annuaire DILA : `notremairiegolinhac.fr` (fournisseur `dd2578a8`) retiré, `ccpiney.fr` (fournisseur `f5154035`) retiré, `notremairiegolinhac.fr` (fournisseur `f5154035`) retiré.
