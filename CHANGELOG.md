@@ -1,5 +1,36 @@
 # Changelog
 
+## [2026.11.4](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.3...2026.11.4) (2026-11-23)
+
+### Changements
+
+- Correction de l’allowlist d’après l’annuaire DILA : `la-haye.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `la-haye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche, `lahaye50.fr` (fournisseur `f5154035`) pointe vers sa nouvelle fiche.
+- Correction de l’allowlist d’après l’annuaire DILA : `notremairiegolinhac.fr` (fournisseur `dd2578a8`) retiré, `ccpiney.fr` (fournisseur `f5154035`) retiré, `notremairiegolinhac.fr` (fournisseur `f5154035`) retiré.
+
+### Modifié
+
+- 🔧 drop 3 rows DILA refuses ([#267](https://github.com/proconnect-gouv/api-partenaires/issues/267)) ([2ad6d55](https://github.com/proconnect-gouv/api-partenaires/commit/2ad6d55558f2406dd55897ad5f6038bb1ad4775c))
+- 🔧 repoint 3 rows DILA refuses ([#260](https://github.com/proconnect-gouv/api-partenaires/issues/260)) ([96b8d45](https://github.com/proconnect-gouv/api-partenaires/commit/96b8d459acd83411277c099e7bb12980453c63ba))
+- ♻️ render the apotropaic cron's text in TypeScript ([#265](https://github.com/proconnect-gouv/api-partenaires/issues/265)) ([07d09fa](https://github.com/proconnect-gouv/api-partenaires/commit/07d09fa1469e21677901cc852f6cc5d64c20e532))
+
+### Corrigé
+
+- 🐛 repoint allowlist rows whose DILA fiche moved instead of dropping them ([#262](https://github.com/proconnect-gouv/api-partenaires/issues/262)) ([85c6f0f](https://github.com/proconnect-gouv/api-partenaires/commit/85c6f0fb462489f76c3a5157d2fb69a807c4c961))
+
+### Dépendances
+
+- ⬆️ Lock file maintenance ([#274](https://github.com/proconnect-gouv/api-partenaires/issues/274)) ([3b2c9e1](https://github.com/proconnect-gouv/api-partenaires/commit/3b2c9e1e41175f9d3ae7cab5dd94568677620c1a))
+- ⬆️ Bump mongodb from 7.9.0 to 7.9.1 ([#271](https://github.com/proconnect-gouv/api-partenaires/issues/271)) ([ddf13b7](https://github.com/proconnect-gouv/api-partenaires/commit/ddf13b720899072eb49f556fd6f6180fd99c7634))
+- ⬆️ Bump proconnect-gouv/release-action from v1.3.1 to v1.3.2 ([#273](https://github.com/proconnect-gouv/api-partenaires/issues/273)) ([c6d26ff](https://github.com/proconnect-gouv/api-partenaires/commit/c6d26ff91360d23bebe05d56459a2aff540a2c5a))
+- ⬆️ Bump hono from 4.13.18 to 4.13.21 ([#270](https://github.com/proconnect-gouv/api-partenaires/issues/270)) ([57cb47e](https://github.com/proconnect-gouv/api-partenaires/commit/57cb47ebb354d36a0e62685384153b336848a7b0))
+- ⬆️ Bump bun from 1.4.4 to 1.4.5 ([#269](https://github.com/proconnect-gouv/api-partenaires/issues/269)) ([2d84659](https://github.com/proconnect-gouv/api-partenaires/commit/2d846595f3204f3f13f85bc2ebba3f8254fa74c4))
+- ⬆️ Bump oven/bun to v1.4.5 ([#272](https://github.com/proconnect-gouv/api-partenaires/issues/272)) ([11b2b81](https://github.com/proconnect-gouv/api-partenaires/commit/11b2b81484a00cc7421c3185dc7a3c3a2d02660c))
+- ⬆️ Bump mongodb from 7.8.0 to 7.9.0 ([#259](https://github.com/proconnect-gouv/api-partenaires/issues/259)) ([238cd94](https://github.com/proconnect-gouv/api-partenaires/commit/238cd94b52bcd0f21146d78e9d06a04e40393949))
+
+### CI/CD
+
+- 👷 run the apotropaic cron when the gate changes on main ([#266](https://github.com/proconnect-gouv/api-partenaires/issues/266)) ([75235db](https://github.com/proconnect-gouv/api-partenaires/commit/75235dbd5c82610107f943fd74d1533b1b6f6b8a))
+
 ## [2026.11.3](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.2...2026.11.3) (2026-11-16)
 
 ### Changements
