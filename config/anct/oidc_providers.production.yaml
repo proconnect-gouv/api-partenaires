@@ -225810,10 +225810,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
         siret: "21120110800019"
         source: candidate
-      - domain: notremairiegolinhac.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
-        siret: "21120110800019"
-        source: dila
       - domain: ville-golinhac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
         siret: "21120110800019"
@@ -393922,10 +393918,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/nord/33c65e51-e674-4c01-9b45-19716dd23b2d
         siret: "24590075800054"
         source: dila
-      - domain: ccpiney.fr
-        fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/2e65c2cd-39a2-48e1-810b-ef10b649df14
-        siret: "24100022300016"
-        source: dila
       - domain: foretslacsterresenchampagne.fr
         fiche: https://lannuaire.service-public.gouv.fr/grand-est/aube/2e65c2cd-39a2-48e1-810b-ef10b649df14
         siret: "24100022300016"
@@ -518190,10 +518182,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
         siret: "21120110800019"
         source: candidate
-      - domain: notremairiegolinhac.fr
-        fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
-        siret: "21120110800019"
-        source: dila
       - domain: ville-golinhac.fr
         fiche: https://lannuaire.service-public.gouv.fr/occitanie/aveyron/3a8021f9-48e6-4848-9389-ed0efee2b0ae
         siret: "21120110800019"
