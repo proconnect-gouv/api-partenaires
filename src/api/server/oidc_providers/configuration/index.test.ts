@@ -159,6 +159,7 @@ describe("OIDC provider configuration API", () => {
           http_status: 503,
           kind: "http_error",
           record_type: "MX",
+          url: "https://dns.google/resolve?name=dns-en-greve.fr&type=MX",
         }),
     });
     const res = await api_call({

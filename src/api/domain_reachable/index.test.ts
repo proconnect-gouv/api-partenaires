@@ -98,6 +98,7 @@ describe("find_unreachable_domains", () => {
         http_status: 429,
         kind: "http_error",
         record_type: "MX",
+        url: "https://dns.google/resolve?name=example.fr&type=MX",
       },
     });
   });
@@ -121,7 +122,12 @@ describe("find_unreachable_domains", () => {
       await failing_with(new DOMException("too slow", "TimeoutError")),
     ).toEqual({
       ok: false,
-      error: { domain: "example.fr", kind: "timeout", record_type: "MX" },
+      error: {
+        domain: "example.fr",
+        kind: "timeout",
+        record_type: "MX",
+        url: "https://dns.google/resolve?name=example.fr&type=MX",
+      },
     });
     expect(await failing_with(new TypeError("fetch failed"))).toMatchObject({
       ok: false,

@@ -167,6 +167,7 @@ export function create_test_app({
     providers: store,
     rate_limit_per_minute: 1_000,
     rate_limit_per_minute_per_oidc_provider,
+    rate_limit_per_minute_per_user: 1_000,
     oidc_providers_config: {
       oidc_providers: [
         {
