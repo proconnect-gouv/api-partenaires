@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 import { config_schema } from "#src/api/config";
 import { create_find_unreachable_domains } from "#src/api/domain_reachable";
-import { set_log_level } from "#src/api/log";
+import { log, set_log_level } from "#src/api/log";
 import {
   create_oidc_provider_store,
   type OidcProviderDocument,
@@ -13,6 +13,17 @@ import type { OidcClientDoc } from "#src/api/server/oidc_clients";
 
 const config = await config_schema.parseAsync(process.env);
 set_log_level(config.LOG_LEVEL);
+log(
+  "info",
+  config.PROCONNECT
+    ? {
+        allowed_client_ids: config.PROCONNECT.allowed_client_ids,
+        client_id: config.PROCONNECT.client_id,
+        event: "proconnect.enabled",
+        issuer: config.PROCONNECT.issuer,
+      }
+    : { event: "proconnect.disabled" },
+);
 const client = new MongoClient(config.MONGODB_URI);
 await client.connect();
 

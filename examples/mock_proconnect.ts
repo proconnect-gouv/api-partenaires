@@ -49,6 +49,7 @@ const server = Bun.serve({
         "private_key_jwt",
       ],
       userinfo_endpoint: `${issuer}/userinfo`,
+      userinfo_signing_alg_values_supported: ["ES256", "HS256", "RS256"],
     }),
     "/api/v2/token/introspection": {
       POST: async (req) => {

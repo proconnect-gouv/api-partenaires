@@ -8,7 +8,10 @@ import {
 } from "#src/api/proconnect";
 
 const proconnect_schema = z.object({
-  PROCONNECT_ALLOWED_CLIENT_ID: z.string().min(1),
+  PROCONNECT_ALLOWED_CLIENT_IDS: z
+    .string()
+    .transform((ids) => ids.split(",").map((id) => id.trim()))
+    .pipe(z.array(z.string().min(1)).min(1)),
   PROCONNECT_CLIENT_ID: z.string().min(1),
   PROCONNECT_CLIENT_SECRET: z.string().min(1),
   PROCONNECT_ISSUER: z.string().min(1),
@@ -43,8 +46,7 @@ export const config_schema = z
       .enum(["true", "false"])
       .default("false")
       .transform((v) => v === "true"),
-    PROCONNECT_ALLOWED_CLIENT_ID:
-      proconnect_schema.shape.PROCONNECT_ALLOWED_CLIENT_ID.optional(),
+    PROCONNECT_ALLOWED_CLIENT_IDS: z.string().min(1).optional(),
     PROCONNECT_CLIENT_ID:
       proconnect_schema.shape.PROCONNECT_CLIENT_ID.optional(),
     PROCONNECT_CLIENT_SECRET:
@@ -66,7 +68,7 @@ export const config_schema = z
     (
       {
         PROCONNECT_ALLOW_HTTP_ISSUER,
-        PROCONNECT_ALLOWED_CLIENT_ID,
+        PROCONNECT_ALLOWED_CLIENT_IDS,
         PROCONNECT_CLIENT_ID,
         PROCONNECT_CLIENT_SECRET,
         PROCONNECT_ISSUER,
@@ -75,7 +77,7 @@ export const config_schema = z
       ctx,
     ) => {
       const proconnect = {
-        PROCONNECT_ALLOWED_CLIENT_ID,
+        PROCONNECT_ALLOWED_CLIENT_IDS,
         PROCONNECT_CLIENT_ID,
         PROCONNECT_CLIENT_SECRET,
         PROCONNECT_ISSUER,
@@ -120,7 +122,8 @@ export const config_schema = z
       return {
         ...config,
         PROCONNECT: {
-          allowed_client_id: parsed.data.PROCONNECT_ALLOWED_CLIENT_ID,
+          allow_http_issuer: PROCONNECT_ALLOW_HTTP_ISSUER,
+          allowed_client_ids: parsed.data.PROCONNECT_ALLOWED_CLIENT_IDS,
           client_id: parsed.data.PROCONNECT_CLIENT_ID,
           client_secret: parsed.data.PROCONNECT_CLIENT_SECRET,
           issuer: issuer.data,

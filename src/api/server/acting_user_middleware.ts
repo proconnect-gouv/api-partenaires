@@ -2,6 +2,7 @@ import type { Context, Env, MiddlewareHandler, Next } from "hono";
 import { every } from "hono/combine";
 
 import {
+  acting_user_log_fields,
   type ActingUser,
   hmac_acting_user,
   token_acting_user,
@@ -80,17 +81,20 @@ function create_access_token_middleware({
         log("debug", { event: "auth.rejected", reason: verdict.reason });
         c.header("WWW-Authenticate", 'Bearer error="invalid_token"');
         return c.json({ detail: "Invalid token" }, 401);
-      case "verified":
-        c.set(
-          "acting_user",
-          token_acting_user({
-            client_id: verdict.client_id,
-            email: verdict.email,
-            sub: verdict.sub,
-          }),
-        );
+      case "verified": {
+        const acting_user = token_acting_user({
+          client_id: verdict.client_id,
+          email: verdict.email,
+          sub: verdict.sub,
+        });
+        log("debug", {
+          event: "auth.accepted",
+          ...acting_user_log_fields(acting_user),
+        });
+        c.set("acting_user", acting_user);
         await next();
         return;
+      }
       default:
         return assert_never(verdict);
     }

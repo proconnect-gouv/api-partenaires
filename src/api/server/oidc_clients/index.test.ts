@@ -2,8 +2,9 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { createHmac } from "node:crypto";
 
 import { ObjectId } from "mongodb";
+import type { CustomFetch } from "openid-client";
 
-import type { Fetch } from "#src/api/http";
+import { set_log_level } from "#src/api/log";
 import {
   create_verify_access_token,
   https_issuer_schema,
@@ -39,8 +40,15 @@ function proconnect_vouching_for({
   userinfo?: (person: Person) => Response;
 }) {
   const introspected: string[] = [];
-  const fetch: Fetch = async (url, { body, headers }) => {
+  const fetch: CustomFetch = async (url, { body, headers }) => {
     switch (url) {
+      case `${PROCONNECT_ISSUER}/.well-known/openid-configuration`:
+        return Response.json({
+          introspection_endpoint: `${PROCONNECT_ISSUER}/token/introspection`,
+          issuer: PROCONNECT_ISSUER,
+          userinfo_endpoint: `${PROCONNECT_ISSUER}/userinfo`,
+          userinfo_signing_alg_values_supported: ["ES256", "HS256", "RS256"],
+        });
       case `${PROCONNECT_ISSUER}/token/introspection`: {
         const form = new URLSearchParams(String(body));
         if (
@@ -150,6 +158,7 @@ function token_call(
 }
 
 function create_test_app({
+  allowed_client_ids = [ESPACE_PARTENAIRES],
   enable_sandbox = true,
   oidc_clients_secret = OIDC_CLIENTS_SECRET,
   oidc_providers_secret = OIDC_PROVIDERS_SECRET,
@@ -157,10 +166,11 @@ function create_test_app({
   rate_limit_per_minute = Infinity,
   rate_limit_per_minute_per_user = Infinity,
 }: {
+  allowed_client_ids?: string[];
   enable_sandbox?: boolean;
   oidc_clients_secret?: string;
   oidc_providers_secret?: string;
-  proconnect?: Fetch;
+  proconnect?: CustomFetch;
   rate_limit_per_minute?: number;
   rate_limit_per_minute_per_user?: number;
 } = {}) {
@@ -239,7 +249,8 @@ function create_test_app({
     verify_access_token:
       proconnect &&
       create_verify_access_token({
-        allowed_client_id: ESPACE_PARTENAIRES,
+        allow_http_issuer: false,
+        allowed_client_ids,
         client_id: "api-partenaires",
         client_secret: "api-partenaires-secret",
         fetch: proconnect,
@@ -338,10 +349,21 @@ describe("ProConnect access token", () => {
     sub: "marcel-sub",
   };
 
-  function signed_jwt(claims: Record<string, unknown>) {
+  function signed_userinfo(
+    claims: Record<string, unknown>,
+    aud = ESPACE_PARTENAIRES,
+  ) {
     const encode = (value: unknown) =>
       Buffer.from(JSON.stringify(value)).toString("base64url");
-    return `${encode({ alg: "ES256" })}.${encode(claims)}.unchecked-signature`;
+    const payload = {
+      ...claims,
+      aud,
+      iss: PROCONNECT_ISSUER,
+    };
+    return new Response(
+      `${encode({ alg: "ES256" })}.${encode(payload)}.unchecked-signature`,
+      { headers: { "content-type": "application/jwt" } },
+    );
   }
 
   test("acts as the token's person, ignoring ?email= and the signature headers", async () => {
@@ -373,18 +395,8 @@ describe("ProConnect access token", () => {
         }),
     },
     {
-      title: "a signed userinfo served as application/jwt",
-      userinfo: () =>
-        new Response(signed_jwt({ email: JEANNE.email, sub: JEANNE.sub }), {
-          headers: { "content-type": "application/jwt" },
-        }),
-    },
-    {
-      title: "a signed userinfo served as application/octet-stream",
-      userinfo: () =>
-        new Response(signed_jwt({ email: JEANNE.email, sub: JEANNE.sub }), {
-          headers: { "content-type": "application/octet-stream" },
-        }),
+      title: "a signed userinfo addressed to the Espace Partenaires",
+      userinfo: () => signed_userinfo({ email: JEANNE.email, sub: JEANNE.sub }),
     },
   ])("reads the person's email from $title", async ({ userinfo }) => {
     const app = create_test_app({
@@ -399,6 +411,30 @@ describe("ProConnect access token", () => {
     expect(await created.json()).toMatchObject({
       collaborators: [JEANNE.email],
     });
+  });
+
+  test("accepts a token issued to any allowed service and reads its userinfo as that service", async () => {
+    const app = create_test_app({
+      allowed_client_ids: [ESPACE_PARTENAIRES, "service-voisin"],
+      proconnect: proconnect_vouching_for({
+        introspection: ({ sub }) =>
+          Response.json({
+            active: true,
+            client_id: "service-voisin",
+            sub,
+            token_type: "Bearer",
+          }),
+        people: [JEANNE],
+        userinfo: ({ email, sub }) =>
+          signed_userinfo({ email, sub }, "service-voisin"),
+      }).fetch,
+    });
+
+    const res = await token_call(app, "GET", "/api/oidc_clients", {
+      as: JEANNE,
+    });
+
+    expect(res.status).toBe(200);
   });
 
   test("asks the federation once per request", async () => {
@@ -470,12 +506,28 @@ describe("ProConnect access token", () => {
     {
       title: "a token whose federation session ended before userinfo",
       userinfo: () =>
-        Response.json({ error: "invalid_token" }, { status: 401 }),
+        Response.json(
+          { error: "invalid_token" },
+          {
+            headers: {
+              "WWW-Authenticate": 'Bearer realm="", error="invalid_token"',
+            },
+            status: 401,
+          },
+        ),
     },
     {
       title: "a token without the openid scope",
       userinfo: () =>
-        Response.json({ error: "insufficient_scope" }, { status: 403 }),
+        Response.json(
+          { error: "insufficient_scope" },
+          {
+            headers: {
+              "WWW-Authenticate": 'Bearer realm="", error="insufficient_scope"',
+            },
+            status: 403,
+          },
+        ),
     },
     {
       title: "a token whose userinfo has no email",
@@ -483,7 +535,7 @@ describe("ProConnect access token", () => {
     },
     {
       title: "a token whose userinfo has a malformed email",
-      userinfo: ({ sub }) => new Response(signed_jwt({ email: "jeanne", sub })),
+      userinfo: ({ sub }) => signed_userinfo({ email: "jeanne", sub }),
     },
     {
       title: "a token whose userinfo names another subject",
@@ -665,7 +717,7 @@ describe("ProConnect access token", () => {
     info.mockRestore();
   });
 
-  test.each<{ proconnect: Fetch; title: string }>([
+  test.each<{ proconnect: CustomFetch; title: string }>([
     {
       proconnect: proconnect_vouching_for({
         introspection: () => new Response("<html>maintenance</html>"),
@@ -740,29 +792,82 @@ describe("ProConnect access token", () => {
     error.mockRestore();
   });
 
-  test("logs a network error as exception fields, without the raw cause or token", async () => {
+  test("logs the federation's own error at debug level, without the token", async () => {
+    set_log_level("debug");
+    const debug = spyOn(console, "debug").mockImplementation(() => {});
     const error = spyOn(console, "error").mockImplementation(() => {});
     const app = create_test_app({
-      proconnect: async () => {
-        throw new TypeError("fetch failed");
-      },
+      proconnect: proconnect_vouching_for({
+        introspection: () =>
+          Response.json(
+            {
+              error: "invalid_client_metadata",
+              error_description: "response_types must contain members",
+            },
+            { status: 400 },
+          ),
+        people: [JEANNE],
+      }).fetch,
     });
 
-    await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+    let lines: string[];
+    try {
+      await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+      lines = debug.mock.calls.map(([line]) => String(line));
+    } finally {
+      set_log_level("info");
+      debug.mockRestore();
+      error.mockRestore();
+    }
 
-    const lines = error.mock.calls.map(([line]) => String(line));
-    expect(lines.map((line) => JSON.parse(line))).toContainEqual({
-      "error.type": "request_failed",
-      "exception.message": "fetch failed",
-      "exception.type": "TypeError",
-      event: "proconnect.request.failed",
-      level: "error",
+    const logged = lines.map((line) => JSON.parse(line));
+    expect(logged).toContainEqual({
+      event: "proconnect.request",
+      level: "debug",
       "url.full": `${PROCONNECT_ISSUER}/token/introspection`,
     });
-    expect(lines.join("\n")).not.toContain("stack");
+    expect(logged).toContainEqual(
+      expect.objectContaining({
+        "error.type": "http_error",
+        event: "proconnect.response",
+        "http.response.status_code": 400,
+        "oauth.error": "invalid_client_metadata",
+        "oauth.error_description": "response_types must contain members",
+        "url.full": `${PROCONNECT_ISSUER}/token/introspection`,
+      }),
+    );
     expect(lines.join("\n")).not.toContain(JEANNE.access_token);
-    error.mockRestore();
   });
+
+  test.each([
+    { thrown: new TypeError("fetch failed"), type: "TypeError" },
+    { thrown: new Error("socket hang up"), type: "Error" },
+  ])(
+    "logs a network $type as exception fields, without the raw cause or token",
+    async ({ thrown, type }) => {
+      const error = spyOn(console, "error").mockImplementation(() => {});
+      const app = create_test_app({
+        proconnect: async () => {
+          throw thrown;
+        },
+      });
+
+      await token_call(app, "GET", "/api/oidc_clients", { as: JEANNE });
+
+      const lines = error.mock.calls.map(([line]) => String(line));
+      expect(lines.map((line) => JSON.parse(line))).toContainEqual({
+        "error.type": "request_failed",
+        "exception.message": thrown.message,
+        "exception.type": type,
+        event: "proconnect.request.failed",
+        level: "error",
+        "url.full": `${PROCONNECT_ISSUER}/.well-known/openid-configuration`,
+      });
+      expect(lines.join("\n")).not.toContain("stack");
+      expect(lines.join("\n")).not.toContain(JEANNE.access_token);
+      error.mockRestore();
+    },
+  );
 });
 
 describe("POST /api/oidc_clients", () => {
