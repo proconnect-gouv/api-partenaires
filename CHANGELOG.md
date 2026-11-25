@@ -1,5 +1,15 @@
 # Changelog
 
+## [2026.11.5](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.4...2026.11.5) (2026-11-25)
+
+### Ajouté
+
+- ✨ accept a ProConnect access token on /api/oidc_clients ([#253](https://github.com/proconnect-gouv/api-partenaires/issues/253)) ([4783bc1](https://github.com/proconnect-gouv/api-partenaires/commit/4783bc163ac4aff5a6587fd38909554701c17f7c))
+
+### Modifié
+
+- ♻️ verify ProConnect access tokens with openid-client ([#276](https://github.com/proconnect-gouv/api-partenaires/issues/276)) ([a27bc38](https://github.com/proconnect-gouv/api-partenaires/commit/a27bc38019b33361c2ddef609241fc66299e6775))
+
 ## [2026.11.4](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.3...2026.11.4) (2026-11-23)
 
 ### Changements
