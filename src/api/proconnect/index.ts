@@ -1,15 +1,12 @@
+import * as client from "openid-client";
 import { z } from "zod";
 
 import { type Email, email_schema } from "#src/api/email";
-import {
-  type Fetch,
-  type HttpFailure,
-  read_response_body,
-  safe_fetch,
-} from "#src/api/http";
-import { err, ok, type Result } from "#src/utils";
+import { http_failure_fields, type HttpFailure } from "#src/api/http";
+import { log } from "#src/api/log";
+import { assert_never, err, ok, type Result } from "#src/utils";
 
-const TIMEOUT_MS = 5_000;
+const TIMEOUT_S = 5;
 
 function issuer_schema(protocol: RegExp) {
   return z
@@ -29,6 +26,10 @@ export const https_issuer_schema = issuer_schema(/^https$/);
 export const http_or_https_issuer_schema = issuer_schema(/^https?$/);
 export type ProconnectIssuer = z.infer<typeof https_issuer_schema>;
 
+const server_metadata_schema = z.object({
+  introspection_endpoint: z.url(),
+  userinfo_endpoint: z.url(),
+});
 const introspection_schema = z.object({
   active: z.boolean(),
   client_id: z.string().optional(),
@@ -37,7 +38,6 @@ const introspection_schema = z.object({
 });
 const userinfo_schema = z.object({
   email: email_schema.optional(),
-  sub: z.string().optional(),
 });
 
 export type AccessTokenVerdict =
@@ -63,111 +63,255 @@ export type VerifyAccessToken = (
   access_token: string,
 ) => Promise<Result<AccessTokenVerdict, HttpFailure>>;
 
-// Userinfo may come back as a signed JWT; its claims are read without checking the
-// signature because the response comes straight from the issuer over TLS.
-function parse_userinfo_body(body: string): unknown {
-  const trimmed = body.trim();
-  if (trimmed.startsWith("{")) return JSON.parse(trimmed);
-  const segments = trimmed.split(".");
-  if (segments.length !== 3)
-    throw new Error("Expected a JSON object or a signed JWT");
-  const [, payload = ""] = segments;
-  return JSON.parse(Buffer.from(payload, "base64url").toString("utf8"));
+type ResourceServer = {
+  allow_http_issuer: boolean;
+  allowed_client_ids: readonly string[];
+  client_id: string;
+  client_secret: string;
+  fetch: client.CustomFetch;
+  issuer: ProconnectIssuer;
+};
+
+type Federation = {
+  readonly introspection: {
+    readonly config: client.Configuration;
+    readonly url: string;
+  };
+  readonly userinfo: {
+    readonly configs: ReadonlyMap<string, client.Configuration>;
+    readonly url: string;
+  };
+};
+
+function judge_introspection({
+  introspection: { active, client_id, sub, token_type },
+  userinfo_configs,
+}: {
+  introspection: z.infer<typeof introspection_schema>;
+  userinfo_configs: ReadonlyMap<string, client.Configuration>;
+}) {
+  if (!active) return { kind: "rejected", reason: "token_inactive" } as const;
+  const userinfo_config =
+    client_id === undefined ? undefined : userinfo_configs.get(client_id);
+  if (client_id === undefined || userinfo_config === undefined)
+    return { kind: "rejected", reason: "token_client_mismatch" } as const;
+  if (token_type !== "Bearer")
+    return { kind: "rejected", reason: "token_type_mismatch" } as const;
+  if (!sub)
+    return { kind: "rejected", reason: "token_subject_missing" } as const;
+  return { kind: "active", client_id, sub, userinfo_config } as const;
 }
 
-export function create_verify_access_token({
-  allowed_client_id,
+function judge_userinfo({
+  token,
+  userinfo,
+}: {
+  token: Extract<ReturnType<typeof judge_introspection>, { kind: "active" }>;
+  userinfo: Result<unknown, HttpFailure>;
+}): Result<AccessTokenVerdict, HttpFailure> {
+  if (!userinfo.ok) {
+    const failure = userinfo.error;
+    switch (failure.kind) {
+      case "bad_response":
+        if (
+          failure.cause instanceof client.ClientError &&
+          failure.cause.code === "OAUTH_JSON_ATTRIBUTE_COMPARISON_FAILED"
+        )
+          return ok({ kind: "rejected", reason: "token_subject_mismatch" });
+        return userinfo;
+      case "http_error":
+        switch (failure.http_status) {
+          // The federation session can end between introspection and userinfo.
+          case 401:
+            return ok({ kind: "rejected", reason: "token_inactive" });
+          case 403:
+            return ok({ kind: "rejected", reason: "token_scope_insufficient" });
+        }
+        return userinfo;
+      case "request_failed":
+      case "timeout":
+        return userinfo;
+      default:
+        return assert_never(failure);
+    }
+  }
+  const claims = userinfo_schema.safeParse(userinfo.value);
+  if (!claims.success || claims.data.email === undefined)
+    return ok({ kind: "rejected", reason: "token_email_missing" });
+  return ok({
+    kind: "verified",
+    client_id: token.client_id,
+    email: claims.data.email,
+    sub: token.sub,
+  });
+}
+
+function federation_failure({
+  cause,
+  url,
+}: {
+  cause: unknown;
+  url: string;
+}): HttpFailure {
+  if (
+    cause instanceof client.ResponseBodyError ||
+    cause instanceof client.WWWAuthenticateChallengeError
+  )
+    return { http_status: cause.status, kind: "http_error", url };
+  if (!(cause instanceof client.ClientError))
+    return { cause, kind: "request_failed", url };
+  if (cause.cause instanceof Response && !cause.cause.ok)
+    return { http_status: cause.cause.status, kind: "http_error", url };
+  if (
+    cause.cause instanceof DOMException &&
+    cause.cause.name === "TimeoutError"
+  )
+    return { kind: "timeout", url };
+  if (cause.code === undefined)
+    return { cause: cause.cause, kind: "request_failed", url };
+  return { cause, kind: "bad_response", url };
+}
+
+function oauth_error_fields(cause: unknown) {
+  if (!(cause instanceof client.ResponseBodyError)) return {};
+  return {
+    "oauth.error": cause.error,
+    "oauth.error_description": cause.error_description,
+  };
+}
+
+async function call_federation<T>({
+  request,
+  url,
+}: {
+  request: () => Promise<T>;
+  url: string;
+}): Promise<Result<T, HttpFailure>> {
+  log("debug", { event: "proconnect.request", "url.full": url });
+  const start = performance.now();
+  try {
+    const value = await request();
+    log("debug", {
+      duration_ms: Math.round(performance.now() - start),
+      event: "proconnect.response",
+      "url.full": url,
+    });
+    return ok(value);
+  } catch (cause) {
+    const failure = federation_failure({ cause, url });
+    log("debug", {
+      duration_ms: Math.round(performance.now() - start),
+      event: "proconnect.response",
+      ...http_failure_fields(failure),
+      ...oauth_error_fields(cause),
+    });
+    return err(failure);
+  }
+}
+
+async function discover_federation({
+  allow_http_issuer,
+  allowed_client_ids,
   client_id,
   client_secret,
   fetch,
   issuer,
-}: {
-  allowed_client_id: string;
-  client_id: string;
-  client_secret: string;
-  fetch: Fetch;
-  issuer: ProconnectIssuer;
-}): VerifyAccessToken {
-  const introspection_url = `${issuer}/token/introspection`;
-  const userinfo_url = `${issuer}/userinfo`;
-  return async function verify_access_token(access_token) {
-    const introspection_response = await safe_fetch({
-      fetch,
-      init: {
-        body: new URLSearchParams({
-          client_id,
-          client_secret,
-          token: access_token,
+}: ResourceServer): Promise<Result<Federation, HttpFailure>> {
+  const execute = allow_http_issuer ? [client.allowInsecureRequests] : [];
+  const url = `${issuer}/.well-known/openid-configuration`;
+  const discovered = await call_federation({
+    request: () =>
+      client.discovery(
+        new URL(issuer),
+        client_id,
+        undefined,
+        client.ClientSecretPost(client_secret),
+        { [client.customFetch]: fetch, execute, timeout: TIMEOUT_S },
+      ),
+    url,
+  });
+  if (!discovered.ok) return discovered;
+  const metadata = discovered.value.serverMetadata();
+  const endpoints = server_metadata_schema.safeParse(metadata);
+  if (!endpoints.success)
+    return err({ cause: endpoints.error, kind: "bad_response", url });
+  return ok({
+    introspection: {
+      config: discovered.value,
+      url: endpoints.data.introspection_endpoint,
+    },
+    userinfo: {
+      configs: new Map(
+        allowed_client_ids.map((allowed_client_id) => {
+          const config = new client.Configuration(
+            metadata,
+            allowed_client_id,
+            undefined,
+            client.None(),
+          );
+          config[client.customFetch] = fetch;
+          config.timeout = TIMEOUT_S;
+          for (const extension of execute) extension(config);
+          return [allowed_client_id, config] as const;
         }),
-        headers: { accept: "application/json" },
-        method: "POST",
-        redirect: "error",
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      },
-      url: introspection_url,
-    });
-    if (!introspection_response.ok) return introspection_response;
-    const introspection_body = await read_response_body({
-      parse: JSON.parse,
-      response: introspection_response.value,
-      url: introspection_url,
-    });
-    if (!introspection_body.ok) return introspection_body;
-    const introspection = introspection_schema.safeParse(
-      introspection_body.value,
-    );
-    if (!introspection.success)
-      return err({
-        cause: introspection.error,
-        kind: "bad_response",
-        url: introspection_url,
-      });
-    const {
-      active,
-      client_id: token_client_id,
-      sub,
-      token_type,
-    } = introspection.data;
-    if (!active) return ok({ kind: "rejected", reason: "token_inactive" });
-    if (token_client_id !== allowed_client_id)
-      return ok({ kind: "rejected", reason: "token_client_mismatch" });
-    if (token_type !== "Bearer")
-      return ok({ kind: "rejected", reason: "token_type_mismatch" });
-    if (!sub) return ok({ kind: "rejected", reason: "token_subject_missing" });
+      ),
+      url: endpoints.data.userinfo_endpoint,
+    },
+  });
+}
 
-    const userinfo_response = await safe_fetch({
-      fetch,
-      init: {
-        headers: { authorization: `Bearer ${access_token}` },
-        redirect: "error",
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      },
-      url: userinfo_url,
-    });
-    if (!userinfo_response.ok) return userinfo_response;
-    switch (userinfo_response.value.status) {
-      // The federation session can end between introspection and userinfo.
-      case 401:
-        return ok({ kind: "rejected", reason: "token_inactive" });
-      case 403:
-        return ok({ kind: "rejected", reason: "token_scope_insufficient" });
+export function create_verify_access_token(
+  resource_server: ResourceServer,
+): VerifyAccessToken {
+  let federation: Federation | undefined;
+
+  return async function verify_access_token(access_token) {
+    if (!federation) {
+      const discovered = await discover_federation(resource_server);
+      if (!discovered.ok) return discovered;
+      federation = discovered.value;
+      log("info", {
+        allowed_client_ids: [...federation.userinfo.configs.keys()],
+        event: "proconnect.discovered",
+        issuer: resource_server.issuer,
+        "url.introspection": federation.introspection.url,
+        "url.userinfo": federation.userinfo.url,
+      });
     }
-    const userinfo_body = await read_response_body({
-      parse: parse_userinfo_body,
-      response: userinfo_response.value,
-      url: userinfo_url,
+    const { introspection, userinfo } = federation;
+
+    const introspected = await call_federation({
+      request: () =>
+        client.tokenIntrospection(introspection.config, access_token),
+      url: introspection.url,
     });
-    if (!userinfo_body.ok) return userinfo_body;
-    const userinfo = userinfo_schema.safeParse(userinfo_body.value);
-    if (!userinfo.success || userinfo.data.email === undefined)
-      return ok({ kind: "rejected", reason: "token_email_missing" });
-    if (userinfo.data.sub !== sub)
-      return ok({ kind: "rejected", reason: "token_subject_mismatch" });
-    return ok({
-      kind: "verified",
-      client_id: token_client_id,
-      email: userinfo.data.email,
-      sub,
+    if (!introspected.ok) return introspected;
+    const parsed = introspection_schema.safeParse(introspected.value);
+    if (!parsed.success)
+      return err({
+        cause: parsed.error,
+        kind: "bad_response",
+        url: introspection.url,
+      });
+    log("debug", {
+      active: parsed.data.active,
+      client_id: parsed.data.client_id,
+      event: "proconnect.introspected",
+      token_type: parsed.data.token_type,
+    });
+    const token = judge_introspection({
+      introspection: parsed.data,
+      userinfo_configs: userinfo.configs,
+    });
+    if (token.kind === "rejected") return ok(token);
+
+    return judge_userinfo({
+      token,
+      userinfo: await call_federation({
+        request: () =>
+          client.fetchUserInfo(token.userinfo_config, access_token, token.sub),
+        url: userinfo.url,
+      }),
     });
   };
 }

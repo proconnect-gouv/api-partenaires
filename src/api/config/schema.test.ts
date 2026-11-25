@@ -9,7 +9,7 @@ const REQUIRED_ENV = {
 };
 
 const PROCONNECT_ENV = {
-  PROCONNECT_ALLOWED_CLIENT_ID: "espace-client-id",
+  PROCONNECT_ALLOWED_CLIENT_IDS: "espace-client-id, autre-fs-client-id",
   PROCONNECT_CLIENT_ID: "api-partenaires-client-id",
   PROCONNECT_CLIENT_SECRET: "api-partenaires-client-secret",
   PROCONNECT_ISSUER: "https://fca.example/api/v2/",
@@ -120,12 +120,13 @@ describe("environment parsing", () => {
       ).rejects.toThrow();
   });
 
-  test("groups the four PROCONNECT_* variables and trims the issuer's trailing slash", async () => {
+  test("groups the four PROCONNECT_* variables, splits the allowed client ids and trims the issuer's trailing slash", async () => {
     await expect(
       config_schema.parseAsync({ ...REQUIRED_ENV, ...PROCONNECT_ENV }),
     ).resolves.toMatchObject({
       PROCONNECT: {
-        allowed_client_id: "espace-client-id",
+        allow_http_issuer: false,
+        allowed_client_ids: ["espace-client-id", "autre-fs-client-id"],
         client_id: "api-partenaires-client-id",
         client_secret: "api-partenaires-client-secret",
         issuer: "https://fca.example/api/v2",
@@ -138,6 +139,16 @@ describe("environment parsing", () => {
     await expect(
       config_schema.parseAsync({ ...REQUIRED_ENV, ...partial }),
     ).rejects.toThrow("missing PROCONNECT_CLIENT_SECRET");
+  });
+
+  test("rejects an empty entry in PROCONNECT_ALLOWED_CLIENT_IDS at boot", async () => {
+    await expect(
+      config_schema.parseAsync({
+        ...REQUIRED_ENV,
+        ...PROCONNECT_ENV,
+        PROCONNECT_ALLOWED_CLIENT_IDS: "espace-client-id,,",
+      }),
+    ).rejects.toThrow("PROCONNECT_* variables are invalid");
   });
 
   test("refuses at boot an issuer that would send the client secret in clear or to a crafted URL", async () => {
@@ -165,7 +176,10 @@ describe("environment parsing", () => {
         PROCONNECT_ISSUER: "http://proconnect:4000/api/v2",
       }),
     ).resolves.toMatchObject({
-      PROCONNECT: { issuer: "http://proconnect:4000/api/v2" },
+      PROCONNECT: {
+        allow_http_issuer: true,
+        issuer: "http://proconnect:4000/api/v2",
+      },
     });
   });
 });
