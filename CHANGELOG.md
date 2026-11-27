@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.11.7](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.6...2026.11.7) (2026-11-27)
+
+### Ajouté
+
+- ✨ add GET /api/me to check a ProConnect connection ([#281](https://github.com/proconnect-gouv/api-partenaires/issues/281)) ([97613e8](https://github.com/proconnect-gouv/api-partenaires/commit/97613e876830d40891c114ec15ff1e880ee0a54f))
+
 ## [2026.11.6](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.5...2026.11.6) (2026-11-27)
 
 ### Changements
