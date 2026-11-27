@@ -1,5 +1,16 @@
 # Changelog
 
+## [2026.11.6](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.5...2026.11.6) (2026-11-27)
+
+### Changements
+
+- Correction de l’allowlist d’après l’annuaire DILA : `alainville.fr` (fournisseur `f5154035`) retiré.
+
+### Modifié
+
+- 🔧 drop 1 row DILA refuses ([#278](https://github.com/proconnect-gouv/api-partenaires/issues/278)) ([c3cb1cf](https://github.com/proconnect-gouv/api-partenaires/commit/c3cb1cf81b74a47c5c558c8cb494d9ff656d73ff))
+- 🔧(anct) regenerate the proconnect allowlist ([#277](https://github.com/proconnect-gouv/api-partenaires/issues/277)) ([ee14615](https://github.com/proconnect-gouv/api-partenaires/commit/ee146154b882f5c590f20afd287656068c826437))
+
 ## [2026.11.5](https://github.com/proconnect-gouv/api-partenaires/compare/2026.11.4...2026.11.5) (2026-11-25)
 
 ### Ajouté
