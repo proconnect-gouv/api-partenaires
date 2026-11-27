@@ -868,6 +868,52 @@ describe("ProConnect access token", () => {
       error.mockRestore();
     },
   );
+
+  test("GET /api/me tells whether the token's person is connected", async () => {
+    const app = create_test_app({
+      enable_sandbox: false,
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    const connected = await token_call(app, "GET", "/api/me", { as: JEANNE });
+    const disconnected = await token_call(app, "GET", "/api/me", {
+      as: MARCEL,
+    });
+
+    expect(connected.status).toBe(200);
+    expect(await connected.json()).toEqual({ email: JEANNE.email });
+    expect(disconnected.status).toBe(401);
+    expect(disconnected.headers.get("WWW-Authenticate")).toBe(
+      'Bearer error="invalid_token"',
+    );
+  });
+
+  test("GET /api/me refuses a signed ?email= request: only a token proves a connection", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+    });
+
+    const res = await api_call(app, "GET", "/api/me", { email: CALLER });
+
+    expect(res.status).toBe(401);
+    expect(res.headers.get("WWW-Authenticate")).toBe(
+      'Bearer error="invalid_request"',
+    );
+  });
+
+  test("checking GET /api/me leaves the person's oidc_clients budget intact", async () => {
+    const app = create_test_app({
+      proconnect: proconnect_vouching_for({ people: [JEANNE] }).fetch,
+      rate_limit_per_minute_per_user: 1,
+    });
+
+    await token_call(app, "GET", "/api/me", { as: JEANNE });
+    const listed = await token_call(app, "GET", "/api/oidc_clients", {
+      as: JEANNE,
+    });
+
+    expect(listed.status).toBe(200);
+  });
 });
 
 describe("POST /api/oidc_clients", () => {

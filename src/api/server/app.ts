@@ -11,7 +11,10 @@ import {
 } from "#src/api/server/oidc_clients";
 import { create_oidc_providers_router } from "#src/api/server/oidc_providers";
 
-import { create_acting_user_middleware } from "./acting_user_middleware";
+import {
+  create_acting_user_middleware,
+  create_token_middleware,
+} from "./acting_user_middleware";
 import { create_rate_limit_middleware } from "./rate_limit_middleware";
 import { create_signature_middleware } from "./signature_middleware";
 
@@ -124,6 +127,21 @@ export function create_app({
         oidc_providers_config,
         providers,
       }),
+    );
+
+  if (verify_access_token)
+    app.route(
+      "/api/me",
+      new Hono()
+        .use(
+          create_token_middleware({
+            rate_limit_key: "me_token",
+            rate_limit_per_minute,
+            rate_limit_per_minute_per_user,
+            verify_access_token,
+          }),
+        )
+        .get("/", (c) => c.json({ email: c.get("acting_user").email })),
     );
 
   if (enable_sandbox_endpoint)

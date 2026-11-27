@@ -111,6 +111,40 @@ function choose_auth<E extends Env>(
       : by_token(c, next);
 }
 
+export function create_token_middleware({
+  rate_limit_key,
+  rate_limit_per_minute,
+  rate_limit_per_minute_per_user,
+  verify_access_token,
+}: {
+  rate_limit_key: string;
+  rate_limit_per_minute: number;
+  rate_limit_per_minute_per_user: number;
+  verify_access_token: VerifyAccessToken;
+}) {
+  return combine<ActingUserContext>(
+    create_rate_limit_middleware<string, ActingUserContext>({
+      key: () => rate_limit_key,
+      limit_per_minute: rate_limit_per_minute,
+    }),
+    create_access_token_middleware({ verify_access_token }),
+    create_rate_limit_middleware<string, ActingUserContext>({
+      key: (c) => {
+        const acting_user = c.get("acting_user");
+        switch (acting_user.auth) {
+          case "token":
+            return acting_user.sub;
+          case "hmac":
+            throw new Error("token rate limit requires a token user");
+          default:
+            return assert_never(acting_user);
+        }
+      },
+      limit_per_minute: rate_limit_per_minute_per_user,
+    }),
+  );
+}
+
 function build_acting_user_middleware({
   api_secret,
   max_timestamp_diff,
@@ -133,27 +167,12 @@ function build_acting_user_middleware({
     hmac_identity_middleware,
   );
   if (!verify_access_token) return by_signature;
-  const by_token = combine<ActingUserContext>(
-    create_rate_limit_middleware<string, ActingUserContext>({
-      key: () => "oidc_clients_token",
-      limit_per_minute: rate_limit_per_minute,
-    }),
-    create_access_token_middleware({ verify_access_token }),
-    create_rate_limit_middleware<string, ActingUserContext>({
-      key: (c) => {
-        const acting_user = c.get("acting_user");
-        switch (acting_user.auth) {
-          case "token":
-            return acting_user.sub;
-          case "hmac":
-            throw new Error("token rate limit requires a token user");
-          default:
-            return assert_never(acting_user);
-        }
-      },
-      limit_per_minute: rate_limit_per_minute_per_user,
-    }),
-  );
+  const by_token = create_token_middleware({
+    rate_limit_key: "oidc_clients_token",
+    rate_limit_per_minute,
+    rate_limit_per_minute_per_user,
+    verify_access_token,
+  });
   return choose_auth(by_signature, by_token);
 }
 
