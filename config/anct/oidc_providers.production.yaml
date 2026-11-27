@@ -274718,10 +274718,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/hauts-de-france/somme/dba6bc1c-dc79-48c6-a750-ee7ad7c4bb92
         siret: "21800015600016"
         source: candidate
-      - domain: alainville.fr
-        fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/560f6020-e6c3-47c6-8f57-0abc83854072
-        siret: "21780009300015"
-        source: dila
       - domain: allainville-aux-bois.fr
         fiche: https://lannuaire.service-public.gouv.fr/ile-de-france/yvelines/560f6020-e6c3-47c6-8f57-0abc83854072
         siret: "21780009300015"
