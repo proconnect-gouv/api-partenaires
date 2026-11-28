@@ -156591,10 +156591,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
         siret: "21280323300015"
         source: candidate
-      - domain: mairie-torccay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
-        siret: "21280323300015"
-        source: dila
       - domain: saint-ange-et-torcay.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
         siret: "21280323300015"
@@ -855702,10 +855698,6 @@ oidc_providers:
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
         siret: "21280323300015"
         source: candidate
-      - domain: mairie-torccay.fr
-        fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
-        siret: "21280323300015"
-        source: dila
       - domain: saint-ange-et-torcay.fr
         fiche: https://lannuaire.service-public.gouv.fr/centre-val-de-loire/eure-et-loir/3a8ec403-7190-4172-99ec-62b5216d8615
         siret: "21280323300015"
